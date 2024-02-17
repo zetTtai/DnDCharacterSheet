@@ -25,7 +25,14 @@ namespace DnDCharacterSheet.Controllers
             // TODO: Get sheet by Id?
             Sheet sheetToModify = new(id);
             Sheet sheet = _sheetService.SetStrenghtScore(sheetToModify, request.Value);
-            return Ok(sheet);
+
+            SheetDTO sheetDTO = new()
+            {
+                StrengthScore = sheet.StrengthScore,
+                Skills = _sheetService.ConvertToDTO(sheet.Skills, true),
+                SavingThrows = _sheetService.ConvertToDTO(sheet.SavingThrows, false),
+            };
+            return Ok(sheetDTO);
         }
 
     }

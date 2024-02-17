@@ -29,5 +29,16 @@ namespace DnDCharacterSheet.Services
             }
             return capabilities;
         }
+
+        public List<CapabilityDTO> ConvertToDTO(List<Capability> capabilities, bool areSkills = true)
+        {
+            return capabilities.Select(capability => new CapabilityDTO
+            {
+                // TODO: In the future, there should be a field Id, we set name to simplify current implementation
+                Id = capability.Name,
+                AsociatedScore = capability.AsociatedScore.ToString(),
+                Value = capability.Value ?? "",
+            }).ToList();
+        }
     }
 }

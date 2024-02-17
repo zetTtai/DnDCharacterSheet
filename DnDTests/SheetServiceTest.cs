@@ -87,5 +87,113 @@ namespace DnDTests
                 Assert.That(actual.SavingThrows[i].Value, Is.EqualTo(expected.SavingThrows[i].Value));
             }
         }
+
+        [Test]
+        public void ConvertToDTO_EmptyList_ReturnCapabilityDTOList()
+        {
+            // Arrange
+            SheetService service = new(_modifierCalculatorMock.Object);
+            List<Capability> capabilities = [];
+
+            // Act
+            List<CapabilityDTO> actual = service.ConvertToDTO(capabilities);
+
+            // Assert
+            Assert.That(actual, Is.Empty);
+        }
+
+        [Test]
+        public void ConvertToDTO_ConvertSkills_ReturnCapabilityDTOList()
+        {
+            // Arrange
+            SheetService service = new(_modifierCalculatorMock.Object);
+            List<Capability> capabilities = [
+                new Capability()
+                {
+                    Name = "Athletics",
+                    AsociatedScore = Scores.STR
+                },
+                new Capability()
+                {
+                    Name = "Acrobatics",
+                    AsociatedScore = Scores.DEX
+                },
+            ];
+            List<CapabilityDTO> expected = [
+                new CapabilityDTO()
+                {
+                    Id = "Athletics",
+                    AsociatedScore = "STR",
+                    Value = "",
+                },
+                new CapabilityDTO()
+                {
+                    Id = "Acrobatics",
+                    AsociatedScore = "DEX",
+                    Value = "",
+                }
+            ];
+
+            // Act
+            List<CapabilityDTO> actual = service.ConvertToDTO(capabilities);
+
+            // Assert
+            Assert.That(actual, Has.Count.EqualTo(expected.Count));
+            for (int i = 0; i < expected.Count; i++)
+            {
+                Assert.Multiple(() =>
+                {
+                    Assert.That(actual[i].Id, Is.EqualTo(expected[i].Id));
+                    Assert.That(actual[i].AsociatedScore, Is.EqualTo(expected[i].AsociatedScore));
+                });
+            }
+        }
+
+        [Test]
+        public void ConvertToDTO_ConvertSavingThrows_ReturnCapabilityDTOList()
+        {
+            // Arrange
+            SheetService service = new(_modifierCalculatorMock.Object);
+            List<Capability> capabilities = [
+                new Capability()
+                {
+                    Name = "Strength",
+                    AsociatedScore = Scores.STR
+                },
+                new Capability()
+                {
+                    Name = "Dexterity",
+                    AsociatedScore = Scores.DEX
+                },
+            ];
+            List<CapabilityDTO> expected = [
+                new CapabilityDTO()
+                {
+                    Id = "Strength",
+                    AsociatedScore = "STR",
+                    Value = "",
+                },
+                new CapabilityDTO()
+                {
+                    Id = "Dexterity",
+                    AsociatedScore = "DEX",
+                    Value = "",
+                }
+            ];
+
+            // Act
+            List<CapabilityDTO> actual = service.ConvertToDTO(capabilities, false);
+
+            // Assert
+            Assert.That(actual, Has.Count.EqualTo(expected.Count));
+            for (int i = 0; i < expected.Count; i++)
+            {
+                Assert.Multiple(() =>
+                {
+                    Assert.That(actual[i].Id, Is.EqualTo(expected[i].Id));
+                    Assert.That(actual[i].AsociatedScore, Is.EqualTo(expected[i].AsociatedScore));
+                });
+            }
+        }
     }
 }
