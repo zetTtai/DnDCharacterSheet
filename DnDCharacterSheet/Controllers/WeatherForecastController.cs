@@ -1,3 +1,5 @@
+using DnDCharacterSheet.Interfaces;
+using DnDCharacterSheet.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DnDCharacterSheet.Controllers
@@ -12,10 +14,12 @@ namespace DnDCharacterSheet.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IWeatherForecastService _weatherForecastService;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IWeatherForecastService weatherForecastService)
         {
             _logger = logger;
+            _weatherForecastService = weatherForecastService;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
@@ -28,6 +32,29 @@ namespace DnDCharacterSheet.Controllers
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpGet("ping")]
+        public ActionResult<string> SendPing()
+        {
+            string[] messages =
+            [
+                "Hello",
+                "World",
+                "error",
+                "ERROR",
+                "Vainas"
+            ];
+            Random random = new();
+            try
+            {
+
+                return Ok(_weatherForecastService.SendPing(messages[random.Next(0, messages.Length)]));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
