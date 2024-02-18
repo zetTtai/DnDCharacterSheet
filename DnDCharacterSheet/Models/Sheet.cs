@@ -1,7 +1,6 @@
-﻿
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 
-namespace DnDCharacterSheet.Models
+namespace Models
 {
     public class Sheet
     {
@@ -44,6 +43,7 @@ namespace DnDCharacterSheet.Models
                 {
                     Name = skill.Key,
                     AsociatedScore = skill.Value,
+                    Value = string.Empty,
                 });
             }
 
@@ -53,6 +53,7 @@ namespace DnDCharacterSheet.Models
                 {
                     Name = savingThrow.Key,
                     AsociatedScore = savingThrow.Value,
+                    Value = string.Empty,
                 });
             }
         }

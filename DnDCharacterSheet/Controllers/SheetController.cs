@@ -1,9 +1,9 @@
-﻿using DnDCharacterSheet.Interfaces;
+﻿using Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using DnDCharacterSheet.Models;
+using Models;
 
-namespace DnDCharacterSheet.Controllers
+namespace Controllers
 {
     [ApiController]
     [Route("[controller]")]

@@ -1,7 +1,7 @@
-﻿using DnDCharacterSheet.Interfaces;
-using DnDCharacterSheet.Models;
+﻿using Interfaces;
+using Models;
 
-namespace DnDCharacterSheet.Services
+namespace Services
 {
     public class SheetService(IModifierCalculatorService modifierCalculator) : ISheetService
     {
@@ -21,9 +21,9 @@ namespace DnDCharacterSheet.Services
             return sheet;
         }
 
-        private static List<Capability> ModifyCapabilities(List<Capability> capabilities, string? modifier, Scores asociatedScore)
+        private static List<Capability> ModifyCapabilities(List<Capability> capabilities, string modifier, Scores asociatedScore)
         {
-            foreach (Capability capability in capabilities)
+            foreach (var capability in capabilities)
             {
                 if (capability.AsociatedScore == asociatedScore)
                 {
@@ -54,7 +54,7 @@ namespace DnDCharacterSheet.Services
                 // TODO: In the future, there should be a field Id, we set name to simplify current implementation
                 Id = capability.Name,
                 AsociatedScore = capability.AsociatedScore.ToString(),
-                Value = capability.Value ?? "",
+                Value = capability.Value,
             }).ToList();
         }
     }

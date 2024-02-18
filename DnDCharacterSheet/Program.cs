@@ -1,5 +1,5 @@
-using DnDCharacterSheet.Interfaces;
-using DnDCharacterSheet.Services;
+using Interfaces;
+using Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

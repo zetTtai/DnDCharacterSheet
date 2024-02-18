@@ -1,4 +1,4 @@
-﻿namespace DnDCharacterSheet.Models
+﻿namespace Models
 {
     public class SheetDTO
     {

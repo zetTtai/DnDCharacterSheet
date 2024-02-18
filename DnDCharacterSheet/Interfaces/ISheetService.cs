@@ -1,6 +1,6 @@
-﻿using DnDCharacterSheet.Models;
+﻿using Models;
 
-namespace DnDCharacterSheet.Interfaces
+namespace Interfaces
 {
     public interface ISheetService
     {

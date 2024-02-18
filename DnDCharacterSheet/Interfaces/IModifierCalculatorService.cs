@@ -1,4 +1,4 @@
-﻿namespace DnDCharacterSheet.Interfaces
+﻿namespace Interfaces
 {
     public interface IModifierCalculatorService
     {

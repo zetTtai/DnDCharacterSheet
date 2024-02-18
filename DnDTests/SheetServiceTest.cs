@@ -1,6 +1,6 @@
-﻿using DnDCharacterSheet.Interfaces;
-using DnDCharacterSheet.Models;
-using DnDCharacterSheet.Services;
+﻿using Interfaces;
+using Models;
+using Services;
 using Moq;
 
 namespace DnDTests
@@ -152,12 +152,14 @@ namespace DnDTests
                 new Capability()
                 {
                     Name = "Athletics",
-                    AsociatedScore = Scores.STR
+                    AsociatedScore = Scores.STR,
+                    Value = string.Empty,
                 },
                 new Capability()
                 {
                     Name = "Acrobatics",
-                    AsociatedScore = Scores.DEX
+                    AsociatedScore = Scores.DEX,
+                    Value = string.Empty,
                 },
             ];
             List<CapabilityDTO> expected = [
@@ -165,13 +167,13 @@ namespace DnDTests
                 {
                     Id = "Athletics",
                     AsociatedScore = "STR",
-                    Value = "",
+                    Value = string.Empty,
                 },
                 new CapabilityDTO()
                 {
                     Id = "Acrobatics",
                     AsociatedScore = "DEX",
-                    Value = "",
+                    Value = string.Empty,
                 }
             ];
 
@@ -199,12 +201,14 @@ namespace DnDTests
                 new Capability()
                 {
                     Name = "Strength",
-                    AsociatedScore = Scores.STR
+                    AsociatedScore = Scores.STR,
+                    Value = string.Empty,
                 },
                 new Capability()
                 {
                     Name = "Dexterity",
-                    AsociatedScore = Scores.DEX
+                    AsociatedScore = Scores.DEX,
+                    Value = string.Empty,
                 },
             ];
             List<CapabilityDTO> expected = [
