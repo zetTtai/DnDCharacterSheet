@@ -1,7 +1,9 @@
-﻿using Interfaces;
+﻿using DTOs;
+using Enums;
+using Interfaces;
 using Models;
-using Services;
 using Moq;
+using Services;
 
 namespace DnDTests
 {
@@ -29,7 +31,7 @@ namespace DnDTests
             };
 
             // Act
-            Sheet actual = service.SetStrenghtScore(new Sheet(), 3);
+            Sheet actual = service.SetStrengthAttribute(new Sheet(), 3);
 
             // Assert
             Assert.That(actual.StrengthScore, Is.EqualTo(expected.StrengthScore));
@@ -47,7 +49,7 @@ namespace DnDTests
             expected.Skills[0].Value = _expectedModifier;
 
             // Act
-            Sheet actual = service.SetStrenghtScore(new Sheet(), 3);
+            Sheet actual = service.SetStrengthAttribute(new Sheet(), 3);
 
             // Assert
             Assert.Multiple(() =>
@@ -73,7 +75,7 @@ namespace DnDTests
             expected.SavingThrows[0].Value = _expectedModifier;
 
             // Act
-            Sheet actual = service.SetStrenghtScore(new Sheet(), 18);
+            Sheet actual = service.SetStrengthAttribute(new Sheet(), 18);
 
             // Assert
             Assert.Multiple(() =>
@@ -98,7 +100,7 @@ namespace DnDTests
             // Act
             try
             {
-                Sheet sheet = service.SetStrenghtScore(new Sheet(), 2);
+                Sheet sheet = service.SetStrengthAttribute(new Sheet(), 2);
             } catch (Exception ex)
             {
                 actual = ex.Message;
@@ -118,7 +120,7 @@ namespace DnDTests
             // Act
             try
             {
-                Sheet sheet = service.SetStrenghtScore(new Sheet(), 19);
+                Sheet sheet = service.SetStrengthAttribute(new Sheet(), 19);
             }
             catch (Exception ex)
             {
@@ -152,13 +154,13 @@ namespace DnDTests
                 new Capability()
                 {
                     Name = "Athletics",
-                    AsociatedScore = Scores.STR,
+                    AsociatedAttribute = CharacterAttributes.STR,
                     Value = string.Empty,
                 },
                 new Capability()
                 {
                     Name = "Acrobatics",
-                    AsociatedScore = Scores.DEX,
+                    AsociatedAttribute = CharacterAttributes.DEX,
                     Value = string.Empty,
                 },
             ];
@@ -201,13 +203,13 @@ namespace DnDTests
                 new Capability()
                 {
                     Name = "Strength",
-                    AsociatedScore = Scores.STR,
+                    AsociatedAttribute = CharacterAttributes.STR,
                     Value = string.Empty,
                 },
                 new Capability()
                 {
                     Name = "Dexterity",
-                    AsociatedScore = Scores.DEX,
+                    AsociatedAttribute = CharacterAttributes.DEX,
                     Value = string.Empty,
                 },
             ];

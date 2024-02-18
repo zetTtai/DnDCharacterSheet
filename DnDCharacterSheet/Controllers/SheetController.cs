@@ -1,5 +1,5 @@
-﻿using Interfaces;
-using Microsoft.AspNetCore.Http;
+﻿using DTOs;
+using Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 
@@ -19,15 +19,15 @@ namespace Controllers
             _sheetService = sheetService ?? throw new ArgumentNullException();
         }
 
-        [HttpPut("{id}/scores/str")]
-        public ActionResult<SheetDTO> SetStrengthScore(int id, [FromBody] StrengthScoreRequest request)
+        [HttpPut("{id}/attributes/str")]
+        public ActionResult<SheetDTO> SetStrengthAttribute(int id, [FromBody] SetStrengthAttributeDTO request)
         {
             // TODO: Get sheet by Id?
             Sheet sheetToModify = new(id);
             Sheet sheet;
             try
             {
-                sheet = _sheetService.SetStrenghtScore(sheetToModify, request.Value, request.Method);
+                sheet = _sheetService.SetStrengthAttribute(sheetToModify, request.Value, request.Method);
             }
             catch (Exception ex)
             {
@@ -43,11 +43,5 @@ namespace Controllers
             return Ok(sheetDTO);
         }
 
-    }
-
-    public class StrengthScoreRequest
-    {
-        public int Value { get; set; }
-        public MethodsToIncreaseScores Method { get; set; }
     }
 }
