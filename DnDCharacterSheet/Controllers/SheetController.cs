@@ -24,11 +24,19 @@ namespace DnDCharacterSheet.Controllers
         {
             // TODO: Get sheet by Id?
             Sheet sheetToModify = new(id);
-            Sheet sheet = _sheetService.SetStrenghtScore(sheetToModify, request.Value);
+            Sheet sheet;
+            try
+            {
+                sheet = _sheetService.SetStrenghtScore(sheetToModify, request.Value, request.Method);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
             SheetDTO sheetDTO = new()
             {
-                StrengthScore = sheet.StrengthScore,
+                StrengthScore = sheet.StrengthScore ?? "",
                 Skills = _sheetService.ConvertToDTO(sheet.Skills, true),
                 SavingThrows = _sheetService.ConvertToDTO(sheet.SavingThrows, false),
             };
@@ -40,5 +48,6 @@ namespace DnDCharacterSheet.Controllers
     public class StrengthScoreRequest
     {
         public int Value { get; set; }
+        public MethodsToIncreaseScores Method { get; set; }
     }
 }

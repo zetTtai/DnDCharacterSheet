@@ -19,7 +19,7 @@ namespace DnDTests
         }
 
         [Test]
-        public void SetStrenghtScore_ModifyStrengthScore_ReturnsSheet()
+        public void SetStrenghtScore_RollingDice_ModifyStrengthScore_ReturnsSheet()
         {
             // Arrange
             SheetService service = new(_modifierCalculatorMock.Object);
@@ -29,14 +29,14 @@ namespace DnDTests
             };
 
             // Act
-            Sheet actual = service.SetStrenghtScore(new Sheet(), 0);
+            Sheet actual = service.SetStrenghtScore(new Sheet(), 3);
 
             // Assert
             Assert.That(actual.StrengthScore, Is.EqualTo(expected.StrengthScore));
         }
 
         [Test]
-        public void SetStrenghtScore_ModifySkills_ReturnsSheet()
+        public void SetStrenghtScore_RollingDice_ModifySkills_ReturnsSheet()
         {
             // Arrange
             SheetService service = new(_modifierCalculatorMock.Object);
@@ -47,7 +47,7 @@ namespace DnDTests
             expected.Skills[0].Value = _expectedModifier;
 
             // Act
-            Sheet actual = service.SetStrenghtScore(new Sheet(), 0);
+            Sheet actual = service.SetStrenghtScore(new Sheet(), 3);
 
             // Assert
             Assert.Multiple(() =>
@@ -62,7 +62,7 @@ namespace DnDTests
         }
 
         [Test]
-        public void SetStrenghtScore_ModifySavingThrows_ReturnsSheet()
+        public void SetStrenghtScore_RollingDice_ModifySavingThrows_ReturnsSheet()
         {
             // Arrange
             SheetService service = new(_modifierCalculatorMock.Object);
@@ -73,7 +73,7 @@ namespace DnDTests
             expected.SavingThrows[0].Value = _expectedModifier;
 
             // Act
-            Sheet actual = service.SetStrenghtScore(new Sheet(), 0);
+            Sheet actual = service.SetStrenghtScore(new Sheet(), 18);
 
             // Assert
             Assert.Multiple(() =>
@@ -86,6 +86,47 @@ namespace DnDTests
             {
                 Assert.That(actual.SavingThrows[i].Value, Is.EqualTo(expected.SavingThrows[i].Value));
             }
+        }
+
+        [Test]
+        public void SetStrenghtScore_RollingDice_ValueLowerThanThree_ReturnsException()
+        {
+            // Arrange
+            SheetService service = new(_modifierCalculatorMock.Object);
+            string expected = "Invalid value, must be between 3 and 18";
+            string actual = "";
+            // Act
+            try
+            {
+                Sheet sheet = service.SetStrenghtScore(new Sheet(), 2);
+            } catch (Exception ex)
+            {
+                actual = ex.Message;
+            }
+            
+            // Assert
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void SetStrenghtScore_RollingDice_ValueHigherThan18_ReturnsException()
+        {
+            // Arrange
+            SheetService service = new(_modifierCalculatorMock.Object);
+            string expected = "Invalid value, must be between 3 and 18";
+            string actual = "";
+            // Act
+            try
+            {
+                Sheet sheet = service.SetStrenghtScore(new Sheet(), 19);
+            }
+            catch (Exception ex)
+            {
+                actual = ex.Message;
+            }
+
+            // Assert
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]

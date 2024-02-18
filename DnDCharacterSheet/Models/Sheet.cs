@@ -67,4 +67,11 @@ namespace DnDCharacterSheet.Models
         WIS,
         CHA,
     }
+
+    public enum MethodsToIncreaseScores
+    {
+        StandardArray,
+        PointBuy,
+        RollingDice
+    }
 }
