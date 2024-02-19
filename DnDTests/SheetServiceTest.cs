@@ -1,4 +1,5 @@
-﻿using DTOs;
+﻿using DnDCharacterSheet;
+using DTOs;
 using Enums;
 using Interfaces;
 using Models;
@@ -91,16 +92,19 @@ namespace DnDTests
         }
 
         [Test]
-        public void SetStrenghtScore_RollingDice_ValueLowerThanThree_ReturnsException()
+        public void SetStrenghtScore_RollingDice_ValueLowerThanMin_ReturnsException()
         {
             // Arrange
             SheetService service = new(_modifierCalculatorMock.Object);
-            string expected = "Invalid value, must be between 3 and 18";
+            string expected = "Invalid value, must be between "
+                + Constants.MethodsToIncreaseAttributes.RollingDice.min
+                + " and " + Constants.MethodsToIncreaseAttributes.RollingDice.max;
             string actual = "";
             // Act
             try
             {
-                Sheet sheet = service.SetStrengthAttribute(new Sheet(), 2);
+                Sheet sheet = service.SetStrengthAttribute(new Sheet(),
+                    Constants.MethodsToIncreaseAttributes.RollingDice.min - 1);
             } catch (Exception ex)
             {
                 actual = ex.Message;
@@ -111,16 +115,19 @@ namespace DnDTests
         }
 
         [Test]
-        public void SetStrenghtScore_RollingDice_ValueHigherThan18_ReturnsException()
+        public void SetStrenghtScore_RollingDice_ValueHigherThanMax_ReturnsException()
         {
             // Arrange
             SheetService service = new(_modifierCalculatorMock.Object);
-            string expected = "Invalid value, must be between 3 and 18";
+            string expected = "Invalid value, must be between "
+                + Constants.MethodsToIncreaseAttributes.RollingDice.min
+                + " and " + Constants.MethodsToIncreaseAttributes.RollingDice.max;
             string actual = "";
             // Act
             try
             {
-                Sheet sheet = service.SetStrengthAttribute(new Sheet(), 19);
+                Sheet sheet = service.SetStrengthAttribute(new Sheet(),
+                    Constants.MethodsToIncreaseAttributes.RollingDice.max + 1);
             }
             catch (Exception ex)
             {

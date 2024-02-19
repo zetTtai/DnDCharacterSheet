@@ -2,6 +2,7 @@
 using Models;
 using Enums;
 using DTOs;
+using DnDCharacterSheet;
 
 namespace Services
 {
@@ -11,9 +12,12 @@ namespace Services
 
         private Sheet SetStrengthScoreByRollingDice(Sheet sheet, int value)
         {
-            if (value < 3 || value > 18)
+            if (value < Constants.MethodsToIncreaseAttributes.RollingDice.min || 
+                value > Constants.MethodsToIncreaseAttributes.RollingDice.max)
             {
-                throw new Exception("Invalid value, must be between 3 and 18");
+                throw new Exception("Invalid value, must be between "
+                    + Constants.MethodsToIncreaseAttributes.RollingDice.min
+                    + " and " + Constants.MethodsToIncreaseAttributes.RollingDice.max);
             }
 
             string modifier = _modifierCalculator.ValueToModifier(value);
