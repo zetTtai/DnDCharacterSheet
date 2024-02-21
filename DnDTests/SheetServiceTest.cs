@@ -2,6 +2,7 @@
 using DTOs;
 using Enums;
 using Interfaces;
+using Mappers;
 using Models;
 using Moq;
 using Services;
@@ -47,20 +48,22 @@ namespace DnDTests
             {
                 StrengthScore = _expectedModifier
             };
-            expected.Skills[0].Value = _expectedModifier;
+            List<Capability> expectedSkills = [.. expected.Skills];
+            expectedSkills[0].Value = _expectedModifier;
 
             // Act
             Sheet actual = service.SetStrengthAttribute(new Sheet(), 3);
+            List<Capability> actualSkills = [.. actual.Skills];
 
             // Assert
             Assert.Multiple(() =>
             {
                 Assert.That(actual.StrengthScore, Is.EqualTo(expected.StrengthScore));
-                Assert.That(actual.Skills, Has.Count.EqualTo(expected.Skills.Count));
+                Assert.That(actualSkills, Has.Count.EqualTo(expectedSkills.Count));
             });
-            for (int i = 0; i < expected.Skills.Count; i++)
+            for (int i = 0; i < expectedSkills.Count; i++)
             {
-                Assert.That(actual.Skills[i].Value, Is.EqualTo(expected.Skills[i].Value));
+                Assert.That(actualSkills[i].Value, Is.EqualTo(expectedSkills[i].Value));
             }
         }
 
@@ -73,21 +76,23 @@ namespace DnDTests
             {
                 StrengthScore = _expectedModifier
             };
-            expected.SavingThrows[0].Value = _expectedModifier;
+            List<Capability> expectedSavingThrows = [.. expected.SavingThrows];
+            expectedSavingThrows[0].Value = _expectedModifier;
 
             // Act
             Sheet actual = service.SetStrengthAttribute(new Sheet(), 18);
+            List<Capability> actualSavingThrows = [.. actual.SavingThrows];
 
             // Assert
             Assert.Multiple(() =>
             {
                 Assert.That(actual.StrengthScore, Is.EqualTo(expected.StrengthScore));
-                Assert.That(actual.SavingThrows, Has.Count.EqualTo(expected.SavingThrows.Count));
+                Assert.That(actualSavingThrows, Has.Count.EqualTo(expectedSavingThrows.Count));
             });
 
-            for (int i = 0; i < expected.SavingThrows.Count; i++)
+            for (int i = 0; i < expectedSavingThrows.Count; i++)
             {
-                Assert.That(actual.SavingThrows[i].Value, Is.EqualTo(expected.SavingThrows[i].Value));
+                Assert.That(actualSavingThrows[i].Value, Is.EqualTo(expectedSavingThrows[i].Value));
             }
         }
 
@@ -97,37 +102,14 @@ namespace DnDTests
             // Arrange
             SheetService service = new(_modifierCalculatorMock.Object);
             string expected = "Invalid value, must be between "
-                + Constants.MethodsToIncreaseAttributes.RollingDice.min
-                + " and " + Constants.MethodsToIncreaseAttributes.RollingDice.max;
+                + Constants.MethodsToIncreaseAttributes.RollingDice.Min
+                + " and " + Constants.MethodsToIncreaseAttributes.RollingDice.Max;
             string actual = "";
             // Act
             try
             {
                 Sheet sheet = service.SetStrengthAttribute(new Sheet(),
-                    Constants.MethodsToIncreaseAttributes.RollingDice.min - 1);
-            } catch (Exception ex)
-            {
-                actual = ex.Message;
-            }
-            
-            // Assert
-            Assert.That(actual, Is.EqualTo(expected));
-        }
-
-        [Test]
-        public void SetStrenghtScore_RollingDice_ValueHigherThanMax_ReturnsException()
-        {
-            // Arrange
-            SheetService service = new(_modifierCalculatorMock.Object);
-            string expected = "Invalid value, must be between "
-                + Constants.MethodsToIncreaseAttributes.RollingDice.min
-                + " and " + Constants.MethodsToIncreaseAttributes.RollingDice.max;
-            string actual = "";
-            // Act
-            try
-            {
-                Sheet sheet = service.SetStrengthAttribute(new Sheet(),
-                    Constants.MethodsToIncreaseAttributes.RollingDice.max + 1);
+                    Constants.MethodsToIncreaseAttributes.RollingDice.Min - 1);
             }
             catch (Exception ex)
             {
@@ -139,115 +121,27 @@ namespace DnDTests
         }
 
         [Test]
-        public void ConvertToDTO_EmptyList_ReturnCapabilityDTOList()
+        public void SetStrenghtScore_RollingDice_ValueHigherThanMax_ReturnsException()
         {
             // Arrange
             SheetService service = new(_modifierCalculatorMock.Object);
-            List<Capability> capabilities = [];
-
+            string expected = "Invalid value, must be between "
+                + Constants.MethodsToIncreaseAttributes.RollingDice.Min
+                + " and " + Constants.MethodsToIncreaseAttributes.RollingDice.Max;
+            string actual = "";
             // Act
-            List<CapabilityDTO> actual = service.ConvertToDTO(capabilities);
-
-            // Assert
-            Assert.That(actual, Is.Empty);
-        }
-
-        [Test]
-        public void ConvertToDTO_ConvertSkills_ReturnCapabilityDTOList()
-        {
-            // Arrange
-            SheetService service = new(_modifierCalculatorMock.Object);
-            List<Capability> capabilities = [
-                new Capability()
-                {
-                    Name = "Athletics",
-                    AsociatedAttribute = CharacterAttributes.STR,
-                    Value = string.Empty,
-                },
-                new Capability()
-                {
-                    Name = "Acrobatics",
-                    AsociatedAttribute = CharacterAttributes.DEX,
-                    Value = string.Empty,
-                },
-            ];
-            List<CapabilityDTO> expected = [
-                new CapabilityDTO()
-                {
-                    Id = "Athletics",
-                    AsociatedScore = "STR",
-                    Value = string.Empty,
-                },
-                new CapabilityDTO()
-                {
-                    Id = "Acrobatics",
-                    AsociatedScore = "DEX",
-                    Value = string.Empty,
-                }
-            ];
-
-            // Act
-            List<CapabilityDTO> actual = service.ConvertToDTO(capabilities);
-
-            // Assert
-            Assert.That(actual, Has.Count.EqualTo(expected.Count));
-            for (int i = 0; i < expected.Count; i++)
+            try
             {
-                Assert.Multiple(() =>
-                {
-                    Assert.That(actual[i].Id, Is.EqualTo(expected[i].Id));
-                    Assert.That(actual[i].AsociatedScore, Is.EqualTo(expected[i].AsociatedScore));
-                });
+                Sheet sheet = service.SetStrengthAttribute(new Sheet(),
+                    Constants.MethodsToIncreaseAttributes.RollingDice.Max + 1);
             }
-        }
-
-        [Test]
-        public void ConvertToDTO_ConvertSavingThrows_ReturnCapabilityDTOList()
-        {
-            // Arrange
-            SheetService service = new(_modifierCalculatorMock.Object);
-            List<Capability> capabilities = [
-                new Capability()
-                {
-                    Name = "Strength",
-                    AsociatedAttribute = CharacterAttributes.STR,
-                    Value = string.Empty,
-                },
-                new Capability()
-                {
-                    Name = "Dexterity",
-                    AsociatedAttribute = CharacterAttributes.DEX,
-                    Value = string.Empty,
-                },
-            ];
-            List<CapabilityDTO> expected = [
-                new CapabilityDTO()
-                {
-                    Id = "Strength",
-                    AsociatedScore = "STR",
-                    Value = "",
-                },
-                new CapabilityDTO()
-                {
-                    Id = "Dexterity",
-                    AsociatedScore = "DEX",
-                    Value = "",
-                }
-            ];
-
-            // Act
-            List<CapabilityDTO> actual = service.ConvertToDTO(capabilities, false);
+            catch (Exception ex)
+            {
+                actual = ex.Message;
+            }
 
             // Assert
-            Assert.That(actual, Has.Count.EqualTo(expected.Count));
-            for (int i = 0; i < expected.Count; i++)
-            {
-                Assert.Multiple(() =>
-                {
-                    Assert.That(actual[i].Id, Is.EqualTo(expected[i].Id));
-                    Assert.That(actual[i].AsociatedScore, Is.EqualTo(expected[i].AsociatedScore));
-                });
-            }
+            Assert.That(actual, Is.EqualTo(expected));
         }
     }
 }

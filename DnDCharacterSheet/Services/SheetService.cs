@@ -12,12 +12,12 @@ namespace Services
 
         private Sheet SetStrengthScoreByRollingDice(Sheet sheet, int value)
         {
-            if (value < Constants.MethodsToIncreaseAttributes.RollingDice.min || 
-                value > Constants.MethodsToIncreaseAttributes.RollingDice.max)
+            if (value < Constants.MethodsToIncreaseAttributes.RollingDice.Min || 
+                value > Constants.MethodsToIncreaseAttributes.RollingDice.Max)
             {
                 throw new Exception("Invalid value, must be between "
-                    + Constants.MethodsToIncreaseAttributes.RollingDice.min
-                    + " and " + Constants.MethodsToIncreaseAttributes.RollingDice.max);
+                    + Constants.MethodsToIncreaseAttributes.RollingDice.Min
+                    + " and " + Constants.MethodsToIncreaseAttributes.RollingDice.Max);
             }
 
             string modifier = _modifierCalculator.ValueToModifier(value);
@@ -55,9 +55,15 @@ namespace Services
             }
         }
 
-        public List<CapabilityDTO> ConvertToDTO(IEnumerable<Capability> capabilities, bool areSkills = true)
+        public IEnumerable<CapabilityDTO> ConvertToDTO(IEnumerable<Capability> capabilities)
         {
-            return new List<CapabilityDTO>();
+            return capabilities.Select(capability => new CapabilityDTO()
+            {
+                Id = capability.Name,
+                AssociatedAttribute = capability.AssociatedAttribute.ToString(),
+                Value = capability.Value ?? string.Empty,
+                
+            }).ToList();
         }
     }
 }

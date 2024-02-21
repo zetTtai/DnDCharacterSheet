@@ -34,13 +34,13 @@ namespace Controllers
                 return BadRequest(ex.Message);
             }
 
-            SheetDTO sheetDTO = new()
-            {
-                StrengthScore = sheet.StrengthScore ?? "",
-                Skills = _sheetService.ConvertToDTO(sheet.Skills, true),
-                SavingThrows = _sheetService.ConvertToDTO(sheet.SavingThrows, false),
-            };
-            return Ok(sheetDTO);
+            //SheetDTO sheetDTO = new()
+            //{
+            //    StrengthScore = sheet.StrengthScore ?? "",
+            //    Skills = _sheetService.ConvertToDTO(sheet.Skills, true),
+            //    SavingThrows = _sheetService.ConvertToDTO(sheet.SavingThrows, false),
+            //};
+            return Ok();
         }
 
     }

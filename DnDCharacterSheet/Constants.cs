@@ -6,8 +6,8 @@
         {
             public static class RollingDice
             {
-                public const int min = 3;
-                public const int max = 18;
+                public const int Min = 3;
+                public const int Max = 18;
             }
         }
     }
