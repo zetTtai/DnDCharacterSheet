@@ -6,21 +6,21 @@ namespace Models
     {
         private readonly int _id;
         public string? StrengthScore { get; set; }
-        public List<Capability> Skills { get; set; }
-        public List<Capability> SavingThrows { get; set; }
+        public IEnumerable<Capability> Skills { get; set; }
+        public IEnumerable<Capability> SavingThrows { get; set; }
 
         public Sheet()
         {
             _id = 0;
-            Skills = [];
-            SavingThrows = [];
+            Skills = new List<Capability>();
+            SavingThrows = new List<Capability>();
             SetUpSheet();
         }
         public Sheet(int id)
         {
             _id = id;
-            Skills = [];
-            SavingThrows = [];
+            Skills = new List<Capability>();
+            SavingThrows = new List<Capability>();
             SetUpSheet();
         }
 
@@ -37,25 +37,19 @@ namespace Models
                 {"Dexterity", CharacterAttributes.DEX },
             };
 
-            foreach (KeyValuePair<string, CharacterAttributes> skill in staticSkills)
+            Skills = staticSkills.Select(skill => new Capability
             {
-                Skills.Add(new Capability()
-                {
-                    Name = skill.Key,
-                    AsociatedAttribute = skill.Value,
-                    Value = string.Empty,
-                });
-            }
+                Name = skill.Key,
+                AssociatedAttribute = skill.Value,
+                Value = string.Empty,
+            }).ToList();
 
-            foreach (KeyValuePair<string, CharacterAttributes> savingThrow in staticSavingThrows)
+            SavingThrows = staticSavingThrows.Select(savingThrow => new Capability
             {
-                SavingThrows.Add(new Capability()
-                {
-                    Name = savingThrow.Key,
-                    AsociatedAttribute = savingThrow.Value,
-                    Value = string.Empty,
-                });
-            }
+                Name = savingThrow.Key,
+                AssociatedAttribute = savingThrow.Value,
+                Value = string.Empty,
+            }).ToList();
         }
     }
 }

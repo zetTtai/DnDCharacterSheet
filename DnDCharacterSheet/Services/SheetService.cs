@@ -27,16 +27,18 @@ namespace Services
             return sheet;
         }
 
-        private static List<Capability> ModifyCapabilities(List<Capability> capabilities, string modifier, CharacterAttributes asociatedAttribute)
+        private static IEnumerable<Capability> ModifyCapabilities(IEnumerable<Capability> capabilities, string modifier, CharacterAttributes associatedAttribute)
         {
-            foreach (var capability in capabilities)
-            {
-                if (capability.AsociatedAttribute == asociatedAttribute)
+            return capabilities.Select(capability =>
+                capability.AssociatedAttribute == associatedAttribute
+                ? new Capability
                 {
-                    capability.Value = modifier;
+                    Name = capability.Name,
+                    AssociatedAttribute = capability.AssociatedAttribute,
+                    Value = modifier,
                 }
-            }
-            return capabilities;
+                : capability
+            );
         }
 
         public Sheet SetStrengthAttribute(Sheet sheet, int value, MethodsToIncreaseAttributes method = MethodsToIncreaseAttributes.RollingDice)
@@ -53,15 +55,9 @@ namespace Services
             }
         }
 
-        public List<CapabilityDTO> ConvertToDTO(List<Capability> capabilities, bool areSkills = true)
+        public List<CapabilityDTO> ConvertToDTO(IEnumerable<Capability> capabilities, bool areSkills = true)
         {
-            return capabilities.Select(capability => new CapabilityDTO
-            {
-                // TODO: In the future, there should be a field Id, we set name to simplify current implementation
-                Id = capability.Name,
-                AsociatedScore = capability.AsociatedAttribute.ToString(),
-                Value = capability.Value,
-            }).ToList();
+            return new List<CapabilityDTO>();
         }
     }
 }
