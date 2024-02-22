@@ -2,9 +2,9 @@
 
 namespace Services
 {
-    public class ModifierCalculatorService : IModifierCalculatorService
+    public class UtilsService : IUtilsService
     {
-        public string ValueToModifier(int value)
+        public string ValueToAttributeModifier(int value)
         {
             double result = Math.Floor((double)(value - 10) / 2);
             return result > 0 ?

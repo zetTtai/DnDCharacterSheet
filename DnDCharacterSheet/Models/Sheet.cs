@@ -51,5 +51,10 @@ namespace Models
                 Value = string.Empty,
             }).ToList();
         }
+
+        public int Id()
+        {
+            return _id;
+        }
     }
 }

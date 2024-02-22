@@ -1,79 +1,81 @@
 ﻿using Services;
 
-namespace DnDTests
+namespace DnDTests.Services
 {
     internal class ModifierCalculatorServiceTest
     {
+        private UtilsService _service;
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+            _service = new();
+        }
+
         [Test]
-        public void ValueToModifier_GreaterThanTenEvenNumber_ReturnsString()
+        public void ValueToAttributeModifier_GreaterThanTenEvenNumber_ReturnsString()
         {
             // Arrange
             int value = 20;
             string expected = "+5";
-            ModifierCalculatorService service = new();
 
             // Act
-            string actual = service.ValueToModifier(value);
+            string actual = _service.ValueToAttributeModifier(value);
 
             // Assert
             Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
-        public void ValueToModifier_LowerThanTenEvenNumber_ReturnsString()
+        public void ValueToAttributeModifier_LowerThanTenEvenNumber_ReturnsString()
         {
             // Arrange
             int value = 8;
             string expected = "-1";
-            ModifierCalculatorService service = new();
 
             // Act
-            string actual = service.ValueToModifier(value);
+            string actual = _service.ValueToAttributeModifier(value);
 
             // Assert
             Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
-        public void ValueToModifier_GraterThanTenOddNumber_ReturnsString()
+        public void ValueToAttributeModifier_GraterThanTenOddNumber_ReturnsString()
         {
             // Arrange
             int value = 17;
             string expected = "+3";
-            ModifierCalculatorService service = new();
 
             // Act
-            string actual = service.ValueToModifier(value);
+            string actual = _service.ValueToAttributeModifier(value);
 
             // Assert
             Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
-        public void ValueToModifier_LowerThanTenOddNumber_ReturnsString()
+        public void ValueToAttributeModifier_LowerThanTenOddNumber_ReturnsString()
         {
             // Arrange
             int value = 1;
             string expected = "-5";
-            ModifierCalculatorService service = new();
 
             // Act
-            string actual = service.ValueToModifier(value);
+            string actual = _service.ValueToAttributeModifier(value);
 
             // Assert
             Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
-        public void ValueToModifier_EqualToTen_ReturnsString()
+        public void ValueToAttributeModifier_EqualToTen_ReturnsString()
         {
             // Arrange
             int value = 10;
             string expected = "0";
-            ModifierCalculatorService service = new();
 
             // Act
-            string actual = service.ValueToModifier(value);
+            string actual = _service.ValueToAttributeModifier(value);
 
             // Assert
             Assert.That(actual, Is.EqualTo(expected));

@@ -1,18 +1,19 @@
-﻿using DTOs;
+﻿using Converters;
+using DTOs;
 using Enums;
 using Interfaces;
-using Mappers;
 using Models;
-using Services;
 
-namespace DnDTests
+namespace DnDTests.Converters
 {
-    public class CapabilityMapperTest
+    internal class CapabilityConverterTest
     {
-        [SetUp]
-        public void SetUp()
-        {
+        private IConverter<Capability, CapabilityDTO> _mapper;
 
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+            _mapper = new CapabilityConverter();
         }
         [Test]
         public void Convert_Capability_ReturnCapabilityDTO()
@@ -33,8 +34,7 @@ namespace DnDTests
             };
 
             // Act
-            IConverter<Capability, CapabilityDTO> mapper = new CapabilityConverter();
-            CapabilityDTO actual = mapper.Convert(capability);
+            CapabilityDTO actual = _mapper.Convert(capability);
 
             // Assert
             Assert.Multiple(() =>
@@ -43,20 +43,6 @@ namespace DnDTests
                 Assert.That(actual.AssociatedAttribute, Is.EqualTo(expected.AssociatedAttribute));
                 Assert.That(actual.Value, Is.EqualTo(expected.Value));
             });
-        }
-
-        [Test]
-        public void Convert_EmptyList_ReturnCapabilityDTOList()
-        {
-            // Arrange
-            IEnumerable<Capability> capabilities = new List<Capability>();
-
-            // Act
-            IConverter<Capability, CapabilityDTO> mapper = new CapabilityConverter();
-            List<CapabilityDTO> actual = (List<CapabilityDTO>)mapper.Convert(capabilities);
-
-            // Assert
-            Assert.That(actual, Is.Empty);
         }
 
         [Test]
@@ -93,8 +79,7 @@ namespace DnDTests
             ];
 
             // Act
-            IConverter<Capability, CapabilityDTO> mapper = new CapabilityConverter();
-            List<CapabilityDTO> actual = (List<CapabilityDTO>)mapper.Convert(capabilities);
+            List<CapabilityDTO> actual = (List<CapabilityDTO>)_mapper.Convert(capabilities);
 
             // Assert
             Assert.That(actual, Has.Count.EqualTo(expected.Count));

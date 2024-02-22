@@ -6,9 +6,9 @@ using DnDCharacterSheet;
 
 namespace Services
 {
-    public class SheetService(IModifierCalculatorService modifierCalculator) : ISheetService
+    public class SheetService(IUtilsService modifierCalculator) : ISheetService
     {
-        private readonly IModifierCalculatorService _modifierCalculator = modifierCalculator;
+        private readonly IUtilsService _modifierCalculator = modifierCalculator;
 
         private Sheet SetStrengthScoreByRollingDice(Sheet sheet, int value)
         {
@@ -20,7 +20,7 @@ namespace Services
                     + " and " + Constants.MethodsToIncreaseAttributes.RollingDice.Max);
             }
 
-            string modifier = _modifierCalculator.ValueToModifier(value);
+            string modifier = _modifierCalculator.ValueToAttributeModifier(value);
             sheet.StrengthScore = modifier;
             sheet.Skills = ModifyCapabilities(sheet.Skills, modifier, CharacterAttributes.STR);
             sheet.SavingThrows = ModifyCapabilities(sheet.SavingThrows, modifier, CharacterAttributes.STR);

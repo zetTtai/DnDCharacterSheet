@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         public string? StrengthScore { get; set; }
-        public List<CapabilityDTO>? Skills { get; set; }
-        public List<CapabilityDTO>? SavingThrows { get; set; }
+        public IEnumerable<CapabilityDTO>? Skills { get; set; }
+        public IEnumerable<CapabilityDTO>? SavingThrows { get; set; }
     }
 }

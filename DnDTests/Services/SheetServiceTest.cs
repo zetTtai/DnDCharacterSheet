@@ -1,24 +1,21 @@
 ﻿using DnDCharacterSheet;
-using DTOs;
-using Enums;
 using Interfaces;
-using Mappers;
 using Models;
 using Moq;
 using Services;
 
-namespace DnDTests
+namespace DnDTests.Services
 {
     internal class SheetServiceTest
     {
-        private Mock<IModifierCalculatorService> _modifierCalculatorMock;
+        private Mock<IUtilsService> _modifierCalculatorMock;
         private readonly string _expectedModifier = "+4";
 
-        [SetUp]
-        public void Setup()
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
         {
-            _modifierCalculatorMock = new Mock<IModifierCalculatorService>();
-            _modifierCalculatorMock.Setup(m => m.ValueToModifier(It.IsAny<int>())).Returns(_expectedModifier);
+            _modifierCalculatorMock = new Mock<IUtilsService>();
+            _modifierCalculatorMock.Setup(m => m.ValueToAttributeModifier(It.IsAny<int>())).Returns(_expectedModifier);
             SheetService service = new(_modifierCalculatorMock.Object);
         }
 

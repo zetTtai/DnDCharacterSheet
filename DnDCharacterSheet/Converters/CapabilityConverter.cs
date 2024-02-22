@@ -2,7 +2,7 @@
 using Interfaces;
 using Models;
 
-namespace Mappers
+namespace Converters
 {
     public class CapabilityConverter : IConverter<Capability, CapabilityDTO>
     {

@@ -2,18 +2,26 @@
 using Interfaces;
 using Models;
 
-namespace Mappers
+namespace Converters
 {
-    public class SheetConverter : IConverter<Sheet, SheetDTO>
+    public class SheetConverter(IConverter<Capability, CapabilityDTO> capabilityConverter) : IConverter<Sheet, SheetDTO>
     {
+        private readonly IConverter<Capability, CapabilityDTO> capabilityConverter = capabilityConverter;
+
         public SheetDTO Convert(Sheet source)
         {
-            throw new NotImplementedException();
+            return new SheetDTO()
+            {
+                Id = source.Id(),
+                StrengthScore = source.StrengthScore ?? "",
+                Skills = capabilityConverter.Convert(source.Skills),
+                SavingThrows = capabilityConverter.Convert(source.SavingThrows),
+            };
         }
 
         public IEnumerable<SheetDTO> Convert(IEnumerable<Sheet> source)
         {
-            throw new NotImplementedException();
+            return source.Select(Convert).ToList();
         }
     }
 }
