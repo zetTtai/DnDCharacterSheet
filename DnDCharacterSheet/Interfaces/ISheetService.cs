@@ -6,6 +6,7 @@ namespace Interfaces
 {
     public interface ISheetService
     {
-        Sheet SetStrengthAttribute(Sheet sheet, int value, MethodsToIncreaseAttributes method = MethodsToIncreaseAttributes.RollingDice);
+        void SetStrategy(IAttributeSettingStrategy strategy);
+        Sheet SetStrengthAttribute(Sheet sheet, int value);
     }
 }

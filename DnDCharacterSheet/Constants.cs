@@ -8,6 +8,8 @@
             {
                 public const int Min = 3;
                 public const int Max = 18;
+
+                public static string Error = "Invalid value: Must be between " + Min + " and " + Max;
             }
         }
     }
