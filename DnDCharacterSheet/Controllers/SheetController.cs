@@ -1,5 +1,6 @@
 ﻿using Converters;
 using DTOs;
+using Enums;
 using Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Models;
@@ -13,14 +14,14 @@ namespace Controllers
         ILogger<SheetController> logger,
         ISheetService sheetService,
         IConverter<Sheet, SheetDTO> sheetConverter,
-        IUtilsService utilsService
+        ISettingAttributeStrategyFactory strategyFactory
         ) : ControllerBase
     {
 
         private readonly ILogger<SheetController> _logger = logger ?? throw new ArgumentNullException();
         private readonly ISheetService _sheetService = sheetService ?? throw new ArgumentNullException();
         private readonly IConverter<Sheet, SheetDTO> _sheetConverter = sheetConverter ?? throw new ArgumentNullException();
-        private readonly IUtilsService _utilsService = utilsService ?? throw new ArgumentNullException();
+        private readonly ISettingAttributeStrategyFactory _strategyFactory = strategyFactory ?? throw new ArgumentNullException();
 
         [HttpPut("{id}/attributes/str")]
         public ActionResult<SheetDTO> SetStrengthAttribute(int id, [FromBody] SetStrengthAttributeDTO request)
@@ -29,7 +30,7 @@ namespace Controllers
             {
                 // TODO: Get sheet by Id?
                 Sheet sheetToModify = new(id);
-                _sheetService.SetStrategy(new RollingDiceStrategy(_utilsService));
+                _sheetService.SetStrategy(_strategyFactory.CreateStrategy(request.Method));
                 Sheet sheet = _sheetService.SetStrengthAttribute(sheetToModify, request.Value);
                 return Ok(_sheetConverter.Convert(sheet));
             }

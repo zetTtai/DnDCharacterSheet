@@ -1,5 +1,6 @@
 using Converters;
 using DTOs;
+using Factories;
 using Interfaces;
 using Models;
 using Services;
@@ -12,6 +13,7 @@ builder.Services.AddSingleton<IUtilsService, UtilsService>();
 builder.Services.AddSingleton<IConverter<Capability, CapabilityDTO>, CapabilityConverter>();
 builder.Services.AddSingleton<IConverter<Sheet, SheetDTO>, SheetConverter>();
 
+builder.Services.AddSingleton<ISettingAttributeStrategyFactory, SettingAttributeStrategyFactory>();
 builder.Services.AddSingleton<IAttributeSettingStrategy, RollingDiceStrategy>();
 builder.Services.AddSingleton<ISheetService, SheetService>();
 

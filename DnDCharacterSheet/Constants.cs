@@ -15,5 +15,10 @@
         {
             public static string NoStrategyError = "[ERROR] Strategy was not set";
         }
+
+        public static class SettingAttributesStrategyFactory
+        {
+            public static string InvalidMethodError = "[ERROR] Method must be 0 => RollingDice, 1 => PointBuy or 2 => StandardArray";
+        }
     }
 }

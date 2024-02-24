@@ -2,8 +2,8 @@
 {
     public enum MethodsToIncreaseAttributes
     {
-        StandardArray,
+        RollingDice,
         PointBuy,
-        RollingDice
+        StandardArray,
     }
 }
