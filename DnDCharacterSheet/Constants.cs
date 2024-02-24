@@ -8,17 +8,17 @@
             {
                 public const int Min = 3;
                 public const int Max = 18;
-                public static string InvalidValueError = "[ERROR] Value must be between " + Min + " and " + Max;
+                public static string InvalidValueError = "Value must be between " + Min + " and " + Max;
             }
         }
         public static class SheetService
         {
-            public static string NoStrategyError = "[ERROR] Strategy was not set";
+            public static string NoStrategyError = "Strategy was not set";
         }
 
         public static class SettingAttributesStrategyFactory
         {
-            public static string InvalidMethodError = "[ERROR] Method must be 0 => RollingDice, 1 => PointBuy or 2 => StandardArray";
+            public static string InvalidMethodError = "Method must be 0 => RollingDice, 1 => PointBuy or 2 => StandardArray";
         }
     }
 }

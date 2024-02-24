@@ -9,7 +9,7 @@ namespace DnDTests.Strategies
     internal class RollingDiceStrategyTest
     {
         private readonly string _expectedModifier = "+4";
-        private readonly string _expectedInvalidValueErrorMessage = "[ERROR] Value must be between 3 and 18";
+        private readonly string _expectedInvalidValueErrorMessage = "Value must be between 3 and 18";
         private Mock<IUtilsService> _utilsServiceMock;
         private RollingDiceStrategy _strategy;
 
@@ -24,7 +24,7 @@ namespace DnDTests.Strategies
         }
 
         [Test]
-        public void SetStrenghtScore_RollingDice_ValidValue_ReturnsSheet()
+        public void SetStrengthAttribute_ValidValue_ReturnsSheet()
         {
             // Arrange
             Sheet expected = new()
@@ -41,7 +41,7 @@ namespace DnDTests.Strategies
         }
 
         [Test]
-        public void SetStrenghtScore_RollingDice_ValueLowerThan3_ReturnsException()
+        public void SetStrengthAttribute_ValueLowerThan3_ReturnsException()
         {
             // Arrange
             string actual = "";
@@ -61,7 +61,7 @@ namespace DnDTests.Strategies
         }
 
         [Test]
-        public void SetStrenghtScore_RollingDice_ValueHigherThan18_ReturnsException()
+        public void SetStrengthAttribute_ValueHigherThan18_ReturnsException()
         {
             // Arrange
             string actual = "";

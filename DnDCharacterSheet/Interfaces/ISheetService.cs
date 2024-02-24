@@ -1,6 +1,4 @@
 ﻿using Models;
-using Enums;
-using DTOs;
 
 namespace Interfaces
 {

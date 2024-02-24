@@ -10,7 +10,7 @@ namespace DnDTests.Factories
     {
         private Mock<IUtilsService> _utilsServiceMock;
         private ISettingAttributeStrategyFactory _factory;
-        private readonly string _expectedInvalidMethodError = "[ERROR] Method must be 0 => RollingDice, 1 => PointBuy or 2 => StandardArray";
+        private readonly string _expectedInvalidMethodError = "Method must be 0 => RollingDice, 1 => PointBuy or 2 => StandardArray";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()

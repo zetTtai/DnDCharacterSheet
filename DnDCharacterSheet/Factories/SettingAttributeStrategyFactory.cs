@@ -1,5 +1,6 @@
 ﻿using DnDCharacterSheet;
 using Enums;
+using Exceptions;
 using Interfaces;
 using Strategies;
 
@@ -16,7 +17,7 @@ namespace Factories
                 MethodsToIncreaseAttributes.RollingDice => new RollingDiceStrategy(_utilsService),
                 MethodsToIncreaseAttributes.PointBuy => new PointBuyStrategy(),
                 MethodsToIncreaseAttributes.StandardArray => new StandardArrayStrategy(),
-                _ => throw new ArgumentException(Constants.SettingAttributesStrategyFactory.InvalidMethodError),
+                _ => throw new BadRequestException(Constants.SettingAttributesStrategyFactory.InvalidMethodError),
             };
         }
     }

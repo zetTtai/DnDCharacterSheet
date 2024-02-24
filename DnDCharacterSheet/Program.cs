@@ -2,6 +2,7 @@ using Converters;
 using DTOs;
 using Factories;
 using Interfaces;
+using Middlewares;
 using Models;
 using Services;
 using Strategies;
@@ -24,6 +25,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseMiddleware<GlobalErrorHandlerMiddleware>();
 
 // Configure the HTTP request pipeline.
 app.UseSwagger();

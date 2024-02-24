@@ -12,7 +12,7 @@ namespace DnDTests.Services
     {
         private SheetService _service;
         private Mock<IAttributeSettingStrategy> _attributeSettingStrategyMock;
-        private readonly string _strategyNotSetErrorMessage = "[ERROR] Strategy was not set";
+        private readonly string _strategyNotSetErrorMessage = "Strategy was not set";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -25,7 +25,7 @@ namespace DnDTests.Services
         }
 
         [Test]
-        public void SetStrenghtScore_RollingDice_ModifyStrengthScore_ReturnsSheet()
+        public void SetStrengthAttribute_RollingDice_ModifyStrengthAttribute_ReturnsSheet()
         {
             // Arrange
             _service.SetStrategy(_attributeSettingStrategyMock.Object);
@@ -39,7 +39,7 @@ namespace DnDTests.Services
         }
 
         [Test]
-        public void SetStrenghtScore_NoStrategy_ReturnsException()
+        public void SetStrengthAttribute_NoStrategy_ReturnsException()
         {
             // Arrange
             string actual = "";

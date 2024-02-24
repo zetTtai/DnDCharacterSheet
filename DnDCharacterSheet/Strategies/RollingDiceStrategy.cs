@@ -1,8 +1,8 @@
 ﻿using DnDCharacterSheet;
 using Enums;
+using Exceptions;
 using Interfaces;
 using Models;
-using System;
 
 namespace Strategies
 {
@@ -15,7 +15,7 @@ namespace Strategies
             if (value < Constants.AttributeSettingStrategy.RollingDice.Min ||
                 value > Constants.AttributeSettingStrategy.RollingDice.Max)
             {
-                throw new Exception(Constants.AttributeSettingStrategy.RollingDice.InvalidValueError);
+                throw new BadRequestException(Constants.AttributeSettingStrategy.RollingDice.InvalidValueError);
             }
 
             string modifier = _utilsService.ValueToAttributeModifier(value);

@@ -1,6 +1,5 @@
 ﻿
 using Enums;
-using System.Collections;
 
 namespace Models
 {

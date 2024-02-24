@@ -1,15 +1,13 @@
-﻿using Converters;
-using DTOs;
-using Enums;
+﻿using DTOs;
+using Exceptions;
 using Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Models;
-using Strategies;
 
 namespace Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("sheet")]
     public class SheetController(
         ILogger<SheetController> logger,
         ISheetService sheetService,
@@ -33,12 +31,14 @@ namespace Controllers
                 _sheetService.SetStrategy(_strategyFactory.CreateStrategy(request.Method));
                 Sheet sheet = _sheetService.SetStrengthAttribute(sheetToModify, request.Value);
                 return Ok(_sheetConverter.Convert(sheet));
-            }
-            catch (Exception ex)
+            } catch(BadRequestException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new ErrorDTO()
+                {
+                    StatusCode = 400,
+                    Message = ex.Message,
+                });
             }
         }
-
     }
 }
