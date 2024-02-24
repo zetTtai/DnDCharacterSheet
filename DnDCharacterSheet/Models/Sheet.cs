@@ -5,7 +5,7 @@ namespace Models
     public class Sheet
     {
         private readonly int _id;
-        public string? StrengthScore { get; set; }
+        public string? StrengthAttribute { get; set; }
         public IEnumerable<Capability> Skills { get; set; }
         public IEnumerable<Capability> SavingThrows { get; set; }
 

@@ -12,14 +12,14 @@ namespace Strategies
 
         public Sheet SetStrengthAttribute(Sheet sheet, int value)
         {
-            if (value < Constants.MethodsToIncreaseAttributes.RollingDice.Min ||
-                value > Constants.MethodsToIncreaseAttributes.RollingDice.Max)
+            if (value < Constants.AttributeSettingStrategy.RollingDice.Min ||
+                value > Constants.AttributeSettingStrategy.RollingDice.Max)
             {
-                throw new Exception(Constants.MethodsToIncreaseAttributes.RollingDice.Error);
+                throw new Exception(Constants.AttributeSettingStrategy.RollingDice.InvalidValueError);
             }
 
             string modifier = _utilsService.ValueToAttributeModifier(value);
-            sheet.StrengthScore = modifier;
+            sheet.StrengthAttribute = modifier;
             sheet.Skills = _utilsService.ModifyCapabilities(sheet.Skills, modifier, CharacterAttributes.STR);
             sheet.SavingThrows = _utilsService.ModifyCapabilities(sheet.SavingThrows, modifier, CharacterAttributes.STR);
             return sheet;

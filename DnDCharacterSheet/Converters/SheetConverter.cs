@@ -13,7 +13,7 @@ namespace Converters
             return new SheetDTO()
             {
                 Id = source.Id(),
-                StrengthScore = source.StrengthScore ?? "",
+                StrengthAttribute = source.StrengthAttribute ?? "",
                 Skills = capabilityConverter.Convert(source.Skills),
                 SavingThrows = capabilityConverter.Convert(source.SavingThrows),
             };

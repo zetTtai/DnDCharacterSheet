@@ -33,7 +33,7 @@ namespace DnDTests.Converters
             SheetDTO expected = new()
             {
                 Id = 1,
-                StrengthScore = "",
+                StrengthAttribute = "",
             };
 
             // Act
@@ -43,7 +43,7 @@ namespace DnDTests.Converters
             Assert.Multiple(() =>
             {
                 Assert.That(actual.Id, Is.EqualTo(expected.Id));
-                Assert.That(actual.StrengthScore, Is.EqualTo(expected.StrengthScore));
+                Assert.That(actual.StrengthAttribute, Is.EqualTo(expected.StrengthAttribute));
             });
         }
 
@@ -58,9 +58,9 @@ namespace DnDTests.Converters
             ];
 
             List<SheetDTO> expected = [
-                new() { Id = 1, StrengthScore = "" },
-                new() { Id = 2, StrengthScore = "" },
-                new() { Id = 3, StrengthScore = "" },
+                new() { Id = 1, StrengthAttribute = "" },
+                new() { Id = 2, StrengthAttribute = "" },
+                new() { Id = 3, StrengthAttribute = "" },
             ];
 
             // Act
@@ -73,7 +73,7 @@ namespace DnDTests.Converters
                 Assert.Multiple(() =>
                 {
                     Assert.That(actual[i].Id, Is.EqualTo(expected[i].Id));
-                    Assert.That(actual[i].StrengthScore, Is.EqualTo(expected[i].StrengthScore));
+                    Assert.That(actual[i].StrengthAttribute, Is.EqualTo(expected[i].StrengthAttribute));
                 });
             }
         }
