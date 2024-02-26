@@ -17,7 +17,7 @@ namespace Services
         public Sheet SetAttribute(Sheet sheet, int value)
         {
             return _attributeSettingStrategy != null ?
-                _attributeSettingStrategy.SetStrengthAttribute(sheet, value)
+                _attributeSettingStrategy.SetAttribute(sheet, value)
                 : throw new Exception(Constants.SheetService.NoStrategyError);
         }
     }

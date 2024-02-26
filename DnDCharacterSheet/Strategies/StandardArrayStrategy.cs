@@ -5,7 +5,7 @@ namespace Strategies
 {
     public class StandardArrayStrategy : IAttributeSettingStrategy
     {
-        public Sheet SetStrengthAttribute(Sheet sheet, int value)
+        public Sheet SetAttribute(Sheet sheet, int value)
         {
             throw new NotImplementedException();
         }

@@ -19,7 +19,7 @@ namespace DnDTests.Services
         {
             _attributeSettingStrategyMock = new Mock<IAttributeSettingStrategy>();
             _attributeSettingStrategyMock
-                .Setup(m => m.SetStrengthAttribute(It.IsAny<Sheet>(), It.IsAny<int>()))
+                .Setup(m => m.SetAttribute(It.IsAny<Sheet>(), It.IsAny<int>()))
                 .Returns(new Sheet());
             _service = new();
         }

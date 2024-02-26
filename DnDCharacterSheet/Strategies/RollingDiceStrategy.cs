@@ -10,7 +10,7 @@ namespace Strategies
     {
         private readonly IUtilsService _utilsService = utilsService;
 
-        public Sheet SetStrengthAttribute(Sheet sheet, int value)
+        public Sheet SetAttribute(Sheet sheet, int value)
         {
             if (value < Constants.AttributeSettingStrategy.RollingDice.Min ||
                 value > Constants.AttributeSettingStrategy.RollingDice.Max)

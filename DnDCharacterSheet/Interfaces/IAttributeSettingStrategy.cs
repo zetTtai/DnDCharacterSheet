@@ -4,6 +4,6 @@ namespace Interfaces
 {
     public interface IAttributeSettingStrategy
     {
-        Sheet SetStrengthAttribute(Sheet sheet, int value);
+        Sheet SetAttribute(Sheet sheet, int value);
     }
 }

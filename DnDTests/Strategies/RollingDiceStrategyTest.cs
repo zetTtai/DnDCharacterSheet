@@ -36,7 +36,7 @@ namespace DnDTests.Strategies
             };
 
             // Act
-            Sheet actual = _strategy.SetStrengthAttribute(new Sheet(), 6);
+            Sheet actual = _strategy.SetAttribute(new Sheet(), 6);
 
 
             // Assert
@@ -52,7 +52,7 @@ namespace DnDTests.Strategies
             // Act
             try
             {
-                _ = _strategy.SetStrengthAttribute(new Sheet(), 2);
+                _ = _strategy.SetAttribute(new Sheet(), 2);
             }
             catch (Exception ex)
             {
@@ -72,7 +72,7 @@ namespace DnDTests.Strategies
             // Act
             try
             {
-                _ = _strategy.SetStrengthAttribute(new Sheet(), 19);
+                _ = _strategy.SetAttribute(new Sheet(), 19);
             }
             catch (Exception ex)
             {
