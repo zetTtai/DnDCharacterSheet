@@ -6,9 +6,10 @@ using Models;
 
 namespace Strategies
 {
-    public class RollingDiceStrategy(IUtilsService utilsService) : IAttributeSettingStrategy
+    public class RollingDiceStrategy(IUtilsService utilsService, IAttributeStrategy attributeStrategy) : IAttributeSettingStrategy
     {
         private readonly IUtilsService _utilsService = utilsService;
+        private readonly IAttributeStrategy _attributeStrategy = attributeStrategy;
 
         public Sheet SetStrengthAttribute(Sheet sheet, int value)
         {
@@ -20,8 +21,8 @@ namespace Strategies
 
             string modifier = _utilsService.ValueToAttributeModifier(value);
             sheet.StrengthAttribute = modifier;
-            sheet.Skills = _utilsService.ModifyCapabilities(sheet.Skills, modifier, CharacterAttributes.STR);
-            sheet.SavingThrows = _utilsService.ModifyCapabilities(sheet.SavingThrows, modifier, CharacterAttributes.STR);
+            sheet.Skills = _attributeStrategy.ModifyCapabilities(sheet.Skills, modifier);
+            sheet.SavingThrows = _attributeStrategy.ModifyCapabilities(sheet.SavingThrows, modifier);
             return sheet;
         }
     }

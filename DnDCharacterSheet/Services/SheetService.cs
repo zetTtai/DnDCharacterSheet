@@ -7,8 +7,14 @@ namespace Services
     public class SheetService : ISheetService
     {
         private IAttributeSettingStrategy? _attributeSettingStrategy;
+        private IAttributeStrategy? _attributeStrategy;
 
-        public void SetStrategy(IAttributeSettingStrategy strategy)
+        public void SetAttributeStrategy(IAttributeStrategy strategy)
+        {
+            _attributeStrategy = strategy;
+        }
+
+        public void SetAttributeSettingStrategy(IAttributeSettingStrategy strategy)
         {
             _attributeSettingStrategy = strategy;
         }
