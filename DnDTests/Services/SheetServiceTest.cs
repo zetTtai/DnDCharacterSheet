@@ -28,11 +28,11 @@ namespace DnDTests.Services
         public void SetStrengthAttribute_RollingDice_ModifyStrengthAttribute_ReturnsSheet()
         {
             // Arrange
-            _service.SetStrategy(_attributeSettingStrategyMock.Object);
+            _service.SetAttributeSettingStrategy(_attributeSettingStrategyMock.Object);
             Sheet expected = new();
 
             // Act
-            Sheet actual = _service.SetStrengthAttribute(new Sheet(), 3);
+            Sheet actual = _service.SetAttribute(new Sheet(), 3);
 
             // Assert
             Assert.That(actual.StrengthAttribute, Is.EqualTo(expected.StrengthAttribute));
@@ -47,7 +47,7 @@ namespace DnDTests.Services
             // Act
             try
             {
-                _ = _service.SetStrengthAttribute(new Sheet(), 3);
+                _service.SetAttribute(new Sheet(), 3);
             }
             catch (Exception ex)
             {

@@ -13,7 +13,7 @@ namespace Controllers
         ISheetService sheetService,
         IConverter<Sheet, SheetDTO> sheetConverter,
         ISettingAttributeStrategyFactory settingAttributeStrategyFactory,
-        IAttributeStrategyFactory attributeStrategyFactory
+        IUtilsService utilsService
         ) : ControllerBase
     {
 
@@ -21,7 +21,7 @@ namespace Controllers
         private readonly ISheetService _sheetService = sheetService ?? throw new ArgumentNullException();
         private readonly IConverter<Sheet, SheetDTO> _sheetConverter = sheetConverter ?? throw new ArgumentNullException();
         private readonly ISettingAttributeStrategyFactory _settingAttributeStrategyFactory = settingAttributeStrategyFactory ?? throw new ArgumentNullException();
-        private readonly IAttributeStrategyFactory _attributeStrategyFactory = attributeStrategyFactory ?? throw new ArgumentNullException();
+        private readonly IUtilsService _utilsService = utilsService ?? throw new ArgumentNullException();
 
         [HttpPut("{id}/attributes/{attribute}")]
         public ActionResult<SheetDTO> SetStrengthAttribute(int id, string attribute, [FromBody] SetStrengthAttributeDTO request)
@@ -30,9 +30,10 @@ namespace Controllers
             {
                 // TODO: Get sheet by Id?
                 Sheet sheetToModify = new(id);
-                _sheetService.SetAttributeStrategy(_attributeStrategyFactory.CreateStrategy(attribute));
-                _sheetService.SetAttributeSettingStrategy(_settingAttributeStrategyFactory.CreateStrategy(request.Method));
-                Sheet sheet = _sheetService.SetStrengthAttribute(sheetToModify, request.Value);
+                _sheetService.SetAttributeSettingStrategy(_settingAttributeStrategyFactory.CreateStrategy(
+                    request.Method,
+                    _utilsService.StringToCharacterAttribute(attribute)));
+                Sheet sheet = _sheetService.SetAttribute(sheetToModify, request.Value);
                 return Ok(_sheetConverter.Convert(sheet));
             } catch(BadRequestException ex)
             {

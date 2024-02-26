@@ -15,6 +15,7 @@ namespace DnDTests.Converters
         {
             _mapper = new CapabilityConverter();
         }
+
         [Test]
         public void Convert_Capability_ReturnCapabilityDTO()
         {

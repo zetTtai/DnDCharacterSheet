@@ -24,7 +24,7 @@ namespace DnDTests.Factories
         {
             // Arrange
             // Act
-            IAttributeSettingStrategy actual = _factory.CreateStrategy(0);
+            IAttributeSettingStrategy actual = _factory.CreateStrategy(0, CharacterAttributes.STR);
 
             // Assert
             Assert.That(actual, Is.InstanceOf<RollingDiceStrategy>());
@@ -35,7 +35,7 @@ namespace DnDTests.Factories
         {
             // Arrange
             // Act
-            IAttributeSettingStrategy actual = _factory.CreateStrategy((MethodsToIncreaseAttributes)1);
+            IAttributeSettingStrategy actual = _factory.CreateStrategy((MethodsToIncreaseAttributes)1, CharacterAttributes.STR);
 
             // Assert
             Assert.That(actual, Is.InstanceOf<PointBuyStrategy>());
@@ -46,7 +46,7 @@ namespace DnDTests.Factories
         {
             // Arrange
             // Act
-            IAttributeSettingStrategy actual = _factory.CreateStrategy((MethodsToIncreaseAttributes)2);
+            IAttributeSettingStrategy actual = _factory.CreateStrategy((MethodsToIncreaseAttributes)2, CharacterAttributes.STR);
 
             // Assert
             Assert.That(actual, Is.InstanceOf<StandardArrayStrategy>());
@@ -61,8 +61,9 @@ namespace DnDTests.Factories
             // Act
             try
             {
-                _ = _factory.CreateStrategy((MethodsToIncreaseAttributes)3);
-            } catch (Exception ex)
+                _factory.CreateStrategy((MethodsToIncreaseAttributes)3, CharacterAttributes.STR);
+            }
+            catch (Exception ex)
             {
                 actual = ex.Message;
             }

@@ -1,4 +1,6 @@
-﻿using Enums;
+﻿using DnDCharacterSheet;
+using Enums;
+using Exceptions;
 using Interfaces;
 using Models;
 
@@ -18,6 +20,16 @@ namespace Services
                 }
                 : capability
             );
+        }
+
+        public CharacterAttributes StringToCharacterAttribute(string attribute)
+        {
+            if (Enum.TryParse(attribute.ToUpper(), out CharacterAttributes result))
+            {
+                return result;
+            }
+
+            throw new BadRequestException(Constants.UtilsService.InvalidAttributeError);
         }
 
         public string ValueToAttributeModifier(int value)

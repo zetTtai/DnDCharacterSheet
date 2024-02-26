@@ -17,10 +17,13 @@ namespace DnDTests.Strategies
         public void OneTimeSetup()
         {
             _utilsServiceMock = new Mock<IUtilsService>();
-            _utilsServiceMock.Setup(m => m.ValueToAttributeModifier(It.IsAny<int>())).Returns(_expectedModifier);
-            _utilsServiceMock.Setup(m => m.ModifyCapabilities(It.IsAny<IEnumerable<Capability>>(), It.IsAny<string>(), It.IsAny<CharacterAttributes>()))
+            _utilsServiceMock
+                .Setup(m => m.ValueToAttributeModifier(It.IsAny<int>()))
+                .Returns(_expectedModifier);
+            _utilsServiceMock
+                .Setup(m => m.ModifyCapabilities(It.IsAny<IEnumerable<Capability>>(), It.IsAny<string>(), It.IsAny<CharacterAttributes>()))
                 .Returns([]);
-            _strategy = new RollingDiceStrategy(_utilsServiceMock.Object);
+            _strategy = new RollingDiceStrategy(_utilsServiceMock.Object, CharacterAttributes.STR);
         }
 
         [Test]

@@ -7,5 +7,6 @@ namespace Interfaces
     {
         string ValueToAttributeModifier(int value);
         IEnumerable<Capability> ModifyCapabilities(IEnumerable<Capability> capabilities, string modifier, CharacterAttributes associatedAttribute);
+        CharacterAttributes StringToCharacterAttribute(string attribute);
     }
 }

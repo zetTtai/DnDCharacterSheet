@@ -1,4 +1,5 @@
 ﻿using Enums;
+using Exceptions;
 using Interfaces;
 using Models;
 using Services;
@@ -8,6 +9,8 @@ namespace DnDTests.Services
     internal class UtilsServiceTest
     {
         private IUtilsService _service;
+        private readonly string _invalidAttributeError = "Attribute must be STR, DEX, CON, INT, WIS or CHA";
+
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
@@ -133,6 +136,57 @@ namespace DnDTests.Services
                     Assert.That(actual[i].Value, Is.EqualTo(expected[i].Value));
                 }
             });
+        }
+
+        [Test]
+        public void StringToCharacterAttributes_ReturnsCharacterAttribute()
+        {
+            // Arrange
+            List<CharacterAttributes> expected = [
+                CharacterAttributes.STR,
+                CharacterAttributes.DEX,
+                CharacterAttributes.CON,
+                CharacterAttributes.INT,
+                CharacterAttributes.WIS,
+                CharacterAttributes.CHA
+            ];
+
+            List<string> inputs = ["str", "Dex", "CON", "InT", "WIs", "CHA"];
+            List<CharacterAttributes> actual = [];
+
+            // Act
+            foreach (string input in inputs)
+            {
+                actual.Add(_service.StringToCharacterAttribute(input));
+            }
+
+            // Assert
+            Assert.That(actual, Has.Count.EqualTo(expected.Count));
+
+            for (int i =0; i < expected.Count;i++)
+            {
+                Assert.That(actual[i], Is.EqualTo(expected[i]));
+            }
+        }
+
+        [Test]
+        public void StringToCharacterAttributes_InvalidCharacterAttribute_ReturnsException()
+        {
+            // Arrange
+            string actual = "";
+
+            // Act
+            try
+            {
+                _service.StringToCharacterAttribute("EXE");
+            }
+            catch (BadRequestException ex)
+            {
+                actual = ex.Message;
+            }
+
+            // Assert
+            Assert.That(actual, Is.EqualTo(_invalidAttributeError));
         }
     }
 }

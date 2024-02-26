@@ -4,6 +4,6 @@ namespace Interfaces
 {
     public interface ISettingAttributeStrategyFactory
     {
-        IAttributeSettingStrategy CreateStrategy(MethodsToIncreaseAttributes method);
+        IAttributeSettingStrategy CreateStrategy(MethodsToIncreaseAttributes method, CharacterAttributes attribute);
     }
 }
