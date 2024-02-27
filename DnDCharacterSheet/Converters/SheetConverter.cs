@@ -4,24 +4,29 @@ using Models;
 
 namespace Converters
 {
-    public class SheetConverter(IConverter<Capability, CapabilityDTO> capabilityConverter) : IConverter<Sheet, SheetDTO>
+    public class SheetConverter(
+        IConverter<Capability, CapabilityDTO> capabilityConverter,
+        IConverter<Models.Attribute, AttributeDTO> attributeConverter
+        ) : IConverter<Sheet, SheetDTO>
     {
-        private readonly IConverter<Capability, CapabilityDTO> capabilityConverter = capabilityConverter;
+        private readonly IConverter<Capability, CapabilityDTO> _capabilityConverter = capabilityConverter;
+        private readonly IConverter<Models.Attribute, AttributeDTO> _attributeConverter = attributeConverter;
+
 
         public SheetDTO Convert(Sheet source)
         {
             return new SheetDTO()
             {
                 Id = source.Id(),
-                StrengthAttribute = source.StrengthAttribute ?? "",
-                Skills = capabilityConverter.Convert(source.Skills),
-                SavingThrows = capabilityConverter.Convert(source.SavingThrows),
+                Attributes = _attributeConverter.Convert(source.Attributes),
+                Skills = _capabilityConverter.Convert(source.Skills),
+                SavingThrows = _capabilityConverter.Convert(source.SavingThrows),
             };
         }
 
         public IEnumerable<SheetDTO> Convert(IEnumerable<Sheet> source)
         {
-            return source.Select(Convert).ToList();
+            return source.Select(Convert);
         }
     }
 }

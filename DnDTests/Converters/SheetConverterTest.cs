@@ -10,8 +10,8 @@ namespace DnDTests.Converters
     internal class SheetConverterTest
     {
         private IConverter<Sheet, SheetDTO> _converter;
-        private IConverter<Capability, CapabilityDTO> _capabilityConverter;
         private Mock<IConverter<Capability, CapabilityDTO>> _capabilityConverterMock;
+        private Mock<IConverter<Models.Attribute, AttributeDTO>> _attributeConverterMock;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -20,8 +20,13 @@ namespace DnDTests.Converters
             _capabilityConverterMock
                 .Setup(m => m.Convert(It.IsAny<IEnumerable<Capability>>()))
                 .Returns([]);
-            _capabilityConverter = _capabilityConverterMock.Object;
-            _converter = new SheetConverter(_capabilityConverter);
+
+            _attributeConverterMock = new Mock<IConverter<Models.Attribute, AttributeDTO>>();
+            _attributeConverterMock
+                .Setup(m => m.Convert(It.IsAny<IEnumerable<Models.Attribute>>()))
+                .Returns([]);
+
+            _converter = new SheetConverter(_capabilityConverterMock.Object, _attributeConverterMock.Object);
 
         }
 
@@ -33,7 +38,15 @@ namespace DnDTests.Converters
             SheetDTO expected = new()
             {
                 Id = 1,
-                StrengthAttribute = "",
+                Attributes =
+                [
+                    new AttributeDTO { Modifier = "", Value = "", Name = "STR" },
+                    new AttributeDTO { Modifier = "", Value = "", Name = "DEX" },
+                    new AttributeDTO { Modifier = "", Value = "", Name = "CON" },
+                    new AttributeDTO { Modifier = "", Value = "", Name = "INT" },
+                    new AttributeDTO { Modifier = "", Value = "", Name = "WIS" },
+                    new AttributeDTO { Modifier = "", Value = "", Name = "CHA" },
+                ],
             };
 
             // Act
@@ -43,7 +56,6 @@ namespace DnDTests.Converters
             Assert.Multiple(() =>
             {
                 Assert.That(actual.Id, Is.EqualTo(expected.Id));
-                Assert.That(actual.StrengthAttribute, Is.EqualTo(expected.StrengthAttribute));
             });
         }
 
@@ -58,13 +70,13 @@ namespace DnDTests.Converters
             ];
 
             List<SheetDTO> expected = [
-                new() { Id = 1, StrengthAttribute = "" },
-                new() { Id = 2, StrengthAttribute = "" },
-                new() { Id = 3, StrengthAttribute = "" },
+                new() { Id = 1},
+                new() { Id = 2},
+                new() { Id = 3},
             ];
 
             // Act
-            List<SheetDTO> actual = (List<SheetDTO>)_converter.Convert(sheets);
+            List<SheetDTO> actual = _converter.Convert(sheets).ToList();
 
             // Assert
             Assert.That(actual, Has.Count.EqualTo(expected.Count));
@@ -73,7 +85,6 @@ namespace DnDTests.Converters
                 Assert.Multiple(() =>
                 {
                     Assert.That(actual[i].Id, Is.EqualTo(expected[i].Id));
-                    Assert.That(actual[i].StrengthAttribute, Is.EqualTo(expected[i].StrengthAttribute));
                 });
             }
         }

@@ -18,7 +18,7 @@ namespace Converters
 
         public IEnumerable<CapabilityDTO> Convert(IEnumerable<Capability> source)
         {
-            return source.Select(Convert).ToList();
+            return source.Select(Convert);
         }
     }
 }

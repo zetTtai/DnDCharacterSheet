@@ -19,7 +19,7 @@ namespace Strategies
             }
 
             string modifier = _utilsService.ValueToAttributeModifier(value);
-            sheet.StrengthAttribute = modifier;
+            sheet.Attributes = _utilsService.ModifyAttributes(sheet.Attributes, value.ToString(), modifier, currentAttribute);
             sheet.Skills = _utilsService.ModifyCapabilities(sheet.Skills, modifier, currentAttribute);
             sheet.SavingThrows = _utilsService.ModifyCapabilities(sheet.SavingThrows, modifier, currentAttribute);
             return sheet;

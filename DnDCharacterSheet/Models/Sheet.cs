@@ -5,7 +5,7 @@ namespace Models
     public class Sheet
     {
         private readonly int _id;
-        public string? StrengthAttribute { get; set; }
+        public IEnumerable<Attribute> Attributes { get; set; }
         public IEnumerable<Capability> Skills { get; set; }
         public IEnumerable<Capability> SavingThrows { get; set; }
 
@@ -14,6 +14,7 @@ namespace Models
             _id = 0;
             Skills = new List<Capability>();
             SavingThrows = new List<Capability>();
+            Attributes = new List<Attribute>();
             SetUpSheet();
         }
         public Sheet(int id)
@@ -21,20 +22,39 @@ namespace Models
             _id = id;
             Skills = new List<Capability>();
             SavingThrows = new List<Capability>();
+            Attributes = new List<Attribute>();
             SetUpSheet();
         }
 
         private void SetUpSheet()
         {
-            Dictionary<string, CharacterAttributes> staticSkills = new()
+
+            Attributes = Enum.GetValues(typeof (CharacterAttributes))
+                .Cast<CharacterAttributes>().ToList()
+                .Select( attribute => new Attribute
+                {
+                    Name = attribute,
+                    Value = "",
+                    Modifier = "",
+                }).ToList();
+
+            Dictionary<string, Enums.CharacterAttributes> staticSkills = new()
             {
-                {"Athletics", CharacterAttributes.STR },
-                {"Acrobatics", CharacterAttributes.DEX },
+                {"Athletics", Enums.CharacterAttributes.STR },
+                {"Acrobatics", Enums.CharacterAttributes.DEX },
+                {"Persuasion", Enums.CharacterAttributes.CHA },
+                {"History", Enums.CharacterAttributes.INT },
+                {"Survival", Enums.CharacterAttributes.WIS },
+                {"Intimidation", Enums.CharacterAttributes.CHA },
             };
-            Dictionary<string, CharacterAttributes> staticSavingThrows = new()
+            Dictionary<string, Enums.CharacterAttributes> staticSavingThrows = new()
             {
-                {"Strength", CharacterAttributes.STR },
-                {"Dexterity", CharacterAttributes.DEX },
+                {"Strength", Enums.CharacterAttributes.STR },
+                {"Dexterity", Enums.CharacterAttributes.DEX },
+                {"Constitution", Enums.CharacterAttributes.CON },
+                {"Intelligence", Enums.CharacterAttributes.INT },
+                {"Wisdom", Enums.CharacterAttributes.WIS },
+                {"Charisma", Enums.CharacterAttributes.CHA },
             };
 
             Skills = staticSkills.Select(skill => new Capability

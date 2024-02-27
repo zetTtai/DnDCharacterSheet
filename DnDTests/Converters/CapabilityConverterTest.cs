@@ -23,7 +23,7 @@ namespace DnDTests.Converters
             Capability capability = new()
             {
                 Name = "Test",
-                AssociatedAttribute = CharacterAttributes.STR,
+                AssociatedAttribute = Enums.CharacterAttributes.STR,
                 Value = "Test",
             };
 
@@ -80,7 +80,7 @@ namespace DnDTests.Converters
             ];
 
             // Act
-            List<CapabilityDTO> actual = (List<CapabilityDTO>)_mapper.Convert(capabilities);
+            List<CapabilityDTO> actual = _mapper.Convert(capabilities).ToList();
 
             // Assert
             Assert.That(actual, Has.Count.EqualTo(expected.Count));

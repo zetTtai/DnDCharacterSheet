@@ -95,13 +95,13 @@ namespace DnDTests.Services
                 new()
                 {
                     Name = "Test1",
-                    AssociatedAttribute = CharacterAttributes.STR,
+                    AssociatedAttribute = Enums.CharacterAttributes.STR,
                     Value = "",
                 },
                 new()
                 {
                     Name = "Test1",
-                    AssociatedAttribute = CharacterAttributes.DEX,
+                    AssociatedAttribute = Enums.CharacterAttributes.DEX,
                     Value = "",
                 }
             ];
@@ -110,13 +110,13 @@ namespace DnDTests.Services
                 new()
                 {
                     Name = "Test1",
-                    AssociatedAttribute = CharacterAttributes.STR,
+                    AssociatedAttribute = Enums.CharacterAttributes.STR,
                     Value = "+2",
                 },
                 new()
                 {
                     Name = "Test1",
-                    AssociatedAttribute = CharacterAttributes.DEX,
+                    AssociatedAttribute = Enums.CharacterAttributes.DEX,
                     Value = "",
                 }
             ];
@@ -142,17 +142,17 @@ namespace DnDTests.Services
         public void StringToCharacterAttributes_ReturnsCharacterAttribute()
         {
             // Arrange
-            List<CharacterAttributes> expected = [
-                CharacterAttributes.STR,
-                CharacterAttributes.DEX,
-                CharacterAttributes.CON,
-                CharacterAttributes.INT,
-                CharacterAttributes.WIS,
-                CharacterAttributes.CHA
+            List<Enums.CharacterAttributes> expected = [
+                Enums.CharacterAttributes.STR,
+                Enums.CharacterAttributes.DEX,
+                Enums.CharacterAttributes.CON,
+                Enums.CharacterAttributes.INT,
+                Enums.CharacterAttributes.WIS,
+                Enums.CharacterAttributes.CHA
             ];
 
             List<string> inputs = ["str", "Dex", "CON", "InT", "WIs", "CHA"];
-            List<CharacterAttributes> actual = [];
+            List<Enums.CharacterAttributes> actual = [];
 
             // Act
             foreach (string input in inputs)

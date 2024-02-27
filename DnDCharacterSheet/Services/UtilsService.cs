@@ -8,7 +8,21 @@ namespace Services
 {
     public class UtilsService : IUtilsService
     {
-        public IEnumerable<Capability> ModifyCapabilities(IEnumerable<Capability> capabilities, string modifier, CharacterAttributes associatedAttribute)
+        public IEnumerable<Models.Attribute> ModifyAttributes(IEnumerable<Models.Attribute> attributes, string value, string modifier, CharacterAttributes associatedAttribute)
+        {
+            return attributes.Select(attribute =>
+                attribute.Name == associatedAttribute
+                ? new Models.Attribute
+                {
+                    Name = attribute.Name,
+                    Value = value,
+                    Modifier = modifier,
+                }
+                : attribute
+            );
+        }
+
+        public IEnumerable<Capability> ModifyCapabilities(IEnumerable<Capability> capabilities, string modifier, Enums.CharacterAttributes associatedAttribute)
         {
             return capabilities.Select(capability =>
                 capability.AssociatedAttribute == associatedAttribute
