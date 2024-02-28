@@ -22,7 +22,7 @@ namespace Services
             );
         }
 
-        public IEnumerable<Capability> ModifyCapabilities(IEnumerable<Capability> capabilities, string modifier, Enums.CharacterAttributes associatedAttribute)
+        public IEnumerable<Capability> ModifyCapabilities(IEnumerable<Capability> capabilities, string modifier, CharacterAttributes associatedAttribute)
         {
             return capabilities.Select(capability =>
                 capability.AssociatedAttribute == associatedAttribute

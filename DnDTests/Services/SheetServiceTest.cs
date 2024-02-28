@@ -25,7 +25,7 @@ namespace DnDTests.Services
         }
 
         [Test]
-        public void SetAttributes_StrategySet_ReturnsSheet()
+        public void SetAttribute_StrategySet_ReturnsSheet()
         {
             // Arrange
             _service.SetAttributeSettingStrategy(_attributeSettingStrategyMock.Object);
@@ -45,7 +45,7 @@ namespace DnDTests.Services
         }
 
         [Test]
-        public void SetAttributes_NoStrategy_ReturnsException()
+        public void SetAttribute_NoStrategy_ReturnsException()
         {
             // Arrange
             string actual = "";

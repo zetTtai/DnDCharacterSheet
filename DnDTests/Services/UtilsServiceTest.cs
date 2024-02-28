@@ -2,7 +2,9 @@
 using Exceptions;
 using Interfaces;
 using Models;
+using Newtonsoft.Json.Linq;
 using Services;
+using Strategies;
 
 namespace DnDTests.Services
 {
@@ -87,72 +89,66 @@ namespace DnDTests.Services
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        [Test]
-        public void ModifyCapabilities_ReturnsCapabilityList()
+        [TestCase(CharacterAttributes.STR)]
+        [TestCase(CharacterAttributes.DEX)]
+        [TestCase(CharacterAttributes.CON)]
+        [TestCase(CharacterAttributes.INT)]
+        [TestCase(CharacterAttributes.WIS)]
+        [TestCase(CharacterAttributes.CHA)]
+        public void ModifyCapabilities_ReturnsCapabilityList(CharacterAttributes characterAttribute)
         {
             // Arrange
-            IEnumerable<Capability> capabilities = [
-                new()
-                {
-                    Name = "Test1",
-                    AssociatedAttribute = Enums.CharacterAttributes.STR,
-                    Value = "",
-                },
-                new()
-                {
-                    Name = "Test1",
-                    AssociatedAttribute = Enums.CharacterAttributes.DEX,
-                    Value = "",
-                }
-            ];
+            string value = "+2";
 
-            List<Capability> expected = [
-                new()
+            List<Capability> expected = Enum.GetValues(typeof(CharacterAttributes))
+                .Cast<CharacterAttributes>()
+                .Select(attribute => new Capability
                 {
-                    Name = "Test1",
-                    AssociatedAttribute = Enums.CharacterAttributes.STR,
-                    Value = "+2",
-                },
-                new()
+                    Name = "Test_" + attribute.ToString(),
+                    AssociatedAttribute = attribute,
+                    Value = attribute == characterAttribute ? value : string.Empty
+                }).ToList();
+
+            IEnumerable<Capability> capabilities = Enum.GetValues(typeof(CharacterAttributes))
+                .Cast<CharacterAttributes>()
+                .Select(attribute => new Capability
                 {
-                    Name = "Test1",
-                    AssociatedAttribute = Enums.CharacterAttributes.DEX,
-                    Value = "",
-                }
-            ];
+                    Name = "Test_" + attribute.ToString(),
+                    AssociatedAttribute = attribute,
+                    Value = string.Empty
+                });
 
             // Act
-            List<Capability> actual = _service.ModifyCapabilities(capabilities, "+2", CharacterAttributes.STR).ToList();
+            List<Capability> actual = _service.ModifyCapabilities(capabilities, value, characterAttribute).ToList();
 
             // Assert
             Assert.That(actual, Has.Count.EqualTo(expected.Count));
-
-            Assert.Multiple(() =>
+            for (int i = 0; i < expected.Count; i++)
             {
-                for(int i = 0; i < expected.Count; i++)
+                Assert.Multiple(() =>
                 {
                     Assert.That(actual[i].Name, Is.EqualTo(expected[i].Name));
                     Assert.That(actual[i].AssociatedAttribute, Is.EqualTo(expected[i].AssociatedAttribute));
                     Assert.That(actual[i].Value, Is.EqualTo(expected[i].Value));
-                }
-            });
+                });
+            }
         }
 
         [Test]
         public void StringToCharacterAttributes_ReturnsCharacterAttribute()
         {
             // Arrange
-            List<Enums.CharacterAttributes> expected = [
-                Enums.CharacterAttributes.STR,
-                Enums.CharacterAttributes.DEX,
-                Enums.CharacterAttributes.CON,
-                Enums.CharacterAttributes.INT,
-                Enums.CharacterAttributes.WIS,
-                Enums.CharacterAttributes.CHA
+            List<CharacterAttributes> expected = [
+                CharacterAttributes.STR,
+                CharacterAttributes.DEX,
+                CharacterAttributes.CON,
+                CharacterAttributes.INT,
+                CharacterAttributes.WIS,
+                CharacterAttributes.CHA
             ];
 
-            List<string> inputs = ["str", "Dex", "CON", "InT", "WIs", "CHA"];
-            List<Enums.CharacterAttributes> actual = [];
+            List<string> inputs = ["str", "Dex", "CON  ", "InT", "WIs", "  CHA"];
+            List<CharacterAttributes> actual = [];
 
             // Act
             foreach (string input in inputs)
@@ -187,6 +183,45 @@ namespace DnDTests.Services
 
             // Assert
             Assert.That(actual, Is.EqualTo(_invalidAttributeError));
+        }
+
+
+        [TestCase(CharacterAttributes.STR)]
+        [TestCase(CharacterAttributes.DEX)]
+        [TestCase(CharacterAttributes.CON)]
+        [TestCase(CharacterAttributes.INT)]
+        [TestCase(CharacterAttributes.WIS)]
+        [TestCase(CharacterAttributes.CHA)]
+        public void ModifyAttributes_ReturnsAttributeList(CharacterAttributes characterAttribute)
+        {
+            //Arrange
+            int value = 10;
+            string modifier = "0";
+            Sheet sheet = new();
+
+            List<Models.Attribute> expected = Enum.GetValues(typeof(CharacterAttributes))
+                .Cast<CharacterAttributes>()
+                .Select(attribute => new Models.Attribute
+                {
+                    Name = attribute,
+                    Modifier = attribute == characterAttribute ? modifier : "",
+                    Value = attribute == characterAttribute ? value.ToString() : ""
+                }).ToList();
+
+            // Act
+            List<Models.Attribute> actual = _service.ModifyAttributes(sheet.Attributes, value.ToString(), modifier, characterAttribute).ToList();
+
+            // Assert
+            Assert.That(actual, Has.Count.EqualTo(expected.Count));
+            for (int i = 0; i < expected.Count; i++)
+            {
+                Assert.Multiple(() =>
+                {
+                    Assert.That(actual[i].Name, Is.EqualTo(expected[i].Name));
+                    Assert.That(actual[i].Modifier, Is.EqualTo(expected[i].Modifier));
+                    Assert.That(actual[i].Value, Is.EqualTo(expected[i].Value));
+                });
+            }
         }
     }
 }

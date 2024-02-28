@@ -1,4 +1,5 @@
 ﻿using Enums;
+using Exceptions;
 using Interfaces;
 using Models;
 using Moq;
@@ -21,26 +22,30 @@ namespace DnDTests.Strategies
                 .Setup(m => m.ValueToAttributeModifier(It.IsAny<int>()))
                 .Returns(_expectedModifier);
             _utilsServiceMock
-                .Setup(m => m.ModifyCapabilities(It.IsAny<IEnumerable<Capability>>(), It.IsAny<string>(), It.IsAny<Enums.CharacterAttributes>()))
+                .Setup(m => m.ModifyCapabilities(It.IsAny<IEnumerable<Capability>>(), It.IsAny<string>(), It.IsAny<CharacterAttributes>()))
                 .Returns([]);
-            _strategy = new RollingDiceStrategy(_utilsServiceMock.Object, Enums.CharacterAttributes.STR);
+            _utilsServiceMock
+                .Setup(m => m.ModifyAttributes(It.IsAny<IEnumerable<Models.Attribute>>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CharacterAttributes>()))
+                .Returns([]);
+            _strategy = new RollingDiceStrategy(_utilsServiceMock.Object, CharacterAttributes.STR);
         }
 
         [Test]
         public void SetStrengthAttribute_ValidValue_ReturnsSheet()
         {
             // Arrange
-            //Sheet expected = new()
-            //{
-            //    StrengthAttribute = _expectedModifier
-            //};
+            // Act
+            try
+            {
+                _ = _strategy.SetAttribute(new Sheet(), 8);
+            }
+            catch (BadRequestException)
+            {
+                Assert.Fail();
+            }
 
-            //// Act
-            //Sheet actual = _strategy.SetAttribute(new Sheet(), 6);
-
-
-            //// Assert
-            //Assert.That(actual.StrengthAttribute, Is.EqualTo(expected.StrengthAttribute));
+            // Assert
+            Assert.Pass();
         }
 
         [Test]
@@ -54,7 +59,7 @@ namespace DnDTests.Strategies
             {
                 _ = _strategy.SetAttribute(new Sheet(), 2);
             }
-            catch (Exception ex)
+            catch (BadRequestException ex)
             {
                 actual = ex.Message;
             }
@@ -74,7 +79,7 @@ namespace DnDTests.Strategies
             {
                 _ = _strategy.SetAttribute(new Sheet(), 19);
             }
-            catch (Exception ex)
+            catch (BadRequestException ex)
             {
                 actual = ex.Message;
             }

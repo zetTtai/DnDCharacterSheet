@@ -23,7 +23,7 @@ namespace DnDTests.Converters
             Capability capability = new()
             {
                 Name = "Test",
-                AssociatedAttribute = Enums.CharacterAttributes.STR,
+                AssociatedAttribute = CharacterAttributes.STR,
                 Value = "Test",
             };
 

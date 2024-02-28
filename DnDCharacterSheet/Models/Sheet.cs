@@ -38,23 +38,23 @@ namespace Models
                     Modifier = "",
                 }).ToList();
 
-            Dictionary<string, Enums.CharacterAttributes> staticSkills = new()
+            Dictionary<string, CharacterAttributes> staticSkills = new()
             {
-                {"Athletics", Enums.CharacterAttributes.STR },
-                {"Acrobatics", Enums.CharacterAttributes.DEX },
-                {"Persuasion", Enums.CharacterAttributes.CHA },
-                {"History", Enums.CharacterAttributes.INT },
-                {"Survival", Enums.CharacterAttributes.WIS },
-                {"Intimidation", Enums.CharacterAttributes.CHA },
+                {"Athletics", CharacterAttributes.STR },
+                {"Acrobatics", CharacterAttributes.DEX },
+                {"Persuasion", CharacterAttributes.CHA },
+                {"History", CharacterAttributes.INT },
+                {"Survival", CharacterAttributes.WIS },
+                {"Intimidation", CharacterAttributes.CHA },
             };
-            Dictionary<string, Enums.CharacterAttributes> staticSavingThrows = new()
+            Dictionary<string, CharacterAttributes> staticSavingThrows = new()
             {
-                {"Strength", Enums.CharacterAttributes.STR },
-                {"Dexterity", Enums.CharacterAttributes.DEX },
-                {"Constitution", Enums.CharacterAttributes.CON },
-                {"Intelligence", Enums.CharacterAttributes.INT },
-                {"Wisdom", Enums.CharacterAttributes.WIS },
-                {"Charisma", Enums.CharacterAttributes.CHA },
+                {"Strength", CharacterAttributes.STR },
+                {"Dexterity", CharacterAttributes.DEX },
+                {"Constitution", CharacterAttributes.CON },
+                {"Intelligence", CharacterAttributes.INT },
+                {"Wisdom", CharacterAttributes.WIS },
+                {"Charisma", CharacterAttributes.CHA },
             };
 
             Skills = staticSkills.Select(skill => new Capability
