@@ -4,6 +4,8 @@ namespace Interfaces
 {
     public interface ICoinService
     {
-        public IEnumerable<CoinDTO> GetAllCoins();
+        IEnumerable<CoinDTO> GetAllCoins();
+        CoinDTO AddCoin(CoinDTO coinDto);
+        CoinDTO GetCoinById(long id);
     }
 }

@@ -2,8 +2,8 @@
 {
     public class CoinDTO
     {
-        public int Id;
-        public required string Name;
-        public required string Initials;
+        public long Id { get; set; }
+        public required string Name { get; set; }
+        public required string Initials { get; set; }
     }
 }

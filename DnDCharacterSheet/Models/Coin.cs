@@ -7,7 +7,7 @@ namespace Models
     {
         [Key]
         [Column("id")]
-        public required int Id { get; set; }
+        public long Id { get; set; }
         [Column("name")]
         public required string Name { get; set; }
         [Column("initials")]

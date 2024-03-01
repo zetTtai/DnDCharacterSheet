@@ -1,9 +1,7 @@
-﻿using DnDCharacterSheet;
-using DTOs;
+﻿using DTOs;
 using Exceptions;
 using Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Repositories;
 
 namespace Controllers
 {
@@ -17,17 +15,25 @@ namespace Controllers
         private readonly ILogger<CoinController> _logger = logger ?? throw new ArgumentNullException();
         private readonly ICoinService _service = service ?? throw new ArgumentNullException();
 
-
         [HttpPost]
-        public ActionResult<SheetDTO> Create([FromBody] CoinRequestDTO request)
+        public ActionResult<CoinDTO> CreateCoin([FromBody] CoinRequestDTO request)
         {
             try
             {
-                return Ok();
+                CoinDTO coin = _service.AddCoin(new CoinDTO()
+                {
+                    Name = request.Name ?? throw new BadRequestException(),
+                    Initials = request.Initials ?? throw new BadRequestException()
+                });
+                return Ok(coin);
             }
-            catch (BadRequestException ex) 
+            catch (BadRequestException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new ErrorDTO()
+                {
+                    StatusCode = 400,
+                    Message = ex.Message,
+                });
             }
         }
 
@@ -39,6 +45,24 @@ namespace Controllers
             return Ok(coins);
         }
 
+        [HttpGet("{id}")]
+        public ActionResult<IEnumerable<CoinDTO>> GetCoin(long id)
+        {
+            try
+            {
+                var coin = _service.GetCoinById(id);
+                return Ok(coin);
+            }
+            catch (BadRequestException ex)
+            {
+                return BadRequest(new ErrorDTO()
+                {
+                    StatusCode = 400,
+                    Message = ex.Message,
+                });
+            }
+        }
+
         [HttpPut("{id}")]
         public ActionResult<SheetDTO> Update(int id, [FromBody] CoinRequestDTO request)
         {
@@ -48,7 +72,11 @@ namespace Controllers
             }
             catch (BadRequestException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new ErrorDTO()
+                {
+                    StatusCode = 400,
+                    Message = ex.Message,
+                });
             }
         }
 
@@ -61,7 +89,11 @@ namespace Controllers
             }
             catch (BadRequestException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new ErrorDTO()
+                {
+                    StatusCode = 400,
+                    Message = ex.Message,
+                });
             }
         }
     }
