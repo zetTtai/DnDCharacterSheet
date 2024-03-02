@@ -1,5 +1,4 @@
 ﻿using DnDCharacterSheet;
-using Exceptions;
 using Interfaces;
 using Models;
 
@@ -16,15 +15,44 @@ namespace Repositories
             return coin;
         }
 
+        public bool DeleteCoin(long id)
+        {
+            var coinToDelete = GetCoinById(id);
+            if (coinToDelete == null)
+            {
+                return false;
+            }
+
+            _dbContext.Coins.Remove(coinToDelete);
+            _dbContext.SaveChanges();
+
+            return true;
+        }
+
         public IEnumerable<Coin> GetAllCoins()
         {
             return _dbContext.Coins.ToList();
         }
 
-        public Coin GetCoinById(long id)
+        public Coin? GetCoinById(long id)
         {
-            var coin = _dbContext.Coins.Find(id);
-            return coin ?? throw new BadRequestException("There is no Coin with the given id");
+            return _dbContext.Coins.Find(id);
         }
+
+        public Coin? UpdateCoin(Coin coin)
+        {
+            var existingCoin = GetCoinById(coin.Id);
+            if (existingCoin == null)
+            {
+                return null;
+            }
+
+            existingCoin.Name = coin.Name;
+            existingCoin.Initials = coin.Initials;
+
+            _dbContext.SaveChanges();
+            return existingCoin;
+        }
+
     }
 }

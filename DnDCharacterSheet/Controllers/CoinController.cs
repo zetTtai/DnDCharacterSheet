@@ -1,4 +1,5 @@
-﻿using DTOs;
+﻿using DnDCharacterSheet;
+using DTOs;
 using Exceptions;
 using Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -20,11 +21,8 @@ namespace Controllers
         {
             try
             {
-                CoinDTO coin = _service.AddCoin(new CoinDTO()
-                {
-                    Name = request.Name ?? throw new BadRequestException(),
-                    Initials = request.Initials ?? throw new BadRequestException()
-                });
+                // TODO: Verify user is admin
+                CoinDTO coin = _service.AddCoin(request);
                 return Ok(coin);
             }
             catch (BadRequestException ex)
@@ -41,7 +39,6 @@ namespace Controllers
         public ActionResult<IEnumerable<CoinDTO>> GetCoins()
         {
             var coins = _service.GetAllCoins();
-
             return Ok(coins);
         }
 
@@ -53,11 +50,11 @@ namespace Controllers
                 var coin = _service.GetCoinById(id);
                 return Ok(coin);
             }
-            catch (BadRequestException ex)
+            catch(NotFoundException ex)
             {
-                return BadRequest(new ErrorDTO()
+                return NotFound(new ErrorDTO()
                 {
-                    StatusCode = 400,
+                    StatusCode = 404,
                     Message = ex.Message,
                 });
             }
@@ -68,33 +65,35 @@ namespace Controllers
         {
             try
             {
-                return Ok();
+                // TODO: Verify user is admin
+                var coin = _service.UpdateCoin(id, request);
+                return Ok(coin);
             }
             catch (BadRequestException ex)
             {
                 return BadRequest(new ErrorDTO()
                 {
                     StatusCode = 400,
+                    Message = ex.Message,
+                });
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(new ErrorDTO()
+                {
+                    StatusCode = 404,
                     Message = ex.Message,
                 });
             }
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<SheetDTO> Delete(int id, [FromBody] CoinRequestDTO request)
+        public ActionResult Delete(int id, [FromBody] CoinRequestDTO request)
         {
-            try
-            {
-                return Ok();
-            }
-            catch (BadRequestException ex)
-            {
-                return BadRequest(new ErrorDTO()
-                {
-                    StatusCode = 400,
-                    Message = ex.Message,
-                });
-            }
+            // TODO: Verify user is admin
+            return _service.DeleteCoin(id)
+                ? Ok(Constants.CoinService.CoinDeleted)
+                : NotFound(Constants.CoinService.NoCoinFoundError);
         }
     }
 }
