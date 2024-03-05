@@ -12,7 +12,7 @@ namespace Converters
             {
                 Id = source.Id,
                 Name = source.Name,
-                Initials = source.Initials,
+                Initials = source.Initials
             };
         }
 
