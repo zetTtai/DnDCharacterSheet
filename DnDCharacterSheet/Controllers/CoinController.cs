@@ -50,7 +50,7 @@ namespace Controllers
                 var coin = _service.GetCoinById(id);
                 return Ok(coin);
             }
-            catch(NotFoundException ex)
+            catch(KeyNotFoundException ex)
             {
                 return NotFound(new ErrorDTO()
                 {
@@ -77,7 +77,7 @@ namespace Controllers
                     Message = ex.Message,
                 });
             }
-            catch (NotFoundException ex)
+            catch (KeyNotFoundException ex)
             {
                 return NotFound(new ErrorDTO()
                 {

@@ -18,7 +18,7 @@ namespace Repositories
         public bool DeleteCoin(long id)
         {
             var coinToDelete = GetCoinById(id);
-            if (coinToDelete == null)
+            if (coinToDelete is null)
             {
                 return false;
             }

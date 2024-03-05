@@ -18,7 +18,7 @@ namespace Services
 
         public CoinDTO GetCoinById(long id)
         {
-            var coin = _repository.GetCoinById(id) ?? throw new NotFoundException(Constants.CoinService.NoCoinFoundError);
+            var coin = _repository.GetCoinById(id) ?? throw new KeyNotFoundException(Constants.CoinService.NoCoinFoundError);
 
             return _converter.Convert(coin);
         }
@@ -44,7 +44,7 @@ namespace Services
                 Initials = request.Initials ?? throw new BadRequestException(Constants.CoinService.NoInitialsError),
             };
 
-            var updatedCoin = _repository.UpdateCoin(coin) ?? throw new NotFoundException(Constants.CoinService.NoCoinFoundError);
+            var updatedCoin = _repository.UpdateCoin(coin) ?? throw new KeyNotFoundException(Constants.CoinService.NoCoinFoundError);
             return _converter.Convert(updatedCoin);
         }
 

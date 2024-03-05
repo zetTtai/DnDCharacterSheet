@@ -217,7 +217,7 @@ namespace DnDTests.Services
             {
                 _service.GetCoinById(3);
             }
-            catch (NotFoundException ex)
+            catch (KeyNotFoundException ex)
             {
                 actual = ex.Message;
             }
@@ -333,7 +333,7 @@ namespace DnDTests.Services
             {
                 _service.UpdateCoin(id, request);
             }
-            catch (NotFoundException ex)
+            catch (KeyNotFoundException ex)
             {
                 actual = ex.Message;
             }
