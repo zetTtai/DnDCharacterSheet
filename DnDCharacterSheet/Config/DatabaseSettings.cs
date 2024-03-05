@@ -1,4 +1,4 @@
-﻿public class DatabaseConnection
+﻿public class DatabaseSettings
 {
     public const string Environment = "Development";
     public string ServerName { get; set; } = String.Empty;

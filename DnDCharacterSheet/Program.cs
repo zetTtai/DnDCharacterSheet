@@ -13,11 +13,11 @@ using Strategies;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.Configure<DatabaseConnection>(builder.Configuration.GetSection(DatabaseConnection.Environment));
+builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection(DatabaseSettings.Environment));
 
 builder.Services.AddDbContext<AppDbContext>((serviceProvider, options) => 
 {
-    var dbSettings = serviceProvider.GetRequiredService<IOptions<DatabaseConnection>>().Value;
+    var dbSettings = serviceProvider.GetRequiredService<IOptions<DatabaseSettings>>().Value;
     var connectionString = $"Server={dbSettings.ServerName};" +
                        $"Database={dbSettings.DatabaseName};" +
                        $"Trusted_Connection={dbSettings.UseTrustedConnection};" +
