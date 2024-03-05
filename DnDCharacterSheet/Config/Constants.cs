@@ -1,4 +1,4 @@
-﻿namespace DnDCharacterSheet
+﻿namespace Config
 {
     public static class Constants
     {

@@ -1,16 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Models
+﻿namespace Models
 {
     public class Coin
     {
-        [Key]
-        [Column("id")]
         public long Id { get; set; }
-        [Column("name")]
         public required string Name { get; set; }
-        [Column("initials")]
         public required string Initials { get; set; }
 
         public Coin()

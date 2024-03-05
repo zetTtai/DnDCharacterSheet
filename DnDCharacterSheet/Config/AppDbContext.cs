@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Models;
 
-namespace DnDCharacterSheet
+namespace Config
 {
     public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
     {

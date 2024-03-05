@@ -1,4 +1,4 @@
-﻿using DnDCharacterSheet;
+﻿using Config;
 using Enums;
 using Exceptions;
 using Interfaces;
