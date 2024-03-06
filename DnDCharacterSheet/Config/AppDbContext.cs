@@ -6,6 +6,6 @@ namespace Config
 {
     public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
     {
-        public DbSet<Coin> Coins { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
     }
 }

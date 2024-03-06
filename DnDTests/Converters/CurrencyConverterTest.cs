@@ -6,27 +6,27 @@ using Models;
 
 namespace DnDTests.Converters
 {
-    internal class CoinConverterTest
+    internal class CurrencyConverterTest
     {
-        private IConverter<Coin, CoinDTO> _mapper;
+        private IConverter<Currency, CurrencyDTO> _mapper;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            _mapper = new CoinConverter();
+            _mapper = new CurrencyConverter();
         }
         [Test]
-        public void Convert_Coin_ReturnCoinDTO()
+        public void Convert_Currency_ReturnCurrencyDTO()
         {
             // Arrange
-            Coin coin = new()
+            Currency currency = new()
             {
                 Id = 1,
                 Name = "Test",
                 Initials = "TT",
             };
 
-            CoinDTO expected = new()
+            CurrencyDTO expected = new()
             {
                 Id = 1,
                 Name = "Test",
@@ -34,7 +34,7 @@ namespace DnDTests.Converters
             };
 
             // Act
-            var actual = _mapper.Convert(coin);
+            var actual = _mapper.Convert(currency);
 
             // Assert
             Assert.Multiple(() =>
@@ -46,31 +46,31 @@ namespace DnDTests.Converters
         }
 
         [Test]
-        public void Convert_List_ReturnCoinDTOList()
+        public void Convert_List_ReturnCurrencyDTOList()
         {
             // Arrange
-            IEnumerable<Coin> coins = [
-                new Coin()
+            IEnumerable<Currency> currencies = [
+                new Currency()
                 {
                     Id = 1,
                     Name = "Test",
                     Initials = "TT",
                 },
-                new Coin()
+                new Currency()
                 {
                     Id = 2,
                     Name = "Test2",
                     Initials = "TG",
                 },
             ];
-            List<CoinDTO> expected = [
-                new CoinDTO()
+            List<CurrencyDTO> expected = [
+                new CurrencyDTO()
                 {
                     Id = 1,
                     Name = "Test",
                     Initials = "TT",
                 },
-                new CoinDTO()
+                new CurrencyDTO()
                 {
                     Id = 2,
                     Name = "Test2",
@@ -79,7 +79,7 @@ namespace DnDTests.Converters
             ];
 
             // Act
-            List<CoinDTO> actual = _mapper.Convert(coins).ToList();
+            List<CurrencyDTO> actual = _mapper.Convert(currencies).ToList();
 
             // Assert
             Assert.That(actual, Has.Count.EqualTo(expected.Count));

@@ -6,36 +6,36 @@ using Microsoft.AspNetCore.Mvc;
 namespace Controllers
 {
     [ApiController]
-    [Route("coins")]
-    public class CoinController(
-        ILogger<CoinController> logger,
-        ICoinService service
+    [Route("currencies")]
+    public class CurrencyController(
+        ILogger<CurrencyController> logger,
+        ICurrencyService service
         ) : ControllerBase
     {
-        private readonly ILogger<CoinController> _logger = logger ?? throw new ArgumentNullException();
-        private readonly ICoinService _service = service ?? throw new ArgumentNullException();
+        private readonly ILogger<CurrencyController> _logger = logger ?? throw new ArgumentNullException();
+        private readonly ICurrencyService _service = service ?? throw new ArgumentNullException();
 
         [HttpPost]
-        public ActionResult<CoinDTO> CreateCoin([FromBody] CoinRequestDTO request)
+        public ActionResult<CurrencyDTO> CreateCurrency([FromBody] CurrencyRequestDTO request)
         {
             // TODO: Verify user is admin
-            CoinDTO coin = _service.AddCoin(request);
+            CurrencyDTO coin = _service.AddCurrency(request);
             return Ok(coin);
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<CoinDTO>> GetCoins()
+        public ActionResult<IEnumerable<CurrencyDTO>> GetCurrencies()
         {
-            var coins = _service.GetAllCoins();
+            var coins = _service.GetAllCurrencies();
             return Ok(coins);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<IEnumerable<CoinDTO>> GetCoin(long id)
+        public ActionResult<IEnumerable<CurrencyDTO>> GetCurrency(long id)
         {
             try
             {
-                var coin = _service.GetCoinById(id);
+                var coin = _service.GetCurrencyById(id);
                 return Ok(coin);
             }
             catch(KeyNotFoundException ex)
@@ -49,12 +49,12 @@ namespace Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<SheetDTO> Update(int id, [FromBody] CoinRequestDTO request)
+        public ActionResult<SheetDTO> Update(int id, [FromBody] CurrencyRequestDTO request)
         {
             try
             {
                 // TODO: Verify user is admin
-                var coin = _service.UpdateCoin(id, request);
+                var coin = _service.UpdateCurrency(id, request);
                 return Ok(coin);
             }
             catch (KeyNotFoundException ex)
@@ -68,12 +68,12 @@ namespace Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id, [FromBody] DeleteCoinRequestDTO request)
+        public ActionResult Delete(int id, [FromBody] DeleteCurrencyRequestDTO request)
         {
             // TODO: Verify user is admin
-            return _service.DeleteCoin(id)
-                ? Ok(Constants.CoinService.CoinDeleted)
-                : NotFound(Constants.CoinService.NoCoinFoundError);
+            return _service.DeleteCurrency(id)
+                ? Ok(Constants.CurrencyService.CurrencyDeleted)
+                : NotFound(Constants.CurrencyService.NoCurrencyFoundError);
         }
     }
 }

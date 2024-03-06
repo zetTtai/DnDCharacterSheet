@@ -2,7 +2,7 @@
 
 namespace DTOs
 {
-    public class CoinDTO
+    public class CurrencyDTO
     {
         [Key]
         public long Id { get; set; }

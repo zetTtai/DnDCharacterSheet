@@ -27,13 +27,13 @@ builder.Services.AddDbContext<AppDbContext>((serviceProvider, options) =>
 });
 
 // Repositories
-builder.Services.AddScoped<ICoinRepository, CoinRepository>();
+builder.Services.AddScoped<ICurrencyRepository, CurrencyRepository>();
 
 // Add services to the container.
 builder.Services.AddSingleton<IUtilsService, UtilsService>();
 builder.Services.AddSingleton<IConverter<Capability, CapabilityDTO>, CapabilityConverter>();
 builder.Services.AddSingleton<IConverter<Sheet, SheetDTO>, SheetConverter>();
-builder.Services.AddSingleton<IConverter<Coin, CoinDTO>, CoinConverter>();
+builder.Services.AddSingleton<IConverter<Currency, CurrencyDTO>, CurrencyConverter>();
 
 // Strategies
 builder.Services.AddSingleton<ISettingAttributeStrategyFactory, SettingAttributeStrategyFactory>();
@@ -41,7 +41,7 @@ builder.Services.AddSingleton<IAttributeSettingStrategy, RollingDiceStrategy>();
 
 // Services - Model
 builder.Services.AddSingleton<ISheetService, SheetService>();
-builder.Services.AddScoped<ICoinService, CoinService>();
+builder.Services.AddScoped<ICurrencyService, CurrencyService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -4,11 +4,11 @@ using Models;
 
 namespace Converters
 {
-    public class CoinConverter : IConverter<Coin, CoinDTO>
+    public class CurrencyConverter : IConverter<Currency, CurrencyDTO>
     {
-        public CoinDTO Convert(Coin source)
+        public CurrencyDTO Convert(Currency source)
         {
-            return new CoinDTO()
+            return new CurrencyDTO()
             {
                 Id = source.Id,
                 Name = source.Name,
@@ -16,7 +16,7 @@ namespace Converters
             };
         }
 
-        public IEnumerable<CoinDTO> Convert(IEnumerable<Coin> source)
+        public IEnumerable<CurrencyDTO> Convert(IEnumerable<Currency> source)
         {
             return source.Select(Convert);
         }

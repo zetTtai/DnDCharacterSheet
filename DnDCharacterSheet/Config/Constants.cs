@@ -2,12 +2,10 @@
 {
     public static class Constants
     {
-        public static class CoinService
+        public static class CurrencyService
         {
-            public readonly static string NoNameError = "Name field is required";
-            public readonly static string NoInitialsError = "Initials field is required";
-            public readonly static string NoCoinFoundError = "There is no coin with the given ID";
-            public readonly static string CoinDeleted = "Coin successfully deleted";
+            public readonly static string NoCurrencyFoundError = "There is no currency with the given ID";
+            public readonly static string CurrencyDeleted = "Currency successfully deleted";
 
         }
 

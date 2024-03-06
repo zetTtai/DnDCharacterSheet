@@ -2,7 +2,7 @@
 
 namespace DTOs
 {
-    public class DeleteCoinRequestDTO
+    public class DeleteCurrencyRequestDTO
     {
         [Required(ErrorMessage = "user (id) field is required.")]
         public required long User { get; set; }
