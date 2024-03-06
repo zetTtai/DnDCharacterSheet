@@ -27,8 +27,8 @@ namespace Services
         {
             var coin = new Coin
             {
-                Name = request.Name ?? throw new BadRequestException(Constants.CoinService.NoNameError),
-                Initials = request.Initials ?? throw new BadRequestException(Constants.CoinService.NoInitialsError),
+                Name = request.Name,
+                Initials = request.Initials,
             };
 
             var addedCoin = _repository.AddCoin(coin);
@@ -40,8 +40,8 @@ namespace Services
             var coin = new Coin
             {
                 Id = id,
-                Name = request.Name ?? throw new BadRequestException(Constants.CoinService.NoNameError),
-                Initials = request.Initials ?? throw new BadRequestException(Constants.CoinService.NoInitialsError),
+                Name = request.Name,
+                Initials = request.Initials,
             };
 
             var updatedCoin = _repository.UpdateCoin(coin) ?? throw new KeyNotFoundException(Constants.CoinService.NoCoinFoundError);

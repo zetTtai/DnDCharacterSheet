@@ -16,7 +16,7 @@ namespace DnDTests.Converters
             _mapper = new CoinConverter();
         }
         [Test]
-        public void Convert_Capability_ReturnCoinDTO()
+        public void Convert_Coin_ReturnCoinDTO()
         {
             // Arrange
             Coin coin = new()
@@ -34,7 +34,7 @@ namespace DnDTests.Converters
             };
 
             // Act
-            CoinDTO actual = _mapper.Convert(coin);
+            var actual = _mapper.Convert(coin);
 
             // Assert
             Assert.Multiple(() =>

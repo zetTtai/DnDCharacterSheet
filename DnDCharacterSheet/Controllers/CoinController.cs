@@ -1,6 +1,5 @@
 ﻿using Config;
 using DTOs;
-using Exceptions;
 using Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,20 +18,9 @@ namespace Controllers
         [HttpPost]
         public ActionResult<CoinDTO> CreateCoin([FromBody] CoinRequestDTO request)
         {
-            try
-            {
-                // TODO: Verify user is admin
-                CoinDTO coin = _service.AddCoin(request);
-                return Ok(coin);
-            }
-            catch (BadRequestException ex)
-            {
-                return BadRequest(new ErrorDTO()
-                {
-                    StatusCode = 400,
-                    Message = ex.Message,
-                });
-            }
+            // TODO: Verify user is admin
+            CoinDTO coin = _service.AddCoin(request);
+            return Ok(coin);
         }
 
         [HttpGet]
@@ -69,14 +57,6 @@ namespace Controllers
                 var coin = _service.UpdateCoin(id, request);
                 return Ok(coin);
             }
-            catch (BadRequestException ex)
-            {
-                return BadRequest(new ErrorDTO()
-                {
-                    StatusCode = 400,
-                    Message = ex.Message,
-                });
-            }
             catch (KeyNotFoundException ex)
             {
                 return NotFound(new ErrorDTO()
@@ -88,7 +68,7 @@ namespace Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id, [FromBody] CoinRequestDTO request)
+        public ActionResult Delete(int id, [FromBody] DeleteCoinRequestDTO request)
         {
             // TODO: Verify user is admin
             return _service.DeleteCoin(id)

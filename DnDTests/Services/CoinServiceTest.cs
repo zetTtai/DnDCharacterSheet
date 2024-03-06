@@ -130,57 +130,6 @@ namespace DnDTests.Services
         }
 
         [Test]
-        public void AddCoin_NoName_ReturnsException()
-        {
-            // Arrange
-            CoinRequestDTO request = new()
-            {
-                Initials = _expectedFirstCoin.Initials,
-            };
-            string actual = "";
-            string expected = "Name field is required";
-
-            // Act
-            try
-            {
-                _service.AddCoin(request);
-            }
-            catch (BadRequestException ex)
-            {
-                actual = ex.Message;
-            }
-
-            // Assert
-            Assert.That(actual, Is.EqualTo(expected));
-        }
-
-
-        [Test]
-        public void AddCoin_NoInitials_ReturnsException()
-        {
-            // Arrange
-            CoinRequestDTO request = new()
-            {
-                Name = _expectedFirstCoin.Name,
-            };
-            string actual = "";
-            string expected = "Initials field is required";
-
-            // Act
-            try
-            {
-                _service.AddCoin(request);
-            }
-            catch (BadRequestException ex)
-            {
-                actual = ex.Message;
-            }
-
-            // Assert
-            Assert.That(actual, Is.EqualTo(expected));
-        }
-
-        [Test]
         public void GetCoinById_ValidId_ReturnsCoinDTO()
         {
             // Arrange
@@ -252,67 +201,6 @@ namespace DnDTests.Services
                 Assert.That(actual.Name, Is.EqualTo(_expectedFirstCoin.Name));
                 Assert.That(actual.Initials, Is.EqualTo(_expectedFirstCoin.Initials));
             });
-        }
-
-        [Test]
-        public void UpdateCoin_NoName_ReturnsException()
-        {
-            // Arrange
-            CoinRequestDTO request = new()
-            {
-                Initials = _expectedFirstCoin.Initials,
-            };
-            long id = 1;
-            string actual = "";
-            string expected = "Name field is required";
-
-            // Act
-            try
-            {
-                _service.UpdateCoin(id, request);
-            }
-            catch (BadRequestException ex)
-            {
-                actual = ex.Message;
-            }
-
-            // Assert
-            _coinRepository.Verify(repo => repo.UpdateCoin(It.Is<Coin>(coin => 
-                coin.Id == id 
-                && coin.Initials == request.Initials
-            )), Times.Never);
-            Assert.That(actual, Is.EqualTo(expected));
-        }
-
-
-        [Test]
-        public void UpdateCoin_NoInitials_ReturnsException()
-        {
-            // Arrange
-            CoinRequestDTO request = new()
-            {
-                Name = _expectedFirstCoin.Name,
-            };
-            long id = 1;
-            string actual = "";
-            string expected = "Initials field is required";
-
-            // Act
-            try
-            {
-                _service.UpdateCoin(id, request);
-            }
-            catch (BadRequestException ex)
-            {
-                actual = ex.Message;
-            }
-
-            // Assert
-            _coinRepository.Verify(repo => repo.UpdateCoin(It.Is<Coin>(coin =>
-                coin.Id == id 
-                && coin.Name == request.Name
-            )), Times.Never);
-            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
