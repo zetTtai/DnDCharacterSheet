@@ -1,6 +1,7 @@
 ﻿using Config;
 using Interfaces;
 using Models;
+using Optional;
 
 namespace Repositories
 {
@@ -17,16 +18,15 @@ namespace Repositories
 
         public bool DeleteCurrency(long id)
         {
-            var currencyToDelete = GetCurrencyById(id);
-            if (currencyToDelete is null)
-            {
-                return false;
-            }
-
-            _dbContext.Currencies.Remove(currencyToDelete);
-            _dbContext.SaveChanges();
-
-            return true;
+            return GetCurrencyById(id).Match(
+                some: currencyToDelete =>
+                {
+                    _dbContext.Currencies.Remove(currencyToDelete);
+                    _dbContext.SaveChanges();
+                    return true;
+                },
+                none: () => false
+            );
         }
 
         public IEnumerable<Currency> GetAllCurrency()
@@ -34,24 +34,30 @@ namespace Repositories
             return _dbContext.Currencies.ToList();
         }
 
-        public Currency? GetCurrencyById(long id)
+        public Option<Currency> GetCurrencyById(long id)
         {
-            return _dbContext.Currencies.Find(id);
+            var currency = _dbContext.Currencies.Find(id);
+            if (currency is null)
+            {
+                return Option.None<Currency>();
+            }
+            return Option.Some(currency);
         }
 
-        public Currency? UpdateCurrency(Currency currency)
+        public Option<Currency> UpdateCurrency(Currency currency)
         {
-            var existingcurrency = GetCurrencyById(currency.Id);
-            if (existingcurrency == null)
-            {
-                return null;
-            }
+            return GetCurrencyById(currency.Id).Match(
+                some: existingCurrency =>
+                {
+                    existingCurrency.Name = currency.Name;
+                    existingCurrency.Initials  = currency.Initials;
 
-            existingcurrency.Name = currency.Name;
-            existingcurrency.Initials = currency.Initials;
+                    _dbContext.SaveChanges();
 
-            _dbContext.SaveChanges();
-            return existingcurrency;
+                    return Option.Some(existingCurrency);
+                },
+                none: Option.None<Currency>
+            );
         }
 
     }

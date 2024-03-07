@@ -17,9 +17,12 @@ namespace Services
 
         public CurrencyDTO GetCurrencyById(long id)
         {
-            var coin = _repository.GetCurrencyById(id) ?? throw new KeyNotFoundException(Constants.CurrencyService.NoCurrencyFoundError);
+            var optionCurrency = _repository.GetCurrencyById(id);
 
-            return _converter.Convert(coin);
+            return optionCurrency.Match(
+                some: _converter.Convert,
+                none: () => throw new KeyNotFoundException(Constants.CurrencyService.NoCurrencyFoundError)
+            );
         }
 
         public CurrencyDTO AddCurrency(CurrencyRequestDTO request)
@@ -36,15 +39,19 @@ namespace Services
 
         public CurrencyDTO UpdateCurrency(long id, CurrencyRequestDTO request)
         {
-            var coin = new Currency
+            var currency = new Currency
             {
                 Id = id,
                 Name = request.Name,
                 Initials = request.Initials,
             };
 
-            var updatedCoin = _repository.UpdateCurrency(coin) ?? throw new KeyNotFoundException(Constants.CurrencyService.NoCurrencyFoundError);
-            return _converter.Convert(updatedCoin);
+            var OptionalUpdatedCoin = _repository.UpdateCurrency(currency);
+
+            return OptionalUpdatedCoin.Match(
+                some: converter.Convert,
+                none: () => throw new KeyNotFoundException(Constants.CurrencyService.NoCurrencyFoundError)
+            );
         }
 
         public bool DeleteCurrency(long id)

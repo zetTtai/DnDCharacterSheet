@@ -1,5 +1,6 @@
 ﻿using DTOs;
 using Models;
+using Optional;
 
 namespace Interfaces
 {
@@ -8,7 +9,7 @@ namespace Interfaces
         Currency AddCurrency(Currency currency);
         bool DeleteCurrency(long id);
         IEnumerable<Currency> GetAllCurrency();
-        Currency? GetCurrencyById(long id);
-        Currency? UpdateCurrency(Currency currency);
+        Option<Currency> GetCurrencyById(long id);
+        Option<Currency> UpdateCurrency(Currency currency);
     }
 }

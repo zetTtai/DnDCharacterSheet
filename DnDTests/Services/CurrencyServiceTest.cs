@@ -2,6 +2,7 @@
 using Interfaces;
 using Models;
 using Moq;
+using Optional;
 using Services;
 
 namespace DnDTests.Services
@@ -32,19 +33,19 @@ namespace DnDTests.Services
 
             _currencyRepository
                 .Setup(m => m.GetCurrencyById(It.Is<long>(id => id == 1)))
-                .Returns(_expectedFirstCurrency);
+                .Returns(Option.Some(_expectedFirstCurrency));
 
             _currencyRepository
                 .Setup(m => m.GetCurrencyById(It.Is<long>(id => id != 1)))
-                .Returns(value: null);
+                .Returns(Option.None<Currency>());
 
             _currencyRepository
                 .Setup(m => m.UpdateCurrency(It.Is<Currency>(coin => coin.Id == 1)))
-                .Returns(_expectedFirstCurrency);
+                .Returns(Option.Some(_expectedFirstCurrency));
 
             _currencyRepository
                 .Setup(m => m.UpdateCurrency(It.Is<Currency>(coin => coin.Id != 1)))
-                .Returns(value: null);
+                .Returns(Option.None<Currency>());
 
             _currencyRepository
                 .Setup(m => m.DeleteCurrency(It.Is<long>(id => id == 1)))
