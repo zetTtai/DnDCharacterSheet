@@ -7,7 +7,7 @@ using Models;
 namespace Controllers
 {
     [ApiController]
-    [Route("sheet")]
+    [Route("sheets")]
     public class SheetController(
         ILogger<SheetController> logger,
         ISheetService sheetService,
