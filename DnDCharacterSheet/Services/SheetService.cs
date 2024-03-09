@@ -1,24 +1,22 @@
 ﻿using DnDCharacterSheet;
-using Enums;
 using Interfaces;
 using Models;
 
-namespace Services
+namespace Services;
+
+public class SheetService : ISheetService
 {
-    public class SheetService : ISheetService
+    private IAbilitySettingStrategy? _attributeSettingStrategy;
+
+    public void SetAbilitySettingStrategy(IAbilitySettingStrategy strategy)
     {
-        private IAttributeSettingStrategy? _attributeSettingStrategy;
+        _attributeSettingStrategy = strategy;
+    }
 
-        public void SetAttributeSettingStrategy(IAttributeSettingStrategy strategy)
-        {
-            _attributeSettingStrategy = strategy;
-        }
-
-        public Sheet SetAttribute(Sheet sheet, int value)
-        {
-            return _attributeSettingStrategy != null ?
-                _attributeSettingStrategy.SetAttribute(sheet, value)
-                : throw new Exception(Constants.SheetService.NoStrategyError);
-        }
+    public Sheet SetAbility(Sheet sheet, int value)
+    {
+        return _attributeSettingStrategy != null ?
+            _attributeSettingStrategy.SetAbility(sheet, value)
+            : throw new Exception(Constants.SheetService.NoStrategyError);
     }
 }

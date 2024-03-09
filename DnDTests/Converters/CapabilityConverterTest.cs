@@ -4,95 +4,94 @@ using Enums;
 using Interfaces;
 using Models;
 
-namespace DnDTests.Converters
+namespace DnDTests.Converters;
+
+internal class CapabilityConverterTest
 {
-    internal class CapabilityConverterTest
+    private IConverter<Capability, CapabilityDTO> _mapper;
+
+    [OneTimeSetUp]
+    public void OneTimeSetUp()
     {
-        private IConverter<Capability, CapabilityDTO> _mapper;
+        _mapper = new CapabilityConverter();
+    }
 
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
+    [Test]
+    public void Convert_Capability_ReturnCapabilityDTO()
+    {
+        // Arrange
+        Capability capability = new()
         {
-            _mapper = new CapabilityConverter();
-        }
+            Name = "Test",
+            AssociatedAttribute = CharacterAbilities.STR,
+            Value = "Test",
+        };
 
-        [Test]
-        public void Convert_Capability_ReturnCapabilityDTO()
+        CapabilityDTO expected = new()
         {
-            // Arrange
-            Capability capability = new()
-            {
-                Name = "Test",
-                AssociatedAttribute = CharacterAttributes.STR,
-                Value = "Test",
-            };
+            Id = "Test",
+            AssociatedAttribute = "STR",
+            Value = "Test",
+        };
 
-            CapabilityDTO expected = new()
+        // Act
+        CapabilityDTO actual = _mapper.Convert(capability);
+
+        // Assert
+        Assert.Multiple(() =>
+        {
+            Assert.That(actual.Id, Is.EqualTo(expected.Id));
+            Assert.That(actual.AssociatedAttribute, Is.EqualTo(expected.AssociatedAttribute));
+            Assert.That(actual.Value, Is.EqualTo(expected.Value));
+        });
+    }
+
+    [Test]
+    public void Convert_List_ReturnCapabilityDTOList()
+    {
+        // Arrange
+        IEnumerable<Capability> capabilities = [
+            new Capability()
             {
-                Id = "Test",
+                Name = "Athletics",
+                AssociatedAttribute = CharacterAbilities.STR,
+                Value = string.Empty,
+            },
+            new Capability()
+            {
+                Name = "Acrobatics",
+                AssociatedAttribute = CharacterAbilities.DEX,
+                Value = string.Empty,
+            },
+        ];
+        List<CapabilityDTO> expected = [
+            new CapabilityDTO()
+            {
+                Id = "Athletics",
                 AssociatedAttribute = "STR",
-                Value = "Test",
-            };
+                Value = string.Empty,
+            },
+            new CapabilityDTO()
+            {
+                Id = "Acrobatics",
+                AssociatedAttribute = "DEX",
+                Value = string.Empty,
+            }
+        ];
 
-            // Act
-            CapabilityDTO actual = _mapper.Convert(capability);
+        // Act
+        List<CapabilityDTO> actual = _mapper.Convert(capabilities).ToList();
 
-            // Assert
+        // Assert
+        Assert.That(actual, Has.Count.EqualTo(expected.Count));
+        for (int i = 0; i < expected.Count; i++)
+        {
             Assert.Multiple(() =>
             {
-                Assert.That(actual.Id, Is.EqualTo(expected.Id));
-                Assert.That(actual.AssociatedAttribute, Is.EqualTo(expected.AssociatedAttribute));
-                Assert.That(actual.Value, Is.EqualTo(expected.Value));
+                Assert.That(actual[i].Id, Is.EqualTo(expected[i].Id));
+                Assert.That(actual[i].AssociatedAttribute, Is.EqualTo(expected[i].AssociatedAttribute));
+                Assert.That(actual[i].Value, Is.EqualTo(expected[i].Value));
             });
-        }
-
-        [Test]
-        public void Convert_List_ReturnCapabilityDTOList()
-        {
-            // Arrange
-            IEnumerable<Capability> capabilities = [
-                new Capability()
-                {
-                    Name = "Athletics",
-                    AssociatedAttribute = CharacterAttributes.STR,
-                    Value = string.Empty,
-                },
-                new Capability()
-                {
-                    Name = "Acrobatics",
-                    AssociatedAttribute = CharacterAttributes.DEX,
-                    Value = string.Empty,
-                },
-            ];
-            List<CapabilityDTO> expected = [
-                new CapabilityDTO()
-                {
-                    Id = "Athletics",
-                    AssociatedAttribute = "STR",
-                    Value = string.Empty,
-                },
-                new CapabilityDTO()
-                {
-                    Id = "Acrobatics",
-                    AssociatedAttribute = "DEX",
-                    Value = string.Empty,
-                }
-            ];
-
-            // Act
-            List<CapabilityDTO> actual = _mapper.Convert(capabilities).ToList();
-
-            // Assert
-            Assert.That(actual, Has.Count.EqualTo(expected.Count));
-            for (int i = 0; i < expected.Count; i++)
-            {
-                Assert.Multiple(() =>
-                {
-                    Assert.That(actual[i].Id, Is.EqualTo(expected[i].Id));
-                    Assert.That(actual[i].AssociatedAttribute, Is.EqualTo(expected[i].AssociatedAttribute));
-                    Assert.That(actual[i].Value, Is.EqualTo(expected[i].Value));
-                });
-            }
         }
     }
 }

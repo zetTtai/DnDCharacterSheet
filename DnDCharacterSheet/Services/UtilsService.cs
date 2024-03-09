@@ -3,55 +3,52 @@ using Enums;
 using Exceptions;
 using Interfaces;
 using Models;
+using Ability = Models.Ability;
 
-namespace Services
+namespace Services;
+
+public class UtilsService : IUtilsService
 {
-    public class UtilsService : IUtilsService
+    public IEnumerable<Ability> ModifyAbility(IEnumerable<Ability> attributes, string value, string modifier, CharacterAbilities associatedAttribute)
     {
-        public IEnumerable<Models.Attribute> ModifyAttributes(IEnumerable<Models.Attribute> attributes, string value, string modifier, CharacterAttributes associatedAttribute)
-        {
-            return attributes.Select(attribute =>
-                attribute.Name == associatedAttribute
-                ? new Models.Attribute
-                {
-                    Name = attribute.Name,
-                    Value = value,
-                    Modifier = modifier,
-                }
-                : attribute
-            );
-        }
-
-        public IEnumerable<Capability> ModifyCapabilities(IEnumerable<Capability> capabilities, string modifier, CharacterAttributes associatedAttribute)
-        {
-            return capabilities.Select(capability =>
-                capability.AssociatedAttribute == associatedAttribute
-                ? new Capability
-                {
-                    Name = capability.Name,
-                    AssociatedAttribute = capability.AssociatedAttribute,
-                    Value = modifier,
-                }
-                : capability
-            );
-        }
-
-        public CharacterAttributes StringToCharacterAttribute(string attribute)
-        {
-            if (Enum.TryParse(attribute.ToUpper(), out CharacterAttributes result))
+        return attributes.Select(attribute =>
+            attribute.Name == associatedAttribute
+            ? new Attribute
             {
-                return result;
+                Name = attribute.Name,
+                Value = value,
+                Modifier = modifier,
             }
+            : attribute
+        );
+    }
 
-            throw new BadRequestException(Constants.UtilsService.InvalidAttributeError);
-        }
+    public IEnumerable<Capability> ModifyCapabilities(IEnumerable<Capability> capabilities, string modifier, CharacterAbilities associatedAttribute)
+    {
+        return capabilities.Select(capability =>
+            capability.AssociatedAttribute == associatedAttribute
+            ? new Capability
+            {
+                Name = capability.Name,
+                AssociatedAttribute = capability.AssociatedAttribute,
+                Value = modifier,
+            }
+            : capability
+        );
+    }
 
-        public string ValueToAttributeModifier(int value)
-        {
-            double result = Math.Floor((double)(value - 10) / 2);
-            return result > 0 ?
-                "+" + result.ToString()
-                : result.ToString();
-        }
+    public CharacterAbilities StringToCharacterAbility(string attribute)
+    {
+        return Enum.TryParse(attribute.ToUpper(), out CharacterAbilities result)
+            ? result
+            : throw new BadRequestException(Constants.UtilsService.InvalidAttributeError);
+    }
+
+    public string ValueToAbilityModifier(int value)
+    {
+        double result = Math.Floor((double)(value - 10) / 2);
+        return result > 0 ?
+            "+" + result.ToString()
+            : result.ToString();
     }
 }

@@ -4,25 +4,24 @@ using Exceptions;
 using Interfaces;
 using Models;
 
-namespace Strategies
+namespace Strategies;
+
+public class RollingDiceStrategy(IUtilsService utilsService, CharacterAbilities currentAttribute) : IAbilitySettingStrategy
 {
-    public class RollingDiceStrategy(IUtilsService utilsService, CharacterAttributes currentAttribute) : IAttributeSettingStrategy
+    private readonly IUtilsService _utilsService = utilsService;
+
+    public Sheet SetAbility(Sheet sheet, int value)
     {
-        private readonly IUtilsService _utilsService = utilsService;
-
-        public Sheet SetAttribute(Sheet sheet, int value)
+        if (value is < Constants.AttributeSettingStrategy.RollingDice.Min or
+            > Constants.AttributeSettingStrategy.RollingDice.Max)
         {
-            if (value < Constants.AttributeSettingStrategy.RollingDice.Min ||
-                value > Constants.AttributeSettingStrategy.RollingDice.Max)
-            {
-                throw new BadRequestException(Constants.AttributeSettingStrategy.RollingDice.InvalidValueError);
-            }
-
-            string modifier = _utilsService.ValueToAttributeModifier(value);
-            sheet.Attributes = _utilsService.ModifyAttributes(sheet.Attributes, value.ToString(), modifier, currentAttribute);
-            sheet.Skills = _utilsService.ModifyCapabilities(sheet.Skills, modifier, currentAttribute);
-            sheet.SavingThrows = _utilsService.ModifyCapabilities(sheet.SavingThrows, modifier, currentAttribute);
-            return sheet;
+            throw new BadRequestException(Constants.AttributeSettingStrategy.RollingDice.InvalidValueError);
         }
+
+        string modifier = _utilsService.ValueToAbilityModifier(value);
+        sheet.Attributes = _utilsService.ModifyAbility(sheet.Attributes, value.ToString(), modifier, currentAttribute);
+        sheet.Skills = _utilsService.ModifyCapabilities(sheet.Skills, modifier, currentAttribute);
+        sheet.SavingThrows = _utilsService.ModifyCapabilities(sheet.SavingThrows, modifier, currentAttribute);
+        return sheet;
     }
 }

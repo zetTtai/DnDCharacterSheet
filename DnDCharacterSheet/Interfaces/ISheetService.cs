@@ -1,11 +1,9 @@
-﻿using Enums;
-using Models;
+﻿using Models;
 
-namespace Interfaces
+namespace Interfaces;
+
+public interface ISheetService
 {
-    public interface ISheetService
-    {
-        void SetAttributeSettingStrategy(IAttributeSettingStrategy strategy);
-        Sheet SetAttribute(Sheet sheet, int value);
-    }
+    void SetAbilitySettingStrategy(IAbilitySettingStrategy strategy);
+    Sheet SetAbility(Sheet sheet, int value);
 }

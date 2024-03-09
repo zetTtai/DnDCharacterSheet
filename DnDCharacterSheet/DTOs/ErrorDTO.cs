@@ -1,8 +1,3 @@
-﻿namespace DTOs
-{
-    public class ErrorDTO
-    {
-        public required int StatusCode { get; set; }
-        public required string Message { get; set; }
-    }
-}
+﻿namespace DTOs;
+
+public record ErrorDTO(int StatusCode, string Message);

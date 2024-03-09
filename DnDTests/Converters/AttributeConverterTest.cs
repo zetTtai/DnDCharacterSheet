@@ -4,95 +4,94 @@ using Enums;
 using Interfaces;
 using Models;
 
-namespace DnDTests.Converters
+namespace DnDTests.Converters;
+
+internal class AttributeConverterTest
 {
-    internal class AttributeConverterTest
+    private IConverter<Ability, AttributeDTO> _mapper;
+
+    [OneTimeSetUp]
+    public void OneTimeSetUp()
     {
-        private IConverter<Models.Attribute, AttributeDTO> _mapper;
+        _mapper = new AttributeConverter();
+    }
 
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
+    [Test]
+    public void Convert_Attribute_ReturnAttributeDTO()
+    {
+        // Arrange
+        Ability attribute = new()
         {
-            _mapper = new AttributeConverter();
-        }
+            Name = CharacterAbilities.STR,
+            Modifier = "+2",
+            Value = "12",
+        };
 
-        [Test]
-        public void Convert_Attribute_ReturnAttributeDTO()
+        AttributeDTO expected = new()
         {
-            // Arrange
-            Models.Attribute attribute = new()
+            Name = "STR",
+            Modifier = "+2",
+            Value = "12",
+        };
+
+        // Act
+        AttributeDTO actual = _mapper.Convert(attribute);
+
+        // Assert
+        Assert.Multiple(() =>
+        {
+            Assert.That(actual.Name, Is.EqualTo(expected.Name));
+            Assert.That(actual.Modifier, Is.EqualTo(expected.Modifier));
+            Assert.That(actual.Value, Is.EqualTo(expected.Value));
+        });
+    }
+
+    [Test]
+    public void Convert_List_ReturnAttributeDTOList()
+    {
+        // Arrange
+        IEnumerable<Ability> attributes = [
+            new()
             {
-                Name = CharacterAttributes.STR,
+                Name = CharacterAbilities.STR,
                 Modifier = "+2",
                 Value = "12",
-            };
-
-            AttributeDTO expected = new()
+            },
+            new()
+            {
+                Name = CharacterAbilities.DEX,
+                Modifier = "0",
+                Value = "10",
+            },
+        ];
+        List<AttributeDTO> expected = [
+            new()
             {
                 Name = "STR",
                 Modifier = "+2",
                 Value = "12",
-            };
+            },
+            new()
+            {
+                Name = "DEX",
+                Modifier = "0",
+                Value = "10",
+            },
+        ];
 
-            // Act
-            AttributeDTO actual = _mapper.Convert(attribute);
+        // Act
+        List<AttributeDTO> actual = _mapper.Convert(attributes).ToList();
 
-            // Assert
+        // Assert
+        Assert.That(actual, Has.Count.EqualTo(expected.Count));
+        for (int i = 0; i < expected.Count; i++)
+        {
             Assert.Multiple(() =>
             {
-                Assert.That(actual.Name, Is.EqualTo(expected.Name));
-                Assert.That(actual.Modifier, Is.EqualTo(expected.Modifier));
-                Assert.That(actual.Value, Is.EqualTo(expected.Value));
+                Assert.That(actual[i].Name, Is.EqualTo(expected[i].Name));
+                Assert.That(actual[i].Modifier, Is.EqualTo(expected[i].Modifier));
+                Assert.That(actual[i].Value, Is.EqualTo(expected[i].Value));
             });
-        }
-
-        [Test]
-        public void Convert_List_ReturnAttributeDTOList()
-        {
-            // Arrange
-            IEnumerable<Models.Attribute> attributes = [
-                new()
-                {
-                    Name = CharacterAttributes.STR,
-                    Modifier = "+2",
-                    Value = "12",
-                },
-                new()
-                {
-                    Name = CharacterAttributes.DEX,
-                    Modifier = "0",
-                    Value = "10",
-                },
-            ];
-            List<AttributeDTO> expected = [
-                new()
-                {
-                    Name = "STR",
-                    Modifier = "+2",
-                    Value = "12",
-                },
-                new()
-                {
-                    Name = "DEX",
-                    Modifier = "0",
-                    Value = "10",
-                },
-            ];
-
-            // Act
-            List<AttributeDTO> actual = _mapper.Convert(attributes).ToList();
-
-            // Assert
-            Assert.That(actual, Has.Count.EqualTo(expected.Count));
-            for (int i = 0; i < expected.Count; i++)
-            {
-                Assert.Multiple(() =>
-                {
-                    Assert.That(actual[i].Name, Is.EqualTo(expected[i].Name));
-                    Assert.That(actual[i].Modifier, Is.EqualTo(expected[i].Modifier));
-                    Assert.That(actual[i].Value, Is.EqualTo(expected[i].Value));
-                });
-            }
         }
     }
 }

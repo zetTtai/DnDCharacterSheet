@@ -1,80 +1,79 @@
 ﻿using Enums;
 
-namespace Models
+namespace Models;
+
+public class Sheet
 {
-    public class Sheet
+    private readonly int _id;
+    public IEnumerable<Ability> Attributes { get; set; }
+    public IEnumerable<Capability> Skills { get; set; }
+    public IEnumerable<Capability> SavingThrows { get; set; }
+
+    public Sheet()
     {
-        private readonly int _id;
-        public IEnumerable<Attribute> Attributes { get; set; }
-        public IEnumerable<Capability> Skills { get; set; }
-        public IEnumerable<Capability> SavingThrows { get; set; }
+        _id = 0;
+        Skills = new List<Capability>();
+        SavingThrows = new List<Capability>();
+        Attributes = new List<Ability>();
+        SetUpSheet();
+    }
+    public Sheet(int id)
+    {
+        _id = id;
+        Skills = new List<Capability>();
+        SavingThrows = new List<Capability>();
+        Attributes = new List<Ability>();
+        SetUpSheet();
+    }
 
-        public Sheet()
-        {
-            _id = 0;
-            Skills = new List<Capability>();
-            SavingThrows = new List<Capability>();
-            Attributes = new List<Attribute>();
-            SetUpSheet();
-        }
-        public Sheet(int id)
-        {
-            _id = id;
-            Skills = new List<Capability>();
-            SavingThrows = new List<Capability>();
-            Attributes = new List<Attribute>();
-            SetUpSheet();
-        }
+    private void SetUpSheet()
+    {
 
-        private void SetUpSheet()
-        {
-
-            Attributes = Enum.GetValues(typeof (CharacterAttributes))
-                .Cast<CharacterAttributes>().ToList()
-                .Select( attribute => new Attribute
-                {
-                    Name = attribute,
-                    Value = "",
-                    Modifier = "",
-                }).ToList();
-
-            Dictionary<string, CharacterAttributes> staticSkills = new()
+        Attributes = Enum.GetValues(typeof(CharacterAbilities))
+            .Cast<CharacterAbilities>().ToList()
+            .Select(attribute => new Ability
             {
-                {"Athletics", CharacterAttributes.STR },
-                {"Acrobatics", CharacterAttributes.DEX },
-                {"Persuasion", CharacterAttributes.CHA },
-                {"History", CharacterAttributes.INT },
-                {"Survival", CharacterAttributes.WIS },
-                {"Intimidation", CharacterAttributes.CHA },
-            };
-            Dictionary<string, CharacterAttributes> staticSavingThrows = new()
-            {
-                {"Strength", CharacterAttributes.STR },
-                {"Dexterity", CharacterAttributes.DEX },
-                {"Constitution", CharacterAttributes.CON },
-                {"Intelligence", CharacterAttributes.INT },
-                {"Wisdom", CharacterAttributes.WIS },
-                {"Charisma", CharacterAttributes.CHA },
-            };
-
-            Skills = staticSkills.Select(skill => new Capability
-            {
-                Name = skill.Key,
-                AssociatedAttribute = skill.Value,
-                Value = string.Empty,
+                Name = attribute,
+                Value = "",
+                Modifier = "",
             }).ToList();
 
-            SavingThrows = staticSavingThrows.Select(savingThrow => new Capability
-            {
-                Name = savingThrow.Key,
-                AssociatedAttribute = savingThrow.Value,
-                Value = string.Empty,
-            }).ToList();
-        }
-
-        public int Id()
+        Dictionary<string, CharacterAbilities> staticSkills = new()
         {
-            return _id;
-        }
+            {"Athletics", CharacterAbilities.STR },
+            {"Acrobatics", CharacterAbilities.DEX },
+            {"Persuasion", CharacterAbilities.CHA },
+            {"History", CharacterAbilities.INT },
+            {"Survival", CharacterAbilities.WIS },
+            {"Intimidation", CharacterAbilities.CHA },
+        };
+        Dictionary<string, CharacterAbilities> staticSavingThrows = new()
+        {
+            {"Strength", CharacterAbilities.STR },
+            {"Dexterity", CharacterAbilities.DEX },
+            {"Constitution", CharacterAbilities.CON },
+            {"Intelligence", CharacterAbilities.INT },
+            {"Wisdom", CharacterAbilities.WIS },
+            {"Charisma", CharacterAbilities.CHA },
+        };
+
+        Skills = staticSkills.Select(skill => new Capability
+        {
+            Name = skill.Key,
+            AssociatedAttribute = skill.Value,
+            Value = string.Empty,
+        }).ToList();
+
+        SavingThrows = staticSavingThrows.Select(savingThrow => new Capability
+        {
+            Name = savingThrow.Key,
+            AssociatedAttribute = savingThrow.Value,
+            Value = string.Empty,
+        }).ToList();
+    }
+
+    public int Id()
+    {
+        return _id;
     }
 }

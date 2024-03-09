@@ -1,92 +1,90 @@
-﻿using DTOs;
+﻿using Converters;
+using DTOs;
 using Interfaces;
-using Converters;
 using Models;
 using Moq;
-using System.ComponentModel.DataAnnotations;
 
-namespace DnDTests.Converters
+namespace DnDTests.Converters;
+
+internal class SheetConverterTest
 {
-    internal class SheetConverterTest
+    private IConverter<Sheet, SheetDTO> _converter;
+    private Mock<IConverter<Capability, CapabilityDTO>> _capabilityConverterMock;
+    private Mock<IConverter<Models.Ability, AttributeDTO>> _attributeConverterMock;
+
+    [OneTimeSetUp]
+    public void OneTimeSetUp()
     {
-        private IConverter<Sheet, SheetDTO> _converter;
-        private Mock<IConverter<Capability, CapabilityDTO>> _capabilityConverterMock;
-        private Mock<IConverter<Models.Attribute, AttributeDTO>> _attributeConverterMock;
+        _capabilityConverterMock = new Mock<IConverter<Capability, CapabilityDTO>>();
+        _ = _capabilityConverterMock
+            .Setup(m => m.Convert(It.IsAny<IEnumerable<Capability>>()))
+            .Returns([]);
 
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
+        _attributeConverterMock = new Mock<IConverter<Models.Ability, AttributeDTO>>();
+        _ = _attributeConverterMock
+            .Setup(m => m.Convert(It.IsAny<IEnumerable<Models.Ability>>()))
+            .Returns([]);
+
+        _converter = new SheetConverter(_capabilityConverterMock.Object, _attributeConverterMock.Object);
+
+    }
+
+    [Test]
+    public void Convert_Sheet_ReturnsSheetDTO()
+    {
+        // Arrange
+        Sheet sheet = new(1);
+        SheetDTO expected = new()
         {
-            _capabilityConverterMock = new Mock<IConverter<Capability, CapabilityDTO>>();
-            _capabilityConverterMock
-                .Setup(m => m.Convert(It.IsAny<IEnumerable<Capability>>()))
-                .Returns([]);
+            Id = 1,
+            Attributes =
+            [
+                new AttributeDTO { Modifier = "", Value = "", Name = "STR" },
+                new AttributeDTO { Modifier = "", Value = "", Name = "DEX" },
+                new AttributeDTO { Modifier = "", Value = "", Name = "CON" },
+                new AttributeDTO { Modifier = "", Value = "", Name = "INT" },
+                new AttributeDTO { Modifier = "", Value = "", Name = "WIS" },
+                new AttributeDTO { Modifier = "", Value = "", Name = "CHA" },
+            ],
+        };
 
-            _attributeConverterMock = new Mock<IConverter<Models.Attribute, AttributeDTO>>();
-            _attributeConverterMock
-                .Setup(m => m.Convert(It.IsAny<IEnumerable<Models.Attribute>>()))
-                .Returns([]);
+        // Act
+        SheetDTO actual = _converter.Convert(sheet);
 
-            _converter = new SheetConverter(_capabilityConverterMock.Object, _attributeConverterMock.Object);
-
-        }
-
-        [Test]
-        public void Convert_Sheet_ReturnsSheetDTO()
+        // Assert
+        Assert.Multiple(() =>
         {
-            // Arrange
-            Sheet sheet = new(1);
-            SheetDTO expected = new()
-            {
-                Id = 1,
-                Attributes =
-                [
-                    new AttributeDTO { Modifier = "", Value = "", Name = "STR" },
-                    new AttributeDTO { Modifier = "", Value = "", Name = "DEX" },
-                    new AttributeDTO { Modifier = "", Value = "", Name = "CON" },
-                    new AttributeDTO { Modifier = "", Value = "", Name = "INT" },
-                    new AttributeDTO { Modifier = "", Value = "", Name = "WIS" },
-                    new AttributeDTO { Modifier = "", Value = "", Name = "CHA" },
-                ],
-            };
+            Assert.That(actual.Id, Is.EqualTo(expected.Id));
+        });
+    }
 
-            // Act
-            SheetDTO actual = _converter.Convert(sheet);
+    [Test]
+    public void Convert_List_ReturnsSheetDTOList()
+    {
+        // Arrange
+        IEnumerable<Sheet> sheets = [
+            new(1),
+            new(2),
+            new(3),
+        ];
 
-            // Assert
+        List<SheetDTO> expected = [
+            new() { Id = 1 },
+            new() { Id = 2 },
+            new() { Id = 3 },
+        ];
+
+        // Act
+        List<SheetDTO> actual = _converter.Convert(sheets).ToList();
+
+        // Assert
+        Assert.That(actual, Has.Count.EqualTo(expected.Count));
+        for (int i = 0; i < expected.Count; i++)
+        {
             Assert.Multiple(() =>
             {
-                Assert.That(actual.Id, Is.EqualTo(expected.Id));
+                Assert.That(actual[i].Id, Is.EqualTo(expected[i].Id));
             });
-        }
-
-        [Test]
-        public void Convert_List_ReturnsSheetDTOList()
-        {
-            // Arrange
-            IEnumerable<Sheet> sheets = [
-                new(1),
-                new(2),
-                new(3),
-            ];
-
-            List<SheetDTO> expected = [
-                new() { Id = 1},
-                new() { Id = 2},
-                new() { Id = 3},
-            ];
-
-            // Act
-            List<SheetDTO> actual = _converter.Convert(sheets).ToList();
-
-            // Assert
-            Assert.That(actual, Has.Count.EqualTo(expected.Count));
-            for (int i = 0; i < expected.Count; i++)
-            {
-                Assert.Multiple(() =>
-                {
-                    Assert.That(actual[i].Id, Is.EqualTo(expected[i].Id));
-                });
-            }
         }
     }
 }

@@ -5,16 +5,16 @@ using Interfaces;
 using Middlewares;
 using Models;
 using Services;
-using Strategies;
+using Ability = Models.Ability;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddSingleton<IUtilsService, UtilsService>();
 builder.Services.AddSingleton<IConverter<Capability, CapabilityDTO>, CapabilityConverter>();
-builder.Services.AddSingleton<IConverter<Models.Attribute, AttributeDTO>, AttributeConverter>();
+builder.Services.AddSingleton<IConverter<Ability, AttributeDTO>, AttributeConverter>();
 builder.Services.AddSingleton<IConverter<Sheet, SheetDTO>, SheetConverter>();
-builder.Services.AddSingleton<ISettingAttributeStrategyFactory, SettingAttributeStrategyFactory>();
+builder.Services.AddSingleton<ISettingAbilitiesStrategyFactory, SettingAttributeStrategyFactory>();
 builder.Services.AddSingleton<ISheetService, SheetService>();
 
 
@@ -23,7 +23,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 app.UseMiddleware<GlobalErrorHandlerMiddleware>();
 

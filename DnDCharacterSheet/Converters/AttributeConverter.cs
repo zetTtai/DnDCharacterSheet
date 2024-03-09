@@ -1,23 +1,23 @@
 ﻿using DTOs;
 using Interfaces;
+using Ability = Models.Ability;
 
-namespace Converters
+namespace Converters;
+
+public class AttributeConverter : IConverter<Ability, AttributeDTO>
 {
-    public class AttributeConverter : IConverter<Models.Attribute, AttributeDTO>
+    public AttributeDTO Convert(Ability source)
     {
-        public AttributeDTO Convert(Models.Attribute source)
+        return new AttributeDTO
         {
-            return new AttributeDTO
-            {
-                Name = source.Name.ToString(),
-                Value = source.Value,
-                Modifier = source.Modifier,
-            };
-        }
+            Name = source.Name.ToString(),
+            Value = source.Value,
+            Modifier = source.Modifier,
+        };
+    }
 
-        public IEnumerable<AttributeDTO> Convert(IEnumerable<Models.Attribute> source)
-        {
-            return source.Select(Convert);
-        }
+    public IEnumerable<AttributeDTO> Convert(IEnumerable<Ability> source)
+    {
+        return source.Select(Convert);
     }
 }
