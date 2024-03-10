@@ -37,12 +37,13 @@ public class Sheet
                      })
                      .ToList();
 
-        Skills = (from CharacterSkills ability in Enum.GetValues(typeof(CharacterSkills))
+        Skills = (from CharacterSkills skill in Enum.GetValues(typeof(CharacterSkills))
                   select new Capability
                   {
-                      Name = ability.ToString(),
-                      AssociatedAbility = (CharacterAbilities)ability,
-                      Value = string.Empty,
+                      Name = skill.ToString(),
+                      // Divide by 100 to get the current associated CharacterAbilities
+                      AssociatedAbility = (CharacterAbilities)((int)skill / 100),
+                      Value = string.Empty
                   }).ToList();
 
         SavingThrows = (from CharacterSavingThrows savingThrow in Enum.GetValues(typeof(CharacterSavingThrows))
@@ -50,7 +51,7 @@ public class Sheet
                         {
                             Name = savingThrow.ToString(),
                             AssociatedAbility = (CharacterAbilities)savingThrow,
-                            Value = string.Empty,
+                            Value = string.Empty
                         })
                         .ToList();
     }

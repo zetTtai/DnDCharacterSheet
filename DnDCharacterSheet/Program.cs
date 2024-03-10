@@ -5,6 +5,7 @@ using Interfaces;
 using Middlewares;
 using Models;
 using Services;
+using System.Text.Json.Serialization;
 using Ability = Models.Ability;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -18,7 +19,10 @@ builder.Services.AddSingleton<ISettingAbilitiesStrategyFactory, SettingAbilitySt
 builder.Services.AddSingleton<ISheetService, SheetService>();
 
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options => {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
