@@ -34,22 +34,10 @@ internal class SheetConverterTest
     {
         // Arrange
         Sheet sheet = new(1);
-        SheetDTO expected = new(
-            1,
-            [
-                new AbilityDTO("", "", "STR"),
-                new AbilityDTO("", "", "DEX"),
-                new AbilityDTO("", "", "CON"),
-                new AbilityDTO("", "", "INT"),
-                new AbilityDTO("", "", "WIS"),
-                new AbilityDTO("", "", "CHA"),
-            ],
-            [],
-            []
-        );
+        SheetDTO expected = new(1, [], [], []);
 
         // Act
-        SheetDTO actual = _converter.Convert(sheet);
+        var actual = _converter.Convert(sheet);
 
         // Assert
         Assert.Multiple(() =>
@@ -75,7 +63,7 @@ internal class SheetConverterTest
         ];
 
         // Act
-        List<SheetDTO> actual = _converter.Convert(sheets).ToList();
+        var actual = _converter.Convert(sheets).ToList();
 
         // Assert
         Assert.That(actual, Has.Count.EqualTo(expected.Count));

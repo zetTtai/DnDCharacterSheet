@@ -10,6 +10,17 @@ internal class UtilsServiceTest
 {
     private IUtilsService _service;
 
+    public static IEnumerable<CharacterAbilities> CharacterAbilitiesTestCases
+    {
+        get
+        {
+            foreach (CharacterAbilities value in Enum.GetValues(typeof(CharacterAbilities)))
+            {
+                yield return value;
+            }
+        }
+    }
+
     [OneTimeSetUp]
     public void OneTimeSetUp()
     {
@@ -86,12 +97,7 @@ internal class UtilsServiceTest
         Assert.That(actual, Is.EqualTo(expected));
     }
 
-    [TestCase(CharacterAbilities.STR)]
-    [TestCase(CharacterAbilities.DEX)]
-    [TestCase(CharacterAbilities.CON)]
-    [TestCase(CharacterAbilities.INT)]
-    [TestCase(CharacterAbilities.WIS)]
-    [TestCase(CharacterAbilities.CHA)]
+    [Test, TestCaseSource(nameof(CharacterAbilitiesTestCases))]
     public void ModifyCapabilities_ReturnsCapabilityList(CharacterAbilities characterAbility)
     {
         // Arrange
@@ -131,12 +137,7 @@ internal class UtilsServiceTest
         }
     }
 
-    [TestCase(CharacterAbilities.STR)]
-    [TestCase(CharacterAbilities.DEX)]
-    [TestCase(CharacterAbilities.CON)]
-    [TestCase(CharacterAbilities.INT)]
-    [TestCase(CharacterAbilities.WIS)]
-    [TestCase(CharacterAbilities.CHA)]
+    [Test, TestCaseSource(nameof(CharacterAbilitiesTestCases))]
     public void ModifyAbilities_ReturnsAbilityList(CharacterAbilities characterAbility)
     {
         //Arrange
@@ -149,8 +150,8 @@ internal class UtilsServiceTest
             .Select(ability => new Ability
             {
                 Name = ability,
-                Modifier = ability == characterAbility ? modifier : "",
-                Value = ability == characterAbility ? value.ToString() : ""
+                Modifier = ability == characterAbility ? modifier : string.Empty,
+                Value = ability == characterAbility ? value.ToString() : string.Empty
             }).ToList();
 
         // Act
