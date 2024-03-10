@@ -25,13 +25,13 @@ internal class RollingDiceStrategyTest
             .Setup(m => m.ModifyCapabilities(It.IsAny<IEnumerable<Capability>>(), It.IsAny<string>(), It.IsAny<CharacterAbilities>()))
             .Returns([]);
         _ = _utilsServiceMock
-            .Setup(m => m.ModifyAbility(It.IsAny<IEnumerable<Models.Ability>>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CharacterAbilities>()))
+            .Setup(m => m.ModifyAbilities(It.IsAny<IEnumerable<Models.Ability>>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CharacterAbilities>()))
             .Returns([]);
         _strategy = new RollingDiceStrategy(_utilsServiceMock.Object, CharacterAbilities.STR);
     }
 
     [Test]
-    public void SetStrengthAttribute_ValidValue_ReturnsSheet()
+    public void SetAbility_ValidValue_ReturnsSheet()
     {
         // Arrange
         // Act
@@ -49,7 +49,7 @@ internal class RollingDiceStrategyTest
     }
 
     [Test]
-    public void SetStrengthAttribute_ValueLowerThan3_ReturnsException()
+    public void SetAbility_ValueLowerThan3_ReturnsException()
     {
         // Arrange
         string actual = "";
@@ -69,7 +69,7 @@ internal class RollingDiceStrategyTest
     }
 
     [Test]
-    public void SetStrengthAttribute_ValueHigherThan18_ReturnsException()
+    public void SetAbility_ValueHigherThan18_ReturnsException()
     {
         // Arrange
         string actual = "";

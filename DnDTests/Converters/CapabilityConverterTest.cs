@@ -23,16 +23,11 @@ internal class CapabilityConverterTest
         Capability capability = new()
         {
             Name = "Test",
-            AssociatedAttribute = CharacterAbilities.STR,
+            AssociatedAbility = CharacterAbilities.STR,
             Value = "Test",
         };
 
-        CapabilityDTO expected = new()
-        {
-            Id = "Test",
-            AssociatedAttribute = "STR",
-            Value = "Test",
-        };
+        CapabilityDTO expected = new("Test", "STR", "Test");
 
         // Act
         CapabilityDTO actual = _mapper.Convert(capability);
@@ -41,7 +36,7 @@ internal class CapabilityConverterTest
         Assert.Multiple(() =>
         {
             Assert.That(actual.Id, Is.EqualTo(expected.Id));
-            Assert.That(actual.AssociatedAttribute, Is.EqualTo(expected.AssociatedAttribute));
+            Assert.That(actual.AssociatedAbility, Is.EqualTo(expected.AssociatedAbility));
             Assert.That(actual.Value, Is.EqualTo(expected.Value));
         });
     }
@@ -54,29 +49,19 @@ internal class CapabilityConverterTest
             new Capability()
             {
                 Name = "Athletics",
-                AssociatedAttribute = CharacterAbilities.STR,
+                AssociatedAbility = CharacterAbilities.STR,
                 Value = string.Empty,
             },
             new Capability()
             {
                 Name = "Acrobatics",
-                AssociatedAttribute = CharacterAbilities.DEX,
+                AssociatedAbility = CharacterAbilities.DEX,
                 Value = string.Empty,
             },
         ];
         List<CapabilityDTO> expected = [
-            new CapabilityDTO()
-            {
-                Id = "Athletics",
-                AssociatedAttribute = "STR",
-                Value = string.Empty,
-            },
-            new CapabilityDTO()
-            {
-                Id = "Acrobatics",
-                AssociatedAttribute = "DEX",
-                Value = string.Empty,
-            }
+            new CapabilityDTO("Athletics", "STR", string.Empty),
+            new CapabilityDTO("Acrobatics", "DEX", string.Empty)
         ];
 
         // Act
@@ -89,7 +74,7 @@ internal class CapabilityConverterTest
             Assert.Multiple(() =>
             {
                 Assert.That(actual[i].Id, Is.EqualTo(expected[i].Id));
-                Assert.That(actual[i].AssociatedAttribute, Is.EqualTo(expected[i].AssociatedAttribute));
+                Assert.That(actual[i].AssociatedAbility, Is.EqualTo(expected[i].AssociatedAbility));
                 Assert.That(actual[i].Value, Is.EqualTo(expected[i].Value));
             });
         }

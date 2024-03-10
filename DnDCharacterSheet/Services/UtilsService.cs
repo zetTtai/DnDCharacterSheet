@@ -3,45 +3,37 @@ using Enums;
 using Exceptions;
 using Interfaces;
 using Models;
-using Ability = Models.Ability;
 
 namespace Services;
 
 public class UtilsService : IUtilsService
 {
-    public IEnumerable<Ability> ModifyAbility(IEnumerable<Ability> attributes, string value, string modifier, CharacterAbilities associatedAttribute)
+    public IEnumerable<Ability> ModifyAbilities(IEnumerable<Ability> abilities, string value, string modifier, CharacterAbilities associatedAbility)
     {
-        return attributes.Select(attribute =>
-            attribute.Name == associatedAttribute
-            ? new Attribute
+        return abilities.Select(ability =>
+            ability.Name == associatedAbility
+            ? new Ability
             {
-                Name = attribute.Name,
+                Name = ability.Name,
                 Value = value,
                 Modifier = modifier,
             }
-            : attribute
+            : ability
         );
     }
 
-    public IEnumerable<Capability> ModifyCapabilities(IEnumerable<Capability> capabilities, string modifier, CharacterAbilities associatedAttribute)
+    public IEnumerable<Capability> ModifyCapabilities(IEnumerable<Capability> capabilities, string modifier, CharacterAbilities associatedAbility)
     {
         return capabilities.Select(capability =>
-            capability.AssociatedAttribute == associatedAttribute
+            capability.AssociatedAbility == associatedAbility
             ? new Capability
             {
                 Name = capability.Name,
-                AssociatedAttribute = capability.AssociatedAttribute,
+                AssociatedAbility = capability.AssociatedAbility,
                 Value = modifier,
             }
             : capability
         );
-    }
-
-    public CharacterAbilities StringToCharacterAbility(string attribute)
-    {
-        return Enum.TryParse(attribute.ToUpper(), out CharacterAbilities result)
-            ? result
-            : throw new BadRequestException(Constants.UtilsService.InvalidAttributeError);
     }
 
     public string ValueToAbilityModifier(int value)

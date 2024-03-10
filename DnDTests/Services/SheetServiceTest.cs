@@ -8,24 +8,24 @@ namespace DnDTests.Services;
 internal class SheetServiceTest
 {
     private SheetService _service;
-    private Mock<IAbilitySettingStrategy> _attributeSettingStrategyMock;
+    private Mock<IAbilitySettingStrategy> _abilitySettingStrategyMock;
     private readonly string _strategyNotSetErrorMessage = "Strategy was not set";
 
     [OneTimeSetUp]
     public void OneTimeSetUp()
     {
-        _attributeSettingStrategyMock = new Mock<IAbilitySettingStrategy>();
-        _ = _attributeSettingStrategyMock
+        _abilitySettingStrategyMock = new Mock<IAbilitySettingStrategy>();
+        _ = _abilitySettingStrategyMock
             .Setup(m => m.SetAbility(It.IsAny<Sheet>(), It.IsAny<int>()))
             .Returns(new Sheet());
         _service = new();
     }
 
     [Test]
-    public void SetAttribute_StrategySet_ReturnsSheet()
+    public void SetAbility_StrategySet_ReturnsSheet()
     {
         // Arrange
-        _service.SetAbilitySettingStrategy(_attributeSettingStrategyMock.Object);
+        _service.SetAbilitySettingStrategy(_abilitySettingStrategyMock.Object);
 
         // Act
         try
@@ -42,7 +42,7 @@ internal class SheetServiceTest
     }
 
     [Test]
-    public void SetAttribute_NoStrategy_ReturnsException()
+    public void SetAbility_NoStrategy_ReturnsException()
     {
         // Arrange
         string actual = "";

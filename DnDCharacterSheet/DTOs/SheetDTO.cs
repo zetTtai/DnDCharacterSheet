@@ -2,6 +2,6 @@
 
 public record SheetDTO(
     int Id,
-    IEnumerable<AttributeDTO> Attributes,
+    IEnumerable<AbilityDTO> Abilities,
     IEnumerable<CapabilityDTO> Skills,
     IEnumerable<CapabilityDTO> SavingThrows);

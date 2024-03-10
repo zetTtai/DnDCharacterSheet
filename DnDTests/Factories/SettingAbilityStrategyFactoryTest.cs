@@ -6,7 +6,7 @@ using Strategies;
 
 namespace DnDTests.Factories;
 
-internal class SettingAttributeStrategyFactoryTest
+internal class SettingAbilityStrategyFactoryTest
 {
     private Mock<IUtilsService> _utilsServiceMock;
     private ISettingAbilitiesStrategyFactory _factory;
@@ -16,7 +16,7 @@ internal class SettingAttributeStrategyFactoryTest
     public void OneTimeSetUp()
     {
         _utilsServiceMock = new Mock<IUtilsService>();
-        _factory = new SettingAttributeStrategyFactory(_utilsServiceMock.Object);
+        _factory = new SettingAbilityStrategyFactory(_utilsServiceMock.Object);
     }
 
     [Test]

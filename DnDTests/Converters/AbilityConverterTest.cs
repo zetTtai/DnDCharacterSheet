@@ -6,36 +6,31 @@ using Models;
 
 namespace DnDTests.Converters;
 
-internal class AttributeConverterTest
+internal class AbilityConverterTest
 {
-    private IConverter<Ability, AttributeDTO> _mapper;
+    private IConverter<Ability, AbilityDTO> _mapper;
 
     [OneTimeSetUp]
     public void OneTimeSetUp()
     {
-        _mapper = new AttributeConverter();
+        _mapper = new AbilityConverter();
     }
 
     [Test]
-    public void Convert_Attribute_ReturnAttributeDTO()
+    public void Convert_Ability_ReturnAbilityDTO()
     {
         // Arrange
-        Ability attribute = new()
+        Ability ability = new()
         {
             Name = CharacterAbilities.STR,
             Modifier = "+2",
             Value = "12",
         };
 
-        AttributeDTO expected = new()
-        {
-            Name = "STR",
-            Modifier = "+2",
-            Value = "12",
-        };
+        AbilityDTO expected = new("STR", "12", "+2");
 
         // Act
-        AttributeDTO actual = _mapper.Convert(attribute);
+        AbilityDTO actual = _mapper.Convert(ability);
 
         // Assert
         Assert.Multiple(() =>
@@ -47,10 +42,10 @@ internal class AttributeConverterTest
     }
 
     [Test]
-    public void Convert_List_ReturnAttributeDTOList()
+    public void Convert_List_ReturnAbilityDTOList()
     {
         // Arrange
-        IEnumerable<Ability> attributes = [
+        IEnumerable<Ability> abilities = [
             new()
             {
                 Name = CharacterAbilities.STR,
@@ -64,23 +59,13 @@ internal class AttributeConverterTest
                 Value = "10",
             },
         ];
-        List<AttributeDTO> expected = [
-            new()
-            {
-                Name = "STR",
-                Modifier = "+2",
-                Value = "12",
-            },
-            new()
-            {
-                Name = "DEX",
-                Modifier = "0",
-                Value = "10",
-            },
+        List<AbilityDTO> expected = [
+            new("STR", "12", "+2"),
+            new("DEX", "10", "0")
         ];
 
         // Act
-        List<AttributeDTO> actual = _mapper.Convert(attributes).ToList();
+        List<AbilityDTO> actual = _mapper.Convert(abilities).ToList();
 
         // Assert
         Assert.That(actual, Has.Count.EqualTo(expected.Count));

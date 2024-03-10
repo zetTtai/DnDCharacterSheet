@@ -6,17 +6,17 @@ namespace Services;
 
 public class SheetService : ISheetService
 {
-    private IAbilitySettingStrategy? _attributeSettingStrategy;
+    private IAbilitySettingStrategy? _abilitySettingStrategy;
 
     public void SetAbilitySettingStrategy(IAbilitySettingStrategy strategy)
     {
-        _attributeSettingStrategy = strategy;
+        _abilitySettingStrategy = strategy;
     }
 
     public Sheet SetAbility(Sheet sheet, int value)
     {
-        return _attributeSettingStrategy != null ?
-            _attributeSettingStrategy.SetAbility(sheet, value)
+        return _abilitySettingStrategy != null ?
+            _abilitySettingStrategy.SetAbility(sheet, value)
             : throw new Exception(Constants.SheetService.NoStrategyError);
     }
 }

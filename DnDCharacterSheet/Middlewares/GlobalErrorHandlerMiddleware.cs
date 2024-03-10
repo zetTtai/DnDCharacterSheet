@@ -27,10 +27,11 @@ public class GlobalErrorHandlerMiddleware(RequestDelegate next)
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-        return context.Response.WriteAsync(JsonSerializer.Serialize(new ErrorDTO()
-        {
-            StatusCode = (int)HttpStatusCode.InternalServerError,
-            Message = "An unexpected error occurred. Please try again later."
-        }));
+        return context.Response.WriteAsync(JsonSerializer.Serialize(
+            new ErrorDTO(
+                (int)HttpStatusCode.InternalServerError,
+                "An unexpected error occurred. Please try again later."
+            )
+        ));
     }
 }

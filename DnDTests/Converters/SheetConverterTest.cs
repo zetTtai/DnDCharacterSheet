@@ -10,7 +10,7 @@ internal class SheetConverterTest
 {
     private IConverter<Sheet, SheetDTO> _converter;
     private Mock<IConverter<Capability, CapabilityDTO>> _capabilityConverterMock;
-    private Mock<IConverter<Models.Ability, AttributeDTO>> _attributeConverterMock;
+    private Mock<IConverter<Ability, AbilityDTO>> _abilityConverterMock;
 
     [OneTimeSetUp]
     public void OneTimeSetUp()
@@ -20,12 +20,12 @@ internal class SheetConverterTest
             .Setup(m => m.Convert(It.IsAny<IEnumerable<Capability>>()))
             .Returns([]);
 
-        _attributeConverterMock = new Mock<IConverter<Models.Ability, AttributeDTO>>();
-        _ = _attributeConverterMock
-            .Setup(m => m.Convert(It.IsAny<IEnumerable<Models.Ability>>()))
+        _abilityConverterMock = new Mock<IConverter<Ability, AbilityDTO>>();
+        _ = _abilityConverterMock
+            .Setup(m => m.Convert(It.IsAny<IEnumerable<Ability>>()))
             .Returns([]);
 
-        _converter = new SheetConverter(_capabilityConverterMock.Object, _attributeConverterMock.Object);
+        _converter = new SheetConverter(_capabilityConverterMock.Object, _abilityConverterMock.Object);
 
     }
 
@@ -34,19 +34,19 @@ internal class SheetConverterTest
     {
         // Arrange
         Sheet sheet = new(1);
-        SheetDTO expected = new()
-        {
-            Id = 1,
-            Attributes =
+        SheetDTO expected = new(
+            1,
             [
-                new AttributeDTO { Modifier = "", Value = "", Name = "STR" },
-                new AttributeDTO { Modifier = "", Value = "", Name = "DEX" },
-                new AttributeDTO { Modifier = "", Value = "", Name = "CON" },
-                new AttributeDTO { Modifier = "", Value = "", Name = "INT" },
-                new AttributeDTO { Modifier = "", Value = "", Name = "WIS" },
-                new AttributeDTO { Modifier = "", Value = "", Name = "CHA" },
+                new AbilityDTO("", "", "STR"),
+                new AbilityDTO("", "", "DEX"),
+                new AbilityDTO("", "", "CON"),
+                new AbilityDTO("", "", "INT"),
+                new AbilityDTO("", "", "WIS"),
+                new AbilityDTO("", "", "CHA"),
             ],
-        };
+            [],
+            []
+        );
 
         // Act
         SheetDTO actual = _converter.Convert(sheet);
@@ -69,9 +69,9 @@ internal class SheetConverterTest
         ];
 
         List<SheetDTO> expected = [
-            new() { Id = 1 },
-            new() { Id = 2 },
-            new() { Id = 3 },
+            new(1, [], [], []),
+            new(2, [], [], []),
+            new(3, [], [], []),
         ];
 
         // Act

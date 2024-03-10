@@ -12,9 +12,9 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddSingleton<IUtilsService, UtilsService>();
 builder.Services.AddSingleton<IConverter<Capability, CapabilityDTO>, CapabilityConverter>();
-builder.Services.AddSingleton<IConverter<Ability, AttributeDTO>, AttributeConverter>();
+builder.Services.AddSingleton<IConverter<Ability, AbilityDTO>, AbilityConverter>();
 builder.Services.AddSingleton<IConverter<Sheet, SheetDTO>, SheetConverter>();
-builder.Services.AddSingleton<ISettingAbilitiesStrategyFactory, SettingAttributeStrategyFactory>();
+builder.Services.AddSingleton<ISettingAbilitiesStrategyFactory, SettingAbilityStrategyFactory>();
 builder.Services.AddSingleton<ISheetService, SheetService>();
 
 
