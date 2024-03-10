@@ -6,11 +6,11 @@ using Models;
 
 namespace Strategies;
 
-public class RollingDiceStrategy(IUtilsService utilsService, CharacterAbilities currentAbility) : IAbilitySettingStrategy
+public class RollingDiceStrategy(IUtilsService utilsService) : IAbilitySettingStrategy
 {
-    private readonly IUtilsService _utilsService = utilsService;
+    private readonly IUtilsService _utilsService = utilsService ?? throw new ArgumentNullException();
 
-    public Sheet SetAbility(Sheet sheet, int value)
+    public Sheet SetAbility(Sheet sheet, int value, CharacterAbilities currentAbility)
     {
         if (value is < Constants.AbilitySettingStrategy.RollingDice.Min or
             > Constants.AbilitySettingStrategy.RollingDice.Max)

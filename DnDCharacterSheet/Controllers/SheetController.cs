@@ -29,8 +29,8 @@ public class SheetController(
         {
             // TODO: Get sheet by Id
             Sheet sheetToModify = new(id);
-            _sheetService.SetAbilitySettingStrategy(_settingAbilityStrategyFactory.CreateStrategy(request.Method, ability));
-            Sheet sheet = _sheetService.SetAbility(sheetToModify, request.Value);
+            _sheetService.SetAbilitySettingStrategy(_settingAbilityStrategyFactory.CreateStrategy(request.Method));
+            Sheet sheet = _sheetService.SetAbility(sheetToModify, request.Value, ability);
             return Ok(_sheetConverter.Convert(sheet));
         }
         catch (BadRequestException ex)

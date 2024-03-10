@@ -5,6 +5,7 @@ using Interfaces;
 using Middlewares;
 using Models;
 using Services;
+using Strategies;
 using System.Text.Json.Serialization;
 using Ability = Models.Ability;
 
@@ -16,6 +17,7 @@ builder.Services.AddSingleton<IConverter<Capability, CapabilityDTO>, CapabilityC
 builder.Services.AddSingleton<IConverter<Ability, AbilityDTO>, AbilityConverter>();
 builder.Services.AddSingleton<IConverter<Sheet, SheetDTO>, SheetConverter>();
 builder.Services.AddSingleton<ISettingAbilitiesStrategyFactory, SettingAbilityStrategyFactory>();
+builder.Services.AddSingleton<IAbilitySettingStrategy, RollingDiceStrategy>();
 builder.Services.AddSingleton<ISheetService, SheetService>();
 
 

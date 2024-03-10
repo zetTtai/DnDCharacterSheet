@@ -24,7 +24,7 @@ internal class SettingAbilityStrategyFactoryTest
     {
         // Arrange
         // Act
-        IAbilitySettingStrategy actual = _factory.CreateStrategy(0, CharacterAbilities.STR);
+        IAbilitySettingStrategy actual = _factory.CreateStrategy(0);
 
         // Assert
         Assert.That(actual, Is.InstanceOf<RollingDiceStrategy>());
@@ -35,7 +35,7 @@ internal class SettingAbilityStrategyFactoryTest
     {
         // Arrange
         // Act
-        IAbilitySettingStrategy actual = _factory.CreateStrategy((MethodsToIncreaseAbilities)1, CharacterAbilities.STR);
+        IAbilitySettingStrategy actual = _factory.CreateStrategy((MethodsToIncreaseAbilities)1);
 
         // Assert
         Assert.That(actual, Is.InstanceOf<PointBuyStrategy>());
@@ -46,7 +46,7 @@ internal class SettingAbilityStrategyFactoryTest
     {
         // Arrange
         // Act
-        IAbilitySettingStrategy actual = _factory.CreateStrategy((MethodsToIncreaseAbilities)2, CharacterAbilities.STR);
+        IAbilitySettingStrategy actual = _factory.CreateStrategy((MethodsToIncreaseAbilities)2);
 
         // Assert
         Assert.That(actual, Is.InstanceOf<StandardArrayStrategy>());
@@ -61,7 +61,7 @@ internal class SettingAbilityStrategyFactoryTest
         // Act
         try
         {
-            _ = _factory.CreateStrategy((MethodsToIncreaseAbilities)3, CharacterAbilities.STR);
+            _ = _factory.CreateStrategy((MethodsToIncreaseAbilities)3);
         }
         catch (Exception ex)
         {

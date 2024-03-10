@@ -17,11 +17,6 @@ public static class Constants
         public static string InvalidAbilityError = "Ability must be STR, DEX, CON, INT, WIS or CHA";
     }
 
-    public static class SheetService
-    {
-        public static string NoStrategyError = "Strategy was not set";
-    }
-
     public static class SettingAbilitiesStrategyFactory
     {
         public static string InvalidMethodError = "Method must be 0 => RollingDice, 1 => PointBuy or 2 => StandardArray";

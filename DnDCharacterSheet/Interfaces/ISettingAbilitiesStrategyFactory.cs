@@ -4,5 +4,5 @@ namespace Interfaces;
 
 public interface ISettingAbilitiesStrategyFactory
 {
-    IAbilitySettingStrategy CreateStrategy(MethodsToIncreaseAbilities method, CharacterAbilities abilities);
+    IAbilitySettingStrategy CreateStrategy(MethodsToIncreaseAbilities method);
 }

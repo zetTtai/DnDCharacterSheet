@@ -9,7 +9,6 @@ namespace DnDTests.Services;
 internal class UtilsServiceTest
 {
     private IUtilsService _service;
-    private readonly string _invalidAbilityError = "Ability must be STR, DEX, CON, INT, WIS or CHA";
 
     [OneTimeSetUp]
     public void OneTimeSetUp()

@@ -25,9 +25,9 @@ internal class RollingDiceStrategyTest
             .Setup(m => m.ModifyCapabilities(It.IsAny<IEnumerable<Capability>>(), It.IsAny<string>(), It.IsAny<CharacterAbilities>()))
             .Returns([]);
         _ = _utilsServiceMock
-            .Setup(m => m.ModifyAbilities(It.IsAny<IEnumerable<Models.Ability>>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CharacterAbilities>()))
+            .Setup(m => m.ModifyAbilities(It.IsAny<IEnumerable<Ability>>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CharacterAbilities>()))
             .Returns([]);
-        _strategy = new RollingDiceStrategy(_utilsServiceMock.Object, CharacterAbilities.STR);
+        _strategy = new RollingDiceStrategy(_utilsServiceMock.Object);
     }
 
     [Test]
@@ -37,7 +37,7 @@ internal class RollingDiceStrategyTest
         // Act
         try
         {
-            _ = _strategy.SetAbility(new Sheet(), 8);
+            _ = _strategy.SetAbility(new Sheet(), 8, CharacterAbilities.STR);
         }
         catch (BadRequestException)
         {
@@ -57,7 +57,7 @@ internal class RollingDiceStrategyTest
         // Act
         try
         {
-            _ = _strategy.SetAbility(new Sheet(), 2);
+            _ = _strategy.SetAbility(new Sheet(), 2, CharacterAbilities.STR);
         }
         catch (BadRequestException ex)
         {
@@ -77,7 +77,7 @@ internal class RollingDiceStrategyTest
         // Act
         try
         {
-            _ = _strategy.SetAbility(new Sheet(), 19);
+            _ = _strategy.SetAbility(new Sheet(), 19, CharacterAbilities.STR);
         }
         catch (BadRequestException ex)
         {
