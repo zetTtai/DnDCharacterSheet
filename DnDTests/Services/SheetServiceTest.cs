@@ -1,61 +1,43 @@
-﻿using DnDCharacterSheet;
-using Enums;
+﻿using Enums;
 using Interfaces;
 using Models;
 using Moq;
 using Services;
-using Strategies;
 
-namespace DnDTests.Services
+namespace DnDTests.Services;
+
+internal class SheetServiceTest
 {
-    internal class SheetServiceTest
+    private SheetService _service;
+    private Mock<IAbilitySettingStrategy> _abilitySettingStrategyMock;
+
+    [OneTimeSetUp]
+    public void OneTimeSetUp()
     {
-        private SheetService _service;
-        private Mock<IAttributeSettingStrategy> _attributeSettingStrategyMock;
-        private readonly string _strategyNotSetErrorMessage = "Strategy was not set";
+        _abilitySettingStrategyMock = new Mock<IAbilitySettingStrategy>();
+        _ = _abilitySettingStrategyMock
+            .Setup(m => m.SetAbility(It.IsAny<Sheet>(), It.IsAny<int>(), It.IsAny<CharacterAbilities>()))
+            .Returns(new Sheet());
+        _service = new(_abilitySettingStrategyMock.Object);
+    }
 
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
+    [Test]
+    public void SetAbility_ReturnsSheet()
+    {
+        // Arrange
+        _service.SetAbilitySettingStrategy(_abilitySettingStrategyMock.Object);
+
+        // Act
+        try
         {
-            _attributeSettingStrategyMock = new Mock<IAttributeSettingStrategy>();
-            _attributeSettingStrategyMock
-                .Setup(m => m.SetStrengthAttribute(It.IsAny<Sheet>(), It.IsAny<int>()))
-                .Returns(new Sheet());
-            _service = new();
+            _ = _service.SetAbility(new Sheet(), 3, CharacterAbilities.STR);
+        }
+        catch (Exception ex)
+        {
+            Assert.Fail(ex.Message);
         }
 
-        [Test]
-        public void SetStrengthAttribute_RollingDice_ModifyStrengthAttribute_ReturnsSheet()
-        {
-            // Arrange
-            _service.SetStrategy(_attributeSettingStrategyMock.Object);
-            Sheet expected = new();
-
-            // Act
-            Sheet actual = _service.SetStrengthAttribute(new Sheet(), 3);
-
-            // Assert
-            Assert.That(actual.StrengthAttribute, Is.EqualTo(expected.StrengthAttribute));
-        }
-
-        [Test]
-        public void SetStrengthAttribute_NoStrategy_ReturnsException()
-        {
-            // Arrange
-            string actual = "";
-
-            // Act
-            try
-            {
-                _ = _service.SetStrengthAttribute(new Sheet(), 3);
-            }
-            catch (Exception ex)
-            {
-                actual = ex.Message;
-            }
-
-            // Assert
-            Assert.That(actual, Is.EqualTo(_strategyNotSetErrorMessage));
-        }
+        // Assert
+        Assert.Pass();
     }
 }

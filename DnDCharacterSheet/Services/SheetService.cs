@@ -1,23 +1,20 @@
-﻿using DnDCharacterSheet;
+﻿using Enums;
 using Interfaces;
 using Models;
 
-namespace Services
+namespace Services;
+
+public class SheetService(IAbilitySettingStrategy strategy) : ISheetService
 {
-    public class SheetService : ISheetService
+    private IAbilitySettingStrategy _abilitySettingStrategy = strategy ?? throw new ArgumentNullException();
+
+    public void SetAbilitySettingStrategy(IAbilitySettingStrategy strategy)
     {
-        private IAttributeSettingStrategy? _attributeSettingStrategy;
+        _abilitySettingStrategy = strategy;
+    }
 
-        public void SetStrategy(IAttributeSettingStrategy strategy)
-        {
-            _attributeSettingStrategy = strategy;
-        }
-
-        public Sheet SetStrengthAttribute(Sheet sheet, int value)
-        {
-            return _attributeSettingStrategy != null ?
-                _attributeSettingStrategy.SetStrengthAttribute(sheet, value)
-                : throw new Exception(Constants.SheetService.NoStrategyError);
-        }
+    public Sheet SetAbility(Sheet sheet, int value, CharacterAbilities currentAbility)
+    {
+        return _abilitySettingStrategy.SetAbility(sheet, value, currentAbility);
     }
 }

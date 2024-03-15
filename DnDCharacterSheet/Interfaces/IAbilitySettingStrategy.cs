@@ -3,8 +3,7 @@ using Models;
 
 namespace Interfaces;
 
-public interface ISheetService
+public interface IAbilitySettingStrategy
 {
-    void SetAbilitySettingStrategy(IAbilitySettingStrategy strategy);
     Sheet SetAbility(Sheet sheet, int value, CharacterAbilities currentAbility);
 }

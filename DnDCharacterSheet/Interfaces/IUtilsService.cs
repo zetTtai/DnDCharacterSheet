@@ -1,11 +1,11 @@
 ﻿using Enums;
 using Models;
 
-namespace Interfaces
+namespace Interfaces;
+
+public interface IUtilsService
 {
-    public interface IUtilsService
-    {
-        string ValueToAttributeModifier(int value);
-        IEnumerable<Capability> ModifyCapabilities(IEnumerable<Capability> capabilities, string modifier, CharacterAttributes associatedAttribute);
-    }
+    string ValueToAbilityModifier(int value);
+    IEnumerable<Ability> ModifyAbilities(IEnumerable<Ability> abilities, string value, string modifier, CharacterAbilities associatedAbility);
+    IEnumerable<Capability> ModifyCapabilities(IEnumerable<Capability> capabilities, string modifier, CharacterAbilities associatedAbility);
 }

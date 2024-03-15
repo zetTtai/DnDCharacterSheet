@@ -1,10 +1,7 @@
-﻿namespace DTOs
-{
-    public class SheetDTO
-    {
-        public int Id { get; set; }
-        public string? StrengthAttribute { get; set; }
-        public IEnumerable<CapabilityDTO>? Skills { get; set; }
-        public IEnumerable<CapabilityDTO>? SavingThrows { get; set; }
-    }
-}
+﻿namespace DTOs;
+
+public record SheetDTO(
+    int Id,
+    IEnumerable<AbilityDTO> Abilities,
+    IEnumerable<CapabilityDTO> Skills,
+    IEnumerable<CapabilityDTO> SavingThrows);

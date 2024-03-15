@@ -1,8 +1,7 @@
-﻿namespace Interfaces
+﻿namespace Interfaces;
+
+public interface IConverter<TSource, TDestination>
 {
-    public interface IConverter<TSource, TDestination>
-    {
-        TDestination Convert(TSource source);
-        IEnumerable<TDestination> Convert(IEnumerable<TSource> source);
-    }
+    TDestination Convert(TSource source);
+    IEnumerable<TDestination> Convert(IEnumerable<TSource> source);
 }

@@ -1,13 +1,13 @@
-﻿using Interfaces;
+﻿using Enums;
+using Interfaces;
 using Models;
 
-namespace Strategies
+namespace Strategies;
+
+public class PointBuyStrategy : IAbilitySettingStrategy
 {
-    public class PointBuyStrategy : IAttributeSettingStrategy
+    public Sheet SetAbility(Sheet sheet, int value, CharacterAbilities abilities)
     {
-        public Sheet SetStrengthAttribute(Sheet sheet, int value)
-        {
-            throw new NotImplementedException();
-        }
+        throw new NotImplementedException();
     }
 }

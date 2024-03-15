@@ -1,27 +1,30 @@
 ﻿using DTOs;
 using Interfaces;
 using Models;
+using Ability = Models.Ability;
 
-namespace Converters
+namespace Converters;
+
+public class SheetConverter(
+    IConverter<Capability, CapabilityDTO> capabilityConverter,
+    IConverter<Ability, AbilityDTO> abilityConverter
+    ) : IConverter<Sheet, SheetDTO>
 {
-    public class SheetConverter(IConverter<Capability, CapabilityDTO> capabilityConverter) : IConverter<Sheet, SheetDTO>
+    private readonly IConverter<Capability, CapabilityDTO> _capabilityConverter = capabilityConverter;
+    private readonly IConverter<Ability, AbilityDTO> _abilityConverter = abilityConverter;
+
+
+    public SheetDTO Convert(Sheet source)
     {
-        private readonly IConverter<Capability, CapabilityDTO> capabilityConverter = capabilityConverter;
+        return new SheetDTO(source.Id(),
+            _abilityConverter.Convert(source.Abilities),
+            _capabilityConverter.Convert(source.Skills),
+            _capabilityConverter.Convert(source.SavingThrows)
+        );
+    }
 
-        public SheetDTO Convert(Sheet source)
-        {
-            return new SheetDTO()
-            {
-                Id = source.Id(),
-                StrengthAttribute = source.StrengthAttribute ?? "",
-                Skills = capabilityConverter.Convert(source.Skills),
-                SavingThrows = capabilityConverter.Convert(source.SavingThrows),
-            };
-        }
-
-        public IEnumerable<SheetDTO> Convert(IEnumerable<Sheet> source)
-        {
-            return source.Select(Convert).ToList();
-        }
+    public IEnumerable<SheetDTO> Convert(IEnumerable<Sheet> source)
+    {
+        return source.Select(Convert);
     }
 }

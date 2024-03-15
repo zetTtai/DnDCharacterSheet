@@ -4,25 +4,24 @@ using Exceptions;
 using Interfaces;
 using Models;
 
-namespace Strategies
+namespace Strategies;
+
+public class RollingDiceStrategy(IUtilsService utilsService) : IAbilitySettingStrategy
 {
-    public class RollingDiceStrategy(IUtilsService utilsService) : IAttributeSettingStrategy
+    private readonly IUtilsService _utilsService = utilsService ?? throw new ArgumentNullException();
+
+    public Sheet SetAbility(Sheet sheet, int value, CharacterAbilities currentAbility)
     {
-        private readonly IUtilsService _utilsService = utilsService;
-
-        public Sheet SetStrengthAttribute(Sheet sheet, int value)
+        if (value is < Constants.AbilitySettingStrategy.RollingDice.Min or
+            > Constants.AbilitySettingStrategy.RollingDice.Max)
         {
-            if (value < Constants.AttributeSettingStrategy.RollingDice.Min ||
-                value > Constants.AttributeSettingStrategy.RollingDice.Max)
-            {
-                throw new BadRequestException(Constants.AttributeSettingStrategy.RollingDice.InvalidValueError);
-            }
-
-            string modifier = _utilsService.ValueToAttributeModifier(value);
-            sheet.StrengthAttribute = modifier;
-            sheet.Skills = _utilsService.ModifyCapabilities(sheet.Skills, modifier, CharacterAttributes.STR);
-            sheet.SavingThrows = _utilsService.ModifyCapabilities(sheet.SavingThrows, modifier, CharacterAttributes.STR);
-            return sheet;
+            throw new BadRequestException(Constants.AbilitySettingStrategy.RollingDice.InvalidValueError);
         }
+
+        string modifier = _utilsService.ValueToAbilityModifier(value);
+        sheet.Abilities = _utilsService.ModifyAbilities(sheet.Abilities, value.ToString(), modifier, currentAbility);
+        sheet.Skills = _utilsService.ModifyCapabilities(sheet.Skills, modifier, currentAbility);
+        sheet.SavingThrows = _utilsService.ModifyCapabilities(sheet.SavingThrows, modifier, currentAbility);
+        return sheet;
     }
 }

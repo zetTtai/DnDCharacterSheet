@@ -1,44 +1,41 @@
 ﻿using DTOs;
+using Enums;
 using Exceptions;
 using Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 
-namespace Controllers
+namespace Controllers;
+
+[ApiController]
+[Route("sheets")]
+public class SheetController(
+    ILogger<SheetController> logger,
+    ISheetService sheetService,
+    IConverter<Sheet, SheetDTO> sheetConverter,
+    ISettingAbilitiesStrategyFactory settingAbilityStrategyFactory
+    ) : ControllerBase
 {
-    [ApiController]
-    [Route("sheet")]
-    public class SheetController(
-        ILogger<SheetController> logger,
-        ISheetService sheetService,
-        IConverter<Sheet, SheetDTO> sheetConverter,
-        ISettingAttributeStrategyFactory strategyFactory
-        ) : ControllerBase
+
+    private readonly ILogger<SheetController> _logger = logger ?? throw new ArgumentNullException();
+    private readonly ISheetService _sheetService = sheetService ?? throw new ArgumentNullException();
+    private readonly IConverter<Sheet, SheetDTO> _sheetConverter = sheetConverter ?? throw new ArgumentNullException();
+    private readonly ISettingAbilitiesStrategyFactory _settingAbilityStrategyFactory = settingAbilityStrategyFactory ?? throw new ArgumentNullException();
+
+    [HttpPut("{id}/abilities/{ability}")]
+    public ActionResult<SheetDTO> SetAbility(int id, CharacterAbilities ability, [FromBody] SetAbilityRequestDTO request)
     {
-
-        private readonly ILogger<SheetController> _logger = logger ?? throw new ArgumentNullException();
-        private readonly ISheetService _sheetService = sheetService ?? throw new ArgumentNullException();
-        private readonly IConverter<Sheet, SheetDTO> _sheetConverter = sheetConverter ?? throw new ArgumentNullException();
-        private readonly ISettingAttributeStrategyFactory _strategyFactory = strategyFactory ?? throw new ArgumentNullException();
-
-        [HttpPut("{id}/attributes/str")]
-        public ActionResult<SheetDTO> SetStrengthAttribute(int id, [FromBody] SetStrengthAttributeDTO request)
+        try
         {
-            try
-            {
-                // TODO: Get sheet by Id?
-                Sheet sheetToModify = new(id);
-                _sheetService.SetStrategy(_strategyFactory.CreateStrategy(request.Method));
-                Sheet sheet = _sheetService.SetStrengthAttribute(sheetToModify, request.Value);
-                return Ok(_sheetConverter.Convert(sheet));
-            } catch(BadRequestException ex)
-            {
-                return BadRequest(new ErrorDTO()
-                {
-                    StatusCode = 400,
-                    Message = ex.Message,
-                });
-            }
+            // TODO: Get sheet by Id
+            Sheet sheetToModify = new(id);
+            _sheetService.SetAbilitySettingStrategy(_settingAbilityStrategyFactory.CreateStrategy(request.Method));
+            Sheet sheet = _sheetService.SetAbility(sheetToModify, request.Value, ability);
+            return Ok(_sheetConverter.Convert(sheet));
+        }
+        catch (BadRequestException ex)
+        {
+            return BadRequest(new ErrorDTO(400, ex.Message));
         }
     }
 }
