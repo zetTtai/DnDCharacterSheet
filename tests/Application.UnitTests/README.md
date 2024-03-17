@@ -1,0 +1,4 @@
+- Focuses on **unit testing** within the **Application layer**.
+- Validates the correctness of services, handlers, and **application business logic**.
+- Includes tests for **application behaviors** such as validation, logging, and transaction handling, indicating checks on cross-cutting concerns.
+- Ensures that shared functionalities and custom exceptions are behaving as expected.

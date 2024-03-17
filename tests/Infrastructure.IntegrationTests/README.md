@@ -1,0 +1,3 @@
+- Contains **integration tests** that ensure the application interacts correctly with **infrastructure components** like databases, file systems, and external services.
+- Tests the integration points between the application and its external dependencies to confirm that they are working together correctly.
+- Validates that the infrastructure supports the application as designed and expected, checking for correct data access patterns, third-party integration, etc.

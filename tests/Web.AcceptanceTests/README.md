@@ -1,0 +1,3 @@
+- Houses acceptance tests that assess whether the system fulfills business requirements from an end-user **perspective**.
+- Often written in Behavior-Driven Development (BDD) style, it includes tests in a language understandable by non-technical stakeholders.
+- Utilizes scenarios defined in "Features" and implemented in "StepDefinitions" to simulate user interactions and validate end-to-end workflows.
