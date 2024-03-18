@@ -18,6 +18,6 @@ public class SheetSavingThrowConfiguration : IEntityTypeConfiguration<SheetSavin
         builder
             .HasOne(sst => sst.Capability)
             .WithMany(c => c.SheetSavingThrows)
-            .HasForeignKey(sst => sst.SheetId);
+            .HasForeignKey(sst => sst.CapabilityId);
     }
 }

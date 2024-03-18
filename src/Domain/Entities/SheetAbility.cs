@@ -2,10 +2,10 @@
 public class SheetAbility
 {
     public int SheetId { get; set; }
-    public required Sheet Sheet { get; set; }
+    public Sheet? Sheet { get; set; }
     public int AbilityId { get; set; }
-    public required Ability Ability { get; set; }
+    public Ability? Ability { get; set; }
 
-    public required string Value { get; set; }
-    public required string Modifier { get; set; }
+    public string Value { get; set; } = string.Empty;
+    public string Modifier { get; set; } = string.Empty;
 }

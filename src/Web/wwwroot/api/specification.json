@@ -6,6 +6,39 @@
     "version": "1.0.0"
   },
   "paths": {
+    "/api/Sheets": {
+      "post": {
+        "tags": [
+          "Sheets"
+        ],
+        "operationId": "CreateSheet",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSheetCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/TodoItems": {
       "get": {
         "tags": [
@@ -323,6 +356,15 @@
   },
   "components": {
     "schemas": {
+      "CreateSheetCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "characterName": {
+            "type": "string"
+          }
+        }
+      },
       "PaginatedListOfTodoItemBriefDto": {
         "type": "object",
         "additionalProperties": false,

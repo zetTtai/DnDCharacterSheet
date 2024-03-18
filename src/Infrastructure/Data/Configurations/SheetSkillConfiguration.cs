@@ -18,6 +18,6 @@ public class SheetSkillConfiguration : IEntityTypeConfiguration<SheetSkill>
         builder
             .HasOne(ss => ss.Capability)
             .WithMany(s => s.SheetSkills)
-            .HasForeignKey(ss => ss.SheetId);
+            .HasForeignKey(ss => ss.CapabilityId);
     }
 }

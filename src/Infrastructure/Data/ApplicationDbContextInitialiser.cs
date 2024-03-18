@@ -1,6 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using CleanArchitecture.Domain.Constants;
 using CleanArchitecture.Domain.Entities;
+using CleanArchitecture.Domain.Enums;
 using CleanArchitecture.Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -102,6 +103,25 @@ public class ApplicationDbContextInitialiser
                     new TodoItem { Title = "Reward yourself with a nice, long nap 🏆" },
                 }
             });
+
+            await _context.SaveChangesAsync();
+        }
+
+        if (!_context.Abilities.Any() && !_context.Capabilities.Any())
+        {
+            _context.Abilities.AddRange(
+                (from CharacterAbilities ability in Enum.GetValues(typeof(CharacterAbilities))
+                 select new Ability
+                 {
+                     Name = ability.ToString(),
+                     Capabilities = (from CharacterCapabilities capability in Enum.GetValues(typeof(CharacterCapabilities))
+                                     where (CharacterAbilities)((int)capability / 100) == ability
+                                     select new Capability
+                                     {
+                                         Name = capability.ToString()
+
+                                     }).ToList()
+                 }).ToList());
 
             await _context.SaveChangesAsync();
         }
