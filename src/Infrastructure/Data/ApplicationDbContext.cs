@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using CleanArchitecture.Application.Common.Interfaces;
+using CleanArchitecture.Domain;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -14,6 +15,12 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public DbSet<TodoList> TodoLists => Set<TodoList>();
 
     public DbSet<TodoItem> TodoItems => Set<TodoItem>();
+
+    public DbSet<Sheet> Sheets => Set<Sheet>();
+
+    public DbSet<Ability> Abilities => Set<Ability>();
+
+    public DbSet<Capability> Capabilities => Set<Capability>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

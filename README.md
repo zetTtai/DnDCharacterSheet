@@ -83,9 +83,12 @@ Running database migrations is easy. Ensure you add the following flags to your 
 * `--startup-project src/Web`
 * `--output-dir Data/Migrations`
 
-For example, to add a new migration from the root folder:
+For example, to add a new migration and update database from the root folder:
+ `dotnet tool install --global dotnet-ef` (If dotnet ef is not installed)
 
  `dotnet ef migrations add "SampleMigration" --project src\Infrastructure --startup-project src\Web --output-dir Data\Migrations`
+
+ `dotnet ef database update --project src\Infrastructure --startup-project src\Web`
 
 ## Deploy
 
