@@ -1,0 +1,4 @@
+- **Functional tests** are included for the **Application layer**.
+- The focus is on testing the **application's behavior as a whole**, specifically **targeting use cases** within the application layer.
+- It involves **setting up scenarios** to verify expected behavior under various conditions.
+- There is an emphasis on the ability to work with **different databases**, as indicated by the setup for testing against multiple database providers for compatibility and correctness.
