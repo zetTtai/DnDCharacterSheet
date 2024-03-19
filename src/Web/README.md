@@ -4,8 +4,8 @@ The Presentation Layer is where users interact with the system, through user int
 
 ## Folder Structure:
 
-### ClientApp-React/ClientApp
-- Contains the React application files, providing the front-end user interface.
+### ClientApp
+- Contains the Angular project, providing the front-end user interface.
 
 ### Endpoints &rarr; REST API / HTTP Endpoints Definition
 - Defines the RESTful API or HTTP endpoints that external clients can interact with.
@@ -17,8 +17,8 @@ The Presentation Layer is where users interact with the system, through user int
 - **MethodInfoExtensions.cs** &rarr; Adds more methods to the `MethodInfo` abstract class from `System.Reflection`.
 - **WebApplicationExtensions.cs** &rarr; Provides additional methods for the `WebApplication` class from `Microsoft.AspNetCore.Builder`.
 
-### Pages &rarr; HTML / Razor Pages
-- Hosts HTML pages or Razor Pages, which are dynamically generated pages based on the user's request.
+### Pages &rarr; CSHTML / Razor Pages
+- Hosts HTML pages or Razor Pages, which are shared/partial pages based on the user's request.
 
 ### Properties &rarr; Includes LaunchSettings.json
 - **LaunchSettings.json** &rarr; Used to declare environment variables for the application.
