@@ -4,7 +4,7 @@ namespace CleanArchitecture.Web.AcceptanceTests;
 
 public static class ConfigurationHelper
 {
-    private readonly static IConfiguration _configuration;
+    private static readonly IConfiguration _configuration;
 
     static ConfigurationHelper()
     {

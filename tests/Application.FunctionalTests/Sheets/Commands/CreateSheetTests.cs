@@ -1,14 +1,6 @@
 ﻿using CleanArchitecture.Application.Common.Exceptions;
-using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Domain;
-using CleanArchitecture.Domain.Entities;
-using CleanArchitecture.Domain.Enums;
-using Microsoft.EntityFrameworkCore;
-using Moq;
 
 namespace CleanArchitecture.Application.FunctionalTests.Sheets.Commands;
-
-using static Testing;
 public class CreateSheetTests : BaseTestFixture
 {
     [Test]
@@ -18,8 +10,8 @@ public class CreateSheetTests : BaseTestFixture
         {
             CharacterName = string.Empty,
         };
-        await FluentActions.Invoking(() => 
-            SendAsync(command)) 
+        await FluentActions.Invoking(() =>
+            SendAsync(command))
             .Should()
             .ThrowAsync<ValidationException>();
     }

@@ -13,7 +13,7 @@ public class MappingTests
 
     public MappingTests()
     {
-        _configuration = new MapperConfiguration(config => 
+        _configuration = new MapperConfiguration(config =>
             config.AddMaps(Assembly.GetAssembly(typeof(IApplicationDbContext))));
 
         _mapper = _configuration.CreateMapper();
@@ -31,15 +31,17 @@ public class MappingTests
     //[TestCase(typeof(TodoItem), typeof(TodoItemDto))]
     public void ShouldSupportMappingFromSourceToDestination(Type source, Type destination)
     {
-        var instance = GetInstanceOf(source);
+        object instance = GetInstanceOf(source);
 
-        _mapper.Map(instance, source, destination);
+        _ = _mapper.Map(instance, source, destination);
     }
 
     private object GetInstanceOf(Type type)
     {
         if (type.GetConstructor(Type.EmptyTypes) != null)
+        {
             return Activator.CreateInstance(type)!;
+        }
 
         // Type without parameterless constructor
         return RuntimeHelpers.GetUninitializedObject(type);

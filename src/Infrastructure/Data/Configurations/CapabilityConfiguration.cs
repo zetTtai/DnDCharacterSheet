@@ -7,12 +7,12 @@ public class CapabilityConfiguration : IEntityTypeConfiguration<Capability>
 {
     public void Configure(EntityTypeBuilder<Capability> builder)
     {
-        builder
+        _ = builder
             .Property(c => c.Name)
             .IsRequired()
             .HasMaxLength(100);
 
-        builder
+        _ = builder
             .HasOne(c => c.Ability)
             .WithMany(a => a.Capabilities)
             .HasForeignKey(c => c.AbilityId);

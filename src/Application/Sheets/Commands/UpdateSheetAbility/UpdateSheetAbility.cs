@@ -1,8 +1,8 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Domain;
+using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Enums;
 
-namespace CleanArchitecture.Application;
+namespace CleanArchitecture.Application.Sheets.Commands.UpdateSheetAbility;
 public class UpdateSheetAbilityCommand : IRequest
 {
     public required int SheetId { get; set; }
@@ -17,13 +17,13 @@ public class UpdateSheetAbilityCommandHandler(IApplicationDbContext context) : I
 
     public async Task Handle(UpdateSheetAbilityCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _context.Sheets
+        Sheet? entity = await _context.Sheets
             .FindAsync(new object[] { request.SheetId }, cancellationToken);
 
-        Guard.Against.NotFound(request.SheetId, entity);
+        _ = Guard.Against.NotFound(request.SheetId, entity);
 
         // TODO: Call to services that implement this logic?
 
-        await _context.SaveChangesAsync(cancellationToken);
+        _ = await _context.SaveChangesAsync(cancellationToken);
     }
 }

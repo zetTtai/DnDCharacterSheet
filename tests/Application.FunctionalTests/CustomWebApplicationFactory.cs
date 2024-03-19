@@ -10,9 +10,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace CleanArchitecture.Application.FunctionalTests;
-
-using static Testing;
-
 public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
     private readonly DbConnection _connection;
@@ -35,7 +32,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                 .AddDbContext<ApplicationDbContext>((sp, options) =>
                 {
                     options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
-#if (UseSQLite)
+#if UseSQLite
                     options.UseSqlite(_connection);
 #else
                     options.UseSqlServer(_connection);

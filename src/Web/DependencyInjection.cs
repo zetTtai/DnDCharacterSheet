@@ -4,12 +4,12 @@ using CleanArchitecture.Infrastructure.Data;
 using CleanArchitecture.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 
-#if (UseApiOnly)
+#if UseApiOnly
 using NSwag;
 using NSwag.Generation.Processors.Security;
 #endif
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace CleanArchitecture.Web;
 
 public static class DependencyInjection
 {
@@ -38,7 +38,7 @@ public static class DependencyInjection
         {
             configure.Title = "CleanArchitecture API";
 
-#if (UseApiOnly)
+#if UseApiOnly
             // Add JWT
             configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
             {
@@ -57,10 +57,10 @@ public static class DependencyInjection
 
     public static IServiceCollection AddKeyVaultIfConfigured(this IServiceCollection services, ConfigurationManager configuration)
     {
-        var keyVaultUri = configuration["KeyVaultUri"];
+        string? keyVaultUri = configuration["KeyVaultUri"];
         if (!string.IsNullOrWhiteSpace(keyVaultUri))
         {
-            configuration.AddAzureKeyVault(
+            _ = configuration.AddAzureKeyVault(
                 new Uri(keyVaultUri),
                 new DefaultAzureCredential());
         }

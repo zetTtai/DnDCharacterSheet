@@ -7,15 +7,15 @@ public class SheetCapabilityConfiguration : IEntityTypeConfiguration<SheetSkill>
 {
     public void Configure(EntityTypeBuilder<SheetSkill> builder)
     {
-        builder
+        _ = builder
             .HasKey(sc => new { sc.SheetId, sc.CapabilityId });
 
-        builder
+        _ = builder
             .HasOne(sc => sc.Sheet)
             .WithMany(s => s.SheetSkills)
             .HasForeignKey(sc => sc.SheetId);
 
-        builder
+        _ = builder
             .HasOne(sc => sc.Capability)
             .WithMany(c => c.SheetSkills)
             .HasForeignKey(sc => sc.CapabilityId);

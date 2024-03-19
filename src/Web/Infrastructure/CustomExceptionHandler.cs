@@ -22,7 +22,7 @@ public class CustomExceptionHandler : IExceptionHandler
 
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
-        var exceptionType = exception.GetType();
+        Type exceptionType = exception.GetType();
 
         if (_exceptionHandlers.ContainsKey(exceptionType))
         {
@@ -35,7 +35,7 @@ public class CustomExceptionHandler : IExceptionHandler
 
     private async Task HandleValidationException(HttpContext httpContext, Exception ex)
     {
-        var exception = (ValidationException)ex;
+        ValidationException exception = (ValidationException)ex;
 
         httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
 
@@ -48,7 +48,7 @@ public class CustomExceptionHandler : IExceptionHandler
 
     private async Task HandleNotFoundException(HttpContext httpContext, Exception ex)
     {
-        var exception = (NotFoundException)ex;
+        NotFoundException exception = (NotFoundException)ex;
 
         httpContext.Response.StatusCode = StatusCodes.Status404NotFound;
 

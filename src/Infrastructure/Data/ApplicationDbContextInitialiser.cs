@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using CleanArchitecture.Domain.Constants;
+﻿using CleanArchitecture.Domain.Constants;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Enums;
 using CleanArchitecture.Infrastructure.Identity;
@@ -15,9 +14,9 @@ public static class InitialiserExtensions
 {
     public static async Task InitialiseDatabaseAsync(this WebApplication app)
     {
-        using var scope = app.Services.CreateScope();
+        using IServiceScope scope = app.Services.CreateScope();
 
-        var initialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
+        ApplicationDbContextInitialiser initialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
 
         await initialiser.InitialiseAsync();
 
@@ -69,22 +68,22 @@ public class ApplicationDbContextInitialiser
     public async Task TrySeedAsync()
     {
         // Default roles
-        var administratorRole = new IdentityRole(Roles.Administrator);
+        IdentityRole administratorRole = new(Roles.Administrator);
 
         if (_roleManager.Roles.All(r => r.Name != administratorRole.Name))
         {
-            await _roleManager.CreateAsync(administratorRole);
+            _ = await _roleManager.CreateAsync(administratorRole);
         }
 
         // Default users
-        var administrator = new ApplicationUser { UserName = "administrator@localhost", Email = "administrator@localhost" };
+        ApplicationUser administrator = new() { UserName = "administrator@localhost", Email = "administrator@localhost" };
 
         if (_userManager.Users.All(u => u.UserName != administrator.UserName))
         {
-            await _userManager.CreateAsync(administrator, "Administrator1!");
+            _ = await _userManager.CreateAsync(administrator, "Administrator1!");
             if (!string.IsNullOrWhiteSpace(administratorRole.Name))
             {
-                await _userManager.AddToRolesAsync(administrator, new [] { administratorRole.Name });
+                _ = await _userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name });
             }
         }
 
@@ -106,7 +105,7 @@ public class ApplicationDbContextInitialiser
                                      }).ToList()
                  }).ToList());
 
-            await _context.SaveChangesAsync();
+            _ = await _context.SaveChangesAsync();
         }
     }
 }

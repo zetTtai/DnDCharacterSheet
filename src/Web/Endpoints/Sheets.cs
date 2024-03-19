@@ -1,5 +1,4 @@
-﻿
-using CleanArchitecture.Application;
+﻿using CleanArchitecture.Application.Sheets.Commands.CreateSheet;
 
 namespace CleanArchitecture.Web.Endpoints;
 
@@ -7,7 +6,7 @@ public class Sheets : EndpointGroupBase
 {
     public override void Map(WebApplication app)
     {
-        app.MapGroup(this)
+        _ = app.MapGroup(this)
             .RequireAuthorization()
             .MapPost(CreateSheet);
     }

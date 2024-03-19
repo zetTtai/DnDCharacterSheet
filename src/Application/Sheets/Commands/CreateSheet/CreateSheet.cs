@@ -1,14 +1,9 @@
-﻿
-
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Domain;
+﻿using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Enums;
 using CleanArchitecture.Domain.Events.Sheets;
 
-namespace CleanArchitecture.Application;
+namespace CleanArchitecture.Application.Sheets.Commands.CreateSheet;
 
 public record CreateSheetCommand : IRequest<int>
 {
@@ -21,47 +16,46 @@ public class CreateSheetCommandHandler(IApplicationDbContext context) : IRequest
 
     public async Task<int> Handle(CreateSheetCommand request, CancellationToken cancellationToken)
     {
-        var staticSavingThrows = new List<string>();
+        List<string> staticSavingThrows = [];
         foreach (CharacterSavingThrows savingThrow in Enum.GetValues(typeof(CharacterSavingThrows)))
         {
             staticSavingThrows.Add(savingThrow.ToString());
         }
 
-        var abilities = await _context.Abilities
+        List<Ability> abilities = await _context.Abilities
             .ToListAsync(cancellationToken);
 
-        var skills = await _context.Capabilities
+        List<Capability> skills = await _context.Capabilities
             .Where(s => !staticSavingThrows.Contains(s.Name))
             .ToListAsync(cancellationToken);
 
-        var savingThrows = await _context.Capabilities
+        List<Capability> savingThrows = await _context.Capabilities
             .Where(s => staticSavingThrows.Contains(s.Name))
             .ToListAsync(cancellationToken);
 
-        var entity = new Sheet
+        Sheet entity = new()
         {
             CharacterName = request.CharacterName,
+            SheetAbilities = abilities.Select(a => new SheetAbility
+            {
+                Ability = a
+            }).ToList(),
+
+            SheetSkills = skills.Select(s => new SheetSkill
+            {
+                Capability = s
+            }).ToList(),
+
+            SheetSavingThrows = savingThrows.Select(st => new SheetSavingThrow
+            {
+                Capability = st
+            }).ToList()
         };
 
-        entity.SheetAbilities = abilities.Select(a => new SheetAbility
-        {
-            Ability = a
-        }).ToList();
-
-        entity.SheetSkills = skills.Select(s => new SheetSkill
-        {
-            Capability = s
-        }).ToList();
-
-        entity.SheetSavingThrows = savingThrows.Select(st => new SheetSavingThrow
-        {
-            Capability = st
-        }).ToList();
-
         entity.AddDomainEvent(new SheetCreatedEvent(entity));
-        _context.Sheets.Add(entity);
+        _ = _context.Sheets.Add(entity);
 
-        await _context.SaveChangesAsync(cancellationToken);
+        _ = await _context.SaveChangesAsync(cancellationToken);
 
         return entity.Id;
     }

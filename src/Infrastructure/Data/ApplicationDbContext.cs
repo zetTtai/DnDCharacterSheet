@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Domain;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -21,6 +20,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        _ = builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 }

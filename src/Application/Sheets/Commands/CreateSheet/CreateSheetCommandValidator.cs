@@ -9,7 +9,7 @@ public class CreateSheetCommandValidator : AbstractValidator<CreateSheetCommand>
     {
         _context = context;
 
-        RuleFor(v => v.CharacterName)
+        _ = RuleFor(v => v.CharacterName)
             .NotEmpty()
             .MaximumLength(100)
             .MinimumLength(10);

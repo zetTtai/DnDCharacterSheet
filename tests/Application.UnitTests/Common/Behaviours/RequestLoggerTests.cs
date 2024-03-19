@@ -1,5 +1,6 @@
 ﻿using CleanArchitecture.Application.Common.Behaviours;
 using CleanArchitecture.Application.Common.Interfaces;
+using CleanArchitecture.Application.Sheets.Commands.CreateSheet;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
@@ -23,9 +24,9 @@ public class RequestLoggerTests
     [Test]
     public async Task ShouldCallGetUserNameAsyncOnceIfAuthenticated()
     {
-        _user.Setup(x => x.Id).Returns(Guid.NewGuid().ToString());
+        _ = _user.Setup(x => x.Id).Returns(Guid.NewGuid().ToString());
 
-        var requestLogger = new LoggingBehaviour<CreateSheetCommand>(_logger.Object, _user.Object, _identityService.Object);
+        LoggingBehaviour<CreateSheetCommand> requestLogger = new(_logger.Object, _user.Object, _identityService.Object);
 
         await requestLogger.Process(new CreateSheetCommand { CharacterName = "Test" }, new CancellationToken());
 
@@ -35,7 +36,7 @@ public class RequestLoggerTests
     [Test]
     public async Task ShouldNotCallGetUserNameAsyncOnceIfUnauthenticated()
     {
-        var requestLogger = new LoggingBehaviour<CreateSheetCommand>(_logger.Object, _user.Object, _identityService.Object);
+        LoggingBehaviour<CreateSheetCommand> requestLogger = new(_logger.Object, _user.Object, _identityService.Object);
 
         await requestLogger.Process(new CreateSheetCommand { CharacterName = "Test" }, new CancellationToken());
 
