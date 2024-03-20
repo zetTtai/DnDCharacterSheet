@@ -13,20 +13,20 @@ public sealed class LoginStepDefinitions
     [BeforeFeature("Login")]
     public static async Task BeforeLoginScenario(IObjectContainer container)
     {
-        var playwright = await Playwright.CreateAsync();
+        IPlaywright playwright = await Playwright.CreateAsync();
 
-        var options = new BrowserTypeLaunchOptions();
+        BrowserTypeLaunchOptions options = new();
 
 #if DEBUG
         options.Headless = false;
         options.SlowMo = 500;
 #endif
 
-        var browser = await playwright.Chromium.LaunchAsync(options);
+        IBrowser browser = await playwright.Chromium.LaunchAsync(options);
 
-        var page = await browser.NewPageAsync();
+        IPage page = await browser.NewPageAsync();
 
-        var loginPage = new LoginPage(browser, page);
+        LoginPage loginPage = new(browser, page);
 
         container.RegisterInstanceAs(playwright);
         container.RegisterInstanceAs(browser);
@@ -50,10 +50,10 @@ public sealed class LoginStepDefinitions
     [Then("they log in successfully")]
     public async Task TheyLogInSuccessfully()
     {
-        var profileLinkText = await _loginPage.ProfileLinkText();
+        string? profileLinkText = await _loginPage.ProfileLinkText();
 
-        profileLinkText.Should().NotBeNull();
-        profileLinkText.Should().Be("Account");
+        _ = profileLinkText.Should().NotBeNull();
+        _ = profileLinkText.Should().Be("Account");
     }
 
     [When("the user logs in with invalid credentials")]
@@ -67,16 +67,16 @@ public sealed class LoginStepDefinitions
     [Then("an error is displayed")]
     public async Task AnErrorIsDisplayed()
     {
-        var errorVisible = await _loginPage.InvalidLoginAttemptMessageVisible();
+        bool errorVisible = await _loginPage.InvalidLoginAttemptMessageVisible();
 
-        errorVisible.Should().BeTrue();
+        _ = errorVisible.Should().BeTrue();
     }
 
     [AfterFeature]
     public static async Task AfterScenario(IObjectContainer container)
     {
-        var browser = container.Resolve<IBrowser>();
-        var playright = container.Resolve<IPlaywright>();
+        IBrowser browser = container.Resolve<IBrowser>();
+        IPlaywright playright = container.Resolve<IPlaywright>();
 
         await browser.CloseAsync();
         playright.Dispose();

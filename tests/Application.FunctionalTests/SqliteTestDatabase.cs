@@ -26,11 +26,11 @@ public class SqliteTestDatabase : ITestDatabase
 
         await _connection.OpenAsync();
 
-        var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+        DbContextOptions<ApplicationDbContext> options = new DbContextOptionsBuilder<ApplicationDbContext>()
             .UseSqlite(_connection)
             .Options;
 
-        var context = new ApplicationDbContext(options);
+        ApplicationDbContext context = new(options);
 
         context.Database.Migrate();
     }

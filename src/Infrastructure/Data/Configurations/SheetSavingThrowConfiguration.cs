@@ -7,15 +7,15 @@ public class SheetSavingThrowConfiguration : IEntityTypeConfiguration<SheetSavin
 {
     public void Configure(EntityTypeBuilder<SheetSavingThrow> builder)
     {
-        builder
+        _ = builder
             .HasKey(sst => new { sst.SheetId, sst.CapabilityId });
 
-        builder
+        _ = builder
             .HasOne(sst => sst.Sheet)
             .WithMany(s => s.SheetSavingThrows)
             .HasForeignKey(sst => sst.SheetId);
 
-        builder
+        _ = builder
             .HasOne(sst => sst.Capability)
             .WithMany(c => c.SheetSavingThrows)
             .HasForeignKey(sst => sst.CapabilityId);

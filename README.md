@@ -84,11 +84,20 @@ Running database migrations is easy. Ensure you add the following flags to your 
 * `--output-dir Data/Migrations`
 
 For example, to add a new migration and update database from the root folder:
- `dotnet tool install --global dotnet-ef` (If dotnet ef is not installed)
 
- `dotnet ef migrations add "SampleMigration" --project src\Infrastructure --startup-project src\Web --output-dir Data\Migrations`
+(If dotnet ef is not installed)
 
- `dotnet ef database update --project src\Infrastructure --startup-project src\Web`
+```bash
+ dotnet tool install --global dotnet-ef
+```
+
+```bash
+dotnet ef migrations add "SampleMigration" --project src\Infrastructure --startup-project src\Web --output-dir Data\Migrations
+```
+
+```bash
+ dotnet ef database update --project src\Infrastructure --startup-project src\Web
+```
 
 ## Deploy
 
@@ -104,22 +113,9 @@ The template includes a full CI/CD pipeline. The pipeline is responsible for bui
 * [FluentValidation](https://fluentvalidation.net/)
 * [NUnit](https://nunit.org/), [FluentAssertions](https://fluentassertions.com/), [Moq](https://github.com/moq) & [Respawn](https://github.com/jbogard/Respawn)
 
-## Versions
-The main branch is now on .NET 8.0. The following previous versions are available:
-
-* [7.0](https://github.com/jasontaylordev/CleanArchitecture/tree/net7.0)
-* [6.0](https://github.com/jasontaylordev/CleanArchitecture/tree/net6.0)
-* [5.0](https://github.com/jasontaylordev/CleanArchitecture/tree/net5.0)
-* [3.1](https://github.com/jasontaylordev/CleanArchitecture/tree/netcore3.1)
-
-## Learn More
-
-* [Clean Architecture with ASP.NET Core 3.0 (GOTO 2019)](https://youtu.be/dK4Yb6-LxAk)
-* [Clean Architecture with .NET Core: Getting Started](https://jasontaylor.dev/clean-architecture-getting-started/)
-
 ## Support
 
-If you are having problems, please let me know by [raising a new issue](https://github.com/jasontaylordev/CleanArchitecture/issues/new/choose).
+If you are having problems, please let me know by [raising a new issue](https://github.com/zetTtai/DnDCharacterSheet/issues/new/choose).
 
 ## License
 

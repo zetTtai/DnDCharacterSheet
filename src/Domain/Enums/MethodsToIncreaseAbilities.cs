@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.Domain;
+﻿namespace CleanArchitecture.Domain.Enums;
 
 public enum MethodsToIncreaseAbilities
 {

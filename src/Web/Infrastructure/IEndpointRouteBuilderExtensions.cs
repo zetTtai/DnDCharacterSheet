@@ -8,7 +8,7 @@ public static class IEndpointRouteBuilderExtensions
     {
         Guard.Against.AnonymousMethod(handler);
 
-        builder.MapGet(pattern, handler)
+        _ = builder.MapGet(pattern, handler)
             .WithName(handler.Method.Name);
 
         return builder;
@@ -18,7 +18,7 @@ public static class IEndpointRouteBuilderExtensions
     {
         Guard.Against.AnonymousMethod(handler);
 
-        builder.MapPost(pattern, handler)
+        _ = builder.MapPost(pattern, handler)
             .WithName(handler.Method.Name);
 
         return builder;
@@ -28,7 +28,7 @@ public static class IEndpointRouteBuilderExtensions
     {
         Guard.Against.AnonymousMethod(handler);
 
-        builder.MapPut(pattern, handler)
+        _ = builder.MapPut(pattern, handler)
             .WithName(handler.Method.Name);
 
         return builder;
@@ -38,7 +38,7 @@ public static class IEndpointRouteBuilderExtensions
     {
         Guard.Against.AnonymousMethod(handler);
 
-        builder.MapDelete(pattern, handler)
+        _ = builder.MapDelete(pattern, handler)
             .WithName(handler.Method.Name);
 
         return builder;

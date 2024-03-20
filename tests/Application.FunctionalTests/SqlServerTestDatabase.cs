@@ -15,14 +15,14 @@ public class SqlServerTestDatabase : ITestDatabase
 
     public SqlServerTestDatabase()
     {
-        var configuration = new ConfigurationBuilder()
+        IConfigurationRoot configuration = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json")
             .AddEnvironmentVariables()
             .Build();
 
-        var connectionString = configuration.GetConnectionString("DefaultConnection");
+        string? connectionString = configuration.GetConnectionString("DefaultConnection");
 
-        Guard.Against.Null(connectionString);
+        _ = Guard.Against.Null(connectionString);
 
         _connectionString = connectionString;
     }
@@ -31,11 +31,11 @@ public class SqlServerTestDatabase : ITestDatabase
     {
         _connection = new SqlConnection(_connectionString);
 
-        var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+        DbContextOptions<ApplicationDbContext> options = new DbContextOptionsBuilder<ApplicationDbContext>()
             .UseSqlServer(_connectionString)
             .Options;
 
-        var context = new ApplicationDbContext(options);
+        ApplicationDbContext context = new(options);
 
         context.Database.Migrate();
 

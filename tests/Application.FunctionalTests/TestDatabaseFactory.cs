@@ -4,14 +4,14 @@ public static class TestDatabaseFactory
 {
     public static async Task<ITestDatabase> CreateAsync()
     {
-#if (UseSQLite)
+#if UseSQLite
         var database = new SqliteTestDatabase();
 #else
 #if DEBUG
-        var database = new SqlServerTestDatabase();
-    #else
+        SqlServerTestDatabase database = new();
+#else
         var database = new TestcontainersTestDatabase();
-    #endif
+#endif
 #endif
 
         await database.InitialiseAsync();
