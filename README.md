@@ -10,7 +10,6 @@ The goal of this template is to provide a straightforward and efficient approach
 
 If you find this project useful, please give it a star. Thanks! ⭐
 
-
 ## Getting Started
 
 The following prerequisites are required to build and run the solution:
