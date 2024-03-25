@@ -1,6 +1,6 @@
-﻿using CleanArchitecture.Application.Common.Models;
+﻿using DnDCharacterSheet.Application.Common.Models;
 
-namespace CleanArchitecture.Application.Common.Interfaces;
+namespace DnDCharacterSheet.Application.Common.Interfaces;
 
 public interface IIdentityService
 {

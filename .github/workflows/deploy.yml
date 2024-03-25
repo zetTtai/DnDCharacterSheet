@@ -19,7 +19,7 @@ jobs:
 
      steps: 
 
-     - uses: actions/checkout@v4
+     - uses: actions/checkout@v4  
        name: Checkout code
 
      - uses: azure/login@v1
@@ -38,8 +38,6 @@ jobs:
          template: ./.azure/bicep/main.bicep
          parameters: >
            environmentName=${{ inputs.environmentName }}
-           sqlAdministratorUsername=${{ vars.AZURE_SQL_ADMINISTRATOR_USERNAME }}
-           sqlAdministratorPassword=${{ secrets.AZURE_SQL_ADMINISTRATOR_PASSWORD }}
            projectName=${{ vars.PROJECT_NAME }}
          deploymentMode: Validate
 
@@ -52,8 +50,6 @@ jobs:
          template: ./.azure/bicep/main.bicep
          parameters: >
            environmentName=${{ inputs.environmentName }}
-           sqlAdministratorUsername=${{ vars.AZURE_SQL_ADMINISTRATOR_USERNAME }}
-           sqlAdministratorPassword=${{ secrets.AZURE_SQL_ADMINISTRATOR_PASSWORD }}
            projectName=${{ vars.PROJECT_NAME }}
          additionalArguments: --what-if
  
@@ -90,15 +86,12 @@ jobs:
         template: ./.azure/bicep/main.bicep
         parameters: >
            environmentName=${{ inputs.environmentName }}
-           sqlAdministratorUsername=${{ vars.AZURE_SQL_ADMINISTRATOR_USERNAME }}
-           sqlAdministratorPassword=${{ secrets.AZURE_SQL_ADMINISTRATOR_PASSWORD }}
            projectName=${{ vars.PROJECT_NAME }}
 
-    - name: Initialise database
+    - name: Set database connection string
       run: |
-        unzip -o ./efbundle/efbundle.zip
-        echo '{ "ConnectionStrings": { "DefaultConnection": "" } }' > appsettings.json
-        ./efbundle.exe --connection "Server=${{ steps.deploy.outputs.sqlServerFullyQualifiedDomainName }};Initial Catalog=${{ steps.deploy.outputs.sqlDatabaseName }};Persist Security Info=False;User ID=${{ vars.AZURE_SQL_ADMINISTRATOR_USERNAME }};Password=${{ secrets.AZURE_SQL_ADMINISTRATOR_PASSWORD }};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" --verbose
+        echo '{ "ConnectionStrings": { "DefaultConnection": "${{ secrets.SUPABASE_CONNECTION_STRING }}" } }' > appsettings.json
+      
 
     - uses: azure/webapps-deploy@v2
       name: Deploy website

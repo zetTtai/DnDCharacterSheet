@@ -1,9 +1,10 @@
-using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Application.Common.Models;
+using DnDCharacterSheet.Application.Common.Interfaces;
+using DnDCharacterSheet.Application.Common.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
-namespace CleanArchitecture.Infrastructure.Identity;
+namespace DnDCharacterSheet.Infrastructure.Identity;
 
 public class IdentityService : IIdentityService
 {
@@ -23,57 +24,57 @@ public class IdentityService : IIdentityService
 
     public async Task<string?> GetUserNameAsync(string userId)
     {
-        ApplicationUser? user = await _userManager.FindByIdAsync(userId);
+        var user = await _userManager.FindByIdAsync(userId);
 
         return user?.UserName;
     }
 
     public async Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password)
     {
-        ApplicationUser user = new()
+        var user = new ApplicationUser
         {
             UserName = userName,
             Email = userName,
         };
 
-        IdentityResult result = await _userManager.CreateAsync(user, password);
+        var result = await _userManager.CreateAsync(user, password);
 
         return (result.ToApplicationResult(), user.Id);
     }
 
     public async Task<bool> IsInRoleAsync(string userId, string role)
     {
-        ApplicationUser? user = await _userManager.FindByIdAsync(userId);
+        var user = await _userManager.FindByIdAsync(userId);
 
         return user != null && await _userManager.IsInRoleAsync(user, role);
     }
 
     public async Task<bool> AuthorizeAsync(string userId, string policyName)
     {
-        ApplicationUser? user = await _userManager.FindByIdAsync(userId);
+        var user = await _userManager.FindByIdAsync(userId);
 
         if (user == null)
         {
             return false;
         }
 
-        System.Security.Claims.ClaimsPrincipal principal = await _userClaimsPrincipalFactory.CreateAsync(user);
+        var principal = await _userClaimsPrincipalFactory.CreateAsync(user);
 
-        AuthorizationResult result = await _authorizationService.AuthorizeAsync(principal, policyName);
+        var result = await _authorizationService.AuthorizeAsync(principal, policyName);
 
         return result.Succeeded;
     }
 
     public async Task<Result> DeleteUserAsync(string userId)
     {
-        ApplicationUser? user = await _userManager.FindByIdAsync(userId);
+        var user = await _userManager.FindByIdAsync(userId);
 
         return user != null ? await DeleteUserAsync(user) : Result.Success();
     }
 
     public async Task<Result> DeleteUserAsync(ApplicationUser user)
     {
-        IdentityResult result = await _userManager.DeleteAsync(user);
+        var result = await _userManager.DeleteAsync(user);
 
         return result.ToApplicationResult();
     }

@@ -1,12 +1,12 @@
 ﻿using System.Reflection;
 
-namespace CleanArchitecture.Web.Infrastructure;
+namespace DnDCharacterSheet.Web.Infrastructure;
 
 public static class WebApplicationExtensions
 {
     public static RouteGroupBuilder MapGroup(this WebApplication app, EndpointGroupBase group)
     {
-        string groupName = group.GetType().Name;
+        var groupName = group.GetType().Name;
 
         return app
             .MapGroup($"/api/{groupName}")
@@ -17,14 +17,14 @@ public static class WebApplicationExtensions
 
     public static WebApplication MapEndpoints(this WebApplication app)
     {
-        Type endpointGroupType = typeof(EndpointGroupBase);
+        var endpointGroupType = typeof(EndpointGroupBase);
 
-        Assembly assembly = Assembly.GetExecutingAssembly();
+        var assembly = Assembly.GetExecutingAssembly();
 
-        IEnumerable<Type> endpointGroupTypes = assembly.GetExportedTypes()
+        var endpointGroupTypes = assembly.GetExportedTypes()
             .Where(t => t.IsSubclassOf(endpointGroupType));
 
-        foreach (Type? type in endpointGroupTypes)
+        foreach (var type in endpointGroupTypes)
         {
             if (Activator.CreateInstance(type) is EndpointGroupBase instance)
             {

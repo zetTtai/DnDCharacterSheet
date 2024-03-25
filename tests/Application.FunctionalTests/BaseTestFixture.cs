@@ -1,4 +1,7 @@
-﻿namespace CleanArchitecture.Application.FunctionalTests;
+﻿namespace DnDCharacterSheet.Application.FunctionalTests;
+
+using static Testing;
+
 [TestFixture]
 public abstract class BaseTestFixture
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace CleanArchitecture.Infrastructure.Identity;
+namespace DnDCharacterSheet.Infrastructure.Identity;
 
 public class ApplicationUser : IdentityUser
 {

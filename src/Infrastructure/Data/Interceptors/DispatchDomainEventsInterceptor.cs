@@ -1,9 +1,9 @@
-﻿using CleanArchitecture.Domain.Common;
+﻿using DnDCharacterSheet.Domain.Common;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
-namespace CleanArchitecture.Infrastructure.Data.Interceptors;
+namespace DnDCharacterSheet.Infrastructure.Data.Interceptors;
 
 public class DispatchDomainEventsInterceptor : SaveChangesInterceptor
 {
@@ -31,25 +31,20 @@ public class DispatchDomainEventsInterceptor : SaveChangesInterceptor
 
     public async Task DispatchDomainEvents(DbContext? context)
     {
-        if (context == null)
-        {
-            return;
-        }
+        if (context == null) return;
 
-        IEnumerable<BaseEntity> entities = context.ChangeTracker
+        var entities = context.ChangeTracker
             .Entries<BaseEntity>()
             .Where(e => e.Entity.DomainEvents.Any())
             .Select(e => e.Entity);
 
-        List<BaseEvent> domainEvents = entities
+        var domainEvents = entities
             .SelectMany(e => e.DomainEvents)
             .ToList();
 
         entities.ToList().ForEach(e => e.ClearDomainEvents());
 
-        foreach (BaseEvent? domainEvent in domainEvents)
-        {
+        foreach (var domainEvent in domainEvents)
             await _mediator.Publish(domainEvent);
-        }
     }
 }

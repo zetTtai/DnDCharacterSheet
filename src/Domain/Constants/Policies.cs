@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.Domain.Constants;
+﻿namespace DnDCharacterSheet.Domain.Constants;
 
 public abstract class Policies
 {

@@ -1,14 +1,12 @@
-﻿using CleanArchitecture.Domain.Entities;
+﻿using DnDCharacterSheet.Domain.Entities;
 
-namespace CleanArchitecture.Application.Common.Interfaces;
+namespace DnDCharacterSheet.Application.Common.Interfaces;
 
 public interface IApplicationDbContext
 {
-    DbSet<Sheet> Sheets { get; }
+    DbSet<TodoList> TodoLists { get; }
 
-    DbSet<Ability> Abilities { get; }
-
-    DbSet<Capability> Capabilities { get; }
+    DbSet<TodoItem> TodoItems { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

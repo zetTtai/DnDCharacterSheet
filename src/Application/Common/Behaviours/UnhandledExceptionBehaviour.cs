@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace CleanArchitecture.Application.Common.Behaviours;
+namespace DnDCharacterSheet.Application.Common.Behaviours;
 
 public class UnhandledExceptionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
 {
@@ -19,9 +19,9 @@ public class UnhandledExceptionBehaviour<TRequest, TResponse> : IPipelineBehavio
         }
         catch (Exception ex)
         {
-            string requestName = typeof(TRequest).Name;
+            var requestName = typeof(TRequest).Name;
 
-            _logger.LogError(ex, "CleanArchitecture Request: Unhandled Exception for Request {Name} {@Request}", requestName, request);
+            _logger.LogError(ex, "DnDCharacterSheet Request: Unhandled Exception for Request {Name} {@Request}", requestName, request);
 
             throw;
         }

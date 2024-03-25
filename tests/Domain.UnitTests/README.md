@@ -1,3 +1,0 @@
-- Dedicated to **unit testing** the **Domain layer**, which encapsulates core business logic.
-- Concentrates on the integrity and behavior of **entities, value objects, aggregates,** and domain services.
-- Verifies that business rules and invariants are properly enforced within domain objects.

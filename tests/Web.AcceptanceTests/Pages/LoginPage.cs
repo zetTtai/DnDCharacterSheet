@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.Web.AcceptanceTests.Pages;
+﻿namespace DnDCharacterSheet.Web.AcceptanceTests.Pages;
 
 public class LoginPage : BasePage
 {
@@ -15,27 +15,17 @@ public class LoginPage : BasePage
     public override IPage Page { get; set; }
 
     public Task SetEmail(string email)
-    {
-        return Page.FillAsync("#Input_Email", email);
-    }
+        => Page.FillAsync("#Input_Email", email);
 
     public Task SetPassword(string password)
-    {
-        return Page.FillAsync("#Input_Password", password);
-    }
+        => Page.FillAsync("#Input_Password", password);
 
     public Task ClickLogin()
-    {
-        return Page.Locator("#login-submit").ClickAsync();
-    }
+        => Page.Locator("#login-submit").ClickAsync();
 
     public Task<string?> ProfileLinkText()
-    {
-        return Page.Locator("a[href='/Identity/Account/Manage']").TextContentAsync();
-    }
+        => Page.Locator("a[href='/Identity/Account/Manage']").TextContentAsync();
 
     public Task<bool> InvalidLoginAttemptMessageVisible()
-    {
-        return Page.Locator("text=Invalid login attempt.").IsVisibleAsync();
-    }
+        => Page.Locator("text=Invalid login attempt.").IsVisibleAsync();
 }

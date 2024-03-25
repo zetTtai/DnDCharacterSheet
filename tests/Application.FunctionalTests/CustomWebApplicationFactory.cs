@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
-using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Infrastructure.Data;
+using DnDCharacterSheet.Application.Common.Interfaces;
+using DnDCharacterSheet.Infrastructure.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
@@ -9,7 +9,10 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace CleanArchitecture.Application.FunctionalTests;
+namespace DnDCharacterSheet.Application.FunctionalTests;
+
+using static Testing;
+
 public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
     private readonly DbConnection _connection;
@@ -32,11 +35,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                 .AddDbContext<ApplicationDbContext>((sp, options) =>
                 {
                     options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
-#if UseSQLite
-                    options.UseSqlite(_connection);
-#else
-                    options.UseSqlServer(_connection);
-#endif
+                    options.UseNpgsql(_connection);
                 });
         });
     }

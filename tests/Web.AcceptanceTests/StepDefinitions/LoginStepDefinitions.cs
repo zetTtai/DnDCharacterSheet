@@ -1,4 +1,4 @@
-namespace CleanArchitecture.Web.AcceptanceTests.StepDefinitions;
+namespace DnDCharacterSheet.Web.AcceptanceTests.StepDefinitions;
 
 [Binding]
 public sealed class LoginStepDefinitions
@@ -13,20 +13,16 @@ public sealed class LoginStepDefinitions
     [BeforeFeature("Login")]
     public static async Task BeforeLoginScenario(IObjectContainer container)
     {
-        IPlaywright playwright = await Playwright.CreateAsync();
+        var playwright = await Playwright.CreateAsync();
 
-        BrowserTypeLaunchOptions options = new();
+        var options = new BrowserTypeLaunchOptions();
 
-#if DEBUG
-        options.Headless = false;
-        options.SlowMo = 500;
-#endif
 
-        IBrowser browser = await playwright.Chromium.LaunchAsync(options);
+        var browser = await playwright.Chromium.LaunchAsync(options);
 
-        IPage page = await browser.NewPageAsync();
+        var page = await browser.NewPageAsync();
 
-        LoginPage loginPage = new(browser, page);
+        var loginPage = new LoginPage(browser, page);
 
         container.RegisterInstanceAs(playwright);
         container.RegisterInstanceAs(browser);
@@ -50,10 +46,10 @@ public sealed class LoginStepDefinitions
     [Then("they log in successfully")]
     public async Task TheyLogInSuccessfully()
     {
-        string? profileLinkText = await _loginPage.ProfileLinkText();
+        var profileLinkText = await _loginPage.ProfileLinkText();
 
-        _ = profileLinkText.Should().NotBeNull();
-        _ = profileLinkText.Should().Be("Account");
+        profileLinkText.Should().NotBeNull();
+        profileLinkText.Should().Be("Account");
     }
 
     [When("the user logs in with invalid credentials")]
@@ -67,16 +63,16 @@ public sealed class LoginStepDefinitions
     [Then("an error is displayed")]
     public async Task AnErrorIsDisplayed()
     {
-        bool errorVisible = await _loginPage.InvalidLoginAttemptMessageVisible();
+        var errorVisible = await _loginPage.InvalidLoginAttemptMessageVisible();
 
-        _ = errorVisible.Should().BeTrue();
+        errorVisible.Should().BeTrue();
     }
 
     [AfterFeature]
     public static async Task AfterScenario(IObjectContainer container)
     {
-        IBrowser browser = container.Resolve<IBrowser>();
-        IPlaywright playright = container.Resolve<IPlaywright>();
+        var browser = container.Resolve<IBrowser>();
+        var playright = container.Resolve<IPlaywright>();
 
         await browser.CloseAsync();
         playright.Dispose();

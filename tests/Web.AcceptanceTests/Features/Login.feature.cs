@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace CleanArchitecture.Web.AcceptanceTests.Features
+namespace DnDCharacterSheet.Web.AcceptanceTests.Features
 {
     using TechTalk.SpecFlow;
     using System;

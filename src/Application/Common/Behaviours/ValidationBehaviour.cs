@@ -1,6 +1,6 @@
-﻿using ValidationException = CleanArchitecture.Application.Common.Exceptions.ValidationException;
+﻿using ValidationException = DnDCharacterSheet.Application.Common.Exceptions.ValidationException;
 
-namespace CleanArchitecture.Application.Common.Behaviours;
+namespace DnDCharacterSheet.Application.Common.Behaviours;
 
 public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
      where TRequest : notnull
@@ -16,21 +16,19 @@ public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TReque
     {
         if (_validators.Any())
         {
-            ValidationContext<TRequest> context = new(request);
+            var context = new ValidationContext<TRequest>(request);
 
-            FluentValidation.Results.ValidationResult[] validationResults = await Task.WhenAll(
+            var validationResults = await Task.WhenAll(
                 _validators.Select(v =>
                     v.ValidateAsync(context, cancellationToken)));
 
-            List<FluentValidation.Results.ValidationFailure> failures = validationResults
+            var failures = validationResults
                 .Where(r => r.Errors.Any())
                 .SelectMany(r => r.Errors)
                 .ToList();
 
             if (failures.Any())
-            {
                 throw new ValidationException(failures);
-            }
         }
         return await next();
     }

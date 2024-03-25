@@ -1,8 +1,8 @@
-﻿using CleanArchitecture.Application.Common.Exceptions;
+﻿using DnDCharacterSheet.Application.Common.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CleanArchitecture.Web.Infrastructure;
+namespace DnDCharacterSheet.Web.Infrastructure;
 
 public class CustomExceptionHandler : IExceptionHandler
 {
@@ -22,7 +22,7 @@ public class CustomExceptionHandler : IExceptionHandler
 
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
-        Type exceptionType = exception.GetType();
+        var exceptionType = exception.GetType();
 
         if (_exceptionHandlers.ContainsKey(exceptionType))
         {
@@ -35,7 +35,7 @@ public class CustomExceptionHandler : IExceptionHandler
 
     private async Task HandleValidationException(HttpContext httpContext, Exception ex)
     {
-        ValidationException exception = (ValidationException)ex;
+        var exception = (ValidationException)ex;
 
         httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
 
@@ -48,7 +48,7 @@ public class CustomExceptionHandler : IExceptionHandler
 
     private async Task HandleNotFoundException(HttpContext httpContext, Exception ex)
     {
-        NotFoundException exception = (NotFoundException)ex;
+        var exception = (NotFoundException)ex;
 
         httpContext.Response.StatusCode = StatusCodes.Status404NotFound;
 
