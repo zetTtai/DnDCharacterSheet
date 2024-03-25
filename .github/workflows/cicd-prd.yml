@@ -1,0 +1,28 @@
+name: CICD - Deploy Production on push main
+
+on: 
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - .gitignore
+      - CODE_OF_CONDUCT.md
+      - LICENSE
+      - README.md
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+
+  build:
+    uses: ./.github/workflows/build.yml
+    with:
+      build-artifacts: true
+
+  deploy-production:
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit
+    needs: [ build ]
+    with:
+      environmentName: Production

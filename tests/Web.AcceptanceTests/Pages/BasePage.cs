@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.Web.AcceptanceTests.Pages;
+﻿namespace DnDCharacterSheet.Web.AcceptanceTests.Pages;
 
 public abstract class BasePage
 {
@@ -13,6 +13,6 @@ public abstract class BasePage
     public async Task GotoAsync()
     {
         Page = await Browser.NewPageAsync();
-        _ = await Page.GotoAsync(PagePath);
+        await Page.GotoAsync(PagePath);
     }
 }

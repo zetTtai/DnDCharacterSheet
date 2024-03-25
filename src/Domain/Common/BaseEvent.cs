@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace CleanArchitecture.Domain.Common;
+namespace DnDCharacterSheet.Domain.Common;
 
 public abstract class BaseEvent : INotification
 {

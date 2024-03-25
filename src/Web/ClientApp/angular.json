@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "CleanArchitecture.Web": {
+    "DnDCharacterSheet.Web": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -71,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "CleanArchitecture.Web:build:production"
+              "browserTarget": "DnDCharacterSheet.Web:build:production"
             },
             "development": {
-              "browserTarget": "CleanArchitecture.Web:build:development",
+              "browserTarget": "DnDCharacterSheet.Web:build:development",
               "proxyConfig": "proxy.conf.js"
             }
           },
@@ -83,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "CleanArchitecture.Web:build"
+            "browserTarget": "DnDCharacterSheet.Web:build"
           }
         },
         "test": {
@@ -131,7 +131,7 @@
       }
     }
   },
-  "defaultProject": "CleanArchitecture.Web",
+  "defaultProject": "DnDCharacterSheet.Web",
   "cli": {
     "analytics": false
   }

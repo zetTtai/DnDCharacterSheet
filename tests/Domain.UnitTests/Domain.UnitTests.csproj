@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <RootNamespace>CleanArchitecture.Domain.UnitTests</RootNamespace>
-        <AssemblyName>CleanArchitecture.Domain.UnitTests</AssemblyName>
+        <RootNamespace>DnDCharacterSheet.Domain.UnitTests</RootNamespace>
+        <AssemblyName>DnDCharacterSheet.Domain.UnitTests</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>
@@ -19,10 +19,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\src\Domain\Domain.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="ValueObjects\" />
     </ItemGroup>
 
 </Project>

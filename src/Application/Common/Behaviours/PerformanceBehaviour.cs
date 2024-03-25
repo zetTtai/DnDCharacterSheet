@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
-using CleanArchitecture.Application.Common.Interfaces;
+using DnDCharacterSheet.Application.Common.Interfaces;
 using Microsoft.Extensions.Logging;
 
-namespace CleanArchitecture.Application.Common.Behaviours;
+namespace DnDCharacterSheet.Application.Common.Behaviours;
 
 public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
 {
@@ -27,24 +27,24 @@ public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequ
     {
         _timer.Start();
 
-        TResponse? response = await next();
+        var response = await next();
 
         _timer.Stop();
 
-        long elapsedMilliseconds = _timer.ElapsedMilliseconds;
+        var elapsedMilliseconds = _timer.ElapsedMilliseconds;
 
         if (elapsedMilliseconds > 500)
         {
-            string requestName = typeof(TRequest).Name;
-            string userId = _user.Id ?? string.Empty;
-            string? userName = string.Empty;
+            var requestName = typeof(TRequest).Name;
+            var userId = _user.Id ?? string.Empty;
+            var userName = string.Empty;
 
             if (!string.IsNullOrEmpty(userId))
             {
                 userName = await _identityService.GetUserNameAsync(userId);
             }
 
-            _logger.LogWarning("CleanArchitecture Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@UserId} {@UserName} {@Request}",
+            _logger.LogWarning("DnDCharacterSheet Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@UserId} {@UserName} {@Request}",
                 requestName, elapsedMilliseconds, userId, userName, request);
         }
 

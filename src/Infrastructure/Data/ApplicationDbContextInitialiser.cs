@@ -1,22 +1,22 @@
-﻿using CleanArchitecture.Domain.Constants;
-using CleanArchitecture.Domain.Entities;
-using CleanArchitecture.Domain.Enums;
-using CleanArchitecture.Infrastructure.Identity;
+﻿using System.Runtime.InteropServices;
+using DnDCharacterSheet.Domain.Constants;
+using DnDCharacterSheet.Domain.Entities;
+using DnDCharacterSheet.Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace CleanArchitecture.Infrastructure.Data;
+namespace DnDCharacterSheet.Infrastructure.Data;
 
 public static class InitialiserExtensions
 {
     public static async Task InitialiseDatabaseAsync(this WebApplication app)
     {
-        using IServiceScope scope = app.Services.CreateScope();
+        using var scope = app.Services.CreateScope();
 
-        ApplicationDbContextInitialiser initialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
+        var initialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
 
         await initialiser.InitialiseAsync();
 
@@ -68,44 +68,42 @@ public class ApplicationDbContextInitialiser
     public async Task TrySeedAsync()
     {
         // Default roles
-        IdentityRole administratorRole = new(Roles.Administrator);
+        var administratorRole = new IdentityRole(Roles.Administrator);
 
         if (_roleManager.Roles.All(r => r.Name != administratorRole.Name))
         {
-            _ = await _roleManager.CreateAsync(administratorRole);
+            await _roleManager.CreateAsync(administratorRole);
         }
 
         // Default users
-        ApplicationUser administrator = new() { UserName = "administrator@localhost", Email = "administrator@localhost" };
+        var administrator = new ApplicationUser { UserName = "administrator@localhost", Email = "administrator@localhost" };
 
         if (_userManager.Users.All(u => u.UserName != administrator.UserName))
         {
-            _ = await _userManager.CreateAsync(administrator, "Administrator1!");
+            await _userManager.CreateAsync(administrator, "Administrator1!");
             if (!string.IsNullOrWhiteSpace(administratorRole.Name))
             {
-                _ = await _userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name });
+                await _userManager.AddToRolesAsync(administrator, new [] { administratorRole.Name });
             }
         }
 
         // Default data
         // Seed, if necessary
-        if (!_context.Abilities.Any() && !_context.Capabilities.Any())
+        if (!_context.TodoLists.Any())
         {
-            _context.Abilities.AddRange(
-                (from CharacterAbilities ability in Enum.GetValues(typeof(CharacterAbilities))
-                 select new Ability
-                 {
-                     Name = ability.ToString(),
-                     Capabilities = (from CharacterCapabilities capability in Enum.GetValues(typeof(CharacterCapabilities))
-                                     where (CharacterAbilities)((int)capability / 100) == ability
-                                     select new Capability
-                                     {
-                                         Name = capability.ToString()
+            _context.TodoLists.Add(new TodoList
+            {
+                Title = "Todo List",
+                Items =
+                {
+                    new TodoItem { Title = "Make a todo list 📃" },
+                    new TodoItem { Title = "Check off the first item ✅" },
+                    new TodoItem { Title = "Realise you've already done two things on the list! 🤯"},
+                    new TodoItem { Title = "Reward yourself with a nice, long nap 🏆" },
+                }
+            });
 
-                                     }).ToList()
-                 }).ToList());
-
-            _ = await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
     }
 }

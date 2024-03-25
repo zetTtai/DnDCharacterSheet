@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <RootNamespace>CleanArchitecture.Infrastructure.IntegrationTests</RootNamespace>
-        <AssemblyName>CleanArchitecture.Infrastructure.IntegrationTests</AssemblyName>
+        <RootNamespace>DnDCharacterSheet.Infrastructure.IntegrationTests</RootNamespace>
+        <AssemblyName>DnDCharacterSheet.Infrastructure.IntegrationTests</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>

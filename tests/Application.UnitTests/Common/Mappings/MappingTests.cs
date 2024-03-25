@@ -1,10 +1,14 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using AutoMapper;
-using CleanArchitecture.Application.Common.Interfaces;
+using DnDCharacterSheet.Application.Common.Interfaces;
+using DnDCharacterSheet.Application.Common.Models;
+using DnDCharacterSheet.Application.TodoItems.Queries.GetTodoItemsWithPagination;
+using DnDCharacterSheet.Application.TodoLists.Queries.GetTodos;
+using DnDCharacterSheet.Domain.Entities;
 using NUnit.Framework;
 
-namespace CleanArchitecture.Application.UnitTests.Common.Mappings;
+namespace DnDCharacterSheet.Application.UnitTests.Common.Mappings;
 
 public class MappingTests
 {
@@ -13,7 +17,7 @@ public class MappingTests
 
     public MappingTests()
     {
-        _configuration = new MapperConfiguration(config =>
+        _configuration = new MapperConfiguration(config => 
             config.AddMaps(Assembly.GetAssembly(typeof(IApplicationDbContext))));
 
         _mapper = _configuration.CreateMapper();
@@ -25,23 +29,23 @@ public class MappingTests
         _configuration.AssertConfigurationIsValid();
     }
 
-    // TODO: When implement Dtos this text will be needed
-    //[Test]
-    //[TestCase(typeof(TodoList), typeof(TodoListDto))]
-    //[TestCase(typeof(TodoItem), typeof(TodoItemDto))]
+    [Test]
+    [TestCase(typeof(TodoList), typeof(TodoListDto))]
+    [TestCase(typeof(TodoItem), typeof(TodoItemDto))]
+    [TestCase(typeof(TodoList), typeof(LookupDto))]
+    [TestCase(typeof(TodoItem), typeof(LookupDto))]
+    [TestCase(typeof(TodoItem), typeof(TodoItemBriefDto))]
     public void ShouldSupportMappingFromSourceToDestination(Type source, Type destination)
     {
-        object instance = GetInstanceOf(source);
+        var instance = GetInstanceOf(source);
 
-        _ = _mapper.Map(instance, source, destination);
+        _mapper.Map(instance, source, destination);
     }
 
     private object GetInstanceOf(Type type)
     {
         if (type.GetConstructor(Type.EmptyTypes) != null)
-        {
             return Activator.CreateInstance(type)!;
-        }
 
         // Type without parameterless constructor
         return RuntimeHelpers.GetUninitializedObject(type);

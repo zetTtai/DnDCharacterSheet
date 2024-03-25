@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace CleanArchitecture.Web.AcceptanceTests;
+namespace DnDCharacterSheet.Web.AcceptanceTests;
 
 public static class ConfigurationHelper
 {
-    private static readonly IConfiguration _configuration;
+    private readonly static IConfiguration _configuration;
 
     static ConfigurationHelper()
     {

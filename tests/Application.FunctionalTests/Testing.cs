@@ -1,14 +1,12 @@
-﻿using CleanArchitecture.Domain.Constants;
-using CleanArchitecture.Domain.Entities;
-using CleanArchitecture.Domain.Enums;
-using CleanArchitecture.Infrastructure.Data;
-using CleanArchitecture.Infrastructure.Identity;
+﻿using DnDCharacterSheet.Domain.Constants;
+using DnDCharacterSheet.Infrastructure.Data;
+using DnDCharacterSheet.Infrastructure.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CleanArchitecture.Application.FunctionalTests;
+namespace DnDCharacterSheet.Application.FunctionalTests;
 
 [SetUpFixture]
 public partial class Testing
@@ -30,20 +28,20 @@ public partial class Testing
 
     public static async Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request)
     {
-        using IServiceScope scope = _scopeFactory.CreateScope();
+        using var scope = _scopeFactory.CreateScope();
 
-        ISender mediator = scope.ServiceProvider.GetRequiredService<ISender>();
+        var mediator = scope.ServiceProvider.GetRequiredService<ISender>();
 
         return await mediator.Send(request);
     }
 
     public static async Task SendAsync(IBaseRequest request)
     {
-        using IServiceScope scope = _scopeFactory.CreateScope();
+        using var scope = _scopeFactory.CreateScope();
 
-        ISender mediator = scope.ServiceProvider.GetRequiredService<ISender>();
+        var mediator = scope.ServiceProvider.GetRequiredService<ISender>();
 
-        _ = await mediator.Send(request);
+        await mediator.Send(request);
     }
 
     public static string? GetUserId()
@@ -63,24 +61,24 @@ public partial class Testing
 
     public static async Task<string> RunAsUserAsync(string userName, string password, string[] roles)
     {
-        using IServiceScope scope = _scopeFactory.CreateScope();
+        using var scope = _scopeFactory.CreateScope();
 
-        UserManager<ApplicationUser> userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-        ApplicationUser user = new() { UserName = userName, Email = userName };
+        var user = new ApplicationUser { UserName = userName, Email = userName };
 
-        IdentityResult result = await userManager.CreateAsync(user, password);
+        var result = await userManager.CreateAsync(user, password);
 
         if (roles.Any())
         {
-            RoleManager<IdentityRole> roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-            foreach (string role in roles)
+            foreach (var role in roles)
             {
-                _ = await roleManager.CreateAsync(new IdentityRole(role));
+                await roleManager.CreateAsync(new IdentityRole(role));
             }
 
-            _ = await userManager.AddToRolesAsync(user, roles);
+            await userManager.AddToRolesAsync(user, roles);
         }
 
         if (result.Succeeded)
@@ -90,7 +88,7 @@ public partial class Testing
             return _userId;
         }
 
-        string errors = string.Join(Environment.NewLine, result.ToApplicationResult().Errors);
+        var errors = string.Join(Environment.NewLine, result.ToApplicationResult().Errors);
 
         throw new Exception($"Unable to create {userName}.{Environment.NewLine}{errors}");
     }
@@ -101,7 +99,7 @@ public partial class Testing
         {
             await _database.ResetAsync();
         }
-        catch (Exception)
+        catch (Exception) 
         {
         }
 
@@ -111,73 +109,32 @@ public partial class Testing
     public static async Task<TEntity?> FindAsync<TEntity>(params object[] keyValues)
         where TEntity : class
     {
-        using IServiceScope scope = _scopeFactory.CreateScope();
+        using var scope = _scopeFactory.CreateScope();
 
-        ApplicationDbContext context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
         return await context.FindAsync<TEntity>(keyValues);
-    }
-
-    public static async Task<Sheet?> FindSheetWithDetailsAsync(int id)
-    {
-        using IServiceScope scope = _scopeFactory.CreateScope();
-        ApplicationDbContext context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-
-        // Use Include and ThenInclude to eagerly load related entities
-        Sheet? sheet = await context.Sheets
-            .Include(s => s.SheetSkills)
-                .ThenInclude(ss => ss.Capability) // Assuming you want to load related Capabilities as well
-            .Include(s => s.SheetAbilities)
-                .ThenInclude(sa => sa.Ability) // And similarly for Abilities
-            .Include(s => s.SheetSavingThrows)
-                .ThenInclude(st => st.Capability) // And for SavingThrows
-            .FirstOrDefaultAsync(s => s.Id == id);
-
-        return sheet;
     }
 
     public static async Task AddAsync<TEntity>(TEntity entity)
         where TEntity : class
     {
-        using IServiceScope scope = _scopeFactory.CreateScope();
+        using var scope = _scopeFactory.CreateScope();
 
-        ApplicationDbContext context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-        _ = context.Add(entity);
+        context.Add(entity);
 
-        _ = await context.SaveChangesAsync();
+        await context.SaveChangesAsync();
     }
 
     public static async Task<int> CountAsync<TEntity>() where TEntity : class
     {
-        using IServiceScope scope = _scopeFactory.CreateScope();
+        using var scope = _scopeFactory.CreateScope();
 
-        ApplicationDbContext context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
         return await context.Set<TEntity>().CountAsync();
-    }
-
-    public static async Task SeedAbilitiesAndCapabilitiesDatabaseAsync()
-    {
-        using IServiceScope scope = _scopeFactory.CreateScope();
-
-        ApplicationDbContext context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-
-        context.Abilities.AddRange(
-            (from CharacterAbilities ability in Enum.GetValues(typeof(CharacterAbilities))
-             select new Ability
-             {
-                 Name = ability.ToString(),
-                 Capabilities = (from CharacterCapabilities capability in Enum.GetValues(typeof(CharacterCapabilities))
-                                 where (CharacterAbilities)((int)capability / 100) == ability
-                                 select new Capability
-                                 {
-                                     Name = capability.ToString()
-
-                                 }).ToList()
-             }).ToList());
-
-        _ = await context.SaveChangesAsync();
     }
 
     [OneTimeTearDown]

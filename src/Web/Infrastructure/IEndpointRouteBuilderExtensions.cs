@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace CleanArchitecture.Web.Infrastructure;
+namespace DnDCharacterSheet.Web.Infrastructure;
 
 public static class IEndpointRouteBuilderExtensions
 {
@@ -8,7 +8,7 @@ public static class IEndpointRouteBuilderExtensions
     {
         Guard.Against.AnonymousMethod(handler);
 
-        _ = builder.MapGet(pattern, handler)
+        builder.MapGet(pattern, handler)
             .WithName(handler.Method.Name);
 
         return builder;
@@ -18,7 +18,7 @@ public static class IEndpointRouteBuilderExtensions
     {
         Guard.Against.AnonymousMethod(handler);
 
-        _ = builder.MapPost(pattern, handler)
+        builder.MapPost(pattern, handler)
             .WithName(handler.Method.Name);
 
         return builder;
@@ -28,7 +28,7 @@ public static class IEndpointRouteBuilderExtensions
     {
         Guard.Against.AnonymousMethod(handler);
 
-        _ = builder.MapPut(pattern, handler)
+        builder.MapPut(pattern, handler)
             .WithName(handler.Method.Name);
 
         return builder;
@@ -38,7 +38,7 @@ public static class IEndpointRouteBuilderExtensions
     {
         Guard.Against.AnonymousMethod(handler);
 
-        _ = builder.MapDelete(pattern, handler)
+        builder.MapDelete(pattern, handler)
             .WithName(handler.Method.Name);
 
         return builder;

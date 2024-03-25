@@ -1,9 +1,6 @@
-using CleanArchitecture.Application;
-using CleanArchitecture.Infrastructure;
-using CleanArchitecture.Infrastructure.Data;
-using CleanArchitecture.Web;
+using DnDCharacterSheet.Infrastructure.Data;
 
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddKeyVaultIfConfigured(builder.Configuration);
@@ -12,7 +9,7 @@ builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddWebServices();
 
-WebApplication app = builder.Build();
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -45,9 +42,6 @@ app.MapFallbackToFile("index.html");
 
 app.UseExceptionHandler(options => { });
 
-#if UseApiOnly
-app.Map("/", () => Results.Redirect("/api"));
-#endif
 
 app.MapEndpoints();
 
