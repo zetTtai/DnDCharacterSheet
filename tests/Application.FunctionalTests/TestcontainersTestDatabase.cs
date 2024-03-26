@@ -10,7 +10,7 @@ namespace DnDCharacterSheet.Application.FunctionalTests;
 public class TestcontainersTestDatabase : ITestDatabase
 {
     private readonly PostgreSqlContainer _container;
-    private DbConnection _connection = null!;
+    private NpgsqlConnection _connection = null!;
     private string _connectionString = null!;
     private Respawner _respawner = null!;
 
@@ -28,6 +28,7 @@ public class TestcontainersTestDatabase : ITestDatabase
         _connectionString = _container.GetConnectionString();
 
         _connection = new NpgsqlConnection(_connectionString);
+        await _connection.OpenAsync();
 
         var options = new DbContextOptionsBuilder<ApplicationDbContext>()
             .UseNpgsql(_connectionString)
@@ -39,7 +40,9 @@ public class TestcontainersTestDatabase : ITestDatabase
 
         _respawner = await Respawner.CreateAsync(_connection, new RespawnerOptions
         {
-            TablesToIgnore = new Respawn.Graph.Table[] { "__EFMigrationsHistory" }
+            DbAdapter = DbAdapter.Postgres,
+            TablesToIgnore = ["__EFMigrationsHistory"],
+            SchemasToInclude = ["public"]
         });
     }
 
@@ -50,7 +53,7 @@ public class TestcontainersTestDatabase : ITestDatabase
 
     public async Task ResetAsync()
     {
-        await _respawner.ResetAsync(_connectionString);
+        await _respawner.ResetAsync(_connection);
     }
 
     public async Task DisposeAsync()
