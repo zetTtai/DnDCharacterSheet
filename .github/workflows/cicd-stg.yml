@@ -2,7 +2,7 @@ name: CICD - Deploy Staging on push stage
 
 on: 
   push:
-    branches: [ main ]
+    branches: [ stage ]
     paths-ignore:
       - .gitignore
       - CODE_OF_CONDUCT.md

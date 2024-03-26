@@ -98,3 +98,14 @@ jobs:
       with:
         app-name: ${{ steps.deploy.outputs.appServiceAppName }}
         package: website/publish.zip
+
+    - name: Get website URL
+      id: geturl
+      run: |
+        URL=$(az webapp show --name ${{ steps.deploy.outputs.appServiceAppName }} --resource-group ${{ vars.AZURE_RESOURCE_GROUP_NAME }} --query defaultHostName -o tsv)
+        echo "##vso[task.setvariable variable=websiteUrl]https://$URL"
+        echo "Website URL: https://$URL"
+
+    - name: Echo website URL
+      run: | 
+        echo "Deployed website URL: ${{ steps.geturl.outputs.websiteUrl }}"
