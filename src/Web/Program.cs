@@ -12,10 +12,12 @@ builder.Services.AddWebServices();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-Console.WriteLine("InitialiseDatabaseAsync----------------------------------------------------------------");
-await app.InitialiseDatabaseAsync();
-
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
+{
+    // Dont forget to add SSL Mode=Require;Trust Server Certificate=true; to connect to supabase
+    await app.InitialiseDatabaseAsync();
+}
+else
 {
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();

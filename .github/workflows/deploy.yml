@@ -88,10 +88,11 @@ jobs:
            environmentName=${{ inputs.environmentName }}
            projectName=${{ vars.PROJECT_NAME }}
 
-    - name: Set database connection string
+    - name: Initialise database
       run: |
-        echo '{ "ConnectionStrings": { "DefaultConnection": "${{ secrets.SUPABASE_CONNECTION_STRING }}" } }' > appsettings.json
-      
+        unzip -o ./efbundle/efbundle.zip
+        echo '{ "ConnectionStrings": { "DefaultConnection": "" } }' > appsettings.json
+        ./efbundle.exe --connection "${{ secrets.SUPABASE_CONNECTION_STRING}};SSL Mode=Require;Trust Server Certificate=true;MultipleActiveResultSets=False;Encrypt=True;Connection Timeout=30;" --verbose
 
     - uses: azure/webapps-deploy@v2
       name: Deploy website
