@@ -91,7 +91,7 @@ jobs:
     - name: Initialise database
       run: |
         unzip -o ./efbundle/efbundle.zip
-        echo '{ "ConnectionStrings": { "DefaultConnection": "'${{ secrets.SUPABASE_CONNECTION_STRING }}';SSL Mode=Require;Trust Server Certificate=true;" } }' > appsettings.json
+        echo '{ "ConnectionStrings": { "DefaultConnection": "${{ secrets.SUPABASE_CONNECTION_STRING }};SSL Mode=Require;Trust Server Certificate=true;" } }' > appsettings.json
         ./efbundle.exe --connection "${{ secrets.SUPABASE_CONNECTION_STRING}};SSL Mode=Require;Trust Server Certificate=true;" --verbose
 
     - uses: azure/webapps-deploy@v2
@@ -100,13 +100,3 @@ jobs:
         app-name: ${{ steps.deploy.outputs.appServiceAppName }}
         package: website/publish.zip
 
-    - name: Get website URL
-      id: geturl
-      run: |
-        URL=$(az webapp show --name ${{ steps.deploy.outputs.appServiceAppName }} --resource-group ${{ vars.AZURE_RESOURCE_GROUP_NAME }} --query defaultHostName -o tsv)
-        echo "##vso[task.setvariable variable=websiteUrl]https://$URL"
-        echo "Website URL: https://$URL"
-
-    - name: Echo website URL
-      run: | 
-        echo "Deployed website URL: ${{ steps.geturl.outputs.websiteUrl }}"
