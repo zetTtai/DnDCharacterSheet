@@ -19,7 +19,6 @@ on:
       environmentName:
         type: string
         required: true
-        default: Development
 
 jobs:
   build:
@@ -56,8 +55,7 @@ jobs:
       run: dotnet build --no-restore --configuration Release
       
     - name: Set Environment Variables
-      if: ${{ inputs.build-artifacts == true }}
-      run: echo "CONNECTION_STRING=\"${{ secrets.SUPABASE_CONNECTION_STRING }};SSL Mode=Require;Trust Server Certificate=true;\"" >> $GITHUB_ENV
+      run: echo "CONNECTION_STRING=${{ secrets.SUPABASE_CONNECTION_STRING }};SSL Mode=Require;Trust Server Certificate=true;" >> $GITHUB_ENV
     
     - name: Test solution
       run: dotnet test --no-build --configuration Release --filter "FullyQualifiedName!~AcceptanceTests"
