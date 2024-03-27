@@ -19,7 +19,6 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       build-artifacts: true
-      environmentName: Production
 
   deploy-production:
     uses: ./.github/workflows/deploy.yml

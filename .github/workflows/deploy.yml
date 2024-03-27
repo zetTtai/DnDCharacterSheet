@@ -88,6 +88,9 @@ jobs:
            environmentName=${{ inputs.environmentName }}
            projectName=${{ vars.PROJECT_NAME }}
 
+    - name: Set Environment Variables
+      run: echo "CONNECTION_STRING=${{ secrets.SUPABASE_CONNECTION_STRING }};SSL Mode=Require;Trust Server Certificate=true;" >> $GITHUB_ENV
+          
     - name: Initialise database
       run: |
         unzip -o ./efbundle/efbundle.zip
@@ -98,4 +101,10 @@ jobs:
       with:
         app-name: ${{ steps.deploy.outputs.appServiceAppName }}
         package: website/publish.zip
+
+    - name: Set App Service Configuration
+      run: |
+        az webapp config appsettings set --name ${{ steps.deploy.outputs.appServiceAppName }} --resource-group ${{ vars.AZURE_RESOURCE_GROUP_NAME }} --settings CONNECTION_STRING="${{ secrets.SUPABASE_CONNECTION_STRING }};SSL Mode=Require;Trust Server Certificate=true;"
+      env:
+        AZURE_HTTP_USER_AGENT: githubactions
 
