@@ -106,6 +106,3 @@ jobs:
         name: efbundle
         path: ./efbundle.zip
         if-no-files-found: error
-    - name: List files in the current directory
-      run: |
-        ls -la
