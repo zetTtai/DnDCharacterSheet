@@ -89,7 +89,7 @@ jobs:
            projectName=${{ vars.PROJECT_NAME }}
 
     - name: Set Environment Variables
-      run: echo "CONNECTION_STRING=${{ secrets.SUPABASE_CONNECTION_STRING }};SSL Mode=Require;Trust Server Certificate=true;" >> $GITHUB_ENV
+      run: echo "APPSETTING_CONNECTION_STRING=${{ secrets.SUPABASE_CONNECTION_STRING }};SSL Mode=Require;Trust Server Certificate=true;" >> $GITHUB_ENV
           
     - name: Initialise database
       run: |

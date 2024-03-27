@@ -14,14 +14,14 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
-        var connStr = Environment.GetEnvironmentVariable("CONNECTION_STRING");
+        var connStr = Environment.GetEnvironmentVariable("APPSETTING_CONNECTION_STRING");
         if (string.IsNullOrEmpty(connStr))
         {
-            Console.WriteLine("CONNECTION_STRING environment variable is not set.");
+            Console.WriteLine("APPSETTING_CONNECTION_STRING environment variable is not set.");
         }
         else
         {
-            Console.WriteLine("CONNECTION_STRING environment variable is set.");
+            Console.WriteLine("APPSETTING_CONNECTION_STRING environment variable is set.");
         }
         var connectionString = configuration.GetConnectionString("DefaultConnection") ?? Environment.GetEnvironmentVariable("CONNECTION_STRING");
 
