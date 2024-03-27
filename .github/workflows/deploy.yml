@@ -91,9 +91,7 @@ jobs:
     - name: Initialise database
       run: |
         unzip -o ./efbundle/efbundle.zip
-        cat appsettings.json
-        echo  '{ "ConnectionStrings": { "DefaultConnection": "test" } }' > appsettings.json
-        cat appsettings.json
+        ls -la
         ./efbundle.exe --connection "${{ secrets.SUPABASE_CONNECTION_STRING}};SSL Mode=Require;Trust Server Certificate=true;" --verbose
 
     - uses: azure/webapps-deploy@v2
