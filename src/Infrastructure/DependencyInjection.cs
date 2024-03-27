@@ -17,13 +17,22 @@ public static class DependencyInjection
         var connStr = Environment.GetEnvironmentVariable("APPSETTING_CONNECTION_STRING");
         if (string.IsNullOrEmpty(connStr))
         {
-            Console.WriteLine("APPSETTING_CONNECTION_STRING environment variable is not set.");
+            Console.WriteLine("CONNECTION_STRING environment variable is not set.");
         }
-        else
+
+        var connStr2 = Environment.GetEnvironmentVariable("CONNECTION_STRING");
+        if (string.IsNullOrEmpty(connStr2))
         {
-            Console.WriteLine("APPSETTING_CONNECTION_STRING environment variable is set.");
+            Console.WriteLine("CONNECTION_STRING environment variable is not set.");
         }
-        var connectionString = configuration.GetConnectionString("DefaultConnection") ?? Environment.GetEnvironmentVariable("CONNECTION_STRING");
+
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
+        if (string.IsNullOrEmpty(connectionString))
+        {
+            Console.WriteLine("'DefaultConnection' not found, looking for environment variable ");
+            connectionString = Environment.GetEnvironmentVariable("APPSETTING_CONNECTION_STRING")
+                            ?? Environment.GetEnvironmentVariable("CONNECTION_STRING");
+        }
 
         Guard.Against.Null(connectionString, message: "Connection string 'DefaultConnection' not found.");
 
