@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DnDCharacterSheet.Infrastructure.Identity;
 
+
 public class IdentityService : IIdentityService
 {
     private readonly UserManager<ApplicationUser> _userManager;
