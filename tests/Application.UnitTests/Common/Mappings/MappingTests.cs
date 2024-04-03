@@ -2,10 +2,6 @@
 using System.Runtime.CompilerServices;
 using AutoMapper;
 using DnDCharacterSheet.Application.Common.Interfaces;
-using DnDCharacterSheet.Application.Common.Models;
-using DnDCharacterSheet.Application.TodoItems.Queries.GetTodoItemsWithPagination;
-using DnDCharacterSheet.Application.TodoLists.Queries.GetTodos;
-using DnDCharacterSheet.Domain.Entities;
 using NUnit.Framework;
 
 namespace DnDCharacterSheet.Application.UnitTests.Common.Mappings;
@@ -29,12 +25,9 @@ public class MappingTests
         _configuration.AssertConfigurationIsValid();
     }
 
-    [Test]
-    [TestCase(typeof(TodoList), typeof(TodoListDto))]
-    [TestCase(typeof(TodoItem), typeof(TodoItemDto))]
-    [TestCase(typeof(TodoList), typeof(LookupDto))]
-    [TestCase(typeof(TodoItem), typeof(LookupDto))]
-    [TestCase(typeof(TodoItem), typeof(TodoItemBriefDto))]
+    // TODO: Enable to test mapping
+    // [Test]
+    // [TestCase(typeof(TodoList), typeof(TodoListDto))]
     public void ShouldSupportMappingFromSourceToDestination(Type source, Type destination)
     {
         var instance = GetInstanceOf(source);
