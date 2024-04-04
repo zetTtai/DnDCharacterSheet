@@ -16,4 +16,9 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Sheets\Commands\DeleteSheet\" />
+    <Folder Include="Sheets\Commands\UpdateSheet\" />
+  </ItemGroup>
+
 </Project>
