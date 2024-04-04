@@ -42,11 +42,10 @@ public class CreateSheetCommandHandler(IApplicationDbContext context) : IRequest
     {
         var staticSavingThrows = Enum.GetNames(typeof(CharacterSavingThrows)).ToList();
 
-        var skillsTask = _context.Capabilities.Where(s => !staticSavingThrows.Contains(s.Name)).ToListAsync(cancellationToken);
-        var savingThrowTask = _context.Capabilities.Where(st => staticSavingThrows.Contains(st.Name)).ToListAsync(cancellationToken);
+        var skillsTask = await _context.Capabilities.Where(s => !staticSavingThrows.Contains(s.Name)).ToListAsync(cancellationToken);
+        var savingThrowTask = await _context.Capabilities.Where(st => staticSavingThrows.Contains(st.Name)).ToListAsync(cancellationToken);
 
-        await Task.WhenAll(skillsTask, savingThrowTask);
-        return (await skillsTask, await savingThrowTask);
+        return (skillsTask, savingThrowTask);
     }
 
     private static List<SheetAbility> MapToSheetAbilities(IEnumerable<Ability> abilities)

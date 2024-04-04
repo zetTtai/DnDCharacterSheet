@@ -1,10 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DnDCharacterSheet.Application.Common.Interfaces;
+using DnDCharacterSheet.Domain.Constants;
 
 namespace DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
-public class CreateSheetCommandValidator
+public class CreateSheetCommandValidator : AbstractValidator<CreateSheetCommand>
 {
+    private readonly IApplicationDbContext _context;
+
+    public CreateSheetCommandValidator(IApplicationDbContext context)
+    {
+        _context = context;
+
+        RuleFor(v => v.CharacterName)
+            .NotEmpty()
+            .MinimumLength(SheetConstants.CharacterNameMinLength)
+            .MaximumLength(SheetConstants.CharacterNameMaxLength);
+    }
 }

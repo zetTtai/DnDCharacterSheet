@@ -3,6 +3,7 @@
   <PropertyGroup>
     <RootNamespace>DnDCharacterSheet.Application</RootNamespace>
     <AssemblyName>DnDCharacterSheet.Application</AssemblyName>
+    <Configurations>Debug;Release;Test</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

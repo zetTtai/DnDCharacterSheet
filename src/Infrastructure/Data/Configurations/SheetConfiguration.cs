@@ -1,6 +1,7 @@
 ﻿using DnDCharacterSheet.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using DnDCharacterSheet.Domain.Constants;
 
 namespace DnDCharacterSheet.Infrastructure.Data.Configurations;
 public class SheetConfiguration : IEntityTypeConfiguration<Sheet>
@@ -10,7 +11,7 @@ public class SheetConfiguration : IEntityTypeConfiguration<Sheet>
         builder
             .Property(s => s.CharacterName)
             .IsRequired()
-            .HasMaxLength(100);
+            .HasMaxLength(SheetConstants.CharacterNameMaxLength);
 
         builder
             .HasMany(s => s.SheetAbilities)
