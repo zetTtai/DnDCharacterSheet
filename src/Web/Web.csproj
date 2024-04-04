@@ -35,13 +35,13 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="Endpoints\Sheets\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="Endpoints\Sheets\**" />
+    <EmbeddedResource Remove="Endpoints\Sheets\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="Endpoints\Sheets\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Endpoints\Sheets\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

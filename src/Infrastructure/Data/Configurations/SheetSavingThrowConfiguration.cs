@@ -8,7 +8,7 @@ public class SheetSavingThrowConfiguration : IEntityTypeConfiguration<SheetSavin
     public void Configure(EntityTypeBuilder<SheetSavingThrow> builder)
     {
         builder
-            .HasOne(sst => new { sst.SheetId, sst.CapabilityId });
+            .HasKey(sst => new { sst.SheetId, sst.CapabilityId });
 
         builder
             .HasOne(sst => sst.Sheet)

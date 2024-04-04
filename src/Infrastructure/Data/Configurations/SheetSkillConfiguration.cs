@@ -8,7 +8,7 @@ public class SheetSkillConfiguration : IEntityTypeConfiguration<SheetSkill>
     public void Configure(EntityTypeBuilder<SheetSkill> builder)
     {
         builder
-            .HasOne(ss => new { ss.SheetId, ss.CapabilityId });
+            .HasKey(ss => new { ss.SheetId, ss.CapabilityId });
 
         builder
             .HasOne(ss => ss.Sheet)
