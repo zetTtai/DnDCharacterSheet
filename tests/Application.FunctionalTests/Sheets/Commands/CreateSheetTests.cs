@@ -1,5 +1,6 @@
 ﻿using DnDCharacterSheet.Application.Common.Exceptions;
 using DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
+using DnDCharacterSheet.Domain.Constants;
 
 namespace DnDCharacterSheet.Application.FunctionalTests.Sheets.Commands;
 
@@ -8,11 +9,11 @@ using static Testing;
 public class CreateSheetTests : BaseTestFixture
 {
     [Test]
-    public async Task ShouldRequiredMinimumFields()
+    public async Task CreateSheet_IfRequiredFieldsAreMissing_ThrowsValidationException()
     {
         var command = new CreateSheetCommand()
         {
-            CharacterName = string.Empty,
+            CharacterName = string.Empty
         };
         await FluentActions.Invoking(() =>
             SendAsync(command))
@@ -21,7 +22,33 @@ public class CreateSheetTests : BaseTestFixture
     }
 
     [Test]
-    public async Task ShouldCreateSheet()
+    public async Task CreateSheet_IfCharacterNameTooShort_ThrowsValidationException()
+    {
+        var command = new CreateSheetCommand()
+        {
+            CharacterName = new string('a', 3)
+        };
+        await FluentActions.Invoking(() =>
+            SendAsync(command))
+            .Should()
+            .ThrowAsync<ValidationException>();
+    }
+
+    [Test]
+    public async Task CreateSheet_IfCharacterNameTooLong_ThrowsValidationException()
+    {
+        var command = new CreateSheetCommand()
+        {
+            CharacterName = new string('a', 101)
+        };
+        await FluentActions.Invoking(() =>
+            SendAsync(command))
+            .Should()
+            .ThrowAsync<ValidationException>();
+    }
+
+    [Test]
+    public async Task CreateSheet_Succeeds()
     {
         // Arrange
         await SeedAbilitiesAndCapabilitiesDatabaseAsync();
