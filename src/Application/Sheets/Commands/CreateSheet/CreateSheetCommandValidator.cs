@@ -1,15 +1,10 @@
-﻿using DnDCharacterSheet.Application.Common.Interfaces;
-using DnDCharacterSheet.Domain.Constants;
+﻿using DnDCharacterSheet.Domain.Constants;
 
 namespace DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
 public class CreateSheetCommandValidator : AbstractValidator<CreateSheetCommand>
 {
-    private readonly IApplicationDbContext _context;
-
-    public CreateSheetCommandValidator(IApplicationDbContext context)
+    public CreateSheetCommandValidator()
     {
-        _context = context;
-
         RuleFor(v => v.CharacterName)
             .NotEmpty()
             .MinimumLength(SheetConstants.CharacterNameMinLength)
