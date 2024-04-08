@@ -1,6 +1,5 @@
 ﻿using DnDCharacterSheet.Application.Common.Exceptions;
 using DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
-using DnDCharacterSheet.Domain.Constants;
 
 namespace DnDCharacterSheet.Application.FunctionalTests.Sheets.Commands;
 
@@ -8,26 +7,46 @@ using static Testing;
 
 public class CreateSheetTests : BaseTestFixture
 {
-    [Test]
-    public async Task CreateSheet_IfRequiredFieldsAreMissing_ThrowsValidationException()
+    public static IEnumerable<string> InvalidCharacterNames
     {
+        get
+        {
+            return [new string('a', 3), new string('a', 101)];
+        }
+    }
+
+    [Test]
+    public async Task IfRequiredFieldsAreMissing_ThrowsValidationException()
+    {
+        // Arrange
         var command = new CreateSheetCommand()
         {
             CharacterName = string.Empty
         };
+
+        // Act - Assert
         await FluentActions.Invoking(() =>
             SendAsync(command))
             .Should()
             .ThrowAsync<ValidationException>();
     }
 
-    [Test]
-    public async Task CreateSheet_IfCharacterNameTooShort_ThrowsValidationException()
+    [Test, TestCaseSource(nameof(InvalidCharacterNames))]
+    public async Task InvalidCharacterName_ThrowsValidationException(string characterName)
     {
-        var command = new CreateSheetCommand()
+        // Arrange
+        var userId = await RunAsDefaultUserAsync();
+        var sheetId = await SendAsync(new CreateSheetCommand
         {
-            CharacterName = new string('a', 3)
+            CharacterName = "Sir test testable"
+        });
+        var command = new UpdateSheetCommand()
+        {
+            CharacterName = characterName
         };
+        command.Id(sheetId);
+
+        // Act - Assert
         await FluentActions.Invoking(() =>
             SendAsync(command))
             .Should()
@@ -35,24 +54,10 @@ public class CreateSheetTests : BaseTestFixture
     }
 
     [Test]
-    public async Task CreateSheet_IfCharacterNameTooLong_ThrowsValidationException()
-    {
-        var command = new CreateSheetCommand()
-        {
-            CharacterName = new string('a', 101)
-        };
-        await FluentActions.Invoking(() =>
-            SendAsync(command))
-            .Should()
-            .ThrowAsync<ValidationException>();
-    }
-
-    [Test]
-    public async Task CreateSheet_Succeeds()
+    public async Task Succeeds()
     {
         // Arrange
         await SeedAbilitiesAndCapabilitiesDatabaseAsync();
-
         var userId = await RunAsDefaultUserAsync();
         var command = new CreateSheetCommand
         {
@@ -71,7 +76,6 @@ public class CreateSheetTests : BaseTestFixture
         sheet!.SheetSkills.Should().NotBeEmpty();
         sheet!.SheetAbilities.Should().NotBeEmpty();
 
-        sheet.CreatedBy.Should().Be(userId);
-        sheet.Created.Should().BeCloseTo(DateTime.Now, TimeSpan.FromMilliseconds(10000));
+        AssertAuditDetails(sheet, userId);
     }
 }

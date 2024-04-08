@@ -1,4 +1,5 @@
-﻿using DnDCharacterSheet.Domain.Constants;
+﻿using DnDCharacterSheet.Domain.Common;
+using DnDCharacterSheet.Domain.Constants;
 using DnDCharacterSheet.Domain.Entities;
 using DnDCharacterSheet.Domain.Enums;
 using DnDCharacterSheet.Infrastructure.Data;
@@ -53,7 +54,7 @@ public partial class Testing
 
     public static async Task<string> RunAsDefaultUserAsync()
     {
-        return await RunAsUserAsync("test@local", "Testing1234!", Array.Empty<string>());
+        return await RunAsUserAsync("test@local", "Testing1234!", []);
     }
 
     public static async Task<string> RunAsAdministratorAsync()
@@ -179,6 +180,18 @@ public partial class Testing
              }).ToList());
 
         await context.SaveChangesAsync();
+    }
+
+    public static void AssertAuditDetails(BaseAuditableEntity auditabeEntity, string userId, bool isUpdating = false)
+    {
+        if (!isUpdating)
+        {
+            auditabeEntity.CreatedBy.Should().Be(userId);
+            auditabeEntity.Created.Should().BeCloseTo(DateTime.Now, TimeSpan.FromMilliseconds(10000));
+            return;
+        }
+        auditabeEntity.LastModifiedBy.Should().Be(userId);
+        auditabeEntity.LastModified.Should().BeCloseTo(DateTime.Now, TimeSpan.FromMilliseconds(10000));
     }
 
     [OneTimeTearDown]
