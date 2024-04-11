@@ -57,4 +57,25 @@ public class DeleteSheetTests : BaseTestFixture
         // Assert
         sheet.Should().BeNull();
     }
+
+    [Test]
+    public async Task Succeeds_IfIsAdmin()
+    {
+        // Arrange
+        await RunAsDefaultUserAsync();
+        var sheetId = await SendAsync(new CreateSheetCommand()
+        {
+            CharacterName = "sir test testable"
+        });
+
+        await RunAsAdministratorAsync();
+        var command = new DeleteSheetCommand(sheetId);
+
+        // Act
+        await SendAsync(command);
+        var sheet = await FindAsync<Sheet>(sheetId);
+
+        // Assert
+        sheet.Should().BeNull();
+    }
 }

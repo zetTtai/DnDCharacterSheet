@@ -3,7 +3,8 @@
 namespace DnDCharacterSheet.Application.Sheets.Commands.DeleteSheet;
 public class DeleteSheetCommandValidator : SheetCommandValidatorBase<DeleteSheetCommand>
 {
-    public DeleteSheetCommandValidator(IApplicationDbContext context, IUser user) : base(context, user)
+    public DeleteSheetCommandValidator(IApplicationDbContext context, IUser user, IIdentityService identityService)
+        : base(context, user, identityService)
     {
         RuleFor(v => v.Id)
             .NotEmpty()

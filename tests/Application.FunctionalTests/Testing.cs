@@ -1,4 +1,6 @@
-﻿using DnDCharacterSheet.Domain.Common;
+﻿using DnDCharacterSheet.Application.Common.Models;
+using DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
+using DnDCharacterSheet.Domain.Common;
 using DnDCharacterSheet.Domain.Constants;
 using DnDCharacterSheet.Domain.Entities;
 using DnDCharacterSheet.Domain.Enums;
@@ -59,7 +61,7 @@ public partial class Testing
 
     public static async Task<string> RunAsAdministratorAsync()
     {
-        return await RunAsUserAsync("administrator@local", "Administrator1234!", new[] { Roles.Administrator });
+        return await RunAsUserAsync("administrator@local", "Administrator1234!", [Roles.Administrator]);
     }
 
     public static async Task<string> RunAsUserAsync(string userName, string password, string[] roles)
@@ -70,7 +72,14 @@ public partial class Testing
 
         var user = new ApplicationUser { UserName = userName, Email = userName };
 
-        var result = await userManager.CreateAsync(user, password);
+        var userExists = await userManager.FindByNameAsync(userName);
+
+        IdentityResult result = new();
+
+        if (userExists is null)
+        {
+            result = await userManager.CreateAsync(user, password);
+        }
 
         if (roles.Any())
         {
@@ -84,7 +93,7 @@ public partial class Testing
             await userManager.AddToRolesAsync(user, roles);
         }
 
-        if (result.Succeeded)
+        if (userExists is not null || result.Succeeded)
         {
             _userId = user.Id;
 
@@ -192,6 +201,19 @@ public partial class Testing
         }
         auditabeEntity.LastModifiedBy.Should().Be(userId);
         auditabeEntity.LastModified.Should().BeCloseTo(DateTime.Now, TimeSpan.FromMilliseconds(10000));
+    }
+
+    public static async Task<List<int>> CreateSheets(int quantity)
+    {
+        var sheetIds = new List<int>();
+        await RunAsDefaultUserAsync();
+
+        for (int i = 0; i < quantity; i++)
+        {
+            sheetIds.Add(await SendAsync(new CreateSheetCommand() { CharacterName = "Test_" + i }));
+        }
+
+        return sheetIds;
     }
 
     [OneTimeTearDown]

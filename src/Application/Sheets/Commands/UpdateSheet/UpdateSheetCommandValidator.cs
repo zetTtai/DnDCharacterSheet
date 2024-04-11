@@ -4,7 +4,8 @@ using DnDCharacterSheet.Domain.Constants;
 namespace DnDCharacterSheet.Application.Sheets.Commands.UpdateSheet;
 public class UpdateSheetCommandValidator : SheetCommandValidatorBase<UpdateSheetCommand>
 {
-    public UpdateSheetCommandValidator(IApplicationDbContext context, IUser user) : base(context, user)
+    public UpdateSheetCommandValidator(IApplicationDbContext context, IUser user, IIdentityService identityService)
+        : base(context, user, identityService)
     {
         RuleFor(v => v.CharacterName)
             .NotEmpty()

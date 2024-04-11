@@ -132,4 +132,38 @@ public class UpdateSheetTests : BaseTestFixture
 
         AssertAuditDetails(sheet, userId, true);
     }
+
+    [Test]
+    public async Task Succeeds_IfIsAdmin()
+    {
+        // Arrange
+        await RunAsDefaultUserAsync();
+        var sheetId = await SendAsync(new CreateSheetCommand
+        {
+            CharacterName = "Sir test testable"
+        });
+        await SendAsync(new CreateSheetCommand
+        {
+            CharacterName = "Another character"
+        });
+
+        var userId = await RunAsAdministratorAsync();
+        var command = new UpdateSheetCommand()
+        {
+            CharacterName = "Sir test modified by admin"
+        };
+        command.Id(sheetId);
+
+        // Act
+        await SendAsync(command);
+        var sheet = await FindSheetWithDetailsAsync(sheetId);
+
+        // Assert
+        sheet.Should().NotBeNull();
+
+        sheet!.CharacterName.Should().Be("Sir test modified by admin");
+
+        AssertAuditDetails(sheet, userId, true);
+    }
+
 }
