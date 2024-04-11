@@ -79,7 +79,60 @@
         }
       }
     },
+    "/api/Sheets/user": {
+      "get": {
+        "tags": [
+          "Sheets"
+        ],
+        "operationId": "GetUserSheets",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SheetUserListItemDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Sheets/{id}": {
+      "get": {
+        "tags": [
+          "Sheets"
+        ],
+        "operationId": "GetSheet",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SheetVm"
+                }
+              }
+            }
+          }
+        }
+      },
       "put": {
         "tags": [
           "Sheets"
@@ -203,6 +256,85 @@
           "lastModifiedByName": {
             "type": "string",
             "nullable": true
+          }
+        }
+      },
+      "SheetUserListItemDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "characterName": {
+            "type": "string",
+            "nullable": true
+          },
+          "isModifiedByAdmin": {
+            "type": "boolean"
+          },
+          "lastModified": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "SheetVm": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "characterName": {
+            "type": "string",
+            "nullable": true
+          },
+          "abilities": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/AbilityDto"
+            }
+          },
+          "savingThrows": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/CapabilityDto"
+            }
+          },
+          "skills": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/CapabilityDto"
+            }
+          }
+        }
+      },
+      "AbilityDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "value": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "CapabilityDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "proficiency": {
+            "type": "boolean"
           }
         }
       },

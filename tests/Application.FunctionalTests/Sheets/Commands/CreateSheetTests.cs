@@ -72,9 +72,17 @@ public class CreateSheetTests : BaseTestFixture
         sheet.Should().NotBeNull();
 
         sheet!.CharacterName.Should().Be(command.CharacterName);
-        sheet!.SheetSavingThrows.Should().NotBeEmpty();
-        sheet!.SheetSkills.Should().NotBeEmpty();
         sheet!.SheetAbilities.Should().NotBeEmpty();
+        sheet!.SheetAbilities!.Count().Should().Be(6);
+        sheet!.SheetAbilities!.First().Value.Should().Be(-1);
+
+        sheet!.SheetSkills.Should().NotBeEmpty();
+        sheet!.SheetSkills!.Count().Should().Be(18);
+        sheet!.SheetSkills!.First().Proficiency.Should().BeFalse();
+
+        sheet!.SheetSavingThrows.Should().NotBeEmpty();
+        sheet!.SheetSavingThrows!.Count().Should().Be(6);
+        sheet!.SheetSavingThrows!.First().Proficiency.Should().BeFalse();
 
         AssertAuditDetails(sheet, userId);
     }

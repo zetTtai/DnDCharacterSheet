@@ -36,7 +36,6 @@ public class DeleteSheetTests : BaseTestFixture
         // Act - Assert
         await FluentActions.Invoking(() =>
             SendAsync(command)).Should().ThrowAsync<ValidationException>();
-
     }
 
     [Test]

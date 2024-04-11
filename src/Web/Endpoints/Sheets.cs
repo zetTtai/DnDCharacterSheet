@@ -14,12 +14,19 @@ public class Sheets : EndpointGroupBase
         app.MapGroup(this)
             .RequireAuthorization()
             .MapGet(GetSheets)
+            .MapGet(GetUserSheets, "user")
+            .MapGet(GetSheet, "{id}")
             .MapPost(CreateSheet)
             .MapPut(UpdateSheet, "{id}")
             .MapDelete(DeleteSheet, "{id}");
     }
 
-    public Task<PaginatedList<SheetAdminListItemDto>> GetSheets(ISender sender, [AsParameters] GetSheetsWithPaginationQuery query) => sender.Send(query);
+    public Task<PaginatedList<SheetAdminListItemDto>> GetSheets(ISender sender, [AsParameters] GetSheetsWithPaginationQuery query)
+        => sender.Send(query);
+
+    public Task<List<SheetUserListItemDto>> GetUserSheets(ISender sender) => sender.Send(new GetSheetsByUserIdQuery());
+
+    public Task<SheetVm> GetSheet(ISender sender, int id) => sender.Send(new GetSheetByIdQuery(id));
 
     public Task<int> CreateSheet(ISender sender, CreateSheetCommand command) => sender.Send(command);
 

@@ -14,18 +14,19 @@ public enum CharacterCapabilities
     Medicine = CharacterAbilities.WIS* 100 + 10,
     Nature = CharacterAbilities.INT* 100 + 11,
     Perception = CharacterAbilities.WIS* 100 + 12,
-    Persuasion = CharacterAbilities.CHA* 100 + 13,
-    Religion = CharacterAbilities.INT* 100 + 14,
-    SleightOfHand = CharacterAbilities.DEX* 100 + 15,
-    Stealth = CharacterAbilities.DEX* 100 + 16,
-    Survival = CharacterAbilities.WIS* 100 + 17,
+    Performance = CharacterAbilities.CHA* 100 + 13, 
+    Persuasion = CharacterAbilities.CHA* 100 + 14,
+    Religion = CharacterAbilities.INT* 100 + 15,
+    SleightOfHand = CharacterAbilities.DEX* 100 + 16,
+    Stealth = CharacterAbilities.DEX* 100 + 17,
+    Survival = CharacterAbilities.WIS* 100 + 18,
 
     // SavingThrows
-    Strength = CharacterAbilities.STR * 100 + 18,
-    Dexterity = CharacterAbilities.DEX * 100 + 19,
-    Constitution = CharacterAbilities.CON * 100 + 20,
-    Intelligence = CharacterAbilities.INT * 100 + 21,
-    Wisdom = CharacterAbilities.WIS * 100 + 22,
-    Charisma = CharacterAbilities.CHA * 100 + 23
+    Strength = CharacterAbilities.STR * 100 + 19,
+    Dexterity = CharacterAbilities.DEX * 100 + 20,
+    Constitution = CharacterAbilities.CON * 100 + 21,
+    Intelligence = CharacterAbilities.INT * 100 + 22,
+    Wisdom = CharacterAbilities.WIS * 100 + 23,
+    Charisma = CharacterAbilities.CHA * 100 + 24
 }
 

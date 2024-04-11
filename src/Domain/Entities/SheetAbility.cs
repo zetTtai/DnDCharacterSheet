@@ -6,6 +6,5 @@ public class SheetAbility
     public int AbilityId { get; set; }
     public Ability? Ability { get; set; }
 
-    public string Value { get; set; } = string.Empty;
-    public string Modifier { get; set; } = string.Empty;
+    public int Value { get; set; } = -1;
 }

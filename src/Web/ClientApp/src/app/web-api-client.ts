@@ -18,6 +18,8 @@ export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 export interface ISheetsClient {
     getSheets(pageNumber: number, pageSize: number): Observable<PaginatedListOfSheetAdminListItemDto>;
     createSheet(command: CreateSheetCommand): Observable<number>;
+    getUserSheets(): Observable<SheetUserListItemDto[]>;
+    getSheet(id: number): Observable<SheetVm>;
     updateSheet(id: number, command: UpdateSheetCommand): Observable<void>;
     deleteSheet(id: number): Observable<void>;
 }
@@ -134,6 +136,112 @@ export class SheetsClient implements ISheetsClient {
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = resultData200 !== undefined ? resultData200 : <any>null;
     
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    getUserSheets(): Observable<SheetUserListItemDto[]> {
+        let url_ = this.baseUrl + "/api/Sheets/user";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetUserSheets(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetUserSheets(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<SheetUserListItemDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<SheetUserListItemDto[]>;
+        }));
+    }
+
+    protected processGetUserSheets(response: HttpResponseBase): Observable<SheetUserListItemDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(SheetUserListItemDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    getSheet(id: number): Observable<SheetVm> {
+        let url_ = this.baseUrl + "/api/Sheets/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetSheet(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetSheet(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<SheetVm>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<SheetVm>;
+        }));
+    }
+
+    protected processGetSheet(response: HttpResponseBase): Observable<SheetVm> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = SheetVm.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -365,6 +473,206 @@ export interface ISheetAdminListItemDto {
     lastModifiedBy?: string | undefined;
     createdByName?: string | undefined;
     lastModifiedByName?: string | undefined;
+}
+
+export class SheetUserListItemDto implements ISheetUserListItemDto {
+    id?: number;
+    characterName?: string | undefined;
+    isModifiedByAdmin?: boolean;
+    lastModified?: Date;
+
+    constructor(data?: ISheetUserListItemDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.characterName = _data["characterName"];
+            this.isModifiedByAdmin = _data["isModifiedByAdmin"];
+            this.lastModified = _data["lastModified"] ? new Date(_data["lastModified"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): SheetUserListItemDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new SheetUserListItemDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["characterName"] = this.characterName;
+        data["isModifiedByAdmin"] = this.isModifiedByAdmin;
+        data["lastModified"] = this.lastModified ? this.lastModified.toISOString() : <any>undefined;
+        return data;
+    }
+}
+
+export interface ISheetUserListItemDto {
+    id?: number;
+    characterName?: string | undefined;
+    isModifiedByAdmin?: boolean;
+    lastModified?: Date;
+}
+
+export class SheetVm implements ISheetVm {
+    characterName?: string | undefined;
+    abilities?: AbilityDto[] | undefined;
+    savingThrows?: CapabilityDto[] | undefined;
+    skills?: CapabilityDto[] | undefined;
+
+    constructor(data?: ISheetVm) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.characterName = _data["characterName"];
+            if (Array.isArray(_data["abilities"])) {
+                this.abilities = [] as any;
+                for (let item of _data["abilities"])
+                    this.abilities!.push(AbilityDto.fromJS(item));
+            }
+            if (Array.isArray(_data["savingThrows"])) {
+                this.savingThrows = [] as any;
+                for (let item of _data["savingThrows"])
+                    this.savingThrows!.push(CapabilityDto.fromJS(item));
+            }
+            if (Array.isArray(_data["skills"])) {
+                this.skills = [] as any;
+                for (let item of _data["skills"])
+                    this.skills!.push(CapabilityDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): SheetVm {
+        data = typeof data === 'object' ? data : {};
+        let result = new SheetVm();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["characterName"] = this.characterName;
+        if (Array.isArray(this.abilities)) {
+            data["abilities"] = [];
+            for (let item of this.abilities)
+                data["abilities"].push(item.toJSON());
+        }
+        if (Array.isArray(this.savingThrows)) {
+            data["savingThrows"] = [];
+            for (let item of this.savingThrows)
+                data["savingThrows"].push(item.toJSON());
+        }
+        if (Array.isArray(this.skills)) {
+            data["skills"] = [];
+            for (let item of this.skills)
+                data["skills"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface ISheetVm {
+    characterName?: string | undefined;
+    abilities?: AbilityDto[] | undefined;
+    savingThrows?: CapabilityDto[] | undefined;
+    skills?: CapabilityDto[] | undefined;
+}
+
+export class AbilityDto implements IAbilityDto {
+    id?: number;
+    value?: number;
+
+    constructor(data?: IAbilityDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.value = _data["value"];
+        }
+    }
+
+    static fromJS(data: any): AbilityDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new AbilityDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["value"] = this.value;
+        return data;
+    }
+}
+
+export interface IAbilityDto {
+    id?: number;
+    value?: number;
+}
+
+export class CapabilityDto implements ICapabilityDto {
+    id?: number;
+    proficiency?: boolean;
+
+    constructor(data?: ICapabilityDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.proficiency = _data["proficiency"];
+        }
+    }
+
+    static fromJS(data: any): CapabilityDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CapabilityDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["proficiency"] = this.proficiency;
+        return data;
+    }
+}
+
+export interface ICapabilityDto {
+    id?: number;
+    proficiency?: boolean;
 }
 
 export class CreateSheetCommand implements ICreateSheetCommand {
