@@ -40,7 +40,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PaginatedListOfSheetAdminListItemDto"
+                  "$ref": "#/components/schemas/PaginatedListOfSheetAdminListItemVm"
                 }
               }
             }
@@ -93,7 +93,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/SheetUserListItemDto"
+                    "$ref": "#/components/schemas/SheetUserListItemVm"
                   }
                 }
               }
@@ -195,14 +195,14 @@
   },
   "components": {
     "schemas": {
-      "PaginatedListOfSheetAdminListItemDto": {
+      "PaginatedListOfSheetAdminListItemVm": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
           "items": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/SheetAdminListItemDto"
+              "$ref": "#/components/schemas/SheetAdminListItemVm"
             }
           },
           "pageNumber": {
@@ -225,7 +225,7 @@
           }
         }
       },
-      "SheetAdminListItemDto": {
+      "SheetAdminListItemVm": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
@@ -259,7 +259,7 @@
           }
         }
       },
-      "SheetUserListItemDto": {
+      "SheetUserListItemVm": {
         "type": "object",
         "additionalProperties": false,
         "properties": {

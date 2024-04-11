@@ -3,20 +3,18 @@ using DnDCharacterSheet.Domain.Constants;
 
 namespace DnDCharacterSheet.Application;
 
-public record GetSheetsByUserIdQuery() : IRequest<List<SheetUserListItemDto>>;
+public record GetSheetsByUserIdQuery() : IRequest<List<SheetUserListItemVm>>;
 
 public class GetSheetsByUserIdQueryHandler(
     IApplicationDbContext context,
-    IMapper mapper,
     IUser user,
-    IIdentityService identityService) : IRequestHandler<GetSheetsByUserIdQuery, List<SheetUserListItemDto>>
+    IIdentityService identityService) : IRequestHandler<GetSheetsByUserIdQuery, List<SheetUserListItemVm>>
 {
     private readonly IApplicationDbContext _context = context;
-    private readonly IMapper _mapper = mapper;
     private readonly IUser _user = user;
     private readonly IIdentityService _identityService = identityService;
 
-    public async Task<List<SheetUserListItemDto>> Handle(GetSheetsByUserIdQuery request, CancellationToken cancellationToken)
+    public async Task<List<SheetUserListItemVm>> Handle(GetSheetsByUserIdQuery request, CancellationToken cancellationToken)
     {
         var query = _context.Sheets
             .AsNoTracking()
@@ -24,19 +22,20 @@ public class GetSheetsByUserIdQueryHandler(
             .OrderBy(s => s.Created);
 
         var sheets = await query.ToListAsync(cancellationToken);
-        var sheetsDto = await query.
-            ProjectTo<SheetUserListItemDto>(_mapper.ConfigurationProvider)
-            .ToListAsync(cancellationToken);
+        var sheetsVm = new List<SheetUserListItemVm>();
 
-        if (sheetsDto.Count != sheets.Count) throw new Exception($"{sheetsDto.Count} sheets");
-
-        for ( var i = 0; i < sheetsDto.Count; i++)
+        foreach (var sheet in sheets)
         {
-            if (sheets[i].LastModifiedBy is null) continue;
+            if (sheet.LastModifiedBy is null) continue;
 
-            sheetsDto[i].IsModifiedByAdmin = await _identityService.IsInRoleAsync(sheets[i].LastModifiedBy!, Roles.Administrator);
+            sheetsVm.Add(new SheetUserListItemVm() {
+                Id = sheet.Id,
+                CharacterName = sheet.CharacterName,
+                LastModified = sheet.LastModified,
+                IsModifiedByAdmin = await _identityService.IsInRoleAsync(sheet.LastModifiedBy, Roles.Administrator)
+            });
         }
 
-        return sheetsDto;
+        return sheetsVm;
     }
 }

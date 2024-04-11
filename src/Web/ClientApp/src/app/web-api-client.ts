@@ -16,9 +16,9 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angula
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 export interface ISheetsClient {
-    getSheets(pageNumber: number, pageSize: number): Observable<PaginatedListOfSheetAdminListItemDto>;
+    getSheets(pageNumber: number, pageSize: number): Observable<PaginatedListOfSheetAdminListItemVm>;
     createSheet(command: CreateSheetCommand): Observable<number>;
-    getUserSheets(): Observable<SheetUserListItemDto[]>;
+    getUserSheets(): Observable<SheetUserListItemVm[]>;
     getSheet(id: number): Observable<SheetVm>;
     updateSheet(id: number, command: UpdateSheetCommand): Observable<void>;
     deleteSheet(id: number): Observable<void>;
@@ -37,7 +37,7 @@ export class SheetsClient implements ISheetsClient {
         this.baseUrl = baseUrl ?? "";
     }
 
-    getSheets(pageNumber: number, pageSize: number): Observable<PaginatedListOfSheetAdminListItemDto> {
+    getSheets(pageNumber: number, pageSize: number): Observable<PaginatedListOfSheetAdminListItemVm> {
         let url_ = this.baseUrl + "/api/Sheets?";
         if (pageNumber === undefined || pageNumber === null)
             throw new Error("The parameter 'pageNumber' must be defined and cannot be null.");
@@ -64,14 +64,14 @@ export class SheetsClient implements ISheetsClient {
                 try {
                     return this.processGetSheets(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<PaginatedListOfSheetAdminListItemDto>;
+                    return _observableThrow(e) as any as Observable<PaginatedListOfSheetAdminListItemVm>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<PaginatedListOfSheetAdminListItemDto>;
+                return _observableThrow(response_) as any as Observable<PaginatedListOfSheetAdminListItemVm>;
         }));
     }
 
-    protected processGetSheets(response: HttpResponseBase): Observable<PaginatedListOfSheetAdminListItemDto> {
+    protected processGetSheets(response: HttpResponseBase): Observable<PaginatedListOfSheetAdminListItemVm> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -82,7 +82,7 @@ export class SheetsClient implements ISheetsClient {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PaginatedListOfSheetAdminListItemDto.fromJS(resultData200);
+            result200 = PaginatedListOfSheetAdminListItemVm.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -146,7 +146,7 @@ export class SheetsClient implements ISheetsClient {
         return _observableOf(null as any);
     }
 
-    getUserSheets(): Observable<SheetUserListItemDto[]> {
+    getUserSheets(): Observable<SheetUserListItemVm[]> {
         let url_ = this.baseUrl + "/api/Sheets/user";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -165,14 +165,14 @@ export class SheetsClient implements ISheetsClient {
                 try {
                     return this.processGetUserSheets(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<SheetUserListItemDto[]>;
+                    return _observableThrow(e) as any as Observable<SheetUserListItemVm[]>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<SheetUserListItemDto[]>;
+                return _observableThrow(response_) as any as Observable<SheetUserListItemVm[]>;
         }));
     }
 
-    protected processGetUserSheets(response: HttpResponseBase): Observable<SheetUserListItemDto[]> {
+    protected processGetUserSheets(response: HttpResponseBase): Observable<SheetUserListItemVm[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -186,7 +186,7 @@ export class SheetsClient implements ISheetsClient {
             if (Array.isArray(resultData200)) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200!.push(SheetUserListItemDto.fromJS(item));
+                    result200!.push(SheetUserListItemVm.fromJS(item));
             }
             else {
                 result200 = <any>null;
@@ -351,15 +351,15 @@ export class SheetsClient implements ISheetsClient {
     }
 }
 
-export class PaginatedListOfSheetAdminListItemDto implements IPaginatedListOfSheetAdminListItemDto {
-    items?: SheetAdminListItemDto[];
+export class PaginatedListOfSheetAdminListItemVm implements IPaginatedListOfSheetAdminListItemVm {
+    items?: SheetAdminListItemVm[];
     pageNumber?: number;
     totalPages?: number;
     totalCount?: number;
     hasPreviousPage?: boolean;
     hasNextPage?: boolean;
 
-    constructor(data?: IPaginatedListOfSheetAdminListItemDto) {
+    constructor(data?: IPaginatedListOfSheetAdminListItemVm) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -373,7 +373,7 @@ export class PaginatedListOfSheetAdminListItemDto implements IPaginatedListOfShe
             if (Array.isArray(_data["items"])) {
                 this.items = [] as any;
                 for (let item of _data["items"])
-                    this.items!.push(SheetAdminListItemDto.fromJS(item));
+                    this.items!.push(SheetAdminListItemVm.fromJS(item));
             }
             this.pageNumber = _data["pageNumber"];
             this.totalPages = _data["totalPages"];
@@ -383,9 +383,9 @@ export class PaginatedListOfSheetAdminListItemDto implements IPaginatedListOfShe
         }
     }
 
-    static fromJS(data: any): PaginatedListOfSheetAdminListItemDto {
+    static fromJS(data: any): PaginatedListOfSheetAdminListItemVm {
         data = typeof data === 'object' ? data : {};
-        let result = new PaginatedListOfSheetAdminListItemDto();
+        let result = new PaginatedListOfSheetAdminListItemVm();
         result.init(data);
         return result;
     }
@@ -406,8 +406,8 @@ export class PaginatedListOfSheetAdminListItemDto implements IPaginatedListOfShe
     }
 }
 
-export interface IPaginatedListOfSheetAdminListItemDto {
-    items?: SheetAdminListItemDto[];
+export interface IPaginatedListOfSheetAdminListItemVm {
+    items?: SheetAdminListItemVm[];
     pageNumber?: number;
     totalPages?: number;
     totalCount?: number;
@@ -415,7 +415,7 @@ export interface IPaginatedListOfSheetAdminListItemDto {
     hasNextPage?: boolean;
 }
 
-export class SheetAdminListItemDto implements ISheetAdminListItemDto {
+export class SheetAdminListItemVm implements ISheetAdminListItemVm {
     id?: number;
     created?: Date;
     createdBy?: string | undefined;
@@ -424,7 +424,7 @@ export class SheetAdminListItemDto implements ISheetAdminListItemDto {
     createdByName?: string | undefined;
     lastModifiedByName?: string | undefined;
 
-    constructor(data?: ISheetAdminListItemDto) {
+    constructor(data?: ISheetAdminListItemVm) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -445,9 +445,9 @@ export class SheetAdminListItemDto implements ISheetAdminListItemDto {
         }
     }
 
-    static fromJS(data: any): SheetAdminListItemDto {
+    static fromJS(data: any): SheetAdminListItemVm {
         data = typeof data === 'object' ? data : {};
-        let result = new SheetAdminListItemDto();
+        let result = new SheetAdminListItemVm();
         result.init(data);
         return result;
     }
@@ -465,7 +465,7 @@ export class SheetAdminListItemDto implements ISheetAdminListItemDto {
     }
 }
 
-export interface ISheetAdminListItemDto {
+export interface ISheetAdminListItemVm {
     id?: number;
     created?: Date;
     createdBy?: string | undefined;
@@ -475,13 +475,13 @@ export interface ISheetAdminListItemDto {
     lastModifiedByName?: string | undefined;
 }
 
-export class SheetUserListItemDto implements ISheetUserListItemDto {
+export class SheetUserListItemVm implements ISheetUserListItemVm {
     id?: number;
     characterName?: string | undefined;
     isModifiedByAdmin?: boolean;
     lastModified?: Date;
 
-    constructor(data?: ISheetUserListItemDto) {
+    constructor(data?: ISheetUserListItemVm) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -499,9 +499,9 @@ export class SheetUserListItemDto implements ISheetUserListItemDto {
         }
     }
 
-    static fromJS(data: any): SheetUserListItemDto {
+    static fromJS(data: any): SheetUserListItemVm {
         data = typeof data === 'object' ? data : {};
-        let result = new SheetUserListItemDto();
+        let result = new SheetUserListItemVm();
         result.init(data);
         return result;
     }
@@ -516,7 +516,7 @@ export class SheetUserListItemDto implements ISheetUserListItemDto {
     }
 }
 
-export interface ISheetUserListItemDto {
+export interface ISheetUserListItemVm {
     id?: number;
     characterName?: string | undefined;
     isModifiedByAdmin?: boolean;

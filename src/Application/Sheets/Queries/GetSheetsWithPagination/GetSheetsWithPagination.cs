@@ -8,19 +8,19 @@ using DnDCharacterSheet.Domain.Entities;
 namespace DnDCharacterSheet.Application.Sheets.Queries.GetSheets;
 
 [Authorize(Roles = Roles.Administrator)]
-public record GetSheetsWithPaginationQuery : IRequest<PaginatedList<SheetAdminListItemDto>>
+public record GetSheetsWithPaginationQuery : IRequest<PaginatedList<SheetAdminListItemVm>>
 {
     public int PageNumber { get; init; } = 1;
     public int PageSize { get; init; } = 10;
 }
 
-public class GetSheetsQueryHandler(IApplicationDbContext context, IMapper mapper, IIdentityService identity) : IRequestHandler<GetSheetsWithPaginationQuery, PaginatedList<SheetAdminListItemDto>>
+public class GetSheetsQueryHandler(IApplicationDbContext context, IMapper mapper, IIdentityService identity) : IRequestHandler<GetSheetsWithPaginationQuery, PaginatedList<SheetAdminListItemVm>>
 {
     private readonly IApplicationDbContext _context = context;
     private readonly IMapper _mapper = mapper;
     private readonly IIdentityService _identity = identity;
 
-    public async Task<PaginatedList<SheetAdminListItemDto>> Handle(GetSheetsWithPaginationQuery request, CancellationToken cancellationToken)
+    public async Task<PaginatedList<SheetAdminListItemVm>> Handle(GetSheetsWithPaginationQuery request, CancellationToken cancellationToken)
     {
         var query = _context.Sheets
             .AsNoTracking()
@@ -34,27 +34,28 @@ public class GetSheetsQueryHandler(IApplicationDbContext context, IMapper mapper
         var userIds = sheets.Select(s => s.CreatedBy).Union(sheets.Select(s => s.LastModifiedBy)).Distinct().ToList();
         Dictionary<string, string?> userNames = await _identity.GetUserNamesAsync(userIds!);
 
-        List<SheetAdminListItemDto> sheetAdminDtos = CombineSheetsWithUserNames(sheets, userNames!);
+        List<SheetAdminListItemVm> sheetAdminDtos = CombineSheetsWithUserNames(sheets, userNames!);
 
-        return new PaginatedList<SheetAdminListItemDto>(sheetAdminDtos, totalCount, request.PageNumber, request.PageSize);
+        return new PaginatedList<SheetAdminListItemVm>(sheetAdminDtos, totalCount, request.PageNumber, request.PageSize);
     }
 
-    private List<SheetAdminListItemDto> CombineSheetsWithUserNames(List<Sheet> sheets, Dictionary<string, string> userNames)
+    private List<SheetAdminListItemVm> CombineSheetsWithUserNames(List<Sheet> sheets, Dictionary<string, string> userNames)
     {
-        var sheetAdminDtos = sheets.Select(_mapper.Map<SheetAdminListItemDto>).ToList();
-        sheetAdminDtos.ForEach(dto =>
+        var sheetAdminVms = sheets.Select(s => new SheetAdminListItemVm()
         {
-            if (dto.CreatedBy is not null && userNames.TryGetValue(dto.CreatedBy, out var createdByName))
-            {
-                dto.CreatedByName = createdByName;
-            }
+            Id = s.Id,
+            Created = s.Created,
+            CreatedBy = s.CreatedBy,
+            LastModified = s.LastModified,
+            LastModifiedBy = s.LastModifiedBy,
+            CreatedByName = s.CreatedBy is not null && userNames.TryGetValue(s.CreatedBy, out var createdByName)
+                ? createdByName
+                : "Unknown",
+            LastModifiedByName = s.CreatedBy is not null && userNames.TryGetValue(s.CreatedBy, out var lastModifiedByName)
+                ? lastModifiedByName
+                : "Unknown"
+        }).ToList();
 
-            if (dto.LastModifiedBy is not null && userNames.TryGetValue(dto.LastModifiedBy, out var lastModifiedByName))
-            {
-                dto.LastModifiedByName = lastModifiedByName;
-            }
-        });
-
-        return sheetAdminDtos;
+        return sheetAdminVms;
     }
 }

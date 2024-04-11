@@ -1,7 +1,5 @@
-﻿using DnDCharacterSheet.Domain.Entities;
-
-namespace DnDCharacterSheet.Application.Sheets.Queries.GetSheets;
-public class SheetAdminListItemDto
+﻿namespace DnDCharacterSheet.Application.Sheets.Queries.GetSheets;
+public class SheetAdminListItemVm
 {
     public int Id { get; set; }
     public DateTimeOffset Created { get; set; }
@@ -10,12 +8,4 @@ public class SheetAdminListItemDto
     public string? LastModifiedBy { get; set; }
     public string? CreatedByName { get; set; }
     public string? LastModifiedByName { get; set; }
-
-    private class Mapping : Profile
-    {
-        public Mapping()
-        {
-            CreateMap<Sheet, SheetAdminListItemDto>();
-        }
-    }
 }

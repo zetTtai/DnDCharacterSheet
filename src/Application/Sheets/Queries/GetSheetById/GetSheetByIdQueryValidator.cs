@@ -12,8 +12,14 @@ public class GetSheetByIdQueryValidator : SheetCommandValidatorBase<GetSheetById
     {
         RuleFor(v => v.Id)
             .NotEmpty()
-            .MustAsync(SheetExistsAndUserIsOwner)
-                .WithMessage("You must be the owner of the sheet, and the sheet must exist.")
-                .WithErrorCode("OwnerAndExists");
+            .MustAsync(SheetExists)
+                .WithMessage("Sheet does not exists")
+                .WithErrorCode("Exists")
+            .DependentRules(() =>
+                RuleFor(v => v.Id)
+                .MustAsync(UserIsOwner)
+                    .WithMessage("You must be the owner of the sheet")
+                    .WithErrorCode("OwnerAndExists")
+            );
     }
 }

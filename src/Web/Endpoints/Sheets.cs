@@ -21,10 +21,10 @@ public class Sheets : EndpointGroupBase
             .MapDelete(DeleteSheet, "{id}");
     }
 
-    public Task<PaginatedList<SheetAdminListItemDto>> GetSheets(ISender sender, [AsParameters] GetSheetsWithPaginationQuery query)
+    public Task<PaginatedList<SheetAdminListItemVm>> GetSheets(ISender sender, [AsParameters] GetSheetsWithPaginationQuery query)
         => sender.Send(query);
 
-    public Task<List<SheetUserListItemDto>> GetUserSheets(ISender sender) => sender.Send(new GetSheetsByUserIdQuery());
+    public Task<List<SheetUserListItemVm>> GetUserSheets(ISender sender) => sender.Send(new GetSheetsByUserIdQuery());
 
     public Task<SheetVm> GetSheet(ISender sender, int id) => sender.Send(new GetSheetByIdQuery(id));
 

@@ -2,6 +2,8 @@
 using System.Runtime.CompilerServices;
 using AutoMapper;
 using DnDCharacterSheet.Application.Common.Interfaces;
+using DnDCharacterSheet.Application.Sheets.Queries.GetSheetById;
+using DnDCharacterSheet.Domain.Entities;
 using NUnit.Framework;
 
 namespace DnDCharacterSheet.Application.UnitTests.Common.Mappings;
@@ -25,9 +27,10 @@ public class MappingTests
         _configuration.AssertConfigurationIsValid();
     }
 
-    // TODO: Enable to test mapping
-    // [Test]
-    // [TestCase(typeof(TodoList), typeof(TodoListDto))]
+    [Test]
+    [TestCase(typeof(SheetAbility), typeof(AbilityDto))]
+    [TestCase(typeof(SheetSkill), typeof(CapabilityDto))]
+    [TestCase(typeof(SheetSavingThrow), typeof(CapabilityDto))]
     public void ShouldSupportMappingFromSourceToDestination(Type source, Type destination)
     {
         var instance = GetInstanceOf(source);
