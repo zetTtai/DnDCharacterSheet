@@ -1,21 +1,11 @@
 ﻿namespace DnDCharacterSheet.Application.FunctionalTests.Sheets.Queries;
 
 using DnDCharacterSheet.Application.Common.Exceptions;
-using DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
 using DnDCharacterSheet.Application.Sheets.Queries.GetSheets;
+using Namotion.Reflection;
 using static Testing;
 public class GetSheetsWithPaginationTests : BaseTestFixture
 {
-    private static async Task CreateSheets(int quantity)
-    {
-        await RunAsDefaultUserAsync();
-
-        for (int i = 0; i < quantity; i++)
-        {
-            await SendAsync(new CreateSheetCommand() { CharacterName = "Test_" + i });
-        }
-    }
-
     [Test]
     public async Task ShouldReturnRequiredFields()
     {
@@ -29,10 +19,14 @@ public class GetSheetsWithPaginationTests : BaseTestFixture
 
         // Assert
         var sheet = result.Items.First();
+
         sheet.CreatedByName.Should().NotBeNull();
         sheet.CreatedBy.Should().NotBeNull();
         sheet.LastModifiedByName.Should().NotBeNull();
         sheet.LastModifiedBy.Should().NotBeNull();
+        sheet.Should().HasProperty("Id");
+        sheet.Should().HasProperty("Created");
+        sheet.Should().HasProperty("LastModified");
     }
 
     [Test]

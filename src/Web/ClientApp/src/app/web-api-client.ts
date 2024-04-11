@@ -16,7 +16,7 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angula
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 export interface ISheetsClient {
-    getSheets(pageNumber: number, pageSize: number): Observable<PaginatedListOfSheetAdminDto>;
+    getSheets(pageNumber: number, pageSize: number): Observable<PaginatedListOfSheetAdminListItemDto>;
     createSheet(command: CreateSheetCommand): Observable<number>;
     updateSheet(id: number, command: UpdateSheetCommand): Observable<void>;
     deleteSheet(id: number): Observable<void>;
@@ -35,7 +35,7 @@ export class SheetsClient implements ISheetsClient {
         this.baseUrl = baseUrl ?? "";
     }
 
-    getSheets(pageNumber: number, pageSize: number): Observable<PaginatedListOfSheetAdminDto> {
+    getSheets(pageNumber: number, pageSize: number): Observable<PaginatedListOfSheetAdminListItemDto> {
         let url_ = this.baseUrl + "/api/Sheets?";
         if (pageNumber === undefined || pageNumber === null)
             throw new Error("The parameter 'pageNumber' must be defined and cannot be null.");
@@ -62,14 +62,14 @@ export class SheetsClient implements ISheetsClient {
                 try {
                     return this.processGetSheets(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<PaginatedListOfSheetAdminDto>;
+                    return _observableThrow(e) as any as Observable<PaginatedListOfSheetAdminListItemDto>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<PaginatedListOfSheetAdminDto>;
+                return _observableThrow(response_) as any as Observable<PaginatedListOfSheetAdminListItemDto>;
         }));
     }
 
-    protected processGetSheets(response: HttpResponseBase): Observable<PaginatedListOfSheetAdminDto> {
+    protected processGetSheets(response: HttpResponseBase): Observable<PaginatedListOfSheetAdminListItemDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -80,7 +80,7 @@ export class SheetsClient implements ISheetsClient {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PaginatedListOfSheetAdminDto.fromJS(resultData200);
+            result200 = PaginatedListOfSheetAdminListItemDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -243,15 +243,15 @@ export class SheetsClient implements ISheetsClient {
     }
 }
 
-export class PaginatedListOfSheetAdminDto implements IPaginatedListOfSheetAdminDto {
-    items?: SheetAdminDto[];
+export class PaginatedListOfSheetAdminListItemDto implements IPaginatedListOfSheetAdminListItemDto {
+    items?: SheetAdminListItemDto[];
     pageNumber?: number;
     totalPages?: number;
     totalCount?: number;
     hasPreviousPage?: boolean;
     hasNextPage?: boolean;
 
-    constructor(data?: IPaginatedListOfSheetAdminDto) {
+    constructor(data?: IPaginatedListOfSheetAdminListItemDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -265,7 +265,7 @@ export class PaginatedListOfSheetAdminDto implements IPaginatedListOfSheetAdminD
             if (Array.isArray(_data["items"])) {
                 this.items = [] as any;
                 for (let item of _data["items"])
-                    this.items!.push(SheetAdminDto.fromJS(item));
+                    this.items!.push(SheetAdminListItemDto.fromJS(item));
             }
             this.pageNumber = _data["pageNumber"];
             this.totalPages = _data["totalPages"];
@@ -275,9 +275,9 @@ export class PaginatedListOfSheetAdminDto implements IPaginatedListOfSheetAdminD
         }
     }
 
-    static fromJS(data: any): PaginatedListOfSheetAdminDto {
+    static fromJS(data: any): PaginatedListOfSheetAdminListItemDto {
         data = typeof data === 'object' ? data : {};
-        let result = new PaginatedListOfSheetAdminDto();
+        let result = new PaginatedListOfSheetAdminListItemDto();
         result.init(data);
         return result;
     }
@@ -298,8 +298,8 @@ export class PaginatedListOfSheetAdminDto implements IPaginatedListOfSheetAdminD
     }
 }
 
-export interface IPaginatedListOfSheetAdminDto {
-    items?: SheetAdminDto[];
+export interface IPaginatedListOfSheetAdminListItemDto {
+    items?: SheetAdminListItemDto[];
     pageNumber?: number;
     totalPages?: number;
     totalCount?: number;
@@ -307,7 +307,7 @@ export interface IPaginatedListOfSheetAdminDto {
     hasNextPage?: boolean;
 }
 
-export class SheetAdminDto implements ISheetAdminDto {
+export class SheetAdminListItemDto implements ISheetAdminListItemDto {
     id?: number;
     created?: Date;
     createdBy?: string | undefined;
@@ -316,7 +316,7 @@ export class SheetAdminDto implements ISheetAdminDto {
     createdByName?: string | undefined;
     lastModifiedByName?: string | undefined;
 
-    constructor(data?: ISheetAdminDto) {
+    constructor(data?: ISheetAdminListItemDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -337,9 +337,9 @@ export class SheetAdminDto implements ISheetAdminDto {
         }
     }
 
-    static fromJS(data: any): SheetAdminDto {
+    static fromJS(data: any): SheetAdminListItemDto {
         data = typeof data === 'object' ? data : {};
-        let result = new SheetAdminDto();
+        let result = new SheetAdminListItemDto();
         result.init(data);
         return result;
     }
@@ -357,7 +357,7 @@ export class SheetAdminDto implements ISheetAdminDto {
     }
 }
 
-export interface ISheetAdminDto {
+export interface ISheetAdminListItemDto {
     id?: number;
     created?: Date;
     createdBy?: string | undefined;

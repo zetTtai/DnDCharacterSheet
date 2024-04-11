@@ -1,7 +1,7 @@
 ﻿using DnDCharacterSheet.Domain.Entities;
 
 namespace DnDCharacterSheet.Application.Sheets.Queries.GetSheets;
-public class SheetAdminDto
+public class SheetAdminListItemDto
 {
     public int Id { get; set; }
     public DateTimeOffset Created { get; set; }
@@ -15,7 +15,7 @@ public class SheetAdminDto
     {
         public Mapping()
         {
-            CreateMap<Sheet, SheetAdminDto>();
+            CreateMap<Sheet, SheetAdminListItemDto>();
         }
     }
 }

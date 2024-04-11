@@ -70,7 +70,7 @@ public partial class Testing
 
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-        var user = new ApplicationUser { UserName = userName, Email = userName };
+        var user = await userManager.FindByNameAsync(userName) ?? new ApplicationUser { UserName = userName, Email = userName };
 
         var userExists = await userManager.FindByNameAsync(userName);
 
@@ -93,10 +93,14 @@ public partial class Testing
             await userManager.AddToRolesAsync(user, roles);
         }
 
-        if (userExists is not null || result.Succeeded)
+        if (userExists is not null)
+        {
+            _userId = userExists.Id;
+            return _userId;
+        }
+        else if (result.Succeeded)
         {
             _userId = user.Id;
-
             return _userId;
         }
 
@@ -206,7 +210,7 @@ public partial class Testing
     public static async Task<List<int>> CreateSheets(int quantity)
     {
         var sheetIds = new List<int>();
-        await RunAsDefaultUserAsync();
+        var userId = await RunAsDefaultUserAsync();
 
         for (int i = 0; i < quantity; i++)
         {
