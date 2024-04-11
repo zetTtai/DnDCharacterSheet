@@ -2,6 +2,7 @@ using DnDCharacterSheet.Application.Common.Interfaces;
 using DnDCharacterSheet.Application.Common.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace DnDCharacterSheet.Infrastructure.Identity;
 
@@ -19,6 +20,15 @@ public class IdentityService(
         var user = await _userManager.FindByIdAsync(userId);
 
         return user?.UserName;
+    }
+
+    public async Task<Dictionary<string, string?>> GetUserNamesAsync(List<string> userIds)
+    {
+        var users = await _userManager.Users
+            .Where(user => userIds.Contains(user.Id))
+            .ToListAsync();
+
+        return users.ToDictionary(user => user.Id, user => user.UserName);
     }
 
     public async Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password)

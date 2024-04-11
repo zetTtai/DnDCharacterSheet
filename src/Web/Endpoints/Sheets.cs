@@ -1,7 +1,9 @@
 ﻿
 using DnDCharacterSheet.Application;
+using DnDCharacterSheet.Application.Common.Models;
 using DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
 using DnDCharacterSheet.Application.Sheets.Commands.DeleteSheet;
+using DnDCharacterSheet.Application.Sheets.Queries.GetSheets;
 
 namespace DnDCharacterSheet.Web.Endpoints;
 
@@ -11,10 +13,13 @@ public class Sheets : EndpointGroupBase
     {
         app.MapGroup(this)
             .RequireAuthorization()
+            .MapGet(GetSheets)
             .MapPost(CreateSheet)
             .MapPut(UpdateSheet, "{id}")
             .MapDelete(DeleteSheet, "{id}");
     }
+
+    public Task<PaginatedList<SheetAdminDto>> GetSheets(ISender sender, [AsParameters] GetSheetsWithPaginationQuery query) => sender.Send(query);
 
     public Task<int> CreateSheet(ISender sender, CreateSheetCommand command) => sender.Send(command);
 
