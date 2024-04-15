@@ -1,5 +1,6 @@
 # Clean Architecture Solution Template
 
+
 [![Build](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/build.yml/badge.svg)](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/build.yml)
 [![CodeQL](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/codeql.yml/badge.svg)](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/codeql.yml)
 [![Nuget](https://img.shields.io/nuget/v/Clean.Architecture.Solution.Template?label=NuGet)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template)
@@ -12,6 +13,8 @@ If you find this project useful, please give it a star. Thanks! ⭐
 
 
 ## Getting Started
+
+
 
 The following prerequisites are required to build and run the solution:
 
