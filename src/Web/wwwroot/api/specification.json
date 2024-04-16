@@ -66,15 +66,7 @@
         },
         "responses": {
           "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "integer",
-                  "format": "int32"
-                }
-              }
-            }
+            "description": ""
           }
         }
       }
@@ -122,14 +114,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SheetVm"
-                }
-              }
-            }
+            "description": ""
           }
         }
       },
@@ -277,64 +262,6 @@
           "lastModified": {
             "type": "string",
             "format": "date-time"
-          }
-        }
-      },
-      "SheetVm": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "characterName": {
-            "type": "string",
-            "nullable": true
-          },
-          "abilities": {
-            "type": "array",
-            "nullable": true,
-            "items": {
-              "$ref": "#/components/schemas/AbilityDto"
-            }
-          },
-          "savingThrows": {
-            "type": "array",
-            "nullable": true,
-            "items": {
-              "$ref": "#/components/schemas/CapabilityDto"
-            }
-          },
-          "skills": {
-            "type": "array",
-            "nullable": true,
-            "items": {
-              "$ref": "#/components/schemas/CapabilityDto"
-            }
-          }
-        }
-      },
-      "AbilityDto": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "value": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
-      },
-      "CapabilityDto": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "proficiency": {
-            "type": "boolean"
           }
         }
       },

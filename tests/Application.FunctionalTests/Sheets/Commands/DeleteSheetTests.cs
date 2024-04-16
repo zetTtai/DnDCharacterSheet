@@ -1,10 +1,10 @@
-﻿using DnDCharacterSheet.Application.Common.Exceptions;
-using DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
+﻿using DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
 using DnDCharacterSheet.Application.Sheets.Commands.DeleteSheet;
 using DnDCharacterSheet.Domain.Entities;
 
 namespace DnDCharacterSheet.Application.FunctionalTests.Sheets.Commands;
 
+using static SheetTesting;
 using static Testing;
 
 public class DeleteSheetTests : BaseTestFixture
@@ -16,9 +16,11 @@ public class DeleteSheetTests : BaseTestFixture
         await RunAsDefaultUserAsync();
         var command = new DeleteSheetCommand(999);
 
-        // Act - Assert
-        await FluentActions.Invoking(() =>
-            SendAsync(command)).Should().ThrowAsync<ValidationException>();
+        // Act
+        var result = await SendAsync(command);
+
+        // Assert
+        result.Succeeded.Should().BeFalse();
     }
 
     [Test]
@@ -26,16 +28,15 @@ public class DeleteSheetTests : BaseTestFixture
     {
         // Arrange
         await RunAsDefaultUserAsync();
-        var sheetId = await SendAsync(new CreateSheetCommand()
-        {
-            CharacterName = "sir test testable"
-        });
+        int sheetId = await CreateSingleSheet("Sir Test Testable");
         await RunAsUserAsync("Hacker", "Hacker1234!", []);
         var command = new DeleteSheetCommand(sheetId);
 
-        // Act - Assert
-        await FluentActions.Invoking(() =>
-            SendAsync(command)).Should().ThrowAsync<ValidationException>();
+        // Act
+        var result = await SendAsync(command);
+
+        // Assert
+        result.Succeeded.Should().BeFalse();
     }
 
     [Test]
@@ -43,10 +44,7 @@ public class DeleteSheetTests : BaseTestFixture
     {
         // Arrange
         await RunAsDefaultUserAsync();
-        var sheetId = await SendAsync(new CreateSheetCommand()
-        {
-            CharacterName = "sir test testable"
-        });
+        int sheetId = await CreateSingleSheet("Sir Test Testable");
         var command = new DeleteSheetCommand(sheetId);
 
         // Act
@@ -62,11 +60,11 @@ public class DeleteSheetTests : BaseTestFixture
     {
         // Arrange
         await RunAsDefaultUserAsync();
-        var sheetId = await SendAsync(new CreateSheetCommand()
+        var createSheetCommand = await SendAsync(new CreateSheetCommand()
         {
-            CharacterName = "sir test testable"
+            CharacterName = "Sir Test Testable"
         });
-
+        var sheetId = createSheetCommand.Value;
         await RunAsAdministratorAsync();
         var command = new DeleteSheetCommand(sheetId);
 

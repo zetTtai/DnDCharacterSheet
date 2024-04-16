@@ -1,9 +1,10 @@
-﻿using DnDCharacterSheet.Application.Common.Exceptions;
-using DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
+﻿using DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
 
 namespace DnDCharacterSheet.Application.FunctionalTests.Sheets.Commands;
 
+using static SheetTesting;
 using static Testing;
+
 public class UpdateSheetTests : BaseTestFixture
 {
     [SetUp]
@@ -30,22 +31,19 @@ public class UpdateSheetTests : BaseTestFixture
             CharacterName = string.Empty
         };
 
-        // Act - Assert
-        await FluentActions.Invoking(() =>
-            SendAsync(command))
-            .Should()
-            .ThrowAsync<ValidationException>();
+        // Act
+        var result = await SendAsync(command);
+
+        // Assert
+        result.Succeeded.Should().BeFalse();
     }
 
     [Test, TestCaseSource(nameof(InvalidCharacterNames))]
     public async Task InvalidCharacterName_ThrowsValidationException(string characterName)
     {
         // Arrange
-        var userId = await RunAsDefaultUserAsync();
-        var sheetId = await SendAsync(new CreateSheetCommand
-        {
-            CharacterName = "Sir test testable"
-        });
+        await RunAsDefaultUserAsync();
+        var sheetId = await CreateSingleSheet("Sir Test Testable");
         var command = new UpdateSheetCommand()
         {
             CharacterName = characterName
@@ -53,29 +51,29 @@ public class UpdateSheetTests : BaseTestFixture
 
         command.Id(sheetId);
 
-        // Act - Assert
-        await FluentActions.Invoking(() =>
-            SendAsync(command))
-            .Should()
-            .ThrowAsync<ValidationException>();
+        // Act
+        var result = await SendAsync(command);
+
+        // Assert
+        result.Succeeded.Should().BeFalse();
     }
 
     [Test]
     public async Task IfSheetDoesNotExist_ThrowsValidationException()
     {
         // Arrange
-        var userId = await RunAsDefaultUserAsync();
+        await RunAsDefaultUserAsync();
         var command = new UpdateSheetCommand()
         {
             CharacterName = "Sir test modified",
         };
         command.Id(999);
 
-        // Act - Assert
-        await FluentActions.Invoking(() =>
-            SendAsync(command))
-            .Should()
-            .ThrowAsync<ValidationException>();
+        // Act
+        var result = await SendAsync(command);
+
+        // Assert
+        result.Succeeded.Should().BeFalse();
     }
 
     [Test]
@@ -83,10 +81,7 @@ public class UpdateSheetTests : BaseTestFixture
     {
         // Arrange
         var userId = await RunAsDefaultUserAsync();
-        var sheetId = await SendAsync(new CreateSheetCommand
-        {
-            CharacterName = "Sir test testable"
-        });
+        int sheetId = await CreateSingleSheet("Sir Test Testable");
         await RunAsUserAsync("Hacker", "Hacker1234!", []);
 
         var command = new UpdateSheetCommand()
@@ -95,11 +90,11 @@ public class UpdateSheetTests : BaseTestFixture
         };
         command.Id(sheetId);
 
-        // Act - Assert
-        await FluentActions.Invoking(() =>
-            SendAsync(command))
-            .Should()
-            .ThrowAsync<ValidationException>();
+        // Act
+        var result = await SendAsync(command);
+
+        // Assert
+        result.Succeeded.Should().BeFalse();
     }
 
     [Test]
@@ -107,14 +102,8 @@ public class UpdateSheetTests : BaseTestFixture
     {
         // Arrange
         var userId = await RunAsDefaultUserAsync();
-        var sheetId = await SendAsync(new CreateSheetCommand
-        {
-            CharacterName = "Sir test testable"
-        });
-        await SendAsync(new CreateSheetCommand
-        {
-            CharacterName = "Another character"
-        });
+        int sheetId = await CreateSingleSheet("Sir Test Testable");
+        await CreateSingleSheet("Another character");
         var command = new UpdateSheetCommand()
         {
             CharacterName = "Sir test modified"
@@ -138,10 +127,7 @@ public class UpdateSheetTests : BaseTestFixture
     {
         // Arrange
         await RunAsDefaultUserAsync();
-        var sheetId = await SendAsync(new CreateSheetCommand
-        {
-            CharacterName = "Sir test testable"
-        });
+        var sheetId = await CreateSingleSheet("Sir Test Testable");
         await SendAsync(new CreateSheetCommand
         {
             CharacterName = "Another character"

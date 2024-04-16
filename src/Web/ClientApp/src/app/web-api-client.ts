@@ -17,9 +17,9 @@ export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 export interface ISheetsClient {
     getSheets(pageNumber: number, pageSize: number): Observable<PaginatedListOfSheetAdminListItemVm>;
-    createSheet(command: CreateSheetCommand): Observable<number>;
+    createSheet(command: CreateSheetCommand): Observable<void>;
     getUserSheets(): Observable<SheetUserListItemVm[]>;
-    getSheet(id: number): Observable<SheetVm>;
+    getSheet(id: number): Observable<void>;
     updateSheet(id: number, command: UpdateSheetCommand): Observable<void>;
     deleteSheet(id: number): Observable<void>;
 }
@@ -93,7 +93,7 @@ export class SheetsClient implements ISheetsClient {
         return _observableOf(null as any);
     }
 
-    createSheet(command: CreateSheetCommand): Observable<number> {
+    createSheet(command: CreateSheetCommand): Observable<void> {
         let url_ = this.baseUrl + "/api/Sheets";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -105,7 +105,6 @@ export class SheetsClient implements ISheetsClient {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
-                "Accept": "application/json"
             })
         };
 
@@ -116,14 +115,14 @@ export class SheetsClient implements ISheetsClient {
                 try {
                     return this.processCreateSheet(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<number>;
+                    return _observableThrow(e) as any as Observable<void>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<number>;
+                return _observableThrow(response_) as any as Observable<void>;
         }));
     }
 
-    protected processCreateSheet(response: HttpResponseBase): Observable<number> {
+    protected processCreateSheet(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -132,11 +131,7 @@ export class SheetsClient implements ISheetsClient {
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = resultData200 !== undefined ? resultData200 : <any>null;
-    
-            return _observableOf(result200);
+            return _observableOf(null as any);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
@@ -201,7 +196,7 @@ export class SheetsClient implements ISheetsClient {
         return _observableOf(null as any);
     }
 
-    getSheet(id: number): Observable<SheetVm> {
+    getSheet(id: number): Observable<void> {
         let url_ = this.baseUrl + "/api/Sheets/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -212,7 +207,6 @@ export class SheetsClient implements ISheetsClient {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/json"
             })
         };
 
@@ -223,14 +217,14 @@ export class SheetsClient implements ISheetsClient {
                 try {
                     return this.processGetSheet(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<SheetVm>;
+                    return _observableThrow(e) as any as Observable<void>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<SheetVm>;
+                return _observableThrow(response_) as any as Observable<void>;
         }));
     }
 
-    protected processGetSheet(response: HttpResponseBase): Observable<SheetVm> {
+    protected processGetSheet(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -239,10 +233,7 @@ export class SheetsClient implements ISheetsClient {
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = SheetVm.fromJS(resultData200);
-            return _observableOf(result200);
+            return _observableOf(null as any);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
@@ -521,158 +512,6 @@ export interface ISheetUserListItemVm {
     characterName?: string | undefined;
     isModifiedByAdmin?: boolean;
     lastModified?: Date;
-}
-
-export class SheetVm implements ISheetVm {
-    characterName?: string | undefined;
-    abilities?: AbilityDto[] | undefined;
-    savingThrows?: CapabilityDto[] | undefined;
-    skills?: CapabilityDto[] | undefined;
-
-    constructor(data?: ISheetVm) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.characterName = _data["characterName"];
-            if (Array.isArray(_data["abilities"])) {
-                this.abilities = [] as any;
-                for (let item of _data["abilities"])
-                    this.abilities!.push(AbilityDto.fromJS(item));
-            }
-            if (Array.isArray(_data["savingThrows"])) {
-                this.savingThrows = [] as any;
-                for (let item of _data["savingThrows"])
-                    this.savingThrows!.push(CapabilityDto.fromJS(item));
-            }
-            if (Array.isArray(_data["skills"])) {
-                this.skills = [] as any;
-                for (let item of _data["skills"])
-                    this.skills!.push(CapabilityDto.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): SheetVm {
-        data = typeof data === 'object' ? data : {};
-        let result = new SheetVm();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["characterName"] = this.characterName;
-        if (Array.isArray(this.abilities)) {
-            data["abilities"] = [];
-            for (let item of this.abilities)
-                data["abilities"].push(item.toJSON());
-        }
-        if (Array.isArray(this.savingThrows)) {
-            data["savingThrows"] = [];
-            for (let item of this.savingThrows)
-                data["savingThrows"].push(item.toJSON());
-        }
-        if (Array.isArray(this.skills)) {
-            data["skills"] = [];
-            for (let item of this.skills)
-                data["skills"].push(item.toJSON());
-        }
-        return data;
-    }
-}
-
-export interface ISheetVm {
-    characterName?: string | undefined;
-    abilities?: AbilityDto[] | undefined;
-    savingThrows?: CapabilityDto[] | undefined;
-    skills?: CapabilityDto[] | undefined;
-}
-
-export class AbilityDto implements IAbilityDto {
-    id?: number;
-    value?: number;
-
-    constructor(data?: IAbilityDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.value = _data["value"];
-        }
-    }
-
-    static fromJS(data: any): AbilityDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new AbilityDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["value"] = this.value;
-        return data;
-    }
-}
-
-export interface IAbilityDto {
-    id?: number;
-    value?: number;
-}
-
-export class CapabilityDto implements ICapabilityDto {
-    id?: number;
-    proficiency?: boolean;
-
-    constructor(data?: ICapabilityDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.proficiency = _data["proficiency"];
-        }
-    }
-
-    static fromJS(data: any): CapabilityDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new CapabilityDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["proficiency"] = this.proficiency;
-        return data;
-    }
-}
-
-export interface ICapabilityDto {
-    id?: number;
-    proficiency?: boolean;
 }
 
 export class CreateSheetCommand implements ICreateSheetCommand {

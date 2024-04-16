@@ -1,8 +1,8 @@
 ﻿namespace DnDCharacterSheet.Application.FunctionalTests.Sheets.Queries;
 
 using DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
-using DnDCharacterSheet.Web.Endpoints;
 using Namotion.Reflection;
+using static SheetTesting;
 using static Testing;
 public class GetSheetsByUserIdTests : BaseTestFixture
 {
@@ -10,6 +10,7 @@ public class GetSheetsByUserIdTests : BaseTestFixture
     public async Task ShouldReturnRequiredFields()
     {
         // Arrange
+        await RunAsDefaultUserAsync();
         await CreateSheets(3);
         var query = new GetSheetsByUserIdQuery();
 
@@ -26,6 +27,8 @@ public class GetSheetsByUserIdTests : BaseTestFixture
     public async Task ShouldVerifyIfSheetWasModifiedByAdmin()
     {
         // Arrange
+        await RunAsDefaultUserAsync();
+
         var sheetIds = await CreateSheets(1);
 
         await RunAsAdministratorAsync();
@@ -50,6 +53,7 @@ public class GetSheetsByUserIdTests : BaseTestFixture
     public async Task Succeeds()
     {
         // Arrange
+        await RunAsDefaultUserAsync();
         await CreateSheets(5);
 
         await RunAsUserAsync("test", "Test11234!", []);

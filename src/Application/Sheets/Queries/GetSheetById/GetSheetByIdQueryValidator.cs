@@ -1,25 +1,10 @@
-﻿
+﻿namespace DnDCharacterSheet.Application;
 
-using DnDCharacterSheet.Application.Common.Interfaces;
-using DnDCharacterSheet.Application.Sheets.Commands;
-
-namespace DnDCharacterSheet.Application;
-
-public class GetSheetByIdQueryValidator : SheetCommandValidatorBase<GetSheetByIdQuery>
+public class GetSheetByIdQueryValidator : AbstractValidator<GetSheetByIdQuery>
 {
-    public GetSheetByIdQueryValidator(IApplicationDbContext context, IUser user, IIdentityService identityService)
-        : base(context, user, identityService)
+    public GetSheetByIdQueryValidator()
     {
         RuleFor(v => v.Id)
-            .NotEmpty()
-            .MustAsync(SheetExists)
-                .WithMessage("Sheet does not exists")
-                .WithErrorCode("Exists")
-            .DependentRules(() =>
-                RuleFor(v => v.Id)
-                .MustAsync(UserIsOwner)
-                    .WithMessage("You must be the owner of the sheet")
-                    .WithErrorCode("OwnerAndExists")
-            );
+            .NotEmpty();
     }
 }

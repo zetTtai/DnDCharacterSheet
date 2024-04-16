@@ -14,10 +14,9 @@ public record GetSheetsWithPaginationQuery : IRequest<PaginatedList<SheetAdminLi
     public int PageSize { get; init; } = 10;
 }
 
-public class GetSheetsQueryHandler(IApplicationDbContext context, IMapper mapper, IIdentityService identity) : IRequestHandler<GetSheetsWithPaginationQuery, PaginatedList<SheetAdminListItemVm>>
+public class GetSheetsQueryHandler(IApplicationDbContext context, IIdentityService identity) : IRequestHandler<GetSheetsWithPaginationQuery, PaginatedList<SheetAdminListItemVm>>
 {
     private readonly IApplicationDbContext _context = context;
-    private readonly IMapper _mapper = mapper;
     private readonly IIdentityService _identity = identity;
 
     public async Task<PaginatedList<SheetAdminListItemVm>> Handle(GetSheetsWithPaginationQuery request, CancellationToken cancellationToken)

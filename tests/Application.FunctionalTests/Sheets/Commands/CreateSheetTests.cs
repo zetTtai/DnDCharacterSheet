@@ -1,9 +1,8 @@
-﻿using DnDCharacterSheet.Application.Common.Exceptions;
-using DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
+﻿using DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
 
 namespace DnDCharacterSheet.Application.FunctionalTests.Sheets.Commands;
-
 using static Testing;
+using static SheetTesting;
 
 public class CreateSheetTests : BaseTestFixture
 {
@@ -24,33 +23,28 @@ public class CreateSheetTests : BaseTestFixture
             CharacterName = string.Empty
         };
 
-        // Act - Assert
-        await FluentActions.Invoking(() =>
-            SendAsync(command))
-            .Should()
-            .ThrowAsync<ValidationException>();
+        // Act
+        var result = await SendAsync(command);
+
+        // Assert
+        result.Succeeded.Should().BeFalse();
     }
 
     [Test, TestCaseSource(nameof(InvalidCharacterNames))]
     public async Task InvalidCharacterName_ThrowsValidationException(string characterName)
     {
         // Arrange
-        var userId = await RunAsDefaultUserAsync();
-        var sheetId = await SendAsync(new CreateSheetCommand
-        {
-            CharacterName = "Sir test testable"
-        });
-        var command = new UpdateSheetCommand()
+        await RunAsDefaultUserAsync();
+        var command = new CreateSheetCommand()
         {
             CharacterName = characterName
         };
-        command.Id(sheetId);
 
-        // Act - Assert
-        await FluentActions.Invoking(() =>
-            SendAsync(command))
-            .Should()
-            .ThrowAsync<ValidationException>();
+        // Act
+        var result = await SendAsync(command);
+
+        // Assert
+        result.Succeeded.Should().BeFalse();
     }
 
     [Test]
@@ -65,8 +59,8 @@ public class CreateSheetTests : BaseTestFixture
         };
 
         // Act
-        var id = await SendAsync(command);
-        var sheet = await FindSheetWithDetailsAsync(id);
+        var result = await SendAsync(command);
+        var sheet = await FindSheetWithDetailsAsync(result.Value);
 
         // Assert
         sheet.Should().NotBeNull();

@@ -1,8 +1,9 @@
 ﻿using DnDCharacterSheet.Application.Common.Interfaces;
+using DnDCharacterSheet.Domain.Constants;
 
 namespace DnDCharacterSheet.Application;
 
-public class UpdateSheetCommand : IRequest
+public class UpdateSheetCommand : IRequest<Result>
 {
     private int _id;
     public required string CharacterName { get; set; }
@@ -11,16 +12,33 @@ public class UpdateSheetCommand : IRequest
     public int Id() => _id;
 }
 
-public class UpdateSheetCommandHandler(IApplicationDbContext context) : IRequestHandler<UpdateSheetCommand>
+public class UpdateSheetCommandHandler(
+    IApplicationDbContext context,
+    IUser user,
+    IIdentityService identityService) : IRequestHandler<UpdateSheetCommand, Result>
 {
     private readonly IApplicationDbContext _context = context;
+    private readonly IUser _user = user;
+    private readonly IIdentityService _identityService = identityService;
 
-    public async Task Handle(UpdateSheetCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(UpdateSheetCommand request, CancellationToken cancellationToken)
     {
         var entity = await _context.Sheets.FindAsync([request.Id()], cancellationToken: cancellationToken);
 
-        entity!.CharacterName = request.CharacterName;
+        if (entity is null)
+        {
+            return Result.Failure([]);
+        }
+
+        if (entity.CreatedBy != _user.Id && !await _identityService.IsInRoleAsync(_user.Id!, Roles.Administrator))
+        {
+            return Result.Failure([]);
+        }
+
+        entity.CharacterName = request.CharacterName;
 
         await _context.SaveChangesAsync(cancellationToken);
+
+        return Result.Success();
     }
 }

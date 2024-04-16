@@ -1,9 +1,10 @@
 ﻿namespace DnDCharacterSheet.Application.FunctionalTests.Sheets.Queries;
 
-using DnDCharacterSheet.Application.Common.Exceptions;
 using DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
 using Namotion.Reflection;
 using static Testing;
+using static SheetTesting;
+
 public class GetSheetByIdTests : BaseTestFixture
 {
     [SetUp]
@@ -17,11 +18,13 @@ public class GetSheetByIdTests : BaseTestFixture
     public async Task ShouldReturnRequiredFields()
     {
         // Arrange
+        await RunAsDefaultUserAsync();
         var sheetIds = await CreateSheets(3);
         var query = new GetSheetByIdQuery(sheetIds[0]);
 
         // Act
-        var sheetVm = await SendAsync(query);
+        var result = await SendAsync(query);
+        var sheetVm = result.Value!;
 
         // Assert
         sheetVm.CharacterName.Should().NotBeNull();
@@ -46,14 +49,14 @@ public class GetSheetByIdTests : BaseTestFixture
     public async Task IfSheetDoesNotExist_ThrowsValidationException()
     {
         // Arrange
-        var userId = await RunAsDefaultUserAsync();
+        await RunAsDefaultUserAsync();
         var query = new GetSheetByIdQuery(9999);
 
-        // Act - Assert
-        await FluentActions.Invoking(() =>
-            SendAsync(query))
-            .Should()
-            .ThrowAsync<ValidationException>();
+        // Act
+        var result = await SendAsync(query);
+
+        // Assert
+        result.Succeeded.Should().BeFalse();
     }
 
     [Test]
@@ -61,41 +64,33 @@ public class GetSheetByIdTests : BaseTestFixture
     {
         // Arrange
         var userId = await RunAsDefaultUserAsync();
-        var sheetId = await SendAsync(new CreateSheetCommand
-        {
-            CharacterName = "Sir test testable"
-        });
+        var sheetId = await CreateSingleSheet("Sir Test Testable");
         await RunAsUserAsync("Hacker", "Hacker1234!", []);
         var query = new GetSheetByIdQuery(sheetId);
 
-        // Act - Assert
-        await FluentActions.Invoking(() =>
-            SendAsync(query))
-            .Should()
-            .ThrowAsync<ValidationException>();
+        // Act
+        var result = await SendAsync(query);
+
+        // Assert
+        result.Succeeded.Should().BeFalse();
     }
 
     [Test]
     public async Task Succeeds()
     {
         // Arrange
-        var userId = await RunAsDefaultUserAsync();
-        var sheetId = await SendAsync(new CreateSheetCommand
-        {
-            CharacterName = "Sir test testable"
-        });
-        await SendAsync(new CreateSheetCommand
-        {
-            CharacterName = "Another character"
-        });
+        await RunAsDefaultUserAsync();
+        var sheetId = await CreateSingleSheet("Sir Test Testable");
+        await CreateSingleSheet("another one");
         var query = new GetSheetByIdQuery(sheetId);
 
         // Act
-        var sheet = await SendAsync(query);
+        var result = await SendAsync(query);
+        var sheet = result.Value;
 
         // Assert
         sheet.Should().NotBeNull();
-        sheet!.CharacterName.Should().Be("Sir test testable");
+        sheet!.CharacterName.Should().Be("Sir Test Testable");
     }
 
     [Test]
@@ -103,10 +98,11 @@ public class GetSheetByIdTests : BaseTestFixture
     {
         // Arrange
         await RunAsDefaultUserAsync();
-        var sheetId = await SendAsync(new CreateSheetCommand
+        var createSheetCommand = await SendAsync(new CreateSheetCommand
         {
             CharacterName = "Sir test testable"
         });
+        var sheetId = createSheetCommand.Value;
         await SendAsync(new CreateSheetCommand
         {
             CharacterName = "Another character"
@@ -116,7 +112,8 @@ public class GetSheetByIdTests : BaseTestFixture
         var query = new GetSheetByIdQuery(sheetId);
 
         // Act
-        var sheet = await SendAsync(query);
+        var result = await SendAsync(query);
+        var sheet = result.Value;
 
         // Assert
         sheet.Should().NotBeNull();

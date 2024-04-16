@@ -26,9 +26,19 @@ public class Sheets : EndpointGroupBase
 
     public Task<List<SheetUserListItemVm>> GetUserSheets(ISender sender) => sender.Send(new GetSheetsByUserIdQuery());
 
-    public Task<SheetVm> GetSheet(ISender sender, int id) => sender.Send(new GetSheetByIdQuery(id));
+    public async Task<IResult> GetSheet(ISender sender, int id)
+    {
+        var result = await sender.Send(new GetSheetByIdQuery(id));
+        return result.Succeeded
+            ? Results.Ok(result.Value)
+            : Results.StatusCode(500);
+    }
 
-    public Task<int> CreateSheet(ISender sender, CreateSheetCommand command) => sender.Send(command);
+    public async Task<IResult> CreateSheet(ISender sender, CreateSheetCommand command)
+    {
+        var result = await sender.Send(command);
+        return result.Succeeded ? Results.Ok(result.Value) : Results.StatusCode(500);
+    }
 
     public async Task<IResult> UpdateSheet(ISender sender, int id, UpdateSheetCommand command)
     {

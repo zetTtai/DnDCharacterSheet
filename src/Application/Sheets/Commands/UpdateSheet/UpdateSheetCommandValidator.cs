@@ -1,11 +1,9 @@
-﻿using DnDCharacterSheet.Application.Common.Interfaces;
-using DnDCharacterSheet.Domain.Constants;
+﻿using DnDCharacterSheet.Domain.Constants;
 
 namespace DnDCharacterSheet.Application.Sheets.Commands.UpdateSheet;
-public class UpdateSheetCommandValidator : SheetCommandValidatorBase<UpdateSheetCommand>
+public class UpdateSheetCommandValidator : AbstractValidator<UpdateSheetCommand>
 {
-    public UpdateSheetCommandValidator(IApplicationDbContext context, IUser user, IIdentityService identityService)
-        : base(context, user, identityService)
+    public UpdateSheetCommandValidator()
     {
         RuleFor(v => v.CharacterName)
             .NotEmpty()
@@ -13,15 +11,6 @@ public class UpdateSheetCommandValidator : SheetCommandValidatorBase<UpdateSheet
             .MaximumLength(SheetConstants.CharacterNameMaxLength);
 
         RuleFor(v => v.Id())
-            .NotEmpty()
-            .MustAsync(SheetExists)
-                .WithMessage("Sheet does not exists")
-                .WithErrorCode("Exists")
-            .DependentRules(() =>
-                RuleFor(v => v.Id())
-                .MustAsync(UserIsOwner)
-                    .WithMessage("You must be the owner of the sheet")
-                    .WithErrorCode("OwnerAndExists")
-            );
+            .NotEmpty();
     }
 }

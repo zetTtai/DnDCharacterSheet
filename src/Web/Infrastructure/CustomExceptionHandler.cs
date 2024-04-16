@@ -13,7 +13,6 @@ public class CustomExceptionHandler : IExceptionHandler
         // Register known exception types and handlers.
         _exceptionHandlers = new()
             {
-                { typeof(ValidationException), HandleValidationException },
                 { typeof(NotFoundException), HandleNotFoundException },
                 { typeof(UnauthorizedAccessException), HandleUnauthorizedAccessException },
                 { typeof(ForbiddenAccessException), HandleForbiddenAccessException },
@@ -31,19 +30,6 @@ public class CustomExceptionHandler : IExceptionHandler
         }
 
         return false;
-    }
-
-    private async Task HandleValidationException(HttpContext httpContext, Exception ex)
-    {
-        var exception = (ValidationException)ex;
-
-        httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-
-        await httpContext.Response.WriteAsJsonAsync(new ValidationProblemDetails(exception.Errors)
-        {
-            Status = StatusCodes.Status400BadRequest,
-            Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1"
-        });
     }
 
     private async Task HandleNotFoundException(HttpContext httpContext, Exception ex)

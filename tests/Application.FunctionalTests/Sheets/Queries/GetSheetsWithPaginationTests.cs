@@ -4,12 +4,14 @@ using DnDCharacterSheet.Application.Common.Exceptions;
 using DnDCharacterSheet.Application.Sheets.Queries.GetSheets;
 using Namotion.Reflection;
 using static Testing;
+using static SheetTesting;
 public class GetSheetsWithPaginationTests : BaseTestFixture
 {
     [Test]
     public async Task ShouldReturnRequiredFields()
     {
         // Arrange
+        await RunAsDefaultUserAsync();
         await CreateSheets(1);
         await RunAsAdministratorAsync();
         var query = new GetSheetsWithPaginationQuery();
