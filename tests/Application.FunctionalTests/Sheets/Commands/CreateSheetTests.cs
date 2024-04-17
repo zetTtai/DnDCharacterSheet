@@ -1,4 +1,5 @@
-﻿using DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
+﻿using System.Net;
+using DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
 
 namespace DnDCharacterSheet.Application.FunctionalTests.Sheets.Commands;
 using static Testing;
@@ -28,6 +29,8 @@ public class CreateSheetTests : BaseTestFixture
 
         // Assert
         result.Succeeded.Should().BeFalse();
+        result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
     }
 
     [Test, TestCaseSource(nameof(InvalidCharacterNames))]
@@ -45,6 +48,7 @@ public class CreateSheetTests : BaseTestFixture
 
         // Assert
         result.Succeeded.Should().BeFalse();
+        result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
 
     [Test]
@@ -63,6 +67,8 @@ public class CreateSheetTests : BaseTestFixture
         var sheet = await FindSheetWithDetailsAsync(result.Value);
 
         // Assert
+        result.Succeeded.Should().BeTrue();
+        result.StatusCode.Should().Be(HttpStatusCode.Created);
         sheet.Should().NotBeNull();
 
         sheet!.CharacterName.Should().Be(command.CharacterName);

@@ -29,27 +29,26 @@ public class Sheets : EndpointGroupBase
     public async Task<IResult> GetSheet(ISender sender, int id)
     {
         var result = await sender.Send(new GetSheetByIdQuery(id));
-        return result.Succeeded
-            ? Results.Ok(result.Value)
-            : Results.StatusCode(500);
+        return result.ToActionResult();
     }
 
     public async Task<IResult> CreateSheet(ISender sender, CreateSheetCommand command)
     {
         var result = await sender.Send(command);
-        return result.Succeeded ? Results.Ok(result.Value) : Results.StatusCode(500);
+        return result.ToActionResult();
     }
 
     public async Task<IResult> UpdateSheet(ISender sender, int id, UpdateSheetCommand command)
     {
         command.Id(id);
-        await sender.Send(command);
-        return Results.NoContent();
+        var result = await sender.Send(command);
+        return result.ToActionResult();
+
     }
 
     public async Task<IResult> DeleteSheet(ISender sender, int id)
     {
-        await sender.Send(new DeleteSheetCommand(id));
-        return Results.NoContent();
+        var result = await sender.Send(new DeleteSheetCommand(id));
+        return result.ToActionResult();
     }
 }

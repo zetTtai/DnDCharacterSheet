@@ -1,4 +1,5 @@
-﻿using DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
+﻿using System.Net;
+using DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
 
 namespace DnDCharacterSheet.Application.FunctionalTests.Sheets.Commands;
 
@@ -36,6 +37,7 @@ public class UpdateSheetTests : BaseTestFixture
 
         // Assert
         result.Succeeded.Should().BeFalse();
+        result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
 
     [Test, TestCaseSource(nameof(InvalidCharacterNames))]
@@ -56,6 +58,8 @@ public class UpdateSheetTests : BaseTestFixture
 
         // Assert
         result.Succeeded.Should().BeFalse();
+        result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
     }
 
     [Test]
@@ -74,6 +78,8 @@ public class UpdateSheetTests : BaseTestFixture
 
         // Assert
         result.Succeeded.Should().BeFalse();
+        result.StatusCode.Should().Be(HttpStatusCode.NotFound);
+
     }
 
     [Test]
@@ -95,6 +101,7 @@ public class UpdateSheetTests : BaseTestFixture
 
         // Assert
         result.Succeeded.Should().BeFalse();
+        result.StatusCode.Should().Be(HttpStatusCode.Forbidden);
     }
 
     [Test]
@@ -111,10 +118,12 @@ public class UpdateSheetTests : BaseTestFixture
         command.Id(sheetId);
 
         // Act
-        await SendAsync(command);
+        var result = await SendAsync(command);
         var sheet = await FindSheetWithDetailsAsync(sheetId);
 
         // Assert
+        result.Succeeded.Should().BeTrue();
+        result.StatusCode.Should().Be(HttpStatusCode.OK);
         sheet.Should().NotBeNull();
 
         sheet!.CharacterName.Should().Be("Sir test modified");
@@ -141,10 +150,12 @@ public class UpdateSheetTests : BaseTestFixture
         command.Id(sheetId);
 
         // Act
-        await SendAsync(command);
+        var result = await SendAsync(command);
         var sheet = await FindSheetWithDetailsAsync(sheetId);
 
         // Assert
+        result.Succeeded.Should().BeTrue();
+        result.StatusCode.Should().Be(HttpStatusCode.OK);
         sheet.Should().NotBeNull();
 
         sheet!.CharacterName.Should().Be("Sir test modified by admin");

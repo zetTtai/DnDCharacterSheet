@@ -1,4 +1,5 @@
-﻿using DnDCharacterSheet.Application.Common.Interfaces;
+﻿using System.Net;
+using DnDCharacterSheet.Application.Common.Interfaces;
 using DnDCharacterSheet.Application.Common.Models;
 using DnDCharacterSheet.Domain.Entities;
 using DnDCharacterSheet.Domain.Enums;

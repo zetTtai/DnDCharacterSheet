@@ -1,4 +1,5 @@
-﻿using DnDCharacterSheet.Application.Common.Interfaces;
+﻿using System.Net;
+using DnDCharacterSheet.Application.Common.Interfaces;
 
 namespace DnDCharacterSheet.Application.Common.Behaviours;
 
@@ -26,6 +27,7 @@ public class ValidationBehaviour<TRequest, TResponse>(IEnumerable<IValidator<TRe
                 return new TResponse()
                 {
                     Succeeded = false,
+                    StatusCode = HttpStatusCode.BadRequest,
                     Errors = failures.Select(e => e.ErrorMessage).ToArray()
                 };
             }

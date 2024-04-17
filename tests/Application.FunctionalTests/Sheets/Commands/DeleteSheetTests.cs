@@ -1,4 +1,5 @@
-﻿using DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
+﻿using System.Net;
+using DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
 using DnDCharacterSheet.Application.Sheets.Commands.DeleteSheet;
 using DnDCharacterSheet.Domain.Entities;
 
@@ -21,6 +22,8 @@ public class DeleteSheetTests : BaseTestFixture
 
         // Assert
         result.Succeeded.Should().BeFalse();
+        result.StatusCode.Should().Be(HttpStatusCode.NotFound);
+
     }
 
     [Test]
@@ -37,6 +40,7 @@ public class DeleteSheetTests : BaseTestFixture
 
         // Assert
         result.Succeeded.Should().BeFalse();
+        result.StatusCode.Should().Be(HttpStatusCode.Forbidden);
     }
 
     [Test]
@@ -48,10 +52,12 @@ public class DeleteSheetTests : BaseTestFixture
         var command = new DeleteSheetCommand(sheetId);
 
         // Act
-        await SendAsync(command);
+        var result = await SendAsync(command);
         var sheet = await FindAsync<Sheet>(sheetId);
 
         // Assert
+        result.Succeeded.Should().BeTrue();
+        result.StatusCode.Should().Be(HttpStatusCode.OK);
         sheet.Should().BeNull();
     }
 
@@ -69,10 +75,12 @@ public class DeleteSheetTests : BaseTestFixture
         var command = new DeleteSheetCommand(sheetId);
 
         // Act
-        await SendAsync(command);
+        var result = await SendAsync(command);
         var sheet = await FindAsync<Sheet>(sheetId);
 
         // Assert
+        result.Succeeded.Should().BeTrue();
+        result.StatusCode.Should().Be(HttpStatusCode.OK);
         sheet.Should().BeNull();
     }
 }

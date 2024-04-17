@@ -1,4 +1,4 @@
-﻿using DnDCharacterSheet.Application.Common.Models;
+﻿using System.Net;
 using Microsoft.AspNetCore.Identity;
 
 namespace DnDCharacterSheet.Infrastructure.Identity;
@@ -9,6 +9,6 @@ public static class IdentityResultExtensions
     {
         return result.Succeeded
             ? Result.Success()
-            : Result.Failure(result.Errors.Select(e => e.Description));
+            : Result.Failure(HttpStatusCode.BadRequest, result.Errors.Select(e => e.Description));
     }
 }

@@ -4,6 +4,7 @@ using DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
 using Namotion.Reflection;
 using static Testing;
 using static SheetTesting;
+using System.Net;
 
 public class GetSheetByIdTests : BaseTestFixture
 {
@@ -57,6 +58,7 @@ public class GetSheetByIdTests : BaseTestFixture
 
         // Assert
         result.Succeeded.Should().BeFalse();
+        result.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 
     [Test]
@@ -73,6 +75,7 @@ public class GetSheetByIdTests : BaseTestFixture
 
         // Assert
         result.Succeeded.Should().BeFalse();
+        result.StatusCode.Should().Be(HttpStatusCode.Forbidden);
     }
 
     [Test]
