@@ -1,22 +1,19 @@
-﻿using System.Reflection;
+﻿using System.Net;
+using System.Reflection;
 using DnDCharacterSheet.Application.Common.Exceptions;
 using DnDCharacterSheet.Application.Common.Interfaces;
 using DnDCharacterSheet.Application.Common.Security;
 
 namespace DnDCharacterSheet.Application.Common.Behaviours;
 
-public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
+public class AuthorizationBehaviour<TRequest, TResponse>(
+    IUser user,
+    IIdentityService identityService) : IPipelineBehavior<TRequest, TResponse>
+    where TRequest : notnull
+    where TResponse : IResult, new()
 {
-    private readonly IUser _user;
-    private readonly IIdentityService _identityService;
-
-    public AuthorizationBehaviour(
-        IUser user,
-        IIdentityService identityService)
-    {
-        _user = user;
-        _identityService = identityService;
-    }
+    private readonly IUser _user = user;
+    private readonly IIdentityService _identityService = identityService;
 
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
@@ -27,7 +24,12 @@ public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRe
             // Must be authenticated user
             if (_user.Id == null)
             {
-                throw new UnauthorizedAccessException();
+                return new TResponse()
+                {
+                    Succeeded = false,
+                    StatusCode = HttpStatusCode.Unauthorized,
+                    Errors = []
+                };
             }
 
             // Role-based authorization
@@ -53,7 +55,12 @@ public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRe
                 // Must be a member of at least one role in roles
                 if (!authorized)
                 {
-                    throw new ForbiddenAccessException();
+                    return new TResponse()
+                    {
+                        Succeeded = false,
+                        StatusCode = HttpStatusCode.Unauthorized,
+                        Errors = []
+                    };
                 }
             }
 
@@ -67,7 +74,12 @@ public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRe
 
                     if (!authorized)
                     {
-                        throw new ForbiddenAccessException();
+                        return new TResponse()
+                        {
+                            Succeeded = false,
+                            StatusCode = HttpStatusCode.Forbidden,
+                            Errors = []
+                        };
                     }
                 }
             }

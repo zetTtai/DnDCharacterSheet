@@ -11,7 +11,7 @@ using static Testing;
 public class DeleteSheetTests : BaseTestFixture
 {
     [Test]
-    public async Task IfSheetDoesNotExists_ThrowsValidationException()
+    public async Task IfSheetDoesNotExists_ReturnStatusCodeNotFound()
     {
         // Arrange
         await RunAsDefaultUserAsync();
@@ -27,7 +27,7 @@ public class DeleteSheetTests : BaseTestFixture
     }
 
     [Test]
-    public async Task IfUserIsNotOwner_ThrowsValidationException()
+    public async Task IfUserIsNotOwner_ReturnStatusCodeForbidden()
     {
         // Arrange
         await RunAsDefaultUserAsync();
@@ -57,7 +57,7 @@ public class DeleteSheetTests : BaseTestFixture
 
         // Assert
         result.Succeeded.Should().BeTrue();
-        result.StatusCode.Should().Be(HttpStatusCode.OK);
+        result.StatusCode.Should().Be(HttpStatusCode.NoContent);
         sheet.Should().BeNull();
     }
 
@@ -80,7 +80,7 @@ public class DeleteSheetTests : BaseTestFixture
 
         // Assert
         result.Succeeded.Should().BeTrue();
-        result.StatusCode.Should().Be(HttpStatusCode.OK);
+        result.StatusCode.Should().Be(HttpStatusCode.NoContent);
         sheet.Should().BeNull();
     }
 }

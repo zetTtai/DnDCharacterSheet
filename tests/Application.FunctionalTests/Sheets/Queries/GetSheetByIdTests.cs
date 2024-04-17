@@ -47,7 +47,7 @@ public class GetSheetByIdTests : BaseTestFixture
     }
 
     [Test]
-    public async Task IfSheetDoesNotExist_ThrowsValidationException()
+    public async Task IfSheetDoesNotExist_ReturnStatusCodeNotFound()
     {
         // Arrange
         await RunAsDefaultUserAsync();
@@ -62,7 +62,7 @@ public class GetSheetByIdTests : BaseTestFixture
     }
 
     [Test]
-    public async Task IfUserIsNotOwner_ThrowsValidationException()
+    public async Task IfUserIsNotOwner_ReturnStatusCodeForbidden()
     {
         // Arrange
         var userId = await RunAsDefaultUserAsync();

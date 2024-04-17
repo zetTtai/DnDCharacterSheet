@@ -1,5 +1,6 @@
 ﻿namespace DnDCharacterSheet.Application.FunctionalTests.Sheets.Queries;
 
+using System.Net;
 using DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
 using Namotion.Reflection;
 using static SheetTesting;
@@ -16,11 +17,14 @@ public class GetSheetsByUserIdTests : BaseTestFixture
 
         // Act
         var result = await SendAsync(query);
+        var list = result.Value;
 
         // Assert
-        result.First().CharacterName.Should().NotBeNull();
-        result.First().Should().HasProperty("LastModified");
-        result.First().Should().HasProperty("IsModifiedByAdmin");
+        result.Succeeded.Should().BeTrue();
+        result.StatusCode.Should().Be(HttpStatusCode.OK);
+        list!.First().CharacterName.Should().NotBeNull();
+        list!.First().Should().HasProperty("LastModified");
+        list!.First().Should().HasProperty("IsModifiedByAdmin");
     }
 
     [Test]
@@ -44,9 +48,12 @@ public class GetSheetsByUserIdTests : BaseTestFixture
 
         // Act
         var result = await SendAsync(query);
+        var list = result.Value;
 
         // Assert
-        result.First().IsModifiedByAdmin.Should().BeTrue();
+        result.Succeeded.Should().BeTrue();
+        result.StatusCode.Should().Be(HttpStatusCode.OK);
+        list!.First().IsModifiedByAdmin.Should().BeTrue();
     }
 
     [Test]
@@ -67,8 +74,11 @@ public class GetSheetsByUserIdTests : BaseTestFixture
 
         // Act
         var result = await SendAsync(query);
+        var list = result.Value;
 
         // Assert
-        result.Count.Should().Be(5);
+        result.Succeeded.Should().BeTrue();
+        result.StatusCode.Should().Be(HttpStatusCode.OK);
+        list!.Count.Should().Be(5);
     }
 }

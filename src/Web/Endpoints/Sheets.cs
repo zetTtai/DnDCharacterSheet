@@ -1,6 +1,5 @@
 ﻿
 using DnDCharacterSheet.Application;
-using DnDCharacterSheet.Application.Common.Models;
 using DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
 using DnDCharacterSheet.Application.Sheets.Commands.DeleteSheet;
 using DnDCharacterSheet.Application.Sheets.Queries.GetSheets;
@@ -21,10 +20,17 @@ public class Sheets : EndpointGroupBase
             .MapDelete(DeleteSheet, "{id}");
     }
 
-    public Task<PaginatedList<SheetAdminListItemVm>> GetSheets(ISender sender, [AsParameters] GetSheetsWithPaginationQuery query)
-        => sender.Send(query);
+    public async Task<IResult> GetSheets(ISender sender, [AsParameters] GetSheetsWithPaginationQuery query)
+    {
+        var result = await sender.Send(query);
+        return result.ToActionResult();
+    }
 
-    public Task<List<SheetUserListItemVm>> GetUserSheets(ISender sender) => sender.Send(new GetSheetsByUserIdQuery());
+    public async Task<IResult> GetUserSheets(ISender sender)
+    {
+        var result = await sender.Send(new GetSheetsByUserIdQuery());
+        return result.ToActionResult();
+    }
 
     public async Task<IResult> GetSheet(ISender sender, int id)
     {
@@ -43,7 +49,6 @@ public class Sheets : EndpointGroupBase
         command.Id(id);
         var result = await sender.Send(command);
         return result.ToActionResult();
-
     }
 
     public async Task<IResult> DeleteSheet(ISender sender, int id)

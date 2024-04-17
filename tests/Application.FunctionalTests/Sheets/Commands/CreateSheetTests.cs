@@ -16,7 +16,7 @@ public class CreateSheetTests : BaseTestFixture
     }
 
     [Test]
-    public async Task IfRequiredFieldsAreMissing_ThrowsValidationException()
+    public async Task IfRequiredFieldsAreMissing_ReturnStatusCodeBadRequest()
     {
         // Arrange
         var command = new CreateSheetCommand()
@@ -34,7 +34,7 @@ public class CreateSheetTests : BaseTestFixture
     }
 
     [Test, TestCaseSource(nameof(InvalidCharacterNames))]
-    public async Task InvalidCharacterName_ThrowsValidationException(string characterName)
+    public async Task InvalidCharacterName_ReturnStatusCodeBadRequest(string characterName)
     {
         // Arrange
         await RunAsDefaultUserAsync();
@@ -68,7 +68,7 @@ public class CreateSheetTests : BaseTestFixture
 
         // Assert
         result.Succeeded.Should().BeTrue();
-        result.StatusCode.Should().Be(HttpStatusCode.Created);
+        result.StatusCode.Should().Be(HttpStatusCode.OK);
         sheet.Should().NotBeNull();
 
         sheet!.CharacterName.Should().Be(command.CharacterName);

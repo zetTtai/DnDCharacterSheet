@@ -3,18 +3,18 @@ using DnDCharacterSheet.Domain.Constants;
 
 namespace DnDCharacterSheet.Application;
 
-public record GetSheetsByUserIdQuery() : IRequest<List<SheetUserListItemVm>>;
+public record GetSheetsByUserIdQuery() : IRequest<Result<List<SheetUserListItemVm>>>;
 
 public class GetSheetsByUserIdQueryHandler(
     IApplicationDbContext context,
     IUser user,
-    IIdentityService identityService) : IRequestHandler<GetSheetsByUserIdQuery, List<SheetUserListItemVm>>
+    IIdentityService identityService) : IRequestHandler<GetSheetsByUserIdQuery, Result<List<SheetUserListItemVm>>>
 {
     private readonly IApplicationDbContext _context = context;
     private readonly IUser _user = user;
     private readonly IIdentityService _identityService = identityService;
 
-    public async Task<List<SheetUserListItemVm>> Handle(GetSheetsByUserIdQuery request, CancellationToken cancellationToken)
+    public async Task<Result<List<SheetUserListItemVm>>> Handle(GetSheetsByUserIdQuery request, CancellationToken cancellationToken)
     {
         var query = _context.Sheets
             .AsNoTracking()
@@ -36,6 +36,6 @@ public class GetSheetsByUserIdQueryHandler(
             });
         }
 
-        return sheetsVm;
+        return Result<List<SheetUserListItemVm>>.Success(sheetsVm);
     }
 }

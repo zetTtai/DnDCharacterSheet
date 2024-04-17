@@ -5,6 +5,8 @@ using DnDCharacterSheet.Application.Sheets.Queries.GetSheets;
 using Namotion.Reflection;
 using static Testing;
 using static SheetTesting;
+using System.Net;
+
 public class GetSheetsWithPaginationTests : BaseTestFixture
 {
     [Test]
@@ -20,7 +22,7 @@ public class GetSheetsWithPaginationTests : BaseTestFixture
         var result = await SendAsync(query);
 
         // Assert
-        var sheet = result.Items.First();
+        var sheet = result.Value!.Items.First();
 
         sheet.CreatedByName.Should().NotBeNull();
         sheet.CreatedBy.Should().NotBeNull();
@@ -32,18 +34,20 @@ public class GetSheetsWithPaginationTests : BaseTestFixture
     }
 
     [Test]
-    public async Task IfUserIsNotAdmin_ThrowsForbiddenAccessException()
+    public async Task IfUserIsNotAdmin_ReturnStatusCodeUnauthorized()
     {
         // Arrange
         await CreateSheets(1);
         await RunAsUserAsync("NormalUser", "Other1234!", []);
         var query = new GetSheetsWithPaginationQuery();
 
-        // Act - Assert
-        await FluentActions.Invoking(() =>
-            SendAsync(query))
-            .Should()
-            .ThrowAsync<ForbiddenAccessException>();
+        // Act 
+        var result = await SendAsync(query);
+
+        // Assert
+        result.Succeeded.Should().BeFalse();
+        result.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+
     }
 
     [Test]
@@ -52,11 +56,12 @@ public class GetSheetsWithPaginationTests : BaseTestFixture
         // Arrange
         var query = new GetSheetsWithPaginationQuery();
 
-        // Act - Assert
-        await FluentActions.Invoking(() =>
-            SendAsync(query))
-            .Should()
-            .ThrowAsync<UnauthorizedAccessException>();
+        // Act 
+        var result = await SendAsync(query);
+
+        // Assert
+        result.Succeeded.Should().BeFalse();
+        result.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
 
     [Test]
@@ -69,9 +74,12 @@ public class GetSheetsWithPaginationTests : BaseTestFixture
 
         // Act
         var result = await SendAsync(query);
+        var paginatedList = result.Value;
 
         // Assert
-        result.TotalCount.Should().Be(20);
-        result.TotalPages.Should().Be(2);
+        result.Succeeded.Should().BeTrue();
+        result.StatusCode.Should().Be(HttpStatusCode.OK);
+        paginatedList!.TotalCount.Should().Be(20);
+        paginatedList!.TotalPages.Should().Be(2);
     }
 }

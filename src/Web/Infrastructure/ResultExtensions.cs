@@ -16,9 +16,10 @@ public static class ResultExtensions
                                     : Results.Ok(),
             HttpStatusCode.NoContent => Results.NoContent(),
 
+            HttpStatusCode.BadRequest => Results.BadRequest(errors),
             HttpStatusCode.NotFound => Results.NotFound(errors),
             HttpStatusCode.Forbidden => Results.Forbid(),
-            HttpStatusCode.BadRequest => Results.BadRequest(errors),
+            HttpStatusCode.Unauthorized => Results.Unauthorized(),
 
             _ => Results.StatusCode((int)HttpStatusCode.InternalServerError),
         };

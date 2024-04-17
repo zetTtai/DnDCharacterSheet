@@ -36,14 +36,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PaginatedListOfSheetAdminListItemVm"
-                }
-              }
-            }
+            "description": ""
           }
         }
       },
@@ -79,17 +72,7 @@
         "operationId": "GetUserSheets",
         "responses": {
           "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/SheetUserListItemVm"
-                  }
-                }
-              }
-            }
+            "description": ""
           }
         }
       }
@@ -180,91 +163,6 @@
   },
   "components": {
     "schemas": {
-      "PaginatedListOfSheetAdminListItemVm": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/SheetAdminListItemVm"
-            }
-          },
-          "pageNumber": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "totalPages": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "totalCount": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "hasPreviousPage": {
-            "type": "boolean"
-          },
-          "hasNextPage": {
-            "type": "boolean"
-          }
-        }
-      },
-      "SheetAdminListItemVm": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "created": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdBy": {
-            "type": "string",
-            "nullable": true
-          },
-          "lastModified": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "lastModifiedBy": {
-            "type": "string",
-            "nullable": true
-          },
-          "createdByName": {
-            "type": "string",
-            "nullable": true
-          },
-          "lastModifiedByName": {
-            "type": "string",
-            "nullable": true
-          }
-        }
-      },
-      "SheetUserListItemVm": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "characterName": {
-            "type": "string",
-            "nullable": true
-          },
-          "isModifiedByAdmin": {
-            "type": "boolean"
-          },
-          "lastModified": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
       "CreateSheetCommand": {
         "type": "object",
         "additionalProperties": false,

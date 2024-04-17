@@ -24,7 +24,7 @@ public class UpdateSheetTests : BaseTestFixture
     }
 
     [Test]
-    public async Task IfRequiredFieldsAreMissing_ThrowsValidationException()
+    public async Task IfRequiredFieldsAreMissing_ReturnStatusCodeBadRequest()
     {
         // Arrange
         var command = new UpdateSheetCommand
@@ -41,7 +41,7 @@ public class UpdateSheetTests : BaseTestFixture
     }
 
     [Test, TestCaseSource(nameof(InvalidCharacterNames))]
-    public async Task InvalidCharacterName_ThrowsValidationException(string characterName)
+    public async Task InvalidCharacterName_ReturnStatusCodeBadRequest(string characterName)
     {
         // Arrange
         await RunAsDefaultUserAsync();
@@ -123,7 +123,7 @@ public class UpdateSheetTests : BaseTestFixture
 
         // Assert
         result.Succeeded.Should().BeTrue();
-        result.StatusCode.Should().Be(HttpStatusCode.OK);
+        result.StatusCode.Should().Be(HttpStatusCode.NoContent);
         sheet.Should().NotBeNull();
 
         sheet!.CharacterName.Should().Be("Sir test modified");
@@ -155,7 +155,7 @@ public class UpdateSheetTests : BaseTestFixture
 
         // Assert
         result.Succeeded.Should().BeTrue();
-        result.StatusCode.Should().Be(HttpStatusCode.OK);
+        result.StatusCode.Should().Be(HttpStatusCode.NoContent);
         sheet.Should().NotBeNull();
 
         sheet!.CharacterName.Should().Be("Sir test modified by admin");
