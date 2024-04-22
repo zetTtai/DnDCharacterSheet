@@ -31,7 +31,7 @@ public class IdentityService(
         return users.ToDictionary(user => user.Id, user => user.UserName);
     }
 
-    public async Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password)
+    public async Task<(Response Result, string UserId)> CreateUserAsync(string userName, string password)
     {
         var user = new ApplicationUser
         {
@@ -67,14 +67,14 @@ public class IdentityService(
         return result.Succeeded;
     }
 
-    public async Task<Result> DeleteUserAsync(string userId)
+    public async Task<Response> DeleteUserAsync(string userId)
     {
         var user = await _userManager.FindByIdAsync(userId);
 
-        return user != null ? await DeleteUserAsync(user) : Result.Success();
+        return user != null ? await DeleteUserAsync(user) : Response.Success();
     }
 
-    public async Task<Result> DeleteUserAsync(ApplicationUser user)
+    public async Task<Response> DeleteUserAsync(ApplicationUser user)
     {
         var result = await _userManager.DeleteAsync(user);
 

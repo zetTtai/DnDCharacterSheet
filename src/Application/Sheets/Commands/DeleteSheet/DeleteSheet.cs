@@ -1,30 +1,31 @@
 ﻿
 using System.Net;
 using DnDCharacterSheet.Application.Common.Interfaces;
+using DnDCharacterSheet.Application.Common.Models;
 using DnDCharacterSheet.Domain.Events.Sheets;
 
 namespace DnDCharacterSheet.Application.Sheets.Commands.DeleteSheet;
 
-public record DeleteSheetCommand(int Id) : IRequest<Result>;
+public record DeleteSheetCommand(int Id) : IRequest<Response>;
 
 public class DeleteSheetCommandHandler(
     IApplicationDbContext context,
     IUser user,
-    IAuthService authorizationService) : IRequestHandler<DeleteSheetCommand, Result>
+    IAuthService authorizationService) : IRequestHandler<DeleteSheetCommand, Response>
 {
     private readonly IApplicationDbContext _context = context;
     private readonly IUser _user = user;
     private readonly IAuthService _authorizationService = authorizationService;
 
-    public async Task<Result> Handle(DeleteSheetCommand request, CancellationToken cancellationToken)
+    public async Task<Response> Handle(DeleteSheetCommand request, CancellationToken cancellationToken)
     {
         var entity = await _context.Sheets.FindAsync([request.Id], cancellationToken);
 
-        var result = await _authorizationService.ValidateEntityAccess<Result>(entity, _user.Id!);
+        var response = await _authorizationService.ValidateEntityAccess<Response>(entity, _user.Id!);
 
-        if (result is not null)
+        if (response is not null)
         {
-            return result;
+            return response;
         }
 
         _context.Sheets.Remove(entity!);
@@ -33,6 +34,6 @@ public class DeleteSheetCommandHandler(
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        return Result.Success(HttpStatusCode.NoContent);
+        return Response.Success(HttpStatusCode.NoContent);
     }
 }

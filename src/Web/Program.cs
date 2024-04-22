@@ -43,7 +43,6 @@ app.MapFallbackToFile("index.html");
 
 app.UseExceptionHandler(options => { });
 
-
 app.MapEndpoints();
 
 app.Run();

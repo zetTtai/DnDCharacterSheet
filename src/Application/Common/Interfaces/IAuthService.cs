@@ -1,7 +1,8 @@
-﻿using DnDCharacterSheet.Domain.Common;
+﻿using DnDCharacterSheet.Application.Common.Models;
+using DnDCharacterSheet.Domain.Common;
 
 namespace DnDCharacterSheet.Application.Common.Interfaces;
 public interface IAuthService
 {
-    Task<Result<T>?> ValidateEntityAccess<T>(BaseAuditableEntity? entity, string userId);
+    Task<Response?> ValidateEntityAccess<T>(BaseAuditableEntity? entity, string userId);
 }

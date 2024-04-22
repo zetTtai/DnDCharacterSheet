@@ -1,6 +1,5 @@
 ﻿using System.Net;
 using System.Reflection;
-using DnDCharacterSheet.Application.Common.Exceptions;
 using DnDCharacterSheet.Application.Common.Interfaces;
 using DnDCharacterSheet.Application.Common.Security;
 
@@ -10,7 +9,7 @@ public class AuthorizationBehaviour<TRequest, TResponse>(
     IUser user,
     IIdentityService identityService) : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull
-    where TResponse : IResult, new()
+    where TResponse : IResponse, new()
 {
     private readonly IUser _user = user;
     private readonly IIdentityService _identityService = identityService;

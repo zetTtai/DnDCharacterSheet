@@ -8,18 +8,18 @@ using DnDCharacterSheet.Domain.Entities;
 namespace DnDCharacterSheet.Application.Sheets.Queries.GetSheets;
 
 [Authorize(Roles = Roles.Administrator)]
-public record GetSheetsWithPaginationQuery : IRequest<Result<PaginatedList<SheetAdminListItemVm>>>
+public record GetSheetsWithPaginationQuery : IRequest<Response<PaginatedList<SheetAdminListItemVm>>>
 {
     public int PageNumber { get; init; } = 1;
     public int PageSize { get; init; } = 10;
 }
 
-public class GetSheetsQueryHandler(IApplicationDbContext context, IIdentityService identity) : IRequestHandler<GetSheetsWithPaginationQuery, Result<PaginatedList<SheetAdminListItemVm>>>
+public class GetSheetsQueryHandler(IApplicationDbContext context, IIdentityService identity) : IRequestHandler<GetSheetsWithPaginationQuery, Response<PaginatedList<SheetAdminListItemVm>>>
 {
     private readonly IApplicationDbContext _context = context;
     private readonly IIdentityService _identity = identity;
 
-    public async Task<Result<PaginatedList<SheetAdminListItemVm>>> Handle(GetSheetsWithPaginationQuery request, CancellationToken cancellationToken)
+    public async Task<Response<PaginatedList<SheetAdminListItemVm>>> Handle(GetSheetsWithPaginationQuery request, CancellationToken cancellationToken)
     {
         var query = _context.Sheets
             .AsNoTracking()
@@ -36,7 +36,7 @@ public class GetSheetsQueryHandler(IApplicationDbContext context, IIdentityServi
         List<SheetAdminListItemVm> sheetAdminDtos = CombineSheetsWithUserNames(sheets, userNames!);
 
         var paginatedList = new PaginatedList<SheetAdminListItemVm>(sheetAdminDtos, totalCount, request.PageNumber, request.PageSize);
-        return Result<PaginatedList<SheetAdminListItemVm>>.Success(paginatedList);
+        return Response<PaginatedList<SheetAdminListItemVm>>.Success(paginatedList);
     }
 
     private List<SheetAdminListItemVm> CombineSheetsWithUserNames(List<Sheet> sheets, Dictionary<string, string> userNames)

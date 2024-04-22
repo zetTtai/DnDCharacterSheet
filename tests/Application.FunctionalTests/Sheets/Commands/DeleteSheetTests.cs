@@ -18,11 +18,11 @@ public class DeleteSheetTests : BaseTestFixture
         var command = new DeleteSheetCommand(999);
 
         // Act
-        var result = await SendAsync(command);
+        var response = await SendAsync(command);
 
         // Assert
-        result.Succeeded.Should().BeFalse();
-        result.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        response.Succeeded.Should().BeFalse();
+        response.StatusCode.Should().Be(HttpStatusCode.NotFound);
 
     }
 
@@ -36,11 +36,11 @@ public class DeleteSheetTests : BaseTestFixture
         var command = new DeleteSheetCommand(sheetId);
 
         // Act
-        var result = await SendAsync(command);
+        var response = await SendAsync(command);
 
         // Assert
-        result.Succeeded.Should().BeFalse();
-        result.StatusCode.Should().Be(HttpStatusCode.Forbidden);
+        response.Succeeded.Should().BeFalse();
+        response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
     }
 
     [Test]
@@ -52,12 +52,12 @@ public class DeleteSheetTests : BaseTestFixture
         var command = new DeleteSheetCommand(sheetId);
 
         // Act
-        var result = await SendAsync(command);
+        var response = await SendAsync(command);
         var sheet = await FindAsync<Sheet>(sheetId);
 
         // Assert
-        result.Succeeded.Should().BeTrue();
-        result.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        response.Succeeded.Should().BeTrue();
+        response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         sheet.Should().BeNull();
     }
 
@@ -75,12 +75,12 @@ public class DeleteSheetTests : BaseTestFixture
         var command = new DeleteSheetCommand(sheetId);
 
         // Act
-        var result = await SendAsync(command);
+        var response = await SendAsync(command);
         var sheet = await FindAsync<Sheet>(sheetId);
 
         // Assert
-        result.Succeeded.Should().BeTrue();
-        result.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        response.Succeeded.Should().BeTrue();
+        response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         sheet.Should().BeNull();
     }
 }

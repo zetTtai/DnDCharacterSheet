@@ -1,11 +1,10 @@
 ﻿namespace DnDCharacterSheet.Application.FunctionalTests.Sheets.Queries;
 
-using DnDCharacterSheet.Application.Common.Exceptions;
+using System.Net;
 using DnDCharacterSheet.Application.Sheets.Queries.GetSheets;
 using Namotion.Reflection;
-using static Testing;
 using static SheetTesting;
-using System.Net;
+using static Testing;
 
 public class GetSheetsWithPaginationTests : BaseTestFixture
 {

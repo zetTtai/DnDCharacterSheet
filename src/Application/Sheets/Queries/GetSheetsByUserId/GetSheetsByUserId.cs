@@ -1,20 +1,21 @@
 ﻿using DnDCharacterSheet.Application.Common.Interfaces;
+using DnDCharacterSheet.Application.Common.Models;
 using DnDCharacterSheet.Domain.Constants;
 
 namespace DnDCharacterSheet.Application;
 
-public record GetSheetsByUserIdQuery() : IRequest<Result<List<SheetUserListItemVm>>>;
+public record GetSheetsByUserIdQuery() : IRequest<Response<List<SheetUserListItemVm>>>;
 
 public class GetSheetsByUserIdQueryHandler(
     IApplicationDbContext context,
     IUser user,
-    IIdentityService identityService) : IRequestHandler<GetSheetsByUserIdQuery, Result<List<SheetUserListItemVm>>>
+    IIdentityService identityService) : IRequestHandler<GetSheetsByUserIdQuery, Response<List<SheetUserListItemVm>>>
 {
     private readonly IApplicationDbContext _context = context;
     private readonly IUser _user = user;
     private readonly IIdentityService _identityService = identityService;
 
-    public async Task<Result<List<SheetUserListItemVm>>> Handle(GetSheetsByUserIdQuery request, CancellationToken cancellationToken)
+    public async Task<Response<List<SheetUserListItemVm>>> Handle(GetSheetsByUserIdQuery request, CancellationToken cancellationToken)
     {
         var query = _context.Sheets
             .AsNoTracking()
@@ -36,6 +37,6 @@ public class GetSheetsByUserIdQueryHandler(
             });
         }
 
-        return Result<List<SheetUserListItemVm>>.Success(sheetsVm);
+        return Response<List<SheetUserListItemVm>>.Success(sheetsVm);
     }
 }

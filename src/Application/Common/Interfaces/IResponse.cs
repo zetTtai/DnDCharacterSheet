@@ -2,14 +2,14 @@
 
 namespace DnDCharacterSheet.Application.Common.Interfaces;
 
-public interface IResult
+public interface IResponse
 {
     bool Succeeded { get; set; }
     string[] Errors { get; set; }
     HttpStatusCode StatusCode { get; set; }
 }
 
-public interface IResult<T> : IResult
+public interface IResponse<T> : IResponse
 {
     T? Value { get; set; }
 }

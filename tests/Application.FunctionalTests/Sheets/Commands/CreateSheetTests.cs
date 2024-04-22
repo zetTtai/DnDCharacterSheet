@@ -25,11 +25,11 @@ public class CreateSheetTests : BaseTestFixture
         };
 
         // Act
-        var result = await SendAsync(command);
+        var response = await SendAsync(command);
 
         // Assert
-        result.Succeeded.Should().BeFalse();
-        result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        response.Succeeded.Should().BeFalse();
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
     }
 
@@ -44,11 +44,11 @@ public class CreateSheetTests : BaseTestFixture
         };
 
         // Act
-        var result = await SendAsync(command);
+        var response = await SendAsync(command);
 
         // Assert
-        result.Succeeded.Should().BeFalse();
-        result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        response.Succeeded.Should().BeFalse();
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
 
     [Test]
@@ -63,12 +63,12 @@ public class CreateSheetTests : BaseTestFixture
         };
 
         // Act
-        var result = await SendAsync(command);
-        var sheet = await FindSheetWithDetailsAsync(result.Value);
+        var response = await SendAsync(command);
+        var sheet = await FindSheetWithDetailsAsync(response.Value);
 
         // Assert
-        result.Succeeded.Should().BeTrue();
-        result.StatusCode.Should().Be(HttpStatusCode.OK);
+        response.Succeeded.Should().BeTrue();
+        response.StatusCode.Should().Be(HttpStatusCode.Created);
         sheet.Should().NotBeNull();
 
         sheet!.CharacterName.Should().Be(command.CharacterName);

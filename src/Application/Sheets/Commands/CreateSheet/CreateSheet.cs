@@ -6,15 +6,15 @@ using DnDCharacterSheet.Domain.Enums;
 using DnDCharacterSheet.Domain.Events.Sheets;
 
 namespace DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
-public record CreateSheetCommand : IRequest<Result<int>>
+public record CreateSheetCommand : IRequest<Response<int>>
 {
     public required string CharacterName { get; set; }
 }
 
-public class CreateSheetCommandHandler(IApplicationDbContext context) : IRequestHandler<CreateSheetCommand, Result<int>>
+public class CreateSheetCommandHandler(IApplicationDbContext context) : IRequestHandler<CreateSheetCommand, Response<int>>
 {
     private readonly IApplicationDbContext _context = context;
-    public async Task<Result<int>> Handle(CreateSheetCommand request, CancellationToken cancellationToken)
+    public async Task<Response<int>> Handle(CreateSheetCommand request, CancellationToken cancellationToken)
     {
         var abilities= await _context.Abilities.ToListAsync(cancellationToken);
         var (skills, savingThrows) = await FetchSheetCapabilities(cancellationToken);
@@ -32,7 +32,7 @@ public class CreateSheetCommandHandler(IApplicationDbContext context) : IRequest
         _context.Sheets.Add(entity);
         await _context.SaveChangesAsync(cancellationToken);
 
-        return Result<int>.Success(entity.Id);
+        return Response<int>.Success(entity.Id, HttpStatusCode.Created);
     }
 
     private async Task<(List<Capability> skills, List<Capability> savingThrows)> FetchSheetCapabilities(CancellationToken cancellationToken)

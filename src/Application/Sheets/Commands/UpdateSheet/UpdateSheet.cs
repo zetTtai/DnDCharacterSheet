@@ -1,9 +1,10 @@
 ﻿using System.Net;
 using DnDCharacterSheet.Application.Common.Interfaces;
+using DnDCharacterSheet.Application.Common.Models;
 
 namespace DnDCharacterSheet.Application;
 
-public class UpdateSheetCommand : IRequest<Result>
+public class UpdateSheetCommand : IRequest<Response>
 {
     private int _id;
     public required string CharacterName { get; set; }
@@ -15,27 +16,27 @@ public class UpdateSheetCommand : IRequest<Result>
 public class UpdateSheetCommandHandler(
     IApplicationDbContext context,
     IUser user,
-    IAuthService authorizationService) : IRequestHandler<UpdateSheetCommand, Result>
+    IAuthService authorizationService) : IRequestHandler<UpdateSheetCommand, Response>
 {
     private readonly IApplicationDbContext _context = context;
     private readonly IUser _user = user;
     private readonly IAuthService _authorizationService = authorizationService;
 
-    public async Task<Result> Handle(UpdateSheetCommand request, CancellationToken cancellationToken)
+    public async Task<Response> Handle(UpdateSheetCommand request, CancellationToken cancellationToken)
     {
         var entity = await _context.Sheets.FindAsync([request.Id()], cancellationToken: cancellationToken);
 
-        var result = await _authorizationService.ValidateEntityAccess<Result>(entity, _user.Id!);
+        var response = await _authorizationService.ValidateEntityAccess<Response>(entity, _user.Id!);
 
-        if (result is not null)
+        if (response is not null)
         {
-            return result;
+            return response;
         }
 
         entity!.CharacterName = request.CharacterName;
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        return Result.Success(HttpStatusCode.NoContent);
+        return Response.Success(HttpStatusCode.NoContent);
     }
 }

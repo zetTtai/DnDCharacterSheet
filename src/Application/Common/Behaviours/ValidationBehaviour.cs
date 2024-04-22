@@ -5,7 +5,7 @@ namespace DnDCharacterSheet.Application.Common.Behaviours;
 
 public class ValidationBehaviour<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators) : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull
-    where TResponse : IResult, new()
+    where TResponse : IResponse, new()
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators = validators;
 

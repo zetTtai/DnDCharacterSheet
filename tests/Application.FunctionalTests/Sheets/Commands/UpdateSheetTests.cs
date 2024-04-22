@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using DnDCharacterSheet.Application.Common.Models;
 using DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
 
 namespace DnDCharacterSheet.Application.FunctionalTests.Sheets.Commands;
@@ -33,11 +34,11 @@ public class UpdateSheetTests : BaseTestFixture
         };
 
         // Act
-        var result = await SendAsync(command);
+        var response = await SendAsync(command);
 
         // Assert
-        result.Succeeded.Should().BeFalse();
-        result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        response.Succeeded.Should().BeFalse();
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
 
     [Test, TestCaseSource(nameof(InvalidCharacterNames))]
@@ -54,11 +55,11 @@ public class UpdateSheetTests : BaseTestFixture
         command.Id(sheetId);
 
         // Act
-        var result = await SendAsync(command);
+        var response = await SendAsync(command);
 
         // Assert
-        result.Succeeded.Should().BeFalse();
-        result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        response.Succeeded.Should().BeFalse();
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
     }
 
@@ -74,11 +75,11 @@ public class UpdateSheetTests : BaseTestFixture
         command.Id(999);
 
         // Act
-        var result = await SendAsync(command);
+        var response = await SendAsync(command);
 
         // Assert
-        result.Succeeded.Should().BeFalse();
-        result.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        response.Succeeded.Should().BeFalse();
+        response.StatusCode.Should().Be(HttpStatusCode.NotFound);
 
     }
 
@@ -97,11 +98,11 @@ public class UpdateSheetTests : BaseTestFixture
         command.Id(sheetId);
 
         // Act
-        var result = await SendAsync(command);
+        var response = await SendAsync(command);
 
         // Assert
-        result.Succeeded.Should().BeFalse();
-        result.StatusCode.Should().Be(HttpStatusCode.Forbidden);
+        response.Succeeded.Should().BeFalse();
+        response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
     }
 
     [Test]
@@ -118,12 +119,12 @@ public class UpdateSheetTests : BaseTestFixture
         command.Id(sheetId);
 
         // Act
-        var result = await SendAsync(command);
+        var response = await SendAsync(command);
         var sheet = await FindSheetWithDetailsAsync(sheetId);
 
         // Assert
-        result.Succeeded.Should().BeTrue();
-        result.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        response.Succeeded.Should().BeTrue();
+        response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         sheet.Should().NotBeNull();
 
         sheet!.CharacterName.Should().Be("Sir test modified");
@@ -150,12 +151,12 @@ public class UpdateSheetTests : BaseTestFixture
         command.Id(sheetId);
 
         // Act
-        var result = await SendAsync(command);
+        var response = await SendAsync(command);
         var sheet = await FindSheetWithDetailsAsync(sheetId);
 
         // Assert
-        result.Succeeded.Should().BeTrue();
-        result.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        response.Succeeded.Should().BeTrue();
+        response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         sheet.Should().NotBeNull();
 
         sheet!.CharacterName.Should().Be("Sir test modified by admin");
