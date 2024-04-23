@@ -37,6 +37,36 @@ public static class DependencyInjection
             .AddDefaultIdentity<ApplicationUser>()
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
+        services.ConfigureApplicationCookie(options =>
+        {
+            options.Events = new Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents
+            {
+                OnRedirectToLogin = ctx =>
+                {
+                    if (ctx.Request.Path.StartsWithSegments("/api"))
+                    {
+                        ctx.Response.StatusCode = 401;
+                        ctx.Response.Headers["Location"] = "";
+                        ctx.Response.ContentType = "application/json";
+                        return Task.CompletedTask; // Prevent the default redirect behavior
+                    }
+                    ctx.Response.Redirect(ctx.RedirectUri);
+                    return Task.CompletedTask;
+                },
+                OnRedirectToAccessDenied = ctx =>
+                {
+                    if (ctx.Request.Path.StartsWithSegments("/api"))
+                    {
+                        ctx.Response.StatusCode = 403;
+                        ctx.Response.Headers["Location"] = "";
+                        ctx.Response.ContentType = "application/json";
+                        return Task.CompletedTask; // Prevent the default redirect behavior
+                    }
+                    ctx.Response.Redirect(ctx.RedirectUri);
+                    return Task.CompletedTask;
+                }
+            };
+        });
 
         services.AddSingleton(TimeProvider.System);
         services.AddTransient<IIdentityService, IdentityService>();

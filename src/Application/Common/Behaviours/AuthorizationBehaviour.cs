@@ -57,7 +57,7 @@ public class AuthorizationBehaviour<TRequest, TResponse>(
                     return new TResponse()
                     {
                         Succeeded = false,
-                        StatusCode = HttpStatusCode.Unauthorized,
+                        StatusCode = HttpStatusCode.Forbidden,
                         Errors = []
                     };
                 }

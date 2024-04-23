@@ -21,8 +21,7 @@ public class Sheets : EndpointGroupBase
              ])
             .MapGet<List<SheetUserListItemVm>>(GetUserSheets, "user", statusCodes: [
                 StatusCodes.Status200OK,
-                StatusCodes.Status401Unauthorized,
-                StatusCodes.Status403Forbidden
+                StatusCodes.Status401Unauthorized
              ])
             .MapGet<SheetVm>(GetSheet, "{id}", statusCodes: [
                 StatusCodes.Status201Created,
@@ -35,7 +34,6 @@ public class Sheets : EndpointGroupBase
                 StatusCodes.Status200OK,
                 StatusCodes.Status400BadRequest,
                 StatusCodes.Status401Unauthorized,
-                StatusCodes.Status403Forbidden
              ])
             .MapPut(UpdateSheet, "{id}", statusCodes: [
                 StatusCodes.Status204NoContent,

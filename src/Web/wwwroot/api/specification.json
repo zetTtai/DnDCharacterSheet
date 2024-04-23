@@ -45,10 +45,13 @@
               }
             }
           },
-          "403": {
+          "400": {
             "description": ""
           },
-          "404": {
+          "401": {
+            "description": ""
+          },
+          "403": {
             "description": ""
           }
         }
@@ -71,7 +74,7 @@
           "x-position": 1
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -82,7 +85,10 @@
               }
             }
           },
-          "403": {
+          "400": {
+            "description": ""
+          },
+          "401": {
             "description": ""
           }
         }
@@ -108,10 +114,7 @@
               }
             }
           },
-          "403": {
-            "description": ""
-          },
-          "404": {
+          "401": {
             "description": ""
           }
         }
@@ -136,7 +139,7 @@
           }
         ],
         "responses": {
-          "200": {
+          "201": {
             "description": "",
             "content": {
               "application/json": {
@@ -146,10 +149,16 @@
               }
             }
           },
-          "403": {
+          "400": {
             "description": ""
           },
           "404": {
+            "description": ""
+          },
+          "401": {
+            "description": ""
+          },
+          "403": {
             "description": ""
           }
         }
@@ -187,6 +196,15 @@
           "204": {
             "description": ""
           },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "401": {
+            "description": ""
+          },
           "403": {
             "description": ""
           }
@@ -211,6 +229,12 @@
         ],
         "responses": {
           "204": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "401": {
             "description": ""
           },
           "403": {

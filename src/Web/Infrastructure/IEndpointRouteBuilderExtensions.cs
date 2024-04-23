@@ -19,7 +19,7 @@ public static class IEndpointRouteBuilderExtensions
 
         foreach (var statusCode in statusCodes)
         {
-            routeBuilder.Produces(statusCode.Code).WithDescription(statusCode.Summary);
+            routeBuilder.Produces(statusCode);
         }
 
         return builder;
@@ -42,12 +42,12 @@ public static class IEndpointRouteBuilderExtensions
 
         foreach (var statusCode in statusCodes)
         {
-            if (statusCode.Code == 200 || statusCode.Code == 201)
+            if (statusCode == 200 || statusCode == 201)
             {
-                routeBuilder.Produces<T>(statusCode.Code).WithDescription(statusCode.Summary);
+                routeBuilder.Produces<T>(statusCode);
                 continue;
             }
-            routeBuilder.Produces(statusCode.Code).WithDescription(statusCode.Summary);
+            routeBuilder.Produces(statusCode);
         }
 
         return builder;

@@ -1,3 +1,4 @@
+using System.Net;
 using DnDCharacterSheet.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -41,7 +42,15 @@ app.MapRazorPages();
 
 app.MapFallbackToFile("index.html");
 
-app.UseExceptionHandler(options => { });
+app.UseExceptionHandler(appError =>
+{
+    appError.Run(async context =>
+    {
+        context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+        await context.Response.WriteAsync("An error occurred processing your request.");
+    });
+});
 
 app.MapEndpoints();
 
