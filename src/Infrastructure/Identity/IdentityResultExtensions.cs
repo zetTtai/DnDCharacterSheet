@@ -6,7 +6,7 @@ namespace DnDCharacterSheet.Infrastructure.Identity;
 
 public static class IdentityResultExtensions
 {
-    public static Response ToApplicationResult(this IdentityResult result)
+    public static Response ToResponse(this IdentityResult result)
     {
         return result.Succeeded
             ? Response.Success()

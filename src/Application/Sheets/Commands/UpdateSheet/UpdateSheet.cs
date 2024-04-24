@@ -1,9 +1,11 @@
 ﻿using System.Net;
 using DnDCharacterSheet.Application.Common.Interfaces;
 using DnDCharacterSheet.Application.Common.Models;
+using DnDCharacterSheet.Application.Common.Security;
 
 namespace DnDCharacterSheet.Application;
 
+[Authorize]
 public class UpdateSheetCommand : IRequest<Response>
 {
     private int _id;

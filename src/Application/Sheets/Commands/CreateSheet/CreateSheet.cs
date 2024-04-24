@@ -1,11 +1,14 @@
 ﻿using System.Net;
 using DnDCharacterSheet.Application.Common.Interfaces;
 using DnDCharacterSheet.Application.Common.Models;
+using DnDCharacterSheet.Application.Common.Security;
 using DnDCharacterSheet.Domain.Entities;
 using DnDCharacterSheet.Domain.Enums;
 using DnDCharacterSheet.Domain.Events.Sheets;
 
 namespace DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
+
+[Authorize]
 public record CreateSheetCommand : IRequest<Response<int>>
 {
     public required string CharacterName { get; set; }

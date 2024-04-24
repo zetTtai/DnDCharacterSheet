@@ -66,8 +66,8 @@ public partial class SheetTesting : Testing
 
         for (int i = 0; i < quantity; i++)
         {
-            var result = await SendAsync(new CreateSheetCommand() { CharacterName = "Test_" + i });
-            sheetIds.Add(result.Value);
+            var response = await SendAsync(new CreateSheetCommand() { CharacterName = "Test_" + i });
+            sheetIds.Add(response.Value);
         }
 
         return sheetIds;

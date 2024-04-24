@@ -1,9 +1,11 @@
 ﻿using DnDCharacterSheet.Application.Common.Interfaces;
 using DnDCharacterSheet.Application.Common.Models;
+using DnDCharacterSheet.Application.Common.Security;
 using DnDCharacterSheet.Domain.Constants;
 
 namespace DnDCharacterSheet.Application;
 
+[Authorize]
 public record GetSheetsByUserIdQuery() : IRequest<Response<List<SheetUserListItemVm>>>;
 
 public class GetSheetsByUserIdQueryHandler(

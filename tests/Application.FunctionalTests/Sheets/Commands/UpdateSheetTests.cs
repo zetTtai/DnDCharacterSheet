@@ -16,6 +16,24 @@ public class UpdateSheetTests : BaseTestFixture
         await SeedAbilitiesAndCapabilitiesDatabaseAsync();
     }
 
+    [Test]
+    public async Task ShouldDenyAnonymousUser_ReturnResponseWith401()
+    {
+        // Arrange
+        await RunAsDefaultUserAsync();
+        await CreateSingleSheet("Sir Test Testable");
+
+        ResetUser();
+
+        var command = new UpdateSheetCommand()
+        {
+            CharacterName = "Sir Test Modified"
+        };
+
+        // Act - Assert
+        await ShouldDenyAnonymous(command);
+    }
+
     public static IEnumerable<string> InvalidCharacterNames
     {
         get
@@ -25,9 +43,11 @@ public class UpdateSheetTests : BaseTestFixture
     }
 
     [Test]
-    public async Task IfRequiredFieldsAreMissing_ReturnStatusCodeBadRequest()
+    public async Task IfRequiredFieldsAreMissing_ReturnResponseWith400()
     {
         // Arrange
+        await RunAsDefaultUserAsync();
+
         var command = new UpdateSheetCommand
         {
             CharacterName = string.Empty
@@ -42,7 +62,7 @@ public class UpdateSheetTests : BaseTestFixture
     }
 
     [Test, TestCaseSource(nameof(InvalidCharacterNames))]
-    public async Task InvalidCharacterName_ReturnStatusCodeBadRequest(string characterName)
+    public async Task InvalidCharacterName_ReturnResponseWith400(string characterName)
     {
         // Arrange
         await RunAsDefaultUserAsync();
@@ -64,7 +84,7 @@ public class UpdateSheetTests : BaseTestFixture
     }
 
     [Test]
-    public async Task IfSheetDoesNotExist_ThrowsValidationException()
+    public async Task IfSheetDoesNotExist_ReturnResponseWith404()
     {
         // Arrange
         await RunAsDefaultUserAsync();
@@ -84,7 +104,7 @@ public class UpdateSheetTests : BaseTestFixture
     }
 
     [Test]
-    public async Task IfUserIsNotOwner_ThrowsValidationException()
+    public async Task IfUserIsNotOwner_ReturnResponseWith403()
     {
         // Arrange
         var userId = await RunAsDefaultUserAsync();

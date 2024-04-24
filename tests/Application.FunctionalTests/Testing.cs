@@ -1,4 +1,6 @@
-﻿using DnDCharacterSheet.Domain.Common;
+﻿using System.Net;
+using DnDCharacterSheet.Application.Common.Models;
+using DnDCharacterSheet.Domain.Common;
 using DnDCharacterSheet.Domain.Constants;
 using DnDCharacterSheet.Infrastructure.Data;
 using DnDCharacterSheet.Infrastructure.Identity;
@@ -100,7 +102,7 @@ public partial class Testing
             return _userId;
         }
 
-        var errors = string.Join(Environment.NewLine, result.ToApplicationResult().Errors);
+        var errors = string.Join(Environment.NewLine, result.ToResponse().Errors);
 
         throw new Exception($"Unable to create {userName}.{Environment.NewLine}{errors}");
     }
@@ -117,6 +119,9 @@ public partial class Testing
 
         _userId = null;
     }
+
+    public static void ResetUser() => _userId = null;
+
 
     public static async Task<TEntity?> FindAsync<TEntity>(params object[] keyValues)
         where TEntity : class
@@ -159,6 +164,26 @@ public partial class Testing
         }
         auditabeEntity.LastModifiedBy.Should().Be(userId);
         auditabeEntity.LastModified.Should().BeCloseTo(DateTime.Now, TimeSpan.FromMilliseconds(10000));
+    }
+
+    public static async Task ShouldDenyAnonymous<TResponse>(IRequest<Response<TResponse>> query)
+    {
+        // Act 
+        var response = await SendAsync(query);
+
+        // Assert
+        response.Succeeded.Should().BeFalse();
+        response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+    }
+
+    public static async Task ShouldDenyAnonymous(IRequest<Response> query)
+    {
+        // Act 
+        var response = await SendAsync(query);
+
+        // Assert
+        response.Succeeded.Should().BeFalse();
+        response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
 
     [OneTimeTearDown]

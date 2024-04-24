@@ -1,9 +1,11 @@
 ﻿using DnDCharacterSheet.Application.Common.Interfaces;
 using DnDCharacterSheet.Application.Common.Models;
+using DnDCharacterSheet.Application.Common.Security;
 using DnDCharacterSheet.Application.Sheets.Queries.GetSheetById;
 
 namespace DnDCharacterSheet.Application;
 
+[Authorize]
 public record GetSheetByIdQuery(int Id) : IRequest<Response<SheetVm>>;
 
 public class GetSheetByIdQueryHandler(

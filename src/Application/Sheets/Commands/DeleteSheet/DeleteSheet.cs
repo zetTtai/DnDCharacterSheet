@@ -2,10 +2,12 @@
 using System.Net;
 using DnDCharacterSheet.Application.Common.Interfaces;
 using DnDCharacterSheet.Application.Common.Models;
+using DnDCharacterSheet.Application.Common.Security;
 using DnDCharacterSheet.Domain.Events.Sheets;
 
 namespace DnDCharacterSheet.Application.Sheets.Commands.DeleteSheet;
 
+[Authorize]
 public record DeleteSheetCommand(int Id) : IRequest<Response>;
 
 public class DeleteSheetCommandHandler(

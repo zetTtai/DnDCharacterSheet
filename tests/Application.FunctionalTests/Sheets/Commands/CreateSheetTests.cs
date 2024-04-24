@@ -15,9 +15,25 @@ public class CreateSheetTests : BaseTestFixture
         }
     }
 
+
     [Test]
-    public async Task IfRequiredFieldsAreMissing_ReturnStatusCodeBadRequest()
+    public async Task ShouldDenyAnonymousUser_ReturnResponseWith401()
     {
+        // Arrange
+        var command = new CreateSheetCommand()
+        {
+            CharacterName = "Sir Test Testable"
+        };
+
+        // Act - Assert
+        await ShouldDenyAnonymous(command);
+    }
+
+    [Test]
+    public async Task IfRequiredFieldsAreMissing_ReturnResponseWith400()
+    {
+        await RunAsDefaultUserAsync();
+
         // Arrange
         var command = new CreateSheetCommand()
         {
@@ -34,7 +50,7 @@ public class CreateSheetTests : BaseTestFixture
     }
 
     [Test, TestCaseSource(nameof(InvalidCharacterNames))]
-    public async Task InvalidCharacterName_ReturnStatusCodeBadRequest(string characterName)
+    public async Task InvalidCharacterName_ReturnResponseWith400(string characterName)
     {
         // Arrange
         await RunAsDefaultUserAsync();

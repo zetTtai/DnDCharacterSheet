@@ -48,10 +48,10 @@
           "400": {
             "description": ""
           },
-          "401": {
+          "403": {
             "description": ""
           },
-          "403": {
+          "401": {
             "description": ""
           }
         }
@@ -149,16 +149,16 @@
               }
             }
           },
-          "400": {
-            "description": ""
-          },
           "404": {
             "description": ""
           },
-          "401": {
+          "400": {
             "description": ""
           },
           "403": {
+            "description": ""
+          },
+          "401": {
             "description": ""
           }
         }
@@ -196,16 +196,16 @@
           "204": {
             "description": ""
           },
-          "400": {
-            "description": ""
-          },
           "404": {
             "description": ""
           },
-          "401": {
+          "400": {
             "description": ""
           },
           "403": {
+            "description": ""
+          },
+          "401": {
             "description": ""
           }
         }
@@ -234,10 +234,10 @@
           "404": {
             "description": ""
           },
-          "401": {
+          "403": {
             "description": ""
           },
-          "403": {
+          "401": {
             "description": ""
           }
         }

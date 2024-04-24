@@ -13,9 +13,7 @@ public static class IEndpointRouteBuilderExtensions
 
         var endpointBuilder = mapMethod(builder, pattern, handler).WithName(handler.Method.Name);
         
-        var routeBuilder = endpointBuilder as RouteHandlerBuilder;
-
-        if (routeBuilder is null) throw new Exception("Unexpected error while building endpoints");
+        var routeBuilder = endpointBuilder as RouteHandlerBuilder ?? throw new Exception("Unexpected error while building endpoints");
 
         foreach (var statusCode in statusCodes)
         {
@@ -36,9 +34,7 @@ public static class IEndpointRouteBuilderExtensions
 
         var endpointBuilder = mapMethod(builder, pattern, handler).WithName(handler.Method.Name);
 
-        var routeBuilder = endpointBuilder as RouteHandlerBuilder;
-
-        if (routeBuilder is null) throw new Exception("Unexpected error while building endpoints");
+        var routeBuilder = endpointBuilder as RouteHandlerBuilder ?? throw new Exception("Unexpected error while building endpoints");
 
         foreach (var statusCode in statusCodes)
         {

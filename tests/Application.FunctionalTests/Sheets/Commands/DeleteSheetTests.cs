@@ -11,7 +11,22 @@ using static Testing;
 public class DeleteSheetTests : BaseTestFixture
 {
     [Test]
-    public async Task IfSheetDoesNotExists_ReturnStatusCodeNotFound()
+    public async Task ShouldDenyAnonymousUser_ReturnResponseWith401()
+    {
+        // Arrange
+        await RunAsDefaultUserAsync();
+        var sheetId = await CreateSingleSheet("Sir Test Testable");
+
+        ResetUser();
+
+        var command = new DeleteSheetCommand(sheetId);
+
+        // Act - Assert
+        await ShouldDenyAnonymous(command);
+    }
+
+    [Test]
+    public async Task IfSheetDoesNotExists_ReturnResponseWith404()
     {
         // Arrange
         await RunAsDefaultUserAsync();
@@ -27,7 +42,7 @@ public class DeleteSheetTests : BaseTestFixture
     }
 
     [Test]
-    public async Task IfUserIsNotOwner_ReturnStatusCodeForbidden()
+    public async Task IfUserIsNotOwner_ReturnResponseWith403()
     {
         // Arrange
         await RunAsDefaultUserAsync();

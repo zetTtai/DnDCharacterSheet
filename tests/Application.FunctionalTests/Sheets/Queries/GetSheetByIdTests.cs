@@ -16,6 +16,21 @@ public class GetSheetByIdTests : BaseTestFixture
     }
 
     [Test]
+    public async Task ShouldDenyAnonymousUser_ReturnResponseWith401()
+    {
+        // Arrange
+        await RunAsDefaultUserAsync();
+        var sheetId = await CreateSingleSheet("Sir Test Testable");
+
+        ResetUser();
+
+        var query = new GetSheetByIdQuery(sheetId);
+
+        // Act - Assert
+        await ShouldDenyAnonymous(query);
+    }
+
+    [Test]
     public async Task ShouldReturnRequiredFields()
     {
         // Arrange
@@ -24,8 +39,8 @@ public class GetSheetByIdTests : BaseTestFixture
         var query = new GetSheetByIdQuery(sheetIds[0]);
 
         // Act
-        var result = await SendAsync(query);
-        var sheetVm = result.Value!;
+        var response = await SendAsync(query);
+        var sheetVm = response.Value!;
 
         // Assert
         sheetVm.CharacterName.Should().NotBeNull();
@@ -47,22 +62,22 @@ public class GetSheetByIdTests : BaseTestFixture
     }
 
     [Test]
-    public async Task IfSheetDoesNotExist_ReturnStatusCodeNotFound()
+    public async Task IfSheetDoesNotExist_ReturnResponseWith404()
     {
         // Arrange
         await RunAsDefaultUserAsync();
         var query = new GetSheetByIdQuery(9999);
 
         // Act
-        var result = await SendAsync(query);
+        var response = await SendAsync(query);
 
         // Assert
-        result.Succeeded.Should().BeFalse();
-        result.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        response.Succeeded.Should().BeFalse();
+        response.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 
     [Test]
-    public async Task IfUserIsNotOwner_ReturnStatusCodeForbidden()
+    public async Task IfUserIsNotOwner_ReturnResponseWith403()
     {
         // Arrange
         var userId = await RunAsDefaultUserAsync();
@@ -71,11 +86,11 @@ public class GetSheetByIdTests : BaseTestFixture
         var query = new GetSheetByIdQuery(sheetId);
 
         // Act
-        var result = await SendAsync(query);
+        var response = await SendAsync(query);
 
         // Assert
-        result.Succeeded.Should().BeFalse();
-        result.StatusCode.Should().Be(HttpStatusCode.Forbidden);
+        response.Succeeded.Should().BeFalse();
+        response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
     }
 
     [Test]
@@ -88,8 +103,8 @@ public class GetSheetByIdTests : BaseTestFixture
         var query = new GetSheetByIdQuery(sheetId);
 
         // Act
-        var result = await SendAsync(query);
-        var sheet = result.Value;
+        var response = await SendAsync(query);
+        var sheet = response.Value;
 
         // Assert
         sheet.Should().NotBeNull();
@@ -115,8 +130,8 @@ public class GetSheetByIdTests : BaseTestFixture
         var query = new GetSheetByIdQuery(sheetId);
 
         // Act
-        var result = await SendAsync(query);
-        var sheet = result.Value;
+        var response = await SendAsync(query);
+        var sheet = response.Value;
 
         // Assert
         sheet.Should().NotBeNull();

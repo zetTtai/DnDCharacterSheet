@@ -8,6 +8,16 @@ using static Testing;
 public class GetSheetsByUserIdTests : BaseTestFixture
 {
     [Test]
+    public async Task ShouldDenyAnonymousUser_ReturnResponseWith401()
+    {
+        // Arrange
+        var query = new GetSheetsByUserIdQuery();
+        
+        // Act - Assert
+        await ShouldDenyAnonymous(query);
+    }
+
+    [Test]
     public async Task ShouldReturnRequiredFields()
     {
         // Arrange
@@ -16,12 +26,12 @@ public class GetSheetsByUserIdTests : BaseTestFixture
         var query = new GetSheetsByUserIdQuery();
 
         // Act
-        var result = await SendAsync(query);
-        var list = result.Value;
+        var response = await SendAsync(query);
+        var list = response.Value;
 
         // Assert
-        result.Succeeded.Should().BeTrue();
-        result.StatusCode.Should().Be(HttpStatusCode.OK);
+        response.Succeeded.Should().BeTrue();
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
         list!.First().CharacterName.Should().NotBeNull();
         list!.First().Should().HasProperty("LastModified");
         list!.First().Should().HasProperty("IsModifiedByAdmin");
@@ -47,12 +57,12 @@ public class GetSheetsByUserIdTests : BaseTestFixture
         var query = new GetSheetsByUserIdQuery();
 
         // Act
-        var result = await SendAsync(query);
-        var list = result.Value;
+        var response = await SendAsync(query);
+        var list = response.Value;
 
         // Assert
-        result.Succeeded.Should().BeTrue();
-        result.StatusCode.Should().Be(HttpStatusCode.OK);
+        response.Succeeded.Should().BeTrue();
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
         list!.First().IsModifiedByAdmin.Should().BeTrue();
     }
 

@@ -9,6 +9,16 @@ using static Testing;
 public class GetSheetsWithPaginationTests : BaseTestFixture
 {
     [Test]
+    public async Task ShouldDenyAnonymousUser_ReturnResponseWith401()
+    {
+        // Arrange
+        var query = new GetSheetsWithPaginationQuery();
+
+        // Act - Assert
+        await ShouldDenyAnonymous(query);
+    }
+
+    [Test]
     public async Task ShouldReturnRequiredFields()
     {
         // Arrange
@@ -18,10 +28,10 @@ public class GetSheetsWithPaginationTests : BaseTestFixture
         var query = new GetSheetsWithPaginationQuery();
 
         // Act
-        var result = await SendAsync(query);
+        var response = await SendAsync(query);
 
         // Assert
-        var sheet = result.Value!.Items.First();
+        var sheet = response.Value!.Items.First();
 
         sheet.CreatedByName.Should().NotBeNull();
         sheet.CreatedBy.Should().NotBeNull();
@@ -33,7 +43,7 @@ public class GetSheetsWithPaginationTests : BaseTestFixture
     }
 
     [Test]
-    public async Task IfUserIsNotAdmin_ReturnStatusCodeUnauthorized()
+    public async Task IfUserIsNotAdmin_ReturnResponseWith403()
     {
         // Arrange
         await CreateSheets(1);
@@ -41,43 +51,30 @@ public class GetSheetsWithPaginationTests : BaseTestFixture
         var query = new GetSheetsWithPaginationQuery();
 
         // Act 
-        var result = await SendAsync(query);
+        var response = await SendAsync(query);
 
         // Assert
-        result.Succeeded.Should().BeFalse();
-        result.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+        response.Succeeded.Should().BeFalse();
+        response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
 
-    }
-
-    [Test]
-    public async Task ShouldDenyAnonymousUser()
-    {
-        // Arrange
-        var query = new GetSheetsWithPaginationQuery();
-
-        // Act 
-        var result = await SendAsync(query);
-
-        // Assert
-        result.Succeeded.Should().BeFalse();
-        result.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
 
     [Test]
     public async Task Succeeds_ReturnPaginatedListOfSheets()
     {
         // Arrange
+        await RunAsDefaultUserAsync();
         await CreateSheets(20);
         await RunAsAdministratorAsync();
         var query = new GetSheetsWithPaginationQuery();
 
         // Act
-        var result = await SendAsync(query);
-        var paginatedList = result.Value;
+        var response = await SendAsync(query);
+        var paginatedList = response.Value;
 
         // Assert
-        result.Succeeded.Should().BeTrue();
-        result.StatusCode.Should().Be(HttpStatusCode.OK);
+        response.Succeeded.Should().BeTrue();
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
         paginatedList!.TotalCount.Should().Be(20);
         paginatedList!.TotalPages.Should().Be(2);
     }

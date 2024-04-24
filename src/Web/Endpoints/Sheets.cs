@@ -1,5 +1,4 @@
-﻿using System.Net;
-using DnDCharacterSheet.Application;
+﻿using DnDCharacterSheet.Application;
 using DnDCharacterSheet.Application.Common.Models;
 using DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
 using DnDCharacterSheet.Application.Sheets.Commands.DeleteSheet;
@@ -13,41 +12,12 @@ public class Sheets : EndpointGroupBase
     {
         app.MapGroup(this)
             .RequireAuthorization()
-            .MapGet<PaginatedList<SheetAdminListItemVm>>(GetSheets, statusCodes: [
-                StatusCodes.Status200OK,
-                StatusCodes.Status400BadRequest,
-                StatusCodes.Status401Unauthorized, 
-                StatusCodes.Status403Forbidden
-             ])
-            .MapGet<List<SheetUserListItemVm>>(GetUserSheets, "user", statusCodes: [
-                StatusCodes.Status200OK,
-                StatusCodes.Status401Unauthorized
-             ])
-            .MapGet<SheetVm>(GetSheet, "{id}", statusCodes: [
-                StatusCodes.Status201Created,
-                StatusCodes.Status400BadRequest,
-                StatusCodes.Status404NotFound,
-                StatusCodes.Status401Unauthorized,
-                StatusCodes.Status403Forbidden
-             ])
-            .MapPost<int>(CreateSheet, statusCodes: [
-                StatusCodes.Status200OK,
-                StatusCodes.Status400BadRequest,
-                StatusCodes.Status401Unauthorized,
-             ])
-            .MapPut(UpdateSheet, "{id}", statusCodes: [
-                StatusCodes.Status204NoContent,
-                StatusCodes.Status400BadRequest,
-                StatusCodes.Status404NotFound,
-                StatusCodes.Status401Unauthorized,
-                StatusCodes.Status403Forbidden
-             ])
-            .MapDelete(DeleteSheet, "{id}", statusCodes: [
-                StatusCodes.Status204NoContent,
-                StatusCodes.Status404NotFound,
-                StatusCodes.Status401Unauthorized,
-                StatusCodes.Status403Forbidden
-             ]);
+            .MapGet<PaginatedList<SheetAdminListItemVm>>(GetSheets, statusCodes: GetStatusCodes(StatusCodes.Status200OK, bad_request: true, forbidden: true))
+            .MapGet<List<SheetUserListItemVm>>(GetUserSheets, "user", statusCodes: GetStatusCodes(StatusCodes.Status200OK))
+            .MapGet<SheetVm>(GetSheet, "{id}", statusCodes: GetStatusCodes(StatusCodes.Status201Created, true, true, true))
+            .MapPost<int>(CreateSheet, statusCodes: GetStatusCodes(StatusCodes.Status200OK, bad_request: true))
+            .MapPut(UpdateSheet, "{id}", statusCodes: GetStatusCodes(StatusCodes.Status204NoContent, true, true, true))
+            .MapDelete(DeleteSheet, "{id}", statusCodes: GetStatusCodes(StatusCodes.Status204NoContent, true, forbidden: true));
     }
 
     public async Task<IResult> GetSheets(ISender sender, [AsParameters] GetSheetsWithPaginationQuery query)

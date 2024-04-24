@@ -41,7 +41,7 @@ public class IdentityService(
 
         var result = await _userManager.CreateAsync(user, password);
 
-        return (result.ToApplicationResult(), user.Id);
+        return (result.ToResponse(), user.Id);
     }
 
     public async Task<bool> IsInRoleAsync(string userId, string role)
@@ -78,6 +78,6 @@ public class IdentityService(
     {
         var result = await _userManager.DeleteAsync(user);
 
-        return result.ToApplicationResult();
+        return result.ToResponse();
     }
 }
