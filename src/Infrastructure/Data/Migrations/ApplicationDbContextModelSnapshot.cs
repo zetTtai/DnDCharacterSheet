@@ -22,6 +22,155 @@ namespace DnDCharacterSheet.Infrastructure.Data.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("DnDCharacterSheet.Domain.Entities.Ability", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("LastModified")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Abilities");
+                });
+
+            modelBuilder.Entity("DnDCharacterSheet.Domain.Entities.Capability", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AbilityId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("LastModified")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AbilityId");
+
+                    b.ToTable("Capabilities");
+                });
+
+            modelBuilder.Entity("DnDCharacterSheet.Domain.Entities.Sheet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CharacterName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("LastModified")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sheets");
+                });
+
+            modelBuilder.Entity("DnDCharacterSheet.Domain.Entities.SheetAbility", b =>
+                {
+                    b.Property<int>("SheetId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("AbilityId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("integer");
+
+                    b.HasKey("SheetId", "AbilityId");
+
+                    b.HasIndex("AbilityId");
+
+                    b.ToTable("SheetAbility");
+                });
+
+            modelBuilder.Entity("DnDCharacterSheet.Domain.Entities.SheetSavingThrow", b =>
+                {
+                    b.Property<int>("SheetId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CapabilityId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Proficiency")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("SheetId", "CapabilityId");
+
+                    b.HasIndex("CapabilityId");
+
+                    b.ToTable("SheetSavingThrow");
+                });
+
+            modelBuilder.Entity("DnDCharacterSheet.Domain.Entities.SheetSkill", b =>
+                {
+                    b.Property<int>("SheetId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CapabilityId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Proficiency")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("SheetId", "CapabilityId");
+
+                    b.HasIndex("CapabilityId");
+
+                    b.ToTable("SheetSkill");
+                });
+
             modelBuilder.Entity("DnDCharacterSheet.Infrastructure.Identity.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -222,6 +371,74 @@ namespace DnDCharacterSheet.Infrastructure.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("DnDCharacterSheet.Domain.Entities.Capability", b =>
+                {
+                    b.HasOne("DnDCharacterSheet.Domain.Entities.Ability", "Ability")
+                        .WithMany("Capabilities")
+                        .HasForeignKey("AbilityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ability");
+                });
+
+            modelBuilder.Entity("DnDCharacterSheet.Domain.Entities.SheetAbility", b =>
+                {
+                    b.HasOne("DnDCharacterSheet.Domain.Entities.Ability", "Ability")
+                        .WithMany("SheetAbilities")
+                        .HasForeignKey("AbilityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DnDCharacterSheet.Domain.Entities.Sheet", "Sheet")
+                        .WithMany("SheetAbilities")
+                        .HasForeignKey("SheetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ability");
+
+                    b.Navigation("Sheet");
+                });
+
+            modelBuilder.Entity("DnDCharacterSheet.Domain.Entities.SheetSavingThrow", b =>
+                {
+                    b.HasOne("DnDCharacterSheet.Domain.Entities.Capability", "Capability")
+                        .WithMany("SheetSavingThrows")
+                        .HasForeignKey("CapabilityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DnDCharacterSheet.Domain.Entities.Sheet", "Sheet")
+                        .WithMany("SheetSavingThrows")
+                        .HasForeignKey("SheetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Capability");
+
+                    b.Navigation("Sheet");
+                });
+
+            modelBuilder.Entity("DnDCharacterSheet.Domain.Entities.SheetSkill", b =>
+                {
+                    b.HasOne("DnDCharacterSheet.Domain.Entities.Capability", "Capability")
+                        .WithMany("SheetSkills")
+                        .HasForeignKey("CapabilityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DnDCharacterSheet.Domain.Entities.Sheet", "Sheet")
+                        .WithMany("SheetSkills")
+                        .HasForeignKey("SheetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Capability");
+
+                    b.Navigation("Sheet");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -271,6 +488,29 @@ namespace DnDCharacterSheet.Infrastructure.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DnDCharacterSheet.Domain.Entities.Ability", b =>
+                {
+                    b.Navigation("Capabilities");
+
+                    b.Navigation("SheetAbilities");
+                });
+
+            modelBuilder.Entity("DnDCharacterSheet.Domain.Entities.Capability", b =>
+                {
+                    b.Navigation("SheetSavingThrows");
+
+                    b.Navigation("SheetSkills");
+                });
+
+            modelBuilder.Entity("DnDCharacterSheet.Domain.Entities.Sheet", b =>
+                {
+                    b.Navigation("SheetAbilities");
+
+                    b.Navigation("SheetSavingThrows");
+
+                    b.Navigation("SheetSkills");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,46 +1,75 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace DnDCharacterSheet.Web.Infrastructure;
+﻿namespace DnDCharacterSheet.Web.Infrastructure;
 
 public static class IEndpointRouteBuilderExtensions
 {
-    public static IEndpointRouteBuilder MapGet(this IEndpointRouteBuilder builder, Delegate handler, [StringSyntax("Route")] string pattern = "")
+    public static IEndpointRouteBuilder MapEndpoint(
+        this IEndpointRouteBuilder builder,
+        Func<IEndpointRouteBuilder, string, Delegate, IEndpointConventionBuilder> mapMethod,
+        Delegate handler,
+        string pattern = "",
+        params int[] statusCodes)
     {
         Guard.Against.AnonymousMethod(handler);
 
-        builder.MapGet(pattern, handler)
-            .WithName(handler.Method.Name);
+        var endpointBuilder = mapMethod(builder, pattern, handler).WithName(handler.Method.Name);
+        
+        var routeBuilder = endpointBuilder as RouteHandlerBuilder ?? throw new Exception("Unexpected error while building endpoints");
+
+        foreach (var statusCode in statusCodes)
+        {
+            routeBuilder.Produces(statusCode);
+        }
 
         return builder;
     }
 
-    public static IEndpointRouteBuilder MapPost(this IEndpointRouteBuilder builder, Delegate handler, [StringSyntax("Route")] string pattern = "")
+    public static IEndpointRouteBuilder MapEndpoint<T>(
+        this IEndpointRouteBuilder builder,
+        Func<IEndpointRouteBuilder, string, Delegate, IEndpointConventionBuilder> mapMethod,
+        Delegate handler,
+        string pattern = "",
+        params int[] statusCodes)
     {
         Guard.Against.AnonymousMethod(handler);
 
-        builder.MapPost(pattern, handler)
-            .WithName(handler.Method.Name);
+        var endpointBuilder = mapMethod(builder, pattern, handler).WithName(handler.Method.Name);
+
+        var routeBuilder = endpointBuilder as RouteHandlerBuilder ?? throw new Exception("Unexpected error while building endpoints");
+
+        foreach (var statusCode in statusCodes)
+        {
+            if (statusCode == 200 || statusCode == 201)
+            {
+                routeBuilder.Produces<T>(statusCode);
+                continue;
+            }
+            routeBuilder.Produces(statusCode);
+        }
 
         return builder;
     }
 
-    public static IEndpointRouteBuilder MapPut(this IEndpointRouteBuilder builder, Delegate handler, [StringSyntax("Route")] string pattern)
-    {
-        Guard.Against.AnonymousMethod(handler);
+    public static IEndpointRouteBuilder MapGet(this IEndpointRouteBuilder builder, Delegate handler, string pattern = "", 
+        params int[] statusCodes) =>
+        builder.MapEndpoint(EndpointRouteBuilderExtensions.MapGet, handler, pattern, statusCodes);
+    
+    public static IEndpointRouteBuilder MapGet<T>(this IEndpointRouteBuilder builder, Delegate handler, string pattern = "", 
+        params int[] statusCodes) =>
+        builder.MapEndpoint<T>(EndpointRouteBuilderExtensions.MapGet, handler, pattern, statusCodes);
 
-        builder.MapPut(pattern, handler)
-            .WithName(handler.Method.Name);
+    public static IEndpointRouteBuilder MapPost(this IEndpointRouteBuilder builder, Delegate handler, string pattern = "", 
+        params int[] statusCodes) =>
+        builder.MapEndpoint(EndpointRouteBuilderExtensions.MapPost, handler, pattern, statusCodes);
 
-        return builder;
-    }
+    public static IEndpointRouteBuilder MapPost<T>(this IEndpointRouteBuilder builder, Delegate handler, string pattern = "", 
+        params int[] statusCodes) =>
+        builder.MapEndpoint<T>(EndpointRouteBuilderExtensions.MapPost, handler, pattern, statusCodes);
 
-    public static IEndpointRouteBuilder MapDelete(this IEndpointRouteBuilder builder, Delegate handler, [StringSyntax("Route")] string pattern)
-    {
-        Guard.Against.AnonymousMethod(handler);
+    public static IEndpointRouteBuilder MapPut(this IEndpointRouteBuilder builder, Delegate handler, string pattern = "", 
+        params int[] statusCodes) =>
+        builder.MapEndpoint(EndpointRouteBuilderExtensions.MapPut, handler, pattern, statusCodes);
 
-        builder.MapDelete(pattern, handler)
-            .WithName(handler.Method.Name);
-
-        return builder;
-    }
+    public static IEndpointRouteBuilder MapDelete(this IEndpointRouteBuilder builder, Delegate handler, string pattern = "", 
+        params int[] statusCodes) =>
+        builder.MapEndpoint(EndpointRouteBuilderExtensions.MapDelete, handler, pattern, statusCodes);
 }

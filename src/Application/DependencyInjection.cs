@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
 using DnDCharacterSheet.Application.Common.Behaviours;
+using DnDCharacterSheet.Application.Common.Interfaces;
+using DnDCharacterSheet.Application.Common.Services;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -18,6 +20,8 @@ public static class DependencyInjection
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(PerformanceBehaviour<,>));
         });
+
+        services.AddScoped<IAuthService, AuthService>();
 
         return services;
     }

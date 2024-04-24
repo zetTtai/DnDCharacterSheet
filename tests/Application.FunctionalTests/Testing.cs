@@ -1,4 +1,7 @@
-﻿using DnDCharacterSheet.Domain.Constants;
+﻿using System.Net;
+using DnDCharacterSheet.Application.Common.Models;
+using DnDCharacterSheet.Domain.Common;
+using DnDCharacterSheet.Domain.Constants;
 using DnDCharacterSheet.Infrastructure.Data;
 using DnDCharacterSheet.Infrastructure.Identity;
 using MediatR;
@@ -11,10 +14,10 @@ namespace DnDCharacterSheet.Application.FunctionalTests;
 [SetUpFixture]
 public partial class Testing
 {
-    private static ITestDatabase _database;
-    private static CustomWebApplicationFactory _factory = null!;
-    private static IServiceScopeFactory _scopeFactory = null!;
-    private static string? _userId;
+    public static ITestDatabase _database { get; private set; }
+    public static CustomWebApplicationFactory _factory { get; private set; } = null!;
+    public static IServiceScopeFactory _scopeFactory { get; private set; } = null!;
+    public static string? _userId { get; private set; }
 
     [OneTimeSetUp]
     public async Task RunBeforeAnyTests()
@@ -51,12 +54,12 @@ public partial class Testing
 
     public static async Task<string> RunAsDefaultUserAsync()
     {
-        return await RunAsUserAsync("test@local", "Testing1234!", Array.Empty<string>());
+        return await RunAsUserAsync("test@local", "Testing1234!", []);
     }
 
     public static async Task<string> RunAsAdministratorAsync()
     {
-        return await RunAsUserAsync("administrator@local", "Administrator1234!", new[] { Roles.Administrator });
+        return await RunAsUserAsync("administrator@local", "Administrator1234!", [Roles.Administrator]);
     }
 
     public static async Task<string> RunAsUserAsync(string userName, string password, string[] roles)
@@ -65,9 +68,16 @@ public partial class Testing
 
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-        var user = new ApplicationUser { UserName = userName, Email = userName };
+        var user = await userManager.FindByNameAsync(userName) ?? new ApplicationUser { UserName = userName, Email = userName };
 
-        var result = await userManager.CreateAsync(user, password);
+        var userExists = await userManager.FindByNameAsync(userName);
+
+        IdentityResult result = new();
+
+        if (userExists is null)
+        {
+            result = await userManager.CreateAsync(user, password);
+        }
 
         if (roles.Any())
         {
@@ -81,14 +91,18 @@ public partial class Testing
             await userManager.AddToRolesAsync(user, roles);
         }
 
-        if (result.Succeeded)
+        if (userExists is not null)
+        {
+            _userId = userExists.Id;
+            return _userId;
+        }
+        else if (result.Succeeded)
         {
             _userId = user.Id;
-
             return _userId;
         }
 
-        var errors = string.Join(Environment.NewLine, result.ToApplicationResult().Errors);
+        var errors = string.Join(Environment.NewLine, result.ToResponse().Errors);
 
         throw new Exception($"Unable to create {userName}.{Environment.NewLine}{errors}");
     }
@@ -105,6 +119,9 @@ public partial class Testing
 
         _userId = null;
     }
+
+    public static void ResetUser() => _userId = null;
+
 
     public static async Task<TEntity?> FindAsync<TEntity>(params object[] keyValues)
         where TEntity : class
@@ -135,6 +152,38 @@ public partial class Testing
         var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
         return await context.Set<TEntity>().CountAsync();
+    }
+
+    public static void AssertAuditDetails(BaseAuditableEntity auditabeEntity, string userId, bool isUpdating = false)
+    {
+        if (!isUpdating)
+        {
+            auditabeEntity.CreatedBy.Should().Be(userId);
+            auditabeEntity.Created.Should().BeCloseTo(DateTime.Now, TimeSpan.FromMilliseconds(10000));
+            return;
+        }
+        auditabeEntity.LastModifiedBy.Should().Be(userId);
+        auditabeEntity.LastModified.Should().BeCloseTo(DateTime.Now, TimeSpan.FromMilliseconds(10000));
+    }
+
+    public static async Task ShouldDenyAnonymous<TResponse>(IRequest<Response<TResponse>> query)
+    {
+        // Act 
+        var response = await SendAsync(query);
+
+        // Assert
+        response.Succeeded.Should().BeFalse();
+        response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+    }
+
+    public static async Task ShouldDenyAnonymous(IRequest<Response> query)
+    {
+        // Act 
+        var response = await SendAsync(query);
+
+        // Assert
+        response.Succeeded.Should().BeFalse();
+        response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
 
     [OneTimeTearDown]

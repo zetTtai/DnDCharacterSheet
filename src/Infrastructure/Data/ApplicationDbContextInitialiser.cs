@@ -1,4 +1,6 @@
 ﻿using DnDCharacterSheet.Domain.Constants;
+using DnDCharacterSheet.Domain.Entities;
+using DnDCharacterSheet.Domain.Enums;
 using DnDCharacterSheet.Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -87,5 +89,25 @@ public class ApplicationDbContextInitialiser
 
         // Default data
         // Seed, if necessary
+        if (!_context.Abilities.Any() && !_context.Capabilities.Any())
+        {
+            _context.Abilities.AddRange(
+                (from CharacterAbilities ability in Enum.GetValues(typeof(CharacterAbilities))
+                 select new Ability
+                 {
+                     Name = ability.ToString(),
+                     Capabilities =
+                            (from CharacterCapabilities capability in Enum.GetValues(typeof(CharacterCapabilities))
+                             where (CharacterAbilities)((int)capability / 100) == ability
+                             select new Capability
+                             {
+                                 Name = capability.ToString(),
+                             }
+                            ).ToList()
+                 }
+                ).ToList());
+
+            await _context.SaveChangesAsync();
+        }
     }
 }
