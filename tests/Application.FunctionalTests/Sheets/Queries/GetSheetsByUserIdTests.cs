@@ -30,11 +30,17 @@ public class GetSheetsByUserIdTests : BaseTestFixture
         var list = response.Value;
 
         // Assert
+        if (list is null)
+        {
+            Assert.Fail("List should not be null");
+            return;
+        }
+
         response.Succeeded.Should().BeTrue();
         response.StatusCode.Should().Be(HttpStatusCode.OK);
-        list!.First().CharacterName.Should().NotBeNull();
-        list!.First().Should().HasProperty("LastModified");
-        list!.First().Should().HasProperty("IsModifiedByAdmin");
+        list.First().CharacterName.Should().NotBeNull();
+        list.First().Should().HasProperty("LastModified");
+        list.First().Should().HasProperty("IsModifiedByAdmin");
     }
 
     [Test]
@@ -61,9 +67,14 @@ public class GetSheetsByUserIdTests : BaseTestFixture
         var list = response.Value;
 
         // Assert
+        if (list is null)
+        {
+            Assert.Fail("List should not be null");
+            return;
+        }
         response.Succeeded.Should().BeTrue();
         response.StatusCode.Should().Be(HttpStatusCode.OK);
-        list!.First().IsModifiedByAdmin.Should().BeTrue();
+        list.First().IsModifiedByAdmin.Should().BeTrue();
     }
 
     [Test]
@@ -87,8 +98,13 @@ public class GetSheetsByUserIdTests : BaseTestFixture
         var list = result.Value;
 
         // Assert
+        if (list is null)
+        {
+            Assert.Fail("List should not be null");
+            return;
+        }
         result.Succeeded.Should().BeTrue();
         result.StatusCode.Should().Be(HttpStatusCode.OK);
-        list!.Count.Should().Be(5);
+        list.Count.Should().Be(5);
     }
 }

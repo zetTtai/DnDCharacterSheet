@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Diagnostics;
+using System.Net;
 using DnDCharacterSheet.Application.Common.Interfaces;
 using DnDCharacterSheet.Application.Common.Models;
 using DnDCharacterSheet.Application.Common.Security;
@@ -26,16 +27,21 @@ public class UpdateSheetCommandHandler(
 
     public async Task<Response> Handle(UpdateSheetCommand request, CancellationToken cancellationToken)
     {
+        Debug.Assert(_user.Id is not null, "User ID should never be null here due to AuthorizationBehaviour middleware check.");
+
         var entity = await _context.Sheets.FindAsync([request.Id()], cancellationToken: cancellationToken);
 
-        var response = await _authorizationService.ValidateEntityAccess<Response>(entity, _user.Id!);
-
-        if (response is not null)
+        if (entity is null)
         {
-            return response;
+            return Response.Failure(HttpStatusCode.NotFound, [$"Sheet with ID {request.Id()} not found."]);
         }
 
-        entity!.CharacterName = request.CharacterName;
+        if (!await _authorizationService.IsOwner(entity, _user.Id))
+        {
+            return Response.Failure(HttpStatusCode.Forbidden, []);
+        }
+
+        entity.CharacterName = request.CharacterName;
 
         await _context.SaveChangesAsync(cancellationToken);
 
