@@ -31,7 +31,7 @@ public class SheetConfiguration : IEntityTypeConfiguration<Sheet>
         builder.
             OwnsOne(s => s.Money, owned =>
             {
-                owned.Property(o => o.CooperPieces).HasColumnName("CooperPieces");
+                owned.Property(o => o.CopperPieces).HasColumnName("CopperPieces");
                 owned.Property(o => o.SilverPieces).HasColumnName("SilverPieces");
                 owned.Property(o => o.ElectrumPieces).HasColumnName("ElectrumPieces");
                 owned.Property(o => o.GoldPieces).HasColumnName("GoldPieces");

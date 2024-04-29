@@ -1,8 +1,7 @@
-﻿
-namespace DnDCharacterSheet.Domain.ValueObjects;
+﻿namespace DnDCharacterSheet.Domain.ValueObjects;
 public class Money : ValueObject
 {
-    public int CooperPieces { get; set; } = 0;
+    public int CopperPieces { get; set; } = 0;
     public int SilverPieces { get; set; } = 0;
     public int ElectrumPieces { get; set; } = 0;
     public int GoldPieces { get; set; } = 0;
@@ -10,9 +9,9 @@ public class Money : ValueObject
 
     public Money() { }
 
-    public Money(int cooperPieces, int silverPieces, int electrumPieces, int goldPieces, int platinumPieces)
+    public Money(int copperPieces = 0, int silverPieces = 0, int electrumPieces = 0, int goldPieces = 0, int platinumPieces = 0)
     {
-        CooperPieces = cooperPieces;
+        CopperPieces = copperPieces;
         SilverPieces = silverPieces;
         ElectrumPieces = electrumPieces;
         GoldPieces = goldPieces;
@@ -21,7 +20,7 @@ public class Money : ValueObject
 
     protected override IEnumerable<object> GetEqualityComponents()
     {
-        yield return CooperPieces;
+        yield return CopperPieces;
         yield return SilverPieces;
         yield return ElectrumPieces;
         yield return GoldPieces;
