@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
+using DnDCharacterSheet.Domain.ValueObjects;
 
 namespace DnDCharacterSheet.Application.FunctionalTests.Sheets.Commands;
 using static Testing;
@@ -99,6 +100,8 @@ public class CreateSheetTests : BaseTestFixture
         sheet!.SheetSavingThrows.Should().NotBeEmpty();
         sheet!.SheetSavingThrows!.Count().Should().Be(6);
         sheet!.SheetSavingThrows!.First().Proficiency.Should().BeFalse();
+
+        ValidateMoney(sheet.Money);
 
         AssertAuditDetails(sheet, userId);
     }

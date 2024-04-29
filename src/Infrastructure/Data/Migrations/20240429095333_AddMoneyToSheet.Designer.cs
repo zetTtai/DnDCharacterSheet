@@ -3,6 +3,7 @@ using System;
 using DnDCharacterSheet.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DnDCharacterSheet.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240429095333_AddMoneyToSheet")]
+    partial class AddMoneyToSheet
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -390,24 +393,19 @@ namespace DnDCharacterSheet.Infrastructure.Data.Migrations
                                 .HasColumnType("integer");
 
                             b1.Property<int>("CooperPieces")
-                                .HasColumnType("integer")
-                                .HasColumnName("CooperPieces");
+                                .HasColumnType("integer");
 
                             b1.Property<int>("ElectrumPieces")
-                                .HasColumnType("integer")
-                                .HasColumnName("ElectrumPieces");
+                                .HasColumnType("integer");
 
                             b1.Property<int>("GoldPieces")
-                                .HasColumnType("integer")
-                                .HasColumnName("GoldPieces");
+                                .HasColumnType("integer");
 
                             b1.Property<int>("PlatinumPieces")
-                                .HasColumnType("integer")
-                                .HasColumnName("PlatinumPieces");
+                                .HasColumnType("integer");
 
                             b1.Property<int>("SilverPieces")
-                                .HasColumnType("integer")
-                                .HasColumnName("SilverPieces");
+                                .HasColumnType("integer");
 
                             b1.HasKey("SheetId");
 

@@ -28,5 +28,14 @@ public class SheetConfiguration : IEntityTypeConfiguration<Sheet>
             .WithOne(sst => sst.Sheet)
             .HasForeignKey(sst => sst.SheetId);
 
+        builder.
+            OwnsOne(s => s.Money, owned =>
+            {
+                owned.Property(o => o.CooperPieces).HasColumnName("CooperPieces");
+                owned.Property(o => o.SilverPieces).HasColumnName("SilverPieces");
+                owned.Property(o => o.ElectrumPieces).HasColumnName("ElectrumPieces");
+                owned.Property(o => o.GoldPieces).HasColumnName("GoldPieces");
+                owned.Property(o => o.PlatinumPieces).HasColumnName("PlatinumPieces");
+            });
     }
 }
