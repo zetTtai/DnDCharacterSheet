@@ -1,76 +1,80 @@
-﻿using DnDCharacterSheet.Domain.ValueObjects;
+﻿using DnDCharacterSheet.Domain.Enums;
+using DnDCharacterSheet.Domain.ValueObjects;
 using FluentAssertions;
 using NUnit.Framework;
 
 namespace DnDCharacterSheet.Domain.UnitTests.ValueObjects;
 public class MoneyTests
 {
-    [TestCase(10, 10, 0, 1)] // Happy path
-    [TestCase(15, 15, 5, 1)] // Not multiple of 10
-    [TestCase(12, 20, 10, 1)] // Lower than total amount
-    [TestCase(0, 0, 0, 0)] // Edge case
-    public void ShouldConvertCopperToSilver(int quantity, int initialCopper, int expectedCopper, int expectedSilver)
+    private Money _money;
+
+    [OneTimeSetUp]
+    public void OneTimeSetUp()
     {
-        // Arrange
-        var money = new Money(copperPieces: initialCopper);
-
-        // Act
-        money.ConvertCopperToSilver(quantity);
-
-        // Assert
-        money.CopperPieces.Should().Be(expectedCopper);
-        money.SilverPieces.Should().Be(expectedSilver);
+        _money = new Money(1, 2, 3, 4, 5);
     }
 
-    [TestCase(5, 5, 0, 1)] // Happy path
-    [TestCase(12, 12, 2, 2)] // Not multiple of 5
-    [TestCase(22, 30, 10, 4)] // Lower than total amount
-    [TestCase(0, 0, 0, 0)] // Edge case
-    public void ShouldConvertSilverToElectrum(int quantity, int initialSilver, int expectedSilver, int expectedElectrum)
+    [TestCase(Currencies.CopperPieces, 1)]
+    [TestCase(Currencies.SilverPieces, 2)]
+    [TestCase(Currencies.ElectrumPieces, 3)]
+    [TestCase(Currencies.GoldPieces, 4)]
+    [TestCase(Currencies.PlatinumPieces, 5)]
+    public void ShouldReturnQuantityByCurrency(Currencies currency, int expectedQuantity)
     {
         // Arrange
-        var money = new Money(silverPieces: initialSilver);
-
         // Act
-        money.ConvertSilverToElectrum(quantity);
+        var quantity = _money.GetByCurrency(currency);
 
         // Assert
-        money.SilverPieces.Should().Be(expectedSilver);
-        money.ElectrumPieces.Should().Be(expectedElectrum);
+        quantity.Should().Be(expectedQuantity);
     }
 
-    [TestCase(2, 2, 0, 1)] // Happy path
-    [TestCase(5, 5, 1, 2)] // Not multiple of 2
-    [TestCase(25, 30, 6, 12)] // Lower than total amount
-    [TestCase(0, 0, 0, 0)] // Edge case
-    public void ShouldConvertElectrumToGold(int quantity, int initialElectrum, int expectedElectrum, int expectedGold)
+    [Test]
+    public void GetByCurrency_ShouldThrowInvalidOperationExceptionWhenCurrencyDoesNotExists()
     {
         // Arrange
-        var money = new Money(electrumPieces: initialElectrum);
-
         // Act
-        money.ConvertElectrumToGold(quantity);
-
+        try
+        {
+            _money.GetByCurrency((Currencies)999);
+        }
         // Assert
-        money.ElectrumPieces.Should().Be(expectedElectrum);
-        money.GoldPieces.Should().Be(expectedGold);
+        catch (InvalidOperationException)
+        {
+            Assert.Pass();
+        }
+        Assert.Fail();
     }
 
-    [TestCase(10, 10, 0, 1)] // Happy path
-    [TestCase(15, 15, 5, 1)] // Not multiple of 10
-    [TestCase(12, 20, 10, 1)] // Lower than total amount
-    [TestCase(0, 0, 0, 0)] // Edge case
-    public void ShouldConvertGoldToPlatinum(int quantity, int initialGold, int expectedGold, int expectedPlatinum)
+    [TestCase(Currencies.CopperPieces)]
+    [TestCase(Currencies.SilverPieces)]
+    [TestCase(Currencies.ElectrumPieces)]
+    [TestCase(Currencies.GoldPieces)]
+    [TestCase(Currencies.PlatinumPieces)]
+    public void ShouldSetQuantityByCurrency(Currencies currency)
     {
         // Arrange
-        var money = new Money(goldPieces: initialGold);
-
         // Act
-        money.ConvertGoldToPlatinum(quantity);
+        _money.SetByCurrency(currency, 10);
 
         // Assert
-        money.GoldPieces.Should().Be(expectedGold);
-        money.PlatinumPieces.Should().Be(expectedPlatinum);
+        _money.GetByCurrency(currency).Should().Be(10);
     }
 
+    [Test]
+    public void SetByCurrency_ShouldThrowInvalidOperationExceptionWhenCurrencyDoesNotExists()
+    {
+        // Arrange
+        // Act
+        try
+        {
+            _money.SetByCurrency((Currencies)999, 10);
+        }
+        // Assert
+        catch (InvalidOperationException)
+        {
+            Assert.Pass();
+        }
+        Assert.Fail();
+    }
 }

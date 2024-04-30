@@ -1,4 +1,6 @@
-﻿namespace DnDCharacterSheet.Domain.ValueObjects;
+﻿using DnDCharacterSheet.Domain.Enums;
+
+namespace DnDCharacterSheet.Domain.ValueObjects;
 public class Money : ValueObject
 {
     public int CopperPieces { get; set; } = 0;
@@ -18,19 +20,42 @@ public class Money : ValueObject
         PlatinumPieces = platinumPieces;
     }
 
-    private static (int lowerCurrency, int higherCurrency) ConvertCurrency(int lowerCurrency, int higherCurrency, int conversionRate, int quantity)
+    public int GetByCurrency(Currencies currency)
     {
-        int additionalHigher = quantity / conversionRate;
-        higherCurrency += additionalHigher;
-        lowerCurrency = lowerCurrency - quantity + (quantity % conversionRate);
-
-        return (lowerCurrency, higherCurrency);
+        return currency switch
+        {
+            Currencies.CopperPieces => CopperPieces,
+            Currencies.SilverPieces => SilverPieces,
+            Currencies.ElectrumPieces => ElectrumPieces,
+            Currencies.GoldPieces => GoldPieces,
+            Currencies.PlatinumPieces => PlatinumPieces,
+            _ => throw new InvalidOperationException($"Unhandled currency: {currency}"),
+        };
     }
 
-    public void ConvertCopperToSilver(int quantity) => (CopperPieces, SilverPieces) = ConvertCurrency(CopperPieces, SilverPieces, 10, quantity);
-    public void ConvertSilverToElectrum(int quantity) => (SilverPieces, ElectrumPieces) = ConvertCurrency(SilverPieces, ElectrumPieces, 5, quantity);
-    public void ConvertElectrumToGold(int quantity) => (ElectrumPieces, GoldPieces) = ConvertCurrency(ElectrumPieces, GoldPieces, 2, quantity);
-    public void ConvertGoldToPlatinum(int quantity) => (GoldPieces, PlatinumPieces) = ConvertCurrency(GoldPieces, PlatinumPieces, 10, quantity);
+    public void SetByCurrency(Currencies currency, int quantity)
+    {
+        switch (currency)
+        {
+            case Currencies.CopperPieces: 
+                CopperPieces = quantity;
+                break;
+            case Currencies.SilverPieces:
+                SilverPieces = quantity;
+                break;
+            case Currencies.ElectrumPieces:
+                ElectrumPieces = quantity;
+                break;
+            case Currencies.GoldPieces:
+                GoldPieces = quantity;
+                break;
+            case Currencies.PlatinumPieces:
+                PlatinumPieces = quantity;
+                break;
+            default:
+                throw new InvalidOperationException($"Unhandled currency: {currency}");
+        };
+    }
 
     protected override IEnumerable<object> GetEqualityComponents()
     {
