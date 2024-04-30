@@ -77,7 +77,7 @@ public partial class SheetTesting : Testing
     public static void ValidateMoney(Money money, int cp = 0, int sp = 0, int ep = 0, int gp = 0, int pp = 0)
     {
         money.Should().NotBeNull();
-        money.CooperPieces.Should().Be(cp);
+        money.CopperPieces.Should().Be(cp);
         money.SilverPieces.Should().Be(sp);
         money.ElectrumPieces.Should().Be(ep);
         money.GoldPieces.Should().Be(gp);

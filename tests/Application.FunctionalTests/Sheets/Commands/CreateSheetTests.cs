@@ -1,10 +1,9 @@
 ﻿using System.Net;
 using DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
-using DnDCharacterSheet.Domain.ValueObjects;
 
 namespace DnDCharacterSheet.Application.FunctionalTests.Sheets.Commands;
-using static Testing;
 using static SheetTesting;
+using static Testing;
 
 public class CreateSheetTests : BaseTestFixture
 {
