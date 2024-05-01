@@ -99,4 +99,52 @@ public class CurrencyServiceTests
         money.PlatinumPieces.Should().Be(expectedPlatinum);
         money.GoldPieces.Should().Be(expectedGold);
     }
+
+    [TestCase(1, 1, 0, 0, 2)] // Happy path
+    [TestCase(1, 1, 10, 0, 12)] // Add previous amount
+    [TestCase(0, 0, 0, 0, 0)] // Edge case
+    public void ShouldConvertGoldToElectrum(int quantity, int initialGold, int initialElectrum, int expectedGold, int expectedElectrum)
+    {
+        // Arrange
+        var money = new Money(goldPieces: initialGold, electrumPieces: initialElectrum);
+
+        // Act
+        money = _service.Convert(money, Currencies.GoldPieces, Currencies.ElectrumPieces, quantity);
+
+        // Assert
+        money.GoldPieces.Should().Be(expectedGold);
+        money.ElectrumPieces.Should().Be(expectedElectrum);
+    }
+
+    [TestCase(1, 1, 0, 0, 5)] // Happy path
+    [TestCase(1, 1, 10, 0, 15)] // Add previous amount
+    [TestCase(0, 0, 0, 0, 0)] // Edge case
+    public void ShouldConvertElectrumToSilver(int quantity, int initialElectrum, int initialSilver, int expectedElectrum, int expectedSilver)
+    {
+        // Arrange
+        var money = new Money(electrumPieces: initialElectrum, silverPieces: initialSilver);
+
+        // Act
+        money = _service.Convert(money, Currencies.ElectrumPieces, Currencies.SilverPieces, quantity);
+
+        // Assert
+        money.ElectrumPieces.Should().Be(expectedElectrum);
+        money.SilverPieces.Should().Be(expectedSilver);
+    }
+
+    [TestCase(1, 1, 0, 0, 10)] // Happy path
+    [TestCase(1, 1, 10, 0, 20)] // Add previous amount
+    [TestCase(0, 0, 0, 0, 0)] // Edge case
+    public void ShouldConvertSilverToCopper(int quantity, int initialSilver, int initialCopper, int expectedSilver, int expectedCopper)
+    {
+        // Arrange
+        var money = new Money(silverPieces: initialSilver, copperPieces: initialCopper);
+
+        // Act
+        money = _service.Convert(money, Currencies.SilverPieces, Currencies.CopperPieces, quantity);
+
+        // Assert
+        money.SilverPieces.Should().Be(expectedSilver);
+        money.CopperPieces.Should().Be(expectedCopper);
+    }
 }

@@ -745,6 +745,7 @@ export interface ICapabilityDto {
 
 export class CreateSheetCommand implements ICreateSheetCommand {
     characterName?: string;
+    money?: Money;
 
     constructor(data?: ICreateSheetCommand) {
         if (data) {
@@ -758,6 +759,7 @@ export class CreateSheetCommand implements ICreateSheetCommand {
     init(_data?: any) {
         if (_data) {
             this.characterName = _data["characterName"];
+            this.money = _data["money"] ? Money.fromJS(_data["money"]) : <any>undefined;
         }
     }
 
@@ -771,12 +773,91 @@ export class CreateSheetCommand implements ICreateSheetCommand {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["characterName"] = this.characterName;
+        data["money"] = this.money ? this.money.toJSON() : <any>undefined;
         return data;
     }
 }
 
 export interface ICreateSheetCommand {
     characterName?: string;
+    money?: Money;
+}
+
+export abstract class ValueObject implements IValueObject {
+
+    constructor(data?: IValueObject) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+    }
+
+    static fromJS(data: any): ValueObject {
+        data = typeof data === 'object' ? data : {};
+        throw new Error("The abstract class 'ValueObject' cannot be instantiated.");
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        return data;
+    }
+}
+
+export interface IValueObject {
+}
+
+export class Money extends ValueObject implements IMoney {
+    copperPieces?: number;
+    silverPieces?: number;
+    electrumPieces?: number;
+    goldPieces?: number;
+    platinumPieces?: number;
+
+    constructor(data?: IMoney) {
+        super(data);
+    }
+
+    override init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.copperPieces = _data["copperPieces"];
+            this.silverPieces = _data["silverPieces"];
+            this.electrumPieces = _data["electrumPieces"];
+            this.goldPieces = _data["goldPieces"];
+            this.platinumPieces = _data["platinumPieces"];
+        }
+    }
+
+    static override fromJS(data: any): Money {
+        data = typeof data === 'object' ? data : {};
+        let result = new Money();
+        result.init(data);
+        return result;
+    }
+
+    override toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["copperPieces"] = this.copperPieces;
+        data["silverPieces"] = this.silverPieces;
+        data["electrumPieces"] = this.electrumPieces;
+        data["goldPieces"] = this.goldPieces;
+        data["platinumPieces"] = this.platinumPieces;
+        super.toJSON(data);
+        return data;
+    }
+}
+
+export interface IMoney extends IValueObject {
+    copperPieces?: number;
+    silverPieces?: number;
+    electrumPieces?: number;
+    goldPieces?: number;
+    platinumPieces?: number;
 }
 
 export class UpdateSheetCommand implements IUpdateSheetCommand {

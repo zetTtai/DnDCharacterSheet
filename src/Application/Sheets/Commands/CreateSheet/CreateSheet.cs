@@ -5,6 +5,7 @@ using DnDCharacterSheet.Application.Common.Security;
 using DnDCharacterSheet.Domain.Entities;
 using DnDCharacterSheet.Domain.Enums;
 using DnDCharacterSheet.Domain.Events.Sheets;
+using DnDCharacterSheet.Domain.ValueObjects;
 
 namespace DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
 
@@ -12,6 +13,7 @@ namespace DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
 public record CreateSheetCommand : IRequest<Response<int>>
 {
     public required string CharacterName { get; set; }
+    public Money Money { get; set; } = new();
 }
 
 public class CreateSheetCommandHandler(IApplicationDbContext context) : IRequestHandler<CreateSheetCommand, Response<int>>
@@ -27,7 +29,8 @@ public class CreateSheetCommandHandler(IApplicationDbContext context) : IRequest
             CharacterName = request.CharacterName,
             SheetAbilities = MapToSheetAbilities(abilities),
             SheetSkills = MapToSheetSkills(skills),
-            SheetSavingThrows = MapToSheetSavingThrows(savingThrows)
+            SheetSavingThrows = MapToSheetSavingThrows(savingThrows),
+            Money = request.Money
         };
 
         entity.AddDomainEvent(new SheetCreatedEvent(entity));
