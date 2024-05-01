@@ -1,4 +1,5 @@
 ﻿using DnDCharacterSheet.Application.Common.Services;
+using DnDCharacterSheet.Domain.Enums;
 using DnDCharacterSheet.Domain.ValueObjects;
 using FluentAssertions;
 using NUnit.Framework;
@@ -25,7 +26,7 @@ public class CurrencyServiceTests
         var money = new Money(copperPieces: initialCopper);
 
         // Act
-        money = _service.ConvertCopperToSilver(money, quantity);
+        money = _service.Convert(money, Currencies.CopperPieces, Currencies.SilverPieces, quantity);
 
         // Assert
         money.CopperPieces.Should().Be(expectedCopper);
@@ -42,7 +43,7 @@ public class CurrencyServiceTests
         var money = new Money(silverPieces: initialSilver);
 
         // Act
-        money = _service.ConvertSilverToElectrum(money, quantity);
+        money = _service.Convert(money, Currencies.SilverPieces, Currencies.ElectrumPieces, quantity);
 
         // Assert
         money.SilverPieces.Should().Be(expectedSilver);
@@ -59,7 +60,7 @@ public class CurrencyServiceTests
         var money = new Money(electrumPieces: initialElectrum);
 
         // Act
-        money = _service.ConvertElectrumToGold(money, quantity);
+        money = _service.Convert(money, Currencies.ElectrumPieces, Currencies.GoldPieces, quantity);
 
         // Assert
         money.ElectrumPieces.Should().Be(expectedElectrum);
@@ -76,7 +77,7 @@ public class CurrencyServiceTests
         var money = new Money(goldPieces: initialGold);
 
         // Act
-        money = _service.ConvertGoldToPlatinum(money, quantity);
+        money = _service.Convert(money, Currencies.GoldPieces, Currencies.PlatinumPieces, quantity);
 
         // Assert
         money.GoldPieces.Should().Be(expectedGold);
@@ -92,7 +93,7 @@ public class CurrencyServiceTests
         var money = new Money(platinumPieces: initialPlatinum, goldPieces: initialGold);
 
         // Act
-        money = _service.ConvertPlatinumToGold(money, quantity);
+        money = _service.Convert(money, Currencies.PlatinumPieces, Currencies.GoldPieces, quantity);
 
         // Assert
         money.PlatinumPieces.Should().Be(expectedPlatinum);
