@@ -42,7 +42,8 @@ public class GetSheetByIdQueryHandler(
             CharacterName = sheet!.CharacterName,
             Abilities = _mapper.Map<IEnumerable<AbilityDto>>(sheet!.SheetAbilities),
             Skills = _mapper.Map<IEnumerable<CapabilityDto>>(sheet!.SheetSkills),
-            SavingThrows = _mapper.Map<IEnumerable<CapabilityDto>>(sheet!.SheetSavingThrows)
+            SavingThrows = _mapper.Map<IEnumerable<CapabilityDto>>(sheet!.SheetSavingThrows),
+            Money = sheet.Money
         };
 
         return Response<SheetVm>.Success(vm);

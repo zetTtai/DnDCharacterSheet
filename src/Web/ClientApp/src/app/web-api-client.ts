@@ -596,6 +596,7 @@ export class SheetVm implements ISheetVm {
     abilities?: AbilityDto[] | undefined;
     savingThrows?: CapabilityDto[] | undefined;
     skills?: CapabilityDto[] | undefined;
+    money?: Money | undefined;
 
     constructor(data?: ISheetVm) {
         if (data) {
@@ -624,6 +625,7 @@ export class SheetVm implements ISheetVm {
                 for (let item of _data["skills"])
                     this.skills!.push(CapabilityDto.fromJS(item));
             }
+            this.money = _data["money"] ? Money.fromJS(_data["money"]) : <any>undefined;
         }
     }
 
@@ -652,6 +654,7 @@ export class SheetVm implements ISheetVm {
             for (let item of this.skills)
                 data["skills"].push(item.toJSON());
         }
+        data["money"] = this.money ? this.money.toJSON() : <any>undefined;
         return data;
     }
 }
@@ -661,6 +664,7 @@ export interface ISheetVm {
     abilities?: AbilityDto[] | undefined;
     savingThrows?: CapabilityDto[] | undefined;
     skills?: CapabilityDto[] | undefined;
+    money?: Money | undefined;
 }
 
 export class AbilityDto implements IAbilityDto {
@@ -743,46 +747,6 @@ export interface ICapabilityDto {
     proficiency?: boolean;
 }
 
-export class CreateSheetCommand implements ICreateSheetCommand {
-    characterName?: string;
-    money?: Money;
-
-    constructor(data?: ICreateSheetCommand) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.characterName = _data["characterName"];
-            this.money = _data["money"] ? Money.fromJS(_data["money"]) : <any>undefined;
-        }
-    }
-
-    static fromJS(data: any): CreateSheetCommand {
-        data = typeof data === 'object' ? data : {};
-        let result = new CreateSheetCommand();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["characterName"] = this.characterName;
-        data["money"] = this.money ? this.money.toJSON() : <any>undefined;
-        return data;
-    }
-}
-
-export interface ICreateSheetCommand {
-    characterName?: string;
-    money?: Money;
-}
-
 export abstract class ValueObject implements IValueObject {
 
     constructor(data?: IValueObject) {
@@ -858,6 +822,46 @@ export interface IMoney extends IValueObject {
     electrumPieces?: number;
     goldPieces?: number;
     platinumPieces?: number;
+}
+
+export class CreateSheetCommand implements ICreateSheetCommand {
+    characterName?: string;
+    money?: Money;
+
+    constructor(data?: ICreateSheetCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.characterName = _data["characterName"];
+            this.money = _data["money"] ? Money.fromJS(_data["money"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): CreateSheetCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateSheetCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["characterName"] = this.characterName;
+        data["money"] = this.money ? this.money.toJSON() : <any>undefined;
+        return data;
+    }
+}
+
+export interface ICreateSheetCommand {
+    characterName?: string;
+    money?: Money;
 }
 
 export class UpdateSheetCommand implements IUpdateSheetCommand {

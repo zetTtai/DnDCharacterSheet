@@ -359,6 +359,14 @@
             "items": {
               "$ref": "#/components/schemas/CapabilityDto"
             }
+          },
+          "money": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Money"
+              }
+            ]
           }
         }
       },
@@ -386,18 +394,6 @@
           },
           "proficiency": {
             "type": "boolean"
-          }
-        }
-      },
-      "CreateSheetCommand": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "characterName": {
-            "type": "string"
-          },
-          "money": {
-            "$ref": "#/components/schemas/Money"
           }
         }
       },
@@ -438,6 +434,18 @@
         "type": "object",
         "x-abstract": true,
         "additionalProperties": false
+      },
+      "CreateSheetCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "characterName": {
+            "type": "string"
+          },
+          "money": {
+            "$ref": "#/components/schemas/Money"
+          }
+        }
       },
       "UpdateSheetCommand": {
         "type": "object",
