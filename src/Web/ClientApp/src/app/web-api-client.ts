@@ -862,6 +862,7 @@ export interface IMoney extends IValueObject {
 
 export class UpdateSheetCommand implements IUpdateSheetCommand {
     characterName?: string;
+    money?: Money;
 
     constructor(data?: IUpdateSheetCommand) {
         if (data) {
@@ -875,6 +876,7 @@ export class UpdateSheetCommand implements IUpdateSheetCommand {
     init(_data?: any) {
         if (_data) {
             this.characterName = _data["characterName"];
+            this.money = _data["money"] ? Money.fromJS(_data["money"]) : <any>undefined;
         }
     }
 
@@ -888,12 +890,14 @@ export class UpdateSheetCommand implements IUpdateSheetCommand {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["characterName"] = this.characterName;
+        data["money"] = this.money ? this.money.toJSON() : <any>undefined;
         return data;
     }
 }
 
 export interface IUpdateSheetCommand {
     characterName?: string;
+    money?: Money;
 }
 
 export class SwaggerException extends Error {

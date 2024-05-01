@@ -107,7 +107,7 @@ public class CreateSheetTests : BaseTestFixture
     }
 
     [Test]
-    public async Task Succeds_WithInitializedMoney()
+    public async Task Succeds_InitializeMoney()
     {
         // Arrange
         await SeedAbilitiesAndCapabilitiesDatabaseAsync();
@@ -123,6 +123,8 @@ public class CreateSheetTests : BaseTestFixture
         var sheet = await FindSheetWithDetailsAsync(response.Value);
 
         // Assert
+        response.Succeeded.Should().BeTrue();
+        response.StatusCode.Should().Be(HttpStatusCode.Created);
 
         if (sheet is null)
         {
@@ -130,13 +132,7 @@ public class CreateSheetTests : BaseTestFixture
             return;
         }
 
-        var money = sheet.Money;
-
-        money.CopperPieces.Should().Be(1);
-        money.SilverPieces.Should().Be(2);
-        money.ElectrumPieces.Should().Be(3);
-        money.GoldPieces.Should().Be(4);
-        money.PlatinumPieces.Should().Be(5);
+        ValidateMoney(sheet.Money, 1, 2, 3, 4, 5);
 
         AssertAuditDetails(sheet, userId);
     }

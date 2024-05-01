@@ -445,6 +445,9 @@
         "properties": {
           "characterName": {
             "type": "string"
+          },
+          "money": {
+            "$ref": "#/components/schemas/Money"
           }
         }
       }
