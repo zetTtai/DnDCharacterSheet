@@ -46,8 +46,8 @@ public class CurrencyService : ICurrencyService
 
     public Money Convert(Money currentMoney, Currencies srcCurrency, Currencies dstCurrency, int quantity)
     {
-        return !ConversionRates.TryGetValue((srcCurrency, dstCurrency), out var conversionRate)
-            ? throw new InvalidOperationException($"Unhandled conversion: FROM {srcCurrency} TO {dstCurrency}")
-            : GetUpdatedMoney(currentMoney, srcCurrency, dstCurrency, quantity, conversionRate);
+        return ConversionRates.TryGetValue((srcCurrency, dstCurrency), out var conversionRate)
+            ? GetUpdatedMoney(currentMoney, srcCurrency, dstCurrency, quantity, conversionRate)
+            :throw new InvalidOperationException($"Unhandled conversion: FROM {srcCurrency} TO {dstCurrency}");
     }
 }
