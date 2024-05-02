@@ -6,7 +6,21 @@
     <base href="/" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="assets/images/icon192x192.png" />
+    <link href="assets/manifest.json" rel="manifest" />
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+          navigator.serviceWorker
+            .register('assets/js/serviceWorker.js')
+            .then(function (registration) {
+              console.log("ServiceWorker registrated");
+            }, function (err) {
+              console.error(err);
+            })
+        })
+      }
+    </script> 
   </head>
   <body>
     <app-root>Loading...</app-root>

@@ -1,6 +1,5 @@
 using System.Net;
 using DnDCharacterSheet.Infrastructure.Data;
-using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
