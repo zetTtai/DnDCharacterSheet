@@ -15,19 +15,18 @@ public class ConvertMoneyCommand : IRequest<Response<Money>>
 
 public class ConvertMoneyCommandHandler(ICurrencyService currencyService) : IRequestHandler<ConvertMoneyCommand, Response<Money>>
 {
-    private readonly ICurrencyService _currencyService = currencyService;
-
     public Task<Response<Money>> Handle(ConvertMoneyCommand request, CancellationToken cancellationToken)
     {
-        var quantityToConvert = request.CurrentMoney.GetByCurrency(request.SrcCurrency);
-        if (quantityToConvert < request.Quantity)
-        {
-            return Task.FromResult(Response<Money>.Failure(HttpStatusCode.BadRequest, 
-                [$"{request.Quantity} is not a valid Quantity (Current ammount of {request.SrcCurrency} is {quantityToConvert} )"]));
-        }
         try
         {
-            var money = _currencyService.Convert(request.CurrentMoney, request.SrcCurrency, request.DstCurrency, request.Quantity);
+            var srcQuantity = request.CurrentMoney.GetByCurrency(request.SrcCurrency);
+            if (srcQuantity < request.Quantity)
+            {
+                return Task.FromResult(Response<Money>.Failure(HttpStatusCode.BadRequest, 
+                    [$"{request.Quantity} is not a valid Quantity (Current ammount of {request.SrcCurrency} is {srcQuantity} )"]));
+            }
+
+            var money = currencyService.Convert(request.CurrentMoney, request.SrcCurrency, request.DstCurrency, request.Quantity);
             return Task.FromResult(Response<Money>.Success(money));
 
         } catch (InvalidOperationException ex)

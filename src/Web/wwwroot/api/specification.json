@@ -444,21 +444,18 @@
           },
           "abilities": {
             "type": "array",
-            "nullable": true,
             "items": {
               "$ref": "#/components/schemas/AbilityDto"
             }
           },
           "savingThrows": {
             "type": "array",
-            "nullable": true,
             "items": {
               "$ref": "#/components/schemas/CapabilityDto"
             }
           },
           "skills": {
             "type": "array",
-            "nullable": true,
             "items": {
               "$ref": "#/components/schemas/CapabilityDto"
             }

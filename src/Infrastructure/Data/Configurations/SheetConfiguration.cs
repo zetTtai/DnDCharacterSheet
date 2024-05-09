@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using DnDCharacterSheet.Domain.Constants;
+using DnDCharacterSheet.Domain.ValueObjects;
 
 namespace DnDCharacterSheet.Infrastructure.Data.Configurations;
 public class SheetConfiguration : IEntityTypeConfiguration<Sheet>
@@ -31,11 +32,11 @@ public class SheetConfiguration : IEntityTypeConfiguration<Sheet>
         builder.
             OwnsOne(s => s.Money, owned =>
             {
-                owned.Property(o => o.CopperPieces).HasColumnName("CopperPieces");
-                owned.Property(o => o.SilverPieces).HasColumnName("SilverPieces");
-                owned.Property(o => o.ElectrumPieces).HasColumnName("ElectrumPieces");
-                owned.Property(o => o.GoldPieces).HasColumnName("GoldPieces");
-                owned.Property(o => o.PlatinumPieces).HasColumnName("PlatinumPieces");
+                var currencies = typeof(Money).GetProperties();
+                foreach (var currency in currencies)
+                {
+                    owned.Property(currency.Name).HasColumnName(currency.Name);
+                }
             });
     }
 }

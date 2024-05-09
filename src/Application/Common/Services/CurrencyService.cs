@@ -23,19 +23,16 @@ public class CurrencyService : ICurrencyService
     private static Money GetUpdatedMoney(Money currentMoney, Currencies srcCurrency, Currencies dstCurrency, int quantity, int conversionRate)
     {
         var isTierUpgrading = srcCurrency < dstCurrency;
+        var currentSrcQuantity = currentMoney.GetByCurrency(srcCurrency);
+        var currentDstQuantity = currentMoney.GetByCurrency(dstCurrency);
 
-        var srcQuantity = currentMoney.GetByCurrency(srcCurrency);
-        var dstQuantity = currentMoney.GetByCurrency(dstCurrency);
+        var srcQuantity = currentSrcQuantity - quantity + (quantity % conversionRate);
+        var dstQuantity = currentDstQuantity + quantity / conversionRate;
 
-        if (isTierUpgrading)
+        if (!isTierUpgrading)
         {
-            dstQuantity += quantity / conversionRate;
-            srcQuantity = srcQuantity - quantity + (quantity % conversionRate);
-        }
-        else
-        {
-            dstQuantity += quantity * conversionRate;
-            srcQuantity -= quantity;
+            srcQuantity = currentSrcQuantity - quantity;
+            dstQuantity = currentDstQuantity + quantity * conversionRate;
         }
 
         currentMoney.SetByCurrency(srcCurrency, srcQuantity);

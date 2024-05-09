@@ -796,9 +796,9 @@ export interface ISheetUserListItemVm {
 
 export class SheetVm implements ISheetVm {
     characterName?: string | undefined;
-    abilities?: AbilityDto[] | undefined;
-    savingThrows?: CapabilityDto[] | undefined;
-    skills?: CapabilityDto[] | undefined;
+    abilities?: AbilityDto[];
+    savingThrows?: CapabilityDto[];
+    skills?: CapabilityDto[];
     money?: Money | undefined;
 
     constructor(data?: ISheetVm) {
@@ -864,9 +864,9 @@ export class SheetVm implements ISheetVm {
 
 export interface ISheetVm {
     characterName?: string | undefined;
-    abilities?: AbilityDto[] | undefined;
-    savingThrows?: CapabilityDto[] | undefined;
-    skills?: CapabilityDto[] | undefined;
+    abilities?: AbilityDto[];
+    savingThrows?: CapabilityDto[];
+    skills?: CapabilityDto[];
     money?: Money | undefined;
 }
 

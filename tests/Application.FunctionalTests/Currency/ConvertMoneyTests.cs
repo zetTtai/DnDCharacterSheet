@@ -1,7 +1,6 @@
 ﻿namespace DnDCharacterSheet.Application.FunctionalTests.Currency;
 
 using System.Net;
-using System.Security.Cryptography;
 using DnDCharacterSheet.Application.Currency.ConvertMoney;
 using DnDCharacterSheet.Domain.Enums;
 using DnDCharacterSheet.Domain.ValueObjects;
