@@ -48,7 +48,6 @@
     <None Remove="ClientApp\src\assets\images\icon192x192.png" />
     <None Remove="ClientApp\src\assets\images\icon512x512.png" />
     <None Remove="ClientApp\src\assets\js\serviceWorker.js" />
-    <None Remove="ClientApp\src\assets\offline.html" />
   </ItemGroup>
 
   <ItemGroup>
@@ -68,7 +67,7 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="ClientApp\src\offline.html">
+    <Content Include="ClientApp\src\assets\offline.html">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>

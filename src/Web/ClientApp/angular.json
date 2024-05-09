@@ -71,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "DnDCharacterSheet.Web:build:production"
+              "buildTarget": "DnDCharacterSheet.Web:build:production"
             },
             "development": {
-              "browserTarget": "DnDCharacterSheet.Web:build:development",
+              "buildTarget": "DnDCharacterSheet.Web:build:development",
               "proxyConfig": "proxy.conf.js"
             }
           },

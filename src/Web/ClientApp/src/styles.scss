@@ -19,11 +19,13 @@ code {
   border-color: #1861ac;
 }
 
-/* Importing Bootstrap SCSS file. */
-@import "node_modules/bootstrap/scss/bootstrap";
+html, body {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+}
 
-/* Importing Datepicker SCSS file. */
-@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
-
-/* Importing Bootstrap Icons SCSS file. */
-@import "node_modules/bootstrap-icons/font/bootstrap-icons";
+#main {
+    margin: 100px 20px 0 20px;
+}
