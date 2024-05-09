@@ -8,9 +8,67 @@ html {
   font-size: 14px;
 }
 
+nav {
+  display: flex;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  min-width: 100%;
+  padding: 0;
+}
+
+#nav-start img {
+  height: 40px;
+}
+
+.nav-container-pc {
+  display: none;
+  min-width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+}
+
+.nav-container-mobile {
+    display: flex;
+    min-width: 100%;
+}
+
+.nav-container-mobile ul {
+    display: flex;
+    min-width: 100%;
+    justify-content: space-around;
+    margin-bottom: 0;
+    padding: 0;
+}
+.nav-container-mobile ul li {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    padding: 5px;
+    border-top: 0px !important;
+    border-bottom: 0px !important;
+}
+
+#home {
+    padding: 5px 10px;
+}
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
+  }
+
+  nav {
+    bottom: auto !important;
+  }
+
+  .nav-container-mobile {
+    display: none;
+  }
+
+  .nav-container-pc {
+    display: flex;
   }
 }
 
