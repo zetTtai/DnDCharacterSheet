@@ -3,6 +3,7 @@ using DnDCharacterSheet.Domain.Enums;
 using DnDCharacterSheet.Domain.ValueObjects;
 
 namespace DnDCharacterSheet.Application.Common.Services;
+
 public class CurrencyService : ICurrencyService
 {
     private static readonly Dictionary<(Currencies, Currencies), int> ConversionRates = new()
