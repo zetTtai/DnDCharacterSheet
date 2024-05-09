@@ -39,7 +39,8 @@ public class GetSheetByIdQueryHandler(
             return Response<SheetVm>.Failure(HttpStatusCode.NotFound, [$"Sheet with ID {request.Id} not found."]);
         }
 
-        if (!await _authorizationService.IsOwner(sheet, _user.Id))
+        var isOwner = await _authorizationService.IsOwner(sheet, _user.Id);
+        if (!isOwner)
         {
             return Response<SheetVm>.Failure(HttpStatusCode.Forbidden, []);
         }

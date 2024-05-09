@@ -3,6 +3,7 @@ using System.Net;
 using DnDCharacterSheet.Application.Common.Interfaces;
 using DnDCharacterSheet.Application.Common.Models;
 using DnDCharacterSheet.Application.Common.Security;
+using DnDCharacterSheet.Domain.Entities;
 
 namespace DnDCharacterSheet.Application;
 
@@ -36,7 +37,8 @@ public class UpdateSheetCommandHandler(
             return Response.Failure(HttpStatusCode.NotFound, [$"Sheet with ID {request.Id()} not found."]);
         }
 
-        if (!await _authorizationService.IsOwner(entity, _user.Id))
+        var isOwner = await _authorizationService.IsOwner(entity, _user.Id);
+        if (!isOwner)
         {
             return Response.Failure(HttpStatusCode.Forbidden, []);
         }
