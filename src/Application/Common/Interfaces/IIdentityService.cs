@@ -6,7 +6,7 @@ public interface IIdentityService
 {
     Task<string?> GetUserNameAsync(string userId);
 
-    Task<Dictionary<string, string?>> GetUserNamesAsync(List<string> userIds);
+    Task<Dictionary<string, string?>> GetUserNamesAsync(List<string?> userIds, CancellationToken cancellationToken);
 
     Task<bool> IsInRoleAsync(string userId, string role);
 

@@ -9,8 +9,5 @@ public class UpdateSheetCommandValidator : AbstractValidator<UpdateSheetCommand>
             .NotEmpty()
             .MinimumLength(SheetConstants.CharacterNameMinLength)
             .MaximumLength(SheetConstants.CharacterNameMaxLength);
-
-        RuleFor(v => v.Id())
-            .NotEmpty();
     }
 }

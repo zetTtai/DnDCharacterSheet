@@ -73,9 +73,14 @@ public class GetSheetsWithPaginationTests : BaseTestFixture
         var paginatedList = response.Value;
 
         // Assert
+        if (paginatedList is null)
+        {
+            Assert.Fail("List should not be null");
+            return;
+        }
         response.Succeeded.Should().BeTrue();
         response.StatusCode.Should().Be(HttpStatusCode.OK);
-        paginatedList!.TotalCount.Should().Be(20);
-        paginatedList!.TotalPages.Should().Be(2);
+        paginatedList.TotalCount.Should().Be(20);
+        paginatedList.TotalPages.Should().Be(2);
     }
 }

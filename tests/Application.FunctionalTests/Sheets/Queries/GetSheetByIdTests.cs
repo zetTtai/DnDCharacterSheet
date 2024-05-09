@@ -40,25 +40,29 @@ public class GetSheetByIdTests : BaseTestFixture
 
         // Act
         var response = await SendAsync(query);
-        var sheetVm = response.Value!;
+        var sheetVm = response.Value;
 
         // Assert
-        sheetVm.CharacterName.Should().NotBeNull();
+        if (sheetVm is null)
+        {
+            Assert.Fail("Sheet (View Model) should not be null");
+            return;
+        }
 
         sheetVm.Abilities.Should().NotBeEmpty();
-        sheetVm.Abilities!.Count().Should().Be(6);
-        sheetVm.Abilities!.First().Should().HasProperty("Id");
-        sheetVm.Abilities!.First().Value.Should().Be(-1);
+        sheetVm.Abilities.Count().Should().Be(6);
+        sheetVm.Abilities.First().Should().HasProperty("Id");
+        sheetVm.Abilities.First().Value.Should().Be(-1);
 
         sheetVm.Skills.Should().NotBeEmpty();
-        sheetVm.Skills!.Count().Should().Be(18);
-        sheetVm.Skills!.First().Should().HasProperty("Id");
-        sheetVm.Skills!.First().Proficiency.Should().BeFalse();
+        sheetVm.Skills.Count().Should().Be(18);
+        sheetVm.Skills.First().Should().HasProperty("Id");
+        sheetVm.Skills.First().Proficiency.Should().BeFalse();
 
         sheetVm.SavingThrows.Should().NotBeEmpty();
-        sheetVm.SavingThrows!.Count().Should().Be(6);
-        sheetVm.SavingThrows!.First().Should().HasProperty("Id");
-        sheetVm.SavingThrows!.First().Proficiency.Should().BeFalse();
+        sheetVm.SavingThrows.Count().Should().Be(6);
+        sheetVm.SavingThrows.First().Should().HasProperty("Id");
+        sheetVm.SavingThrows.First().Proficiency.Should().BeFalse();
     }
 
     [Test]
@@ -104,11 +108,15 @@ public class GetSheetByIdTests : BaseTestFixture
 
         // Act
         var response = await SendAsync(query);
-        var sheet = response.Value;
+        var sheetVm = response.Value;
 
         // Assert
-        sheet.Should().NotBeNull();
-        sheet!.CharacterName.Should().Be("Sir Test Testable");
+        if (sheetVm is null)
+        {
+            Assert.Fail("Sheet (View Model) should not be null");
+            return;
+        }
+        sheetVm.CharacterName.Should().Be("Sir Test Testable");
     }
 
     [Test]
@@ -131,11 +139,15 @@ public class GetSheetByIdTests : BaseTestFixture
 
         // Act
         var response = await SendAsync(query);
-        var sheet = response.Value;
+        var sheetVm = response.Value;
 
         // Assert
-        sheet.Should().NotBeNull();
-        sheet!.CharacterName.Should().Be("Sir test testable");
+        if (sheetVm is null)
+        {
+            Assert.Fail("Sheet (View Model) should not be null");
+            return;
+        }
+        sheetVm.CharacterName.Should().Be("Sir test testable");
 
     }
 }
