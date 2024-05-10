@@ -1,6 +1,5 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'variables';
 
-/* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
 }
@@ -24,8 +23,19 @@ html, body {
     width: 100%;
     height: 100%;
     flex-direction: column;
+    background-color: $primary-color;
+}
+
+html {
+    font-size: 14px;
 }
 
 #main {
+  margin: 10px 20px 0px 20px;
+}
+
+@media (min-width: 768px) {
+  #main {
     margin: 100px 20px 0 20px;
+  }
 }
