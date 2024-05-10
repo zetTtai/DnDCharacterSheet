@@ -4,12 +4,14 @@
 
       <div id="nav-start">
         <a class="navbar-brand" [routerLink]="['/']">
-          <img src="assets/images/icon192x192.png" alt="DnD Character Sheet" />
+          <img src="assets/images/icon192x192.png" alt="{{ 'title' | translate }}" title="{{ 'title' | translate }}" />
         </a>
+        <button (click)="switchLanguage('es')">Switch to Spanish</button>
+        <button (click)="switchLanguage('en')">Switch to English</button>
       </div>
 
       <div id="nav-center">
-        <a class="btn btn-primary" [routerLink]="['/']">Start Journey</a>
+        <a class="btn btn-primary" [routerLink]="['/']">{{ "nav-menu.start_journey" | translate }}</a>
       </div>
 
       <div class="nav-end">
@@ -18,7 +20,7 @@
             <a class="nav-link text-dark" href="/api" target="_blank">API</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark" href="/Identity/Account/Manage">Account</a>
+            <a class="nav-link text-dark" href="/Identity/Account/Manage">{{ "nav-menu.account" | translate }}</a>
           </li>
         </ul>
       </div>
@@ -27,19 +29,19 @@
     <div class="nav-container-mobile">
       <ul>
         <li class="border">
-          <a class="nav-link text-dark" href="#">Lore</a>
+          <a class="nav-link text-dark" href="#">{{ "nav-menu.lore" | translate }}</a>
         </li>
         <li class="border">
-          <a class="nav-link text-dark" href="#">Items</a>
+          <a class="nav-link text-dark" href="#">{{ "nav-menu.items" | translate }}</a>
         </li>
         <li id="home" class="border">
-          <a class="nav-link text-dark" href="#">Home</a>
+          <a class="nav-link text-dark" href="#">{{ "nav-menu.home" | translate }}</a>
         </li>
         <li class="border">
-          <a class="nav-link text-dark" href="#">Spells</a>
+          <a class="nav-link text-dark" href="#">{{ "nav-menu.spells" | translate }}</a>
         </li>
         <li class="border">
-          <a class="nav-link text-dark" href="#">Account</a>
+          <a class="nav-link text-dark" href="#">{{ "nav-menu.account" | translate }}</a>
         </li>
       </ul>
     </div>

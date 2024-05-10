@@ -1,0 +1,11 @@
+{
+  "title": "DnD Character Sheet",
+  "nav-menu": {
+    "start_journey": "Start Journey",
+    "account": "Account",
+    "home": "Home",
+    "lore": "Lore",
+    "items": "Items",
+    "spells": "Spells"
+  }
+}
