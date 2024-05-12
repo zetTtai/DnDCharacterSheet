@@ -1,7 +1,7 @@
 import { Component, Type } from '@angular/core';
 import { HomeComponent } from './home/home.component';
-import { MobileNavigationService } from '../services/mobile-navigation/mobile-navigation.service';
 import { SharedDataService } from '../services/shared-data/shared-data.service';
+import { NavigationService } from '../services/navigation/navigation.service';
 
 @Component({
   selector: 'app-root',
@@ -17,20 +17,26 @@ export class AppComponent {
   public pcMainSlide: string;
 
   constructor(
-    private mobileNavService: MobileNavigationService,
+    private navService: NavigationService,
     sharedDataService: SharedDataService
   ) {
     this.mobileComponents = sharedDataService.mobileComponents;
     this.pcComponents = sharedDataService.pcComponents;
 
-    this.mobileMainSlide = `-${100 * this.mobileComponents.findIndex(comp => comp.class === HomeComponent)}%`;
-    this.pcMainSlide = `-${100 * this.pcComponents.findIndex(comp => comp.class === HomeComponent)}%`;
+    const mobileView = this.mobileComponents.findIndex(comp => comp.class === HomeComponent);
+    const pcView = this.pcComponents.findIndex(comp => comp.class === HomeComponent);
+
+    this.mobileMainSlide = `-${100 * mobileView}%`;
+    this.pcMainSlide = `-${100 * pcView}%`;
+
+    navService.currentViewMobile = mobileView;
+    navService.currentViewPc = pcView;
   }
 
 
   private mobileSlideBySwipe(view: number) {
-    if (view < 0 || view > this.mobileComponents.length) return;
-    this.mobileNavService.mobileSlide(view, true);
+    if (view < 0 || view > this.mobileComponents.length - 1) return;
+    this.navService.mobileSlide(view, true);
   }
 
   onSwipeLeft(view: number) {
@@ -39,5 +45,13 @@ export class AppComponent {
 
   onSwipeRight(view: number) {
     this.mobileSlideBySwipe(--view);
+  }
+
+  getCurrentViewPc(): number {
+    return this.navService.currentViewPc;
+  }
+
+  getCurrentViewMobile(): number {
+    return this.navService.currentViewMobile;
   }
 }

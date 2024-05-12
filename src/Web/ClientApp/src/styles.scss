@@ -31,7 +31,7 @@ html {
 }
 
 body {
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 section {
@@ -59,16 +59,30 @@ section {
 
 .slide {
   min-width: 100%;
+
   &-mobile {
-    margin: 10px 20px 0px 20px;
+    margin: 10px $pc-margin-sides 0px $pc-margin-sides;
   }
+
   &-pc {
-      margin: 0 20px 0px 20px;
+    margin: 0 $mobile-margin-sides 0px $mobile-margin-sides;
+    background-color: white;
   }
 }
 
-#main-pc {
-    margin-top: 100px;
+.out-of-view {
+    height: 0;
+    overflow-y: hidden;
+}
+
+.prevent-select {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#content {
+    margin-top: 10px;
 }
 
 @media (min-width: $mobile-size) {
@@ -79,5 +93,10 @@ section {
 
   .mobile {
     display: none;
+  }
+
+  #content {
+    margin-top: $pc-navbar-height;
+    flex-direction: column;
   }
 }

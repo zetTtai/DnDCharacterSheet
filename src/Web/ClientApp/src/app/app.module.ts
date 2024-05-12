@@ -15,6 +15,7 @@ import { MobileItemsComponent } from './mobile-items/mobile-items.component';
 import { MobileLoreComponent } from './mobile-lore/mobile-lore.component';
 import { MobileSpellsComponent } from './mobile-spells/mobile-spells.component';
 import { SwipeGestureDirective } from '../directives/swipe-gesture/swipe-gesture.directive';
+import { PcSliderComponent } from './pc-slider/pc-slider.component';
 
 export function createTranslateLoader(http: HttpClient){
   return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
@@ -28,7 +29,8 @@ export function createTranslateLoader(http: HttpClient){
     MobileLoreComponent,
     MobileItemsComponent,
     MobileSpellsComponent,
-    MobileAccountComponent
+    MobileAccountComponent,
+    PcSliderComponent
   ],
   imports: [
     BrowserModule,

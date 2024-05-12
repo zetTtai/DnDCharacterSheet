@@ -17,10 +17,10 @@
       <div class="nav-end">
         <ul class="navbar-nav flex-grow">
           <li class="nav-item">
-            <a class="nav-link text-dark" href="/api" target="_blank">API</a>
+            <a class="nav-link text-dark prevent-select" href="/api" target="_blank">API</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark" href="/Identity/Account/Manage">{{ "nav-menu.account" | translate }}</a>
+            <a class="nav-link text-dark prevent-select" href="/Identity/Account/Manage">{{ "nav-menu.account" | translate }}</a>
           </li>
         </ul>
       </div>
@@ -29,7 +29,10 @@
     <div class="nav-container-mobile">
       <ul>
         <ng-container *ngFor="let component of components; index as index;">
-          <li [id]="component.id" class="border" (click)="mobileSlide(index)">
+          <li [id]="component.id"
+              class="border prevent-select"
+              [class.selected]="index == getCurrentView()"
+              (click)="mobileSlide(index)">
             <a class="nav-link text-dark">{{ component.name | translate }}</a>
           </li>
         </ng-container>

@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { MobileNavigationService } from '../../services/mobile-navigation/mobile-navigation.service';
-import { Observable } from 'rxjs';
 import { SharedDataService } from '../../services/shared-data/shared-data.service';
 import { SupportedLanguages, LanguageService } from '../../services/language/language.service';
+import { NavigationService } from '../../services/navigation/navigation.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -14,8 +13,8 @@ export class NavMenuComponent {
   public components: {id: string, name: string}[] = [];
 
   constructor(
-    private mobileNavService: MobileNavigationService,
-    private LangService: LanguageService,
+    private navService: NavigationService,
+    private langService: LanguageService,
     private sharedDataService: SharedDataService
   ) { }
 
@@ -23,7 +22,7 @@ export class NavMenuComponent {
     const mainMobile = document.getElementById("main-mobile");
 
     if (mainMobile) {
-      this.mobileNavService.setMainMobile(mainMobile);
+      this.navService.setMainMobile(mainMobile);
     }
 
     this.sharedDataService.mobileComponents.forEach(component => {
@@ -35,10 +34,14 @@ export class NavMenuComponent {
   }
 
   switchLanguage(lang: SupportedLanguages) {
-    this.LangService.switchLocale(lang);
+    this.langService.switchLocale(lang);
   }
 
   mobileSlide(view: number) {
-    this.mobileNavService.mobileSlide(view);
+    this.navService.mobileSlide(view);
+  }
+
+  getCurrentView(): number {
+    return this.navService.currentViewMobile;
   }
 }

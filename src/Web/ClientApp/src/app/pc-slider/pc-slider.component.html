@@ -1,0 +1,14 @@
+<section id="pc-slider">
+    <ul class="navbar-nav flex-grow">
+      <ng-container *ngFor="let component of components; index as index; first as isFirst; last as isLast;">
+        <li [id]="component.id"
+            class="nav-item border border-dark prevent-select"
+            [class.first-item]="isFirst"
+            [class.last-item]="isLast"
+            [class.selected]="index == getCurrentView()"
+            (click)="pcSlide(index)">
+          <a class="text-dark">{{ component.name | translate }}</a>
+        </li>
+      </ng-container>
+    </ul>
+</section>
