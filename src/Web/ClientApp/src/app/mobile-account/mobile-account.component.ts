@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrl: './mobile-account.component.css'
 })
 export class MobileAccountComponent {
-
+  static key = 'account';
 }

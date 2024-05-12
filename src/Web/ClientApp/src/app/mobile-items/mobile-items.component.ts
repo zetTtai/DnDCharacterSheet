@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrl: './mobile-items.component.css'
 })
 export class MobileItemsComponent {
-
+  static key = 'items';
 }

@@ -28,21 +28,11 @@
     </div>
     <div class="nav-container-mobile">
       <ul>
-        <li id="mobile-lore" class="border" (click)="mobileSlide(0)">
-          <a class="nav-link text-dark">{{ "nav-menu.lore" | translate }}</a>
-        </li>
-        <li id="mobile-items" class="border" (click)="mobileSlide(1)">
-          <a class="nav-link text-dark">{{ "nav-menu.items" | translate }}</a>
-        </li>
-        <li id="mobile-home" class="border" (click)="mobileSlide(2)">
-          <a class="nav-link text-dark">{{ "nav-menu.home" | translate }}</a>
-        </li>
-        <li id="mobile-spells" class="border" (click)="mobileSlide(3)">
-          <a class="nav-link text-dark">{{ "nav-menu.spells" | translate }}</a>
-        </li>
-        <li id="mobile-account" class="border" (click)="mobileSlide(4)">
-          <a class="nav-link text-dark">{{ "nav-menu.account" | translate }}</a>
-        </li>
+        <ng-container *ngFor="let component of components; index as index;">
+          <li [id]="component.id" class="border" (click)="mobileSlide(index)">
+            <a class="nav-link text-dark">{{ component.name | translate }}</a>
+          </li>
+        </ng-container>
       </ul>
     </div>
   </nav>

@@ -1,10 +1,7 @@
 import { Component, Type } from '@angular/core';
-import { MobileLoreComponent } from './mobile-lore/mobile-lore.component';
-import { MobileItemsComponent } from './mobile-items/mobile-items.component';
 import { HomeComponent } from './home/home.component';
-import { MobileSpellsComponent } from './mobile-spells/mobile-spells.component';
-import { MobileAccountComponent } from './mobile-account/mobile-account.component';
 import { MobileNavigationService } from '../services/mobile-navigation/mobile-navigation.service';
+import { SharedDataService } from '../services/shared-data/shared-data.service';
 
 @Component({
   selector: 'app-root',
@@ -13,25 +10,21 @@ import { MobileNavigationService } from '../services/mobile-navigation/mobile-na
 export class AppComponent {
   title = 'app';
 
-  public pcComponents: Type<any>[] = [
-    HomeComponent,
-    MobileSpellsComponent
-  ]
-
-  public mobileComponents: Type<any>[] = [
-    MobileLoreComponent,
-    MobileItemsComponent,
-    HomeComponent,
-    MobileSpellsComponent,
-    MobileAccountComponent
-  ]
+  public mobileComponents: { class: Type<any>, key: string }[] = [];
+  public pcComponents: { class: Type<any>, key: string }[] = [];
 
   public mobileMainSlide: string;
   public pcMainSlide: string;
 
-  constructor(private mobileNavService: MobileNavigationService) {
-    this.mobileMainSlide = `-${100 * this.mobileComponents.findIndex(comp => comp === HomeComponent)}%`;
-    this.pcMainSlide = `-${100 * this.pcComponents.findIndex(comp => comp === HomeComponent)}%`;
+  constructor(
+    private mobileNavService: MobileNavigationService,
+    sharedDataService: SharedDataService
+  ) {
+    this.mobileComponents = sharedDataService.mobileComponents;
+    this.pcComponents = sharedDataService.pcComponents;
+
+    this.mobileMainSlide = `-${100 * this.mobileComponents.findIndex(comp => comp.class === HomeComponent)}%`;
+    this.pcMainSlide = `-${100 * this.pcComponents.findIndex(comp => comp.class === HomeComponent)}%`;
   }
 
 

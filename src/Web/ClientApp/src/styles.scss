@@ -39,10 +39,6 @@ section {
   flex-direction: column;
 }
 
-#main {
-  margin: 10px 20px 0px 20px;
-}
-
 .pc {
   display: none;
 }
@@ -63,12 +59,19 @@ section {
 
 .slide {
   min-width: 100%;
+  &-mobile {
+    margin: 10px 20px 0px 20px;
+  }
+  &-pc {
+      margin: 0 20px 0px 20px;
+  }
 }
 
-@media (min-width: 768px) {
-  #main {
-    margin: 100px 20px 0 20px;
-  }
+#main-pc {
+    margin-top: 100px;
+}
+
+@media (min-width: $mobile-size) {
 
   .pc {
     display: flex;
@@ -76,9 +79,5 @@ section {
 
   .mobile {
     display: none;
-  }
-
-  body {
-    overflow: auto;
   }
 }
