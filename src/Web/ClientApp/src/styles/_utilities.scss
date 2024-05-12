@@ -1,0 +1,30 @@
+@import 'variables';
+
+.prevent-select {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.pc {
+  display: none;
+}
+
+.mobile {
+  display: flex;
+}
+
+.out-of-view {
+  height: 0;
+  overflow-y: hidden;
+}
+
+@media (min-width: $mobile-size) {
+  .pc {
+    display: flex;
+  }
+
+  .mobile {
+    display: none;
+  }
+}
