@@ -28,20 +28,20 @@
     </div>
     <div class="nav-container-mobile">
       <ul>
-        <li class="border">
-          <a class="nav-link text-dark" href="#">{{ "nav-menu.lore" | translate }}</a>
+        <li id="mobile-lore" class="border" (click)="mobileSlide(0)">
+          <a class="nav-link text-dark">{{ "nav-menu.lore" | translate }}</a>
         </li>
-        <li class="border">
-          <a class="nav-link text-dark" href="#">{{ "nav-menu.items" | translate }}</a>
+        <li id="mobile-items" class="border" (click)="mobileSlide(1)">
+          <a class="nav-link text-dark">{{ "nav-menu.items" | translate }}</a>
         </li>
-        <li id="home" class="border">
-          <a class="nav-link text-dark" href="#">{{ "nav-menu.home" | translate }}</a>
+        <li id="mobile-home" class="border" (click)="mobileSlide(2)">
+          <a class="nav-link text-dark">{{ "nav-menu.home" | translate }}</a>
         </li>
-        <li class="border">
-          <a class="nav-link text-dark" href="#">{{ "nav-menu.spells" | translate }}</a>
+        <li id="mobile-spells" class="border" (click)="mobileSlide(3)">
+          <a class="nav-link text-dark">{{ "nav-menu.spells" | translate }}</a>
         </li>
-        <li class="border">
-          <a class="nav-link text-dark" href="#">{{ "nav-menu.account" | translate }}</a>
+        <li id="mobile-account" class="border" (click)="mobileSlide(4)">
+          <a class="nav-link text-dark">{{ "nav-menu.account" | translate }}</a>
         </li>
       </ul>
     </div>

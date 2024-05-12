@@ -7,10 +7,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { MobileAccountComponent } from './mobile-account/mobile-account.component';
+import { MobileItemsComponent } from './mobile-items/mobile-items.component';
+import { MobileLoreComponent } from './mobile-lore/mobile-lore.component';
+import { MobileSpellsComponent } from './mobile-spells/mobile-spells.component';
+import { SwipeGestureDirective } from '../directives/swipe-gesture/swipe-gesture.directive';
 
 export function createTranslateLoader(http: HttpClient){
   return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
@@ -21,7 +25,10 @@ export function createTranslateLoader(http: HttpClient){
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent
+    MobileLoreComponent,
+    MobileItemsComponent,
+    MobileSpellsComponent,
+    MobileAccountComponent
   ],
   imports: [
     BrowserModule,
@@ -36,9 +43,12 @@ export function createTranslateLoader(http: HttpClient){
       }
     }),
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent }
-    ])
+      { path: 'items', component: MobileItemsComponent },
+      { path: 'lore', component: MobileLoreComponent },
+      { path: 'spells', component: MobileSpellsComponent },
+      { path: 'account', component: MobileAccountComponent }
+    ]),
+    SwipeGestureDirective
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }

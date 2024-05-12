@@ -8,6 +8,14 @@
       "schematics": {
         "@schematics/angular:application": {
           "strict": true
+        },
+        "@schematics/angular:service": {
+          "path": "src/services",
+          "flat": false
+        },
+        "@schematics/angular:directive": {
+          "path": "src/directives",
+          "flat": false
         }
       },
       "root": "",

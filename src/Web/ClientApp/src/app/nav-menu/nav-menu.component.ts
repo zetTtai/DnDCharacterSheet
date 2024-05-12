@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-
-type SupportedLanguages = 'es' | 'en';
+import { MobileNavigationService } from '../../services/mobile-navigation/mobile-navigation.service';
+import { SupportedLanguages, SwitchLanguageService } from '../../services/switch-language/switch-language.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -10,10 +9,23 @@ type SupportedLanguages = 'es' | 'en';
 })
 export class NavMenuComponent {
 
-  constructor(private translate: TranslateService) { }
+  constructor(
+    private mobileNavService: MobileNavigationService,
+    private switchLangService: SwitchLanguageService
+  ) { }
 
-  switchLanguage(lang: SupportedLanguages) {
-    this.translate.use(lang);
+  ngOnInit() {
+    const mainMobile = document.getElementById("main-mobile");
+    if (mainMobile) {
+      this.mobileNavService.setMainMobile(mainMobile);
+    }
   }
 
+  switchLanguage(lang: SupportedLanguages) {
+    this.switchLangService.switch(lang);
+  }
+
+  mobileSlide(view: number) {
+    this.mobileNavService.mobileSlide(view);
+  }
 }
