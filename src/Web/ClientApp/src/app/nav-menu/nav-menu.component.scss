@@ -19,7 +19,7 @@ nav {
 }
 
 #nav-start img {
-  height: 40px;
+  height: calc(#{$pc-navbar-height} - 30px);
 }
 
 .nav-container {
@@ -66,6 +66,18 @@ nav {
 
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+#save-button {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: $pc-navbar-height;
+  & a {
+      pointer-events: all;
+  }
 }
 
 @media (min-width: $mobile-size) {

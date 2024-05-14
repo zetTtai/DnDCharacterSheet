@@ -6,6 +6,10 @@
   user-select: none;
 }
 
+.not-clickable {
+    pointer-events: none;
+}
+
 .pc {
   display: none;
 }
@@ -15,8 +19,13 @@
 }
 
 .out-of-view {
-  height: 0;
+  max-height: 0;
   overflow-y: hidden;
+  transition: max-height 2s ease-in-out;
+}
+
+.in-view {
+    max-height: 100%;
 }
 
 @media (min-width: $mobile-size) {

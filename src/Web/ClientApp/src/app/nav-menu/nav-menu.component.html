@@ -10,10 +10,6 @@
         <button (click)="switchLanguage('en')">Switch to English</button>
       </div>
 
-      <div id="nav-center">
-        <a class="btn btn-primary" [routerLink]="['/']">{{ "nav-menu.start_journey" | translate }}</a>
-      </div>
-
       <div class="nav-end">
         <ul class="navbar-nav flex-grow">
           <li class="nav-item">
@@ -40,3 +36,8 @@
     </div>
   </nav>
 </header>
+
+
+<div id="save-button" class="not-clickable">
+  <a class="btn btn-primary" [routerLink]="['/']">{{ "nav-menu.start_journey" | translate }}</a>
+</div>

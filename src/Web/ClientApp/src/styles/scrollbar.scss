@@ -1,0 +1,21 @@
+@import 'variables';
+
+.slide-pc::-webkit-scrollbar {
+  width: $scrollbar-width;
+}
+
+.slide-pc::-webkit-scrollbar-track {
+  border-radius: $scrollbar-border-radius;
+}
+
+.slide-pc::-webkit-scrollbar-thumb {
+  background: $scrollbar-color;
+  border-radius: $scrollbar-border-radius;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  .slide-pc {
+    scrollbar-width: thin; 
+    scrollbar-color: $scrollbar-color $scrollbar-track-color;
+  }
+}
