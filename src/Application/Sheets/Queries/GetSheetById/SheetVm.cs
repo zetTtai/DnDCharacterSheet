@@ -10,4 +10,5 @@ public class SheetVm
     public IEnumerable<CapabilityDto> SavingThrows { get; set; } = Enumerable.Empty<CapabilityDto>();
     public IEnumerable<CapabilityDto> Skills { get; set; } = Enumerable.Empty<CapabilityDto>();
     public Money? Money { get; set; }
+
 }

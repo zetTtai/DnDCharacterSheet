@@ -16,7 +16,6 @@ public class CreateSheetTests : BaseTestFixture
         }
     }
 
-
     [Test]
     public async Task ShouldDenyAnonymousUser_ReturnResponseWith401()
     {
@@ -86,20 +85,25 @@ public class CreateSheetTests : BaseTestFixture
         // Assert
         response.Succeeded.Should().BeTrue();
         response.StatusCode.Should().Be(HttpStatusCode.Created);
-        sheet.Should().NotBeNull();
 
-        sheet!.CharacterName.Should().Be(command.CharacterName);
-        sheet!.SheetAbilities.Should().NotBeEmpty();
-        sheet!.SheetAbilities!.Count().Should().Be(6);
-        sheet!.SheetAbilities!.First().Value.Should().Be(-1);
+        if (sheet is null)
+        {
+            Assert.Fail("Sheet should not be null");
+            return;
+        }
 
-        sheet!.SheetSkills.Should().NotBeEmpty();
-        sheet!.SheetSkills!.Count().Should().Be(18);
-        sheet!.SheetSkills!.First().Proficiency.Should().BeFalse();
+        sheet.CharacterName.Should().Be(command.CharacterName);
+        sheet.SheetAbilities.Should().NotBeEmpty();
+        sheet.SheetAbilities.Count().Should().Be(6);
+        sheet.SheetAbilities.First().Value.Should().Be(-1);
 
-        sheet!.SheetSavingThrows.Should().NotBeEmpty();
-        sheet!.SheetSavingThrows!.Count().Should().Be(6);
-        sheet!.SheetSavingThrows!.First().Proficiency.Should().BeFalse();
+        sheet.SheetSkills.Should().NotBeEmpty();
+        sheet.SheetSkills.Count().Should().Be(18);
+        sheet.SheetSkills.First().Proficiency.Should().BeFalse();
+
+        sheet.SheetSavingThrows.Should().NotBeEmpty();
+        sheet.SheetSavingThrows.Count().Should().Be(6);
+        sheet.SheetSavingThrows.First().Proficiency.Should().BeFalse();
 
         ValidateMoney(sheet.Money);
 

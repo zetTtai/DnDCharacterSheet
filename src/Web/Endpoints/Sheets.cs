@@ -15,7 +15,7 @@ public class Sheets : EndpointGroupBase
             .MapGet<PaginatedList<SheetAdminListItemVm>>(GetSheets, statusCodes: GetStatusCodes(StatusCodes.Status200OK, bad_request: true, forbidden: true))
             .MapGet<List<SheetUserListItemVm>>(GetUserSheets, "user", statusCodes: GetStatusCodes(StatusCodes.Status200OK))
             .MapGet<SheetVm>(GetSheet, "{id}", statusCodes: GetStatusCodes(StatusCodes.Status201Created, true, true, true))
-            .MapPost<int>(CreateSheet, statusCodes: GetStatusCodes(StatusCodes.Status200OK, bad_request: true))
+            .MapPost<int>(CreateSheet, statusCodes: GetStatusCodes(StatusCodes.Status201Created, bad_request: true))
             .MapPut(UpdateSheet, "{id}", statusCodes: GetStatusCodes(StatusCodes.Status204NoContent, true, true, true))
             .MapDelete(DeleteSheet, "{id}", statusCodes: GetStatusCodes(StatusCodes.Status204NoContent, true, forbidden: true));
     }

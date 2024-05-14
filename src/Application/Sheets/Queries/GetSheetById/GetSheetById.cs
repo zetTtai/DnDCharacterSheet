@@ -1,4 +1,6 @@
-﻿using DnDCharacterSheet.Application.Common.Interfaces;
+﻿using System.Diagnostics;
+using System.Net;
+using DnDCharacterSheet.Application.Common.Interfaces;
 using DnDCharacterSheet.Application.Common.Models;
 using DnDCharacterSheet.Application.Common.Security;
 using DnDCharacterSheet.Application.Sheets.Queries.GetSheetById;
@@ -21,6 +23,8 @@ public class GetSheetByIdQueryHandler(
 
     public async Task<Response<SheetVm>> Handle(GetSheetByIdQuery request, CancellationToken cancellationToken)
     {
+        Debug.Assert(_user.Id is not null, "User ID should never be null here due to AuthorizationBehaviour middleware check.");
+
         var sheet = await _context.Sheets
             .Include(s => s.SheetSkills)
                 .ThenInclude(ss => ss.Capability)
@@ -30,19 +34,23 @@ public class GetSheetByIdQueryHandler(
                 .ThenInclude(st => st.Capability)
         .FirstOrDefaultAsync(s => s.Id == request.Id, cancellationToken);
 
-        var response = await _authorizationService.ValidateEntityAccess<SheetVm>(sheet, _user.Id!);
-
-        if (response is not null)
+        if (sheet is null)
         {
-            return Response<SheetVm>.Failure(response.StatusCode, response.Errors);
+            return Response<SheetVm>.Failure(HttpStatusCode.NotFound, [$"Sheet with ID {request.Id} not found."]);
+        }
+
+        var isOwner = await _authorizationService.IsOwner(sheet, _user.Id);
+        if (!isOwner)
+        {
+            return Response<SheetVm>.Failure(HttpStatusCode.Forbidden, []);
         }
 
         var vm = new SheetVm
         {
-            CharacterName = sheet!.CharacterName,
-            Abilities = _mapper.Map<IEnumerable<AbilityDto>>(sheet!.SheetAbilities),
-            Skills = _mapper.Map<IEnumerable<CapabilityDto>>(sheet!.SheetSkills),
-            SavingThrows = _mapper.Map<IEnumerable<CapabilityDto>>(sheet!.SheetSavingThrows),
+            CharacterName = sheet.CharacterName,
+            Abilities = _mapper.Map<IEnumerable<AbilityDto>>(sheet.SheetAbilities),
+            Skills = _mapper.Map<IEnumerable<CapabilityDto>>(sheet.SheetSkills),
+            SavingThrows = _mapper.Map<IEnumerable<CapabilityDto>>(sheet.SheetSavingThrows),
             Money = sheet.Money
         };
 

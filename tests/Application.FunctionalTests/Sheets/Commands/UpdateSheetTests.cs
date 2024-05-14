@@ -179,9 +179,13 @@ public class UpdateSheetTests : BaseTestFixture
         // Assert
         response.Succeeded.Should().BeTrue();
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
-        sheet.Should().NotBeNull();
 
-        sheet!.CharacterName.Should().Be("Sir test modified by admin");
+        if (sheet is null)
+        {
+            Assert.Fail("Sheet should not be null");
+            return;
+        }
+        sheet.CharacterName.Should().Be("Sir test modified by admin");
 
         AssertAuditDetails(sheet, userId, true);
     }

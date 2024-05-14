@@ -1,4 +1,4 @@
-﻿
+﻿using System.Net;
 using DnDCharacterSheet.Application.Common.Interfaces;
 using DnDCharacterSheet.Application.Common.Models;
 using DnDCharacterSheet.Application.Common.Security;
@@ -30,16 +30,20 @@ public class GetSheetsQueryHandler(IApplicationDbContext context, IIdentityServi
             .Take(request.PageSize)
             .ToListAsync(cancellationToken);
 
-        var userIds = sheets.Select(s => s.CreatedBy).Union(sheets.Select(s => s.LastModifiedBy)).Distinct().ToList();
-        Dictionary<string, string?> userNames = await _identity.GetUserNamesAsync(userIds!);
+        var userIds = sheets.Select(s => s.CreatedBy)
+            .Union(sheets.Select(s => s.LastModifiedBy))
+            .Distinct()
+            .ToList();
 
-        List<SheetAdminListItemVm> sheetAdminDtos = CombineSheetsWithUserNames(sheets, userNames!);
+        Dictionary<string, string?> userNames = await _identity.GetUserNamesAsync(userIds, cancellationToken);
+
+        List<SheetAdminListItemVm> sheetAdminDtos = CombineSheetsWithUserNames(sheets, userNames);
 
         var paginatedList = new PaginatedList<SheetAdminListItemVm>(sheetAdminDtos, totalCount, request.PageNumber, request.PageSize);
         return Response<PaginatedList<SheetAdminListItemVm>>.Success(paginatedList);
     }
 
-    private List<SheetAdminListItemVm> CombineSheetsWithUserNames(List<Sheet> sheets, Dictionary<string, string> userNames)
+    private static List<SheetAdminListItemVm> CombineSheetsWithUserNames(List<Sheet> sheets, Dictionary<string, string?> userNames)
     {
         var sheetAdminVms = sheets.Select(s => new SheetAdminListItemVm()
         {

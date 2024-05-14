@@ -22,11 +22,11 @@ public class IdentityService(
         return user?.UserName;
     }
 
-    public async Task<Dictionary<string, string?>> GetUserNamesAsync(List<string> userIds)
+    public async Task<Dictionary<string, string?>> GetUserNamesAsync(List<string?> userIds, CancellationToken cancellationToken)
     {
         var users = await _userManager.Users
             .Where(user => userIds.Contains(user.Id))
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
 
         return users.ToDictionary(user => user.Id, user => user.UserName);
     }

@@ -1,8 +1,10 @@
 ﻿
+using System.Diagnostics;
 using System.Net;
 using DnDCharacterSheet.Application.Common.Interfaces;
 using DnDCharacterSheet.Application.Common.Models;
 using DnDCharacterSheet.Application.Common.Security;
+using DnDCharacterSheet.Domain.Entities;
 using DnDCharacterSheet.Domain.Events.Sheets;
 
 namespace DnDCharacterSheet.Application.Sheets.Commands.DeleteSheet;
@@ -21,18 +23,24 @@ public class DeleteSheetCommandHandler(
 
     public async Task<Response> Handle(DeleteSheetCommand request, CancellationToken cancellationToken)
     {
+        Debug.Assert(_user.Id is not null, "User ID should never be null here due to middleware check.");
+
         var entity = await _context.Sheets.FindAsync([request.Id], cancellationToken);
 
-        var response = await _authorizationService.ValidateEntityAccess<Response>(entity, _user.Id!);
-
-        if (response is not null)
+        if (entity is null)
         {
-            return response;
+            return Response.Failure(HttpStatusCode.NotFound, [$"Sheet with ID {request.Id} not found."]);
         }
 
-        _context.Sheets.Remove(entity!);
+        var isOwner = await _authorizationService.IsOwner(entity, _user.Id);
+        if (!isOwner)
+        {
+            return Response.Failure(HttpStatusCode.Forbidden, []);
+        }
 
-        entity!.AddDomainEvent(new SheetDeletedEvent(entity));
+        _context.Sheets.Remove(entity);
+
+        entity.AddDomainEvent(new SheetDeletedEvent(entity));
 
         await _context.SaveChangesAsync(cancellationToken);
 
