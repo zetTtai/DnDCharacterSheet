@@ -1,6 +1,8 @@
 ﻿using System.Net;
 using DnDCharacterSheet.Application.Common.Models;
 using DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
+using DnDCharacterSheet.Domain.Entities;
+using DnDCharacterSheet.Domain.ValueObjects;
 
 namespace DnDCharacterSheet.Application.FunctionalTests.Sheets.Commands;
 
@@ -184,6 +186,39 @@ public class UpdateSheetTests : BaseTestFixture
             return;
         }
         sheet.CharacterName.Should().Be("Sir test modified by admin");
+
+        AssertAuditDetails(sheet, userId, true);
+    }
+
+    [Test]
+    public async Task Succeeds_ModifyMoney()
+    {
+        // Arrange
+        var userId = await RunAsDefaultUserAsync();
+        int sheetId = await CreateSingleSheet("Sir Test Testable");
+        await CreateSingleSheet("Another character");
+        var command = new UpdateSheetCommand()
+        {
+            CharacterName = "Sir test modified",
+            Money = new Money(1, 2, 3, 4, 5)
+        };
+        command.Id(sheetId);
+
+        // Act
+        var response = await SendAsync(command);
+        var sheet = await FindAsync<Sheet>(sheetId);
+
+        // Assert
+        response.Succeeded.Should().BeTrue();
+        response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+
+        if (sheet is null)
+        {
+            Assert.Fail();
+            return;
+        }
+
+        ValidateMoney(sheet.Money, 1, 2, 3, 4, 5);
 
         AssertAuditDetails(sheet, userId, true);
     }

@@ -22,6 +22,7 @@ public static class DependencyInjection
         });
 
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<ICurrencyService, CurrencyService>();
 
         return services;
     }

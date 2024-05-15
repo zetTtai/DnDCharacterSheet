@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using DnDCharacterSheet.Domain.Constants;
+using DnDCharacterSheet.Domain.ValueObjects;
 
 namespace DnDCharacterSheet.Infrastructure.Data.Configurations;
 public class SheetConfiguration : IEntityTypeConfiguration<Sheet>
@@ -28,5 +29,14 @@ public class SheetConfiguration : IEntityTypeConfiguration<Sheet>
             .WithOne(sst => sst.Sheet)
             .HasForeignKey(sst => sst.SheetId);
 
+        builder.
+            OwnsOne(s => s.Money, owned =>
+            {
+                var currencies = typeof(Money).GetProperties();
+                foreach (var currency in currencies)
+                {
+                    owned.Property(currency.Name).HasColumnName(currency.Name);
+                }
+            });
     }
 }

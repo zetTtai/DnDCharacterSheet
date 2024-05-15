@@ -63,6 +63,13 @@ public class GetSheetByIdTests : BaseTestFixture
         sheetVm.SavingThrows.Count().Should().Be(6);
         sheetVm.SavingThrows.First().Should().HasProperty("Id");
         sheetVm.SavingThrows.First().Proficiency.Should().BeFalse();
+
+        if (sheetVm.Money is null)
+        {
+            Assert.Fail();
+            return;
+        }
+        ValidateMoney(sheetVm.Money);
     }
 
     [Test]

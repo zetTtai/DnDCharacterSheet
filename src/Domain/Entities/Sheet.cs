@@ -1,8 +1,11 @@
-﻿namespace DnDCharacterSheet.Domain.Entities;
+﻿using DnDCharacterSheet.Domain.ValueObjects;
+
+namespace DnDCharacterSheet.Domain.Entities;
 public class Sheet : BaseAuditableEntity
 {
     public required string CharacterName { get; set; }
     public IEnumerable<SheetAbility> SheetAbilities { get; set; } = new List<SheetAbility>();
     public IEnumerable<SheetSkill> SheetSkills { get; set; } = new List<SheetSkill>();
     public IEnumerable<SheetSavingThrow> SheetSavingThrows { get; set;} = new List<SheetSavingThrow>();
+    public Money Money { get; set; } = new();
 }

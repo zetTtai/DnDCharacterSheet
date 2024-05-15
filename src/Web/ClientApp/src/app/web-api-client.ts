@@ -15,6 +15,76 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angula
 
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
+export interface ICurrencyClient {
+    convertMoney(command: ConvertMoneyCommand): Observable<void>;
+}
+
+@Injectable({
+    providedIn: 'root'
+})
+export class CurrencyClient implements ICurrencyClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ?? "";
+    }
+
+    convertMoney(command: ConvertMoneyCommand): Observable<void> {
+        let url_ = this.baseUrl + "/api/Currency/conversion";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processConvertMoney(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processConvertMoney(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processConvertMoney(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("A server side error occurred.", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+
 export interface ISheetsClient {
     getSheets(pageNumber: number, pageSize: number): Observable<PaginatedListOfSheetAdminListItemVm>;
     createSheet(command: CreateSheetCommand): Observable<number>;
@@ -419,6 +489,139 @@ export class SheetsClient implements ISheetsClient {
     }
 }
 
+export class ConvertMoneyCommand implements IConvertMoneyCommand {
+    currentMoney?: Money;
+    srcCurrency?: Currencies;
+    dstCurrency?: Currencies;
+    quantity?: number;
+
+    constructor(data?: IConvertMoneyCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.currentMoney = _data["currentMoney"] ? Money.fromJS(_data["currentMoney"]) : <any>undefined;
+            this.srcCurrency = _data["srcCurrency"];
+            this.dstCurrency = _data["dstCurrency"];
+            this.quantity = _data["quantity"];
+        }
+    }
+
+    static fromJS(data: any): ConvertMoneyCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new ConvertMoneyCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["currentMoney"] = this.currentMoney ? this.currentMoney.toJSON() : <any>undefined;
+        data["srcCurrency"] = this.srcCurrency;
+        data["dstCurrency"] = this.dstCurrency;
+        data["quantity"] = this.quantity;
+        return data;
+    }
+}
+
+export interface IConvertMoneyCommand {
+    currentMoney?: Money;
+    srcCurrency?: Currencies;
+    dstCurrency?: Currencies;
+    quantity?: number;
+}
+
+export abstract class ValueObject implements IValueObject {
+
+    constructor(data?: IValueObject) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+    }
+
+    static fromJS(data: any): ValueObject {
+        data = typeof data === 'object' ? data : {};
+        throw new Error("The abstract class 'ValueObject' cannot be instantiated.");
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        return data;
+    }
+}
+
+export interface IValueObject {
+}
+
+export class Money extends ValueObject implements IMoney {
+    copperPieces?: number;
+    silverPieces?: number;
+    electrumPieces?: number;
+    goldPieces?: number;
+    platinumPieces?: number;
+
+    constructor(data?: IMoney) {
+        super(data);
+    }
+
+    override init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.copperPieces = _data["copperPieces"];
+            this.silverPieces = _data["silverPieces"];
+            this.electrumPieces = _data["electrumPieces"];
+            this.goldPieces = _data["goldPieces"];
+            this.platinumPieces = _data["platinumPieces"];
+        }
+    }
+
+    static override fromJS(data: any): Money {
+        data = typeof data === 'object' ? data : {};
+        let result = new Money();
+        result.init(data);
+        return result;
+    }
+
+    override toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["copperPieces"] = this.copperPieces;
+        data["silverPieces"] = this.silverPieces;
+        data["electrumPieces"] = this.electrumPieces;
+        data["goldPieces"] = this.goldPieces;
+        data["platinumPieces"] = this.platinumPieces;
+        super.toJSON(data);
+        return data;
+    }
+}
+
+export interface IMoney extends IValueObject {
+    copperPieces?: number;
+    silverPieces?: number;
+    electrumPieces?: number;
+    goldPieces?: number;
+    platinumPieces?: number;
+}
+
+export enum Currencies {
+    CopperPieces = 0,
+    SilverPieces = 1,
+    ElectrumPieces = 2,
+    GoldPieces = 3,
+    PlatinumPieces = 4,
+}
+
 export class PaginatedListOfSheetAdminListItemVm implements IPaginatedListOfSheetAdminListItemVm {
     items?: SheetAdminListItemVm[];
     pageNumber?: number;
@@ -596,6 +799,7 @@ export class SheetVm implements ISheetVm {
     abilities?: AbilityDto[];
     savingThrows?: CapabilityDto[];
     skills?: CapabilityDto[];
+    money?: Money | undefined;
 
     constructor(data?: ISheetVm) {
         if (data) {
@@ -624,6 +828,7 @@ export class SheetVm implements ISheetVm {
                 for (let item of _data["skills"])
                     this.skills!.push(CapabilityDto.fromJS(item));
             }
+            this.money = _data["money"] ? Money.fromJS(_data["money"]) : <any>undefined;
         }
     }
 
@@ -652,6 +857,7 @@ export class SheetVm implements ISheetVm {
             for (let item of this.skills)
                 data["skills"].push(item.toJSON());
         }
+        data["money"] = this.money ? this.money.toJSON() : <any>undefined;
         return data;
     }
 }
@@ -661,6 +867,7 @@ export interface ISheetVm {
     abilities?: AbilityDto[];
     savingThrows?: CapabilityDto[];
     skills?: CapabilityDto[];
+    money?: Money | undefined;
 }
 
 export class AbilityDto implements IAbilityDto {
@@ -745,6 +952,7 @@ export interface ICapabilityDto {
 
 export class CreateSheetCommand implements ICreateSheetCommand {
     characterName?: string;
+    money?: Money;
 
     constructor(data?: ICreateSheetCommand) {
         if (data) {
@@ -758,6 +966,7 @@ export class CreateSheetCommand implements ICreateSheetCommand {
     init(_data?: any) {
         if (_data) {
             this.characterName = _data["characterName"];
+            this.money = _data["money"] ? Money.fromJS(_data["money"]) : <any>undefined;
         }
     }
 
@@ -771,16 +980,19 @@ export class CreateSheetCommand implements ICreateSheetCommand {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["characterName"] = this.characterName;
+        data["money"] = this.money ? this.money.toJSON() : <any>undefined;
         return data;
     }
 }
 
 export interface ICreateSheetCommand {
     characterName?: string;
+    money?: Money;
 }
 
 export class UpdateSheetCommand implements IUpdateSheetCommand {
     characterName?: string;
+    money?: Money;
 
     constructor(data?: IUpdateSheetCommand) {
         if (data) {
@@ -794,6 +1006,7 @@ export class UpdateSheetCommand implements IUpdateSheetCommand {
     init(_data?: any) {
         if (_data) {
             this.characterName = _data["characterName"];
+            this.money = _data["money"] ? Money.fromJS(_data["money"]) : <any>undefined;
         }
     }
 
@@ -807,12 +1020,14 @@ export class UpdateSheetCommand implements IUpdateSheetCommand {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["characterName"] = this.characterName;
+        data["money"] = this.money ? this.money.toJSON() : <any>undefined;
         return data;
     }
 }
 
 export interface IUpdateSheetCommand {
     characterName?: string;
+    money?: Money;
 }
 
 export class SwaggerException extends Error {

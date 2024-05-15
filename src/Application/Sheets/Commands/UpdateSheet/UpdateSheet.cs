@@ -3,7 +3,9 @@ using System.Net;
 using DnDCharacterSheet.Application.Common.Interfaces;
 using DnDCharacterSheet.Application.Common.Models;
 using DnDCharacterSheet.Application.Common.Security;
+using DnDCharacterSheet.Domain.ValueObjects;
 using DnDCharacterSheet.Domain.Entities;
+
 
 namespace DnDCharacterSheet.Application;
 
@@ -12,6 +14,7 @@ public class UpdateSheetCommand : IRequest<Response>
 {
     private int _id;
     public required string CharacterName { get; set; }
+    public Money Money { get; set; } = new();
 
     public void Id(int id) => _id = id;
     public int Id() => _id;
@@ -44,6 +47,8 @@ public class UpdateSheetCommandHandler(
         }
 
         entity.CharacterName = request.CharacterName;
+        entity.Money = request.Money;
+
 
         await _context.SaveChangesAsync(cancellationToken);
 

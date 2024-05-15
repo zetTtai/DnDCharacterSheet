@@ -16,6 +16,9 @@ public static class ResponseExtensions
                                     ? Results.Ok(value) 
                                     : Results.Ok(),
             HttpStatusCode.NoContent => Results.NoContent(),
+            HttpStatusCode.Created => value is not null
+                                    ? Results.Created("", value)
+                                    : Results.Created(),
 
             HttpStatusCode.BadRequest => Results.BadRequest(errors),
             HttpStatusCode.NotFound => Results.NotFound(errors),

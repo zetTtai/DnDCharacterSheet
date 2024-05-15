@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using DnDCharacterSheet.Application.Sheets.Commands.CreateSheet;
+using DnDCharacterSheet.Domain.ValueObjects;
 
 namespace DnDCharacterSheet.Application.FunctionalTests.Sheets.Commands;
 using static SheetTesting;
@@ -103,6 +104,39 @@ public class CreateSheetTests : BaseTestFixture
         sheet.SheetSavingThrows.Should().NotBeEmpty();
         sheet.SheetSavingThrows.Count().Should().Be(6);
         sheet.SheetSavingThrows.First().Proficiency.Should().BeFalse();
+
+        ValidateMoney(sheet.Money);
+
+        AssertAuditDetails(sheet, userId);
+    }
+
+    [Test]
+    public async Task Succeds_InitializeMoney()
+    {
+        // Arrange
+        await SeedAbilitiesAndCapabilitiesDatabaseAsync();
+        var userId = await RunAsDefaultUserAsync();
+        var command = new CreateSheetCommand
+        {
+            CharacterName = "Sir Test Testable",
+            Money = new Money(1, 2, 3, 4, 5)
+        };
+
+        // Act
+        var response = await SendAsync(command);
+        var sheet = await FindSheetWithDetailsAsync(response.Value);
+
+        // Assert
+        response.Succeeded.Should().BeTrue();
+        response.StatusCode.Should().Be(HttpStatusCode.Created);
+
+        if (sheet is null)
+        {
+            Assert.Fail();
+            return;
+        }
+
+        ValidateMoney(sheet.Money, 1, 2, 3, 4, 5);
 
         AssertAuditDetails(sheet, userId);
     }
