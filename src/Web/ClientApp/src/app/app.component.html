@@ -1,6 +1,20 @@
 <body>
   <app-nav-menu></app-nav-menu>
-  <main class="container">
-    <router-outlet></router-outlet>
+  <div id="content" class="pc">
+    <app-pc-slider></app-pc-slider>
+    <main id="main-pc" class="pc slider" [style.transform]="'translateX(' + pcMainSlide + ')'">
+      <ng-container *ngFor="let component of pcComponents; index as index;">
+        <div class="slide" [class.out-of-view]="index != getCurrentViewPc()" [class.in-view]="index == getCurrentViewPc()">
+          <ng-container *ngComponentOutlet="component.class"></ng-container>
+        </div>
+      </ng-container>
+    </main>
+  </div>
+  <main id="main-mobile" class="mobile slider" [style.transform]="'translateX(' + mobileMainSlide + ')'">
+    <ng-container *ngFor="let component of mobileComponents; index as index;">
+      <div class="slide" appSwipeGesture (swipeLeft)="onSwipeLeft(index)" (swipeRight)="onSwipeRight(index)">
+        <ng-container *ngComponentOutlet="component.class"></ng-container>
+      </div>
+    </ng-container>
   </main>
 </body>

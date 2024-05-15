@@ -8,6 +8,14 @@
       "schematics": {
         "@schematics/angular:application": {
           "strict": true
+        },
+        "@schematics/angular:service": {
+          "path": "src/services",
+          "flat": false
+        },
+        "@schematics/angular:directive": {
+          "path": "src/directives",
+          "flat": false
         }
       },
       "root": "",
@@ -29,8 +37,13 @@
             "assets": [
               "src/assets"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles"
+              ]
+            },
             "styles": [
-              "src/styles.scss"
+              "src/styles/styles.scss"
             ],
             "scripts": []
           },
@@ -71,10 +84,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "DnDCharacterSheet.Web:build:production"
+              "buildTarget": "DnDCharacterSheet.Web:build:production"
             },
             "development": {
-              "browserTarget": "DnDCharacterSheet.Web:build:development",
+              "buildTarget": "DnDCharacterSheet.Web:build:development",
               "proxyConfig": "proxy.conf.js"
             }
           },

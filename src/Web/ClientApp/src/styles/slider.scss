@@ -1,0 +1,27 @@
+@import 'variables';
+
+.slider {
+  margin: 0 !important;
+  display: flex;
+  transition: opacity 0.3s;
+
+  &-transition {
+    transition: transform 0.5s;
+  }
+}
+
+.slide {
+  min-width: 100%;
+
+  &-mobile {
+    margin: 10px $pc-margin-sides 0px $pc-margin-sides;
+  }
+
+  &-pc {
+    margin: 0 $mobile-margin-sides 0px $mobile-margin-sides;
+    background-color: white;
+    max-height: calc(100vh - #{$pc-navbar-height} - #{$pc-slider-height});
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}

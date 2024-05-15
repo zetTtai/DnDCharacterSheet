@@ -1,0 +1,11 @@
+{
+  "title": "DnD Hoja de personaje",
+  "nav-menu": {
+    "start_journey": "Comienza tu Aventura",
+    "account": "Perfil",
+    "home": "Inicio",
+    "lore": "Lore",
+    "items": "Objetos",
+    "spells": "Hechizos"
+  }
+}
