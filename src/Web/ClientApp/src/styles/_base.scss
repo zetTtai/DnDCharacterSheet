@@ -14,9 +14,49 @@ html {
 
 body {
   overflow: hidden;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+h1 {
+  font-size: 36px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+h4 {
+  font-size: 20px;
 }
 
 section {
   display: flex;
   flex-direction: column;
+}
+
+@media (max-width: $mobile-size) {
+  body {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  h2 {
+    font-size: 28px;
+  }
+
+  h3 {
+    font-size: 22px;
+  }
+
+  h4 {
+    font-size: 18px;
+  }
 }

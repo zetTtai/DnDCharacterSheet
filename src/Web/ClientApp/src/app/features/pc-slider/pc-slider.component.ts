@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { SharedDataService } from '../../services/shared-data/shared-data.service';
-import { NavigationService } from '../../services/navigation/navigation.service';
+import { NavigationService } from '../../core/services/navigation/navigation.service';
+import { SharedDataService } from '../../core/services/shared-data/shared-data.service';
 
 @Component({
   selector: 'app-pc-slider',
@@ -21,14 +21,6 @@ export class PcSliderComponent {
         name: `nav-menu.${component.key}`
       })
     })
-  }
-
-  ngOnInit() {
-    const mainPc = document.getElementById("main-pc");
-
-    if (mainPc) {
-      this.navService.setMainPc(mainPc);
-    }
   }
 
   pcSlide(view: number) {

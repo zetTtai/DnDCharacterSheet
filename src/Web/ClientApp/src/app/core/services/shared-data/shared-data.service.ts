@@ -1,9 +1,9 @@
 import { Injectable, Type } from '@angular/core';
-import { HomeComponent } from '../../app/home/home.component';
-import { MobileSpellsComponent } from '../../app/mobile-spells/mobile-spells.component';
-import { MobileLoreComponent } from '../../app/mobile-lore/mobile-lore.component';
-import { MobileItemsComponent } from '../../app/mobile-items/mobile-items.component';
-import { MobileAccountComponent } from '../../app/mobile-account/mobile-account.component';
+import { HomeComponent } from '../../../features/home/home.component';
+import { MobileSpellsComponent } from '../../../features/mobile-spells/mobile-spells.component';
+import { MobileLoreComponent } from '../../../features/mobile-lore/mobile-lore.component';
+import { MobileItemsComponent } from '../../../features/mobile-items/mobile-items.component';
+import { MobileAccountComponent } from '../../../features/mobile-account/mobile-account.component';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +24,9 @@ export class SharedDataService {
     { class: MobileAccountComponent, key: "account" }
   ];
 
-  constructor() { }
+  public currentIndex: number = 0;
+
+  constructor() {
+
+  }
 }

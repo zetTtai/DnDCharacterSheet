@@ -12,14 +12,14 @@ html {
 
 nav {
   display: flex;
-  bottom: 0;
-  position: fixed;
+  /*bottom: 0;*/
+  /*position: fixed;*/
   width: 100%;
   padding: 0;
 }
 
-#nav-start img {
-  height: calc(#{$pc-navbar-height} - 30px);
+#logo {
+  height: $pc-navbar-logo;
 }
 
 .nav-container {
@@ -29,11 +29,14 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 10px 30px;
+    height: 100%;
   }
 
   &-mobile {
     display: flex;
     min-width: 100%;
+    bottom: 0;
+    position: fixed;
 
     & ul {
       display: flex;
@@ -68,17 +71,10 @@ nav {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
-#save-button {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: $pc-navbar-height;
-  & a {
-      pointer-events: all;
-  }
+#mobile-header {
+    height: $mobile-header-height;
 }
+
 
 @media (min-width: $mobile-size) {
   html {

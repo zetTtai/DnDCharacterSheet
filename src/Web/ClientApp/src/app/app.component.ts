@@ -1,7 +1,7 @@
 import { Component, Type } from '@angular/core';
-import { HomeComponent } from './home/home.component';
-import { SharedDataService } from '../services/shared-data/shared-data.service';
-import { NavigationService } from '../services/navigation/navigation.service';
+import { NavigationService } from './core/services/navigation/navigation.service';
+import { SharedDataService } from './core/services/shared-data/shared-data.service';
+import { HomeComponent } from './features/home/home.component';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +14,6 @@ export class AppComponent {
   public pcComponents: { class: Type<any>, key: string }[] = [];
 
   public mobileMainSlide: string;
-  public pcMainSlide: string;
 
   constructor(
     private navService: NavigationService,
@@ -27,24 +26,9 @@ export class AppComponent {
     const pcView = this.pcComponents.findIndex(comp => comp.class === HomeComponent);
 
     this.mobileMainSlide = `-${100 * mobileView}%`;
-    this.pcMainSlide = `-${100 * pcView}%`;
 
-    navService.currentViewMobile = mobileView;
+    sharedDataService.currentIndex = mobileView;
     navService.currentViewPc = pcView;
-  }
-
-
-  private mobileSlideBySwipe(view: number) {
-    if (view < 0 || view > this.mobileComponents.length - 1) return;
-    this.navService.mobileSlide(view, true);
-  }
-
-  onSwipeLeft(view: number) {
-    this.mobileSlideBySwipe(++view);
-  }
-
-  onSwipeRight(view: number) {
-    this.mobileSlideBySwipe(--view);
   }
 
   getCurrentViewPc(): number {

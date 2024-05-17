@@ -2,20 +2,29 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
+import { HammerModule } from '@angular/platform-browser';
 
 
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { MobileAccountComponent } from './mobile-account/mobile-account.component';
-import { MobileItemsComponent } from './mobile-items/mobile-items.component';
-import { MobileLoreComponent } from './mobile-lore/mobile-lore.component';
-import { MobileSpellsComponent } from './mobile-spells/mobile-spells.component';
-import { SwipeGestureDirective } from '../directives/swipe-gesture/swipe-gesture.directive';
-import { PcSliderComponent } from './pc-slider/pc-slider.component';
+
+import { SwipeGestureDirective } from './shared/directives/swipe-gesture/swipe-gesture.directive';
+
+
+import { NavbarComponent } from './layouts/navbar/navbar.component';
+import { MobileHeaderComponent } from './layouts/mobile-header/mobile-header.component';
+import { SaveButtonComponent } from './features/save-button/save-button.component';
+import { HomeComponent } from './features/home/home.component';
+import { MobileLoreComponent } from './features/mobile-lore/mobile-lore.component';
+import { MobileItemsComponent } from './features/mobile-items/mobile-items.component';
+import { MobileSpellsComponent } from './features/mobile-spells/mobile-spells.component';
+import { MobileAccountComponent } from './features/mobile-account/mobile-account.component';
+import { PcSliderComponent } from './features/pc-slider/pc-slider.component';
+import { MobileSliderComponent } from './features/mobile-slider/mobile-slider.component';
+
+
 
 export function createTranslateLoader(http: HttpClient){
   return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
@@ -24,13 +33,16 @@ export function createTranslateLoader(http: HttpClient){
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent,
+    NavbarComponent,
+    SaveButtonComponent,
+    MobileHeaderComponent,
     HomeComponent,
     MobileLoreComponent,
     MobileItemsComponent,
     MobileSpellsComponent,
     MobileAccountComponent,
-    PcSliderComponent
+    PcSliderComponent,
+    MobileSliderComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +62,8 @@ export function createTranslateLoader(http: HttpClient){
       { path: 'spells', component: MobileSpellsComponent },
       { path: 'account', component: MobileAccountComponent }
     ]),
-    SwipeGestureDirective
+    SwipeGestureDirective,
+    HammerModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }
