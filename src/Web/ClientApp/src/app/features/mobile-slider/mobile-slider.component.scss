@@ -6,6 +6,9 @@
 
 .slider-wrapper {
   display: flex;
+}
+
+.slider-transition {
   transition: transform 0.3s ease-in-out;
 }
 

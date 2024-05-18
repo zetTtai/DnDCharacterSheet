@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Type } from '@angular/core';
+import { Component, OnInit, OnDestroy, Type, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { SharedDataService } from '../../core/services/shared-data/shared-data.service';
@@ -8,7 +8,8 @@ import { SharedDataService } from '../../core/services/shared-data/shared-data.s
   templateUrl: './mobile-slider.component.html',
   styleUrls: ['./mobile-slider.component.scss']
 })
-export class MobileSliderComponent implements OnInit, OnDestroy {
+export class MobileSliderComponent implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild('sliderWrapper') sliderWrapper: ElementRef;
 
   private panSubject = new Subject<string>();
   public mobileComponents: { class: Type<any>, key: string }[] = [];
@@ -27,6 +28,10 @@ export class MobileSliderComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngAfterViewInit() {
+    this.sharedDataService.setSliderWrapper(this.sliderWrapper.nativeElement);
+  }
+
   ngOnDestroy() {
     this.panSubject.unsubscribe();
   }
@@ -36,6 +41,7 @@ export class MobileSliderComponent implements OnInit, OnDestroy {
   }
 
   onPan(event: any) {
+    this.sharedDataService.addTransitionClass();
     if (event.deltaX < 0) {
       this.panSubject.next('left');
     } else if (event.deltaX > 0) {

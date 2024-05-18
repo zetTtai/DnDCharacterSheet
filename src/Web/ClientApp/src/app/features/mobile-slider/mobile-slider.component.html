@@ -1,5 +1,5 @@
 <div class="slider-container" (panend)="onPan($event)">
-  <div class="slider-wrapper" [style.transform]="transform">
+  <div #sliderWrapper class="slider-wrapper slider-transition" [style.transform]="transform">
     <div class="slider-item" *ngFor="let component of mobileComponents">
       <ng-container *ngComponentOutlet="component.class"></ng-container>
     </div>

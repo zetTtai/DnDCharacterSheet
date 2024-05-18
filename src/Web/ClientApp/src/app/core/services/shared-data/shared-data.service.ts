@@ -10,6 +10,8 @@ import { MobileAccountComponent } from '../../../features/mobile-account/mobile-
 })
 export class SharedDataService {
 
+  private sliderWrapper: HTMLElement;
+
   public pcComponents: { class: Type<any>, key: string }[] = [
     { class: HomeComponent, key: "home" },
     { class: MobileSpellsComponent, key: "spells" },
@@ -27,6 +29,26 @@ export class SharedDataService {
   public currentIndex: number = 0;
 
   constructor() {
+    this.sliderWrapper = document.getElementById("sliderWrapper");
+  }
 
+  setSliderWrapper(sliderWrapper: HTMLElement) {
+    this.sliderWrapper = sliderWrapper;
+  }
+
+  getSliderWrapper(): HTMLElement {
+    return this.sliderWrapper;
+  }
+
+  addTransitionClass() {
+    if (this.sliderWrapper) {
+      this.sliderWrapper.classList.add('slider-transition');
+    }
+  }
+
+  removeTransitionClass() {
+    if (this.sliderWrapper) {
+      this.sliderWrapper.classList.remove('slider-transition');
+    }
   }
 }
