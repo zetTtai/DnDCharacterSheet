@@ -15,14 +15,16 @@ import { SwipeGestureDirective } from './shared/directives/swipe-gesture/swipe-g
 
 import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { MobileHeaderComponent } from './layouts/mobile-header/mobile-header.component';
-import { SaveButtonComponent } from './features/save-button/save-button.component';
-import { HomeComponent } from './features/home/home.component';
-import { MobileLoreComponent } from './features/mobile-lore/mobile-lore.component';
-import { MobileItemsComponent } from './features/mobile-items/mobile-items.component';
-import { MobileSpellsComponent } from './features/mobile-spells/mobile-spells.component';
-import { MobileAccountComponent } from './features/mobile-account/mobile-account.component';
-import { PcSliderComponent } from './features/pc-slider/pc-slider.component';
-import { MobileSliderComponent } from './features/mobile-slider/mobile-slider.component';
+import { SaveButtonComponent } from './components/save-button/save-button.component';
+import { HomeComponent } from './components/home/home.component';
+import { PcSliderComponent } from './components/pc-slider/pc-slider.component';
+import { MobileSliderComponent } from './components/mobile-slider/mobile-slider.component';
+import { LoreComponent } from './components/lore/lore.component';
+import { ItemsComponent } from './components/items/items.component';
+import { SpellsComponent } from './components/spells/spells.component';
+import { AccountComponent } from './components/account/account.component';
+import { CircleComponent } from './shared/components/circle/circle.component';
+import { FormFieldComponent } from './shared/components/form-field/form-field.component';
 
 
 
@@ -33,14 +35,16 @@ export function createTranslateLoader(http: HttpClient){
 @NgModule({
   declarations: [
     AppComponent,
+    CircleComponent,
+    FormFieldComponent,
     NavbarComponent,
     SaveButtonComponent,
     MobileHeaderComponent,
     HomeComponent,
-    MobileLoreComponent,
-    MobileItemsComponent,
-    MobileSpellsComponent,
-    MobileAccountComponent,
+    LoreComponent,
+    ItemsComponent,
+    SpellsComponent,
+    AccountComponent,
     PcSliderComponent,
     MobileSliderComponent
   ],
@@ -57,10 +61,10 @@ export function createTranslateLoader(http: HttpClient){
       }
     }),
     RouterModule.forRoot([
-      { path: 'items', component: MobileItemsComponent },
-      { path: 'lore', component: MobileLoreComponent },
-      { path: 'spells', component: MobileSpellsComponent },
-      { path: 'account', component: MobileAccountComponent }
+      { path: 'items', component: ItemsComponent },
+      { path: 'lore', component: LoreComponent },
+      { path: 'spells', component: SpellsComponent },
+      { path: 'account', component: AccountComponent }
     ]),
     SwipeGestureDirective,
     HammerModule

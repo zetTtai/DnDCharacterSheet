@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MobileAccountComponent } from './mobile-account.component';
+import { FormFieldComponent } from './form-field.component';
 
-describe('MobileAccountComponent', () => {
-  let component: MobileAccountComponent;
-  let fixture: ComponentFixture<MobileAccountComponent>;
+describe('FormFieldComponent', () => {
+  let component: FormFieldComponent;
+  let fixture: ComponentFixture<FormFieldComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MobileAccountComponent]
+      imports: [FormFieldComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(MobileAccountComponent);
+    fixture = TestBed.createComponent(FormFieldComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

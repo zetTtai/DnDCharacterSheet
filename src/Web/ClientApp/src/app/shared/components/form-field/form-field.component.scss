@@ -1,0 +1,50 @@
+.input-group {
+  display: flex;
+  flex-direction: column-reverse;
+  width: auto;
+}
+
+input {
+  border: 0px;
+  border-bottom: 1px solid black;
+  /*font-size: 24px;*/
+
+  &:disabled {
+    background-color: transparent;
+  }
+}
+
+.fs-24 {
+    font-size: 24px;
+}
+
+label {
+  text-transform: uppercase;
+  display: flex;
+  font-size: 10px;
+  margin: 0px;
+}
+
+.level-input {
+  max-width: 50px !important;
+  text-align: center !important;
+}
+
+.mr {
+  &4 {
+    margin-right: 4px;
+  }
+  &-10 {
+    margin-right: 10px;
+  }
+}
+
+.mt {
+  &-16 {
+      margin-top: 16px;
+  }
+}
+
+.col-md-1 {
+  padding-left: 10px;
+}

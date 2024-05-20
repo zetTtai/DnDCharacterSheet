@@ -12,8 +12,6 @@ html {
 
 nav {
   display: flex;
-  /*bottom: 0;*/
-  /*position: fixed;*/
   width: 100%;
   padding: 0;
 }
@@ -35,8 +33,6 @@ nav {
   &-mobile {
     display: flex;
     min-width: 100%;
-    bottom: 0;
-    position: fixed;
 
     & ul {
       display: flex;
@@ -69,10 +65,6 @@ nav {
 
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
-
-#mobile-header {
-    height: $mobile-header-height;
 }
 
 

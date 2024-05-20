@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MobileLoreComponent } from './mobile-lore.component';
+import { AccountComponent } from './account.component';
 
-describe('MobileLoreComponent', () => {
-  let component: MobileLoreComponent;
-  let fixture: ComponentFixture<MobileLoreComponent>;
+describe('AccountComponent', () => {
+  let component: AccountComponent;
+  let fixture: ComponentFixture<AccountComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MobileLoreComponent]
+      imports: [AccountComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(MobileLoreComponent);
+    fixture = TestBed.createComponent(AccountComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

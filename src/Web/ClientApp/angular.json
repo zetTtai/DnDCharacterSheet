@@ -18,7 +18,7 @@
           "flat": false
         },
         "@schematics/angular:component": {
-          "path": "src/app/features",
+          "path": "src/app/components",
           "flat": false
         } 
       },

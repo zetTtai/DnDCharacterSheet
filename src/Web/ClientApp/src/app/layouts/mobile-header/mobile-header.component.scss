@@ -1,0 +1,68 @@
+@import 'variables';
+
+#mobile-header {
+  height: $mobile-header-height;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+  /*overflow-y: hidden;*/
+  flex-direction: column;
+  padding: 0;
+  border-bottom: 2px solid black !important;
+
+  & div {
+    display: flex;
+  }
+
+  & .header-container {
+    width: 100%;
+    align-items: center;
+  }
+
+  & .first {
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 25px 5px 25px;
+  }
+
+  & .second {
+    padding: 0px 5px 5px 5px;
+    justify-content: space-between;
+    align-items: center;
+
+    & app-circle {
+      margin-bottom: 2px;
+    }
+  }
+}
+
+.character-name-input {
+  flex: 1;
+  & app-form-field {
+    flex: 1;
+  }
+}
+
+.class-input {
+  display: flex;
+
+  & .input {
+    border: 0px;
+    border-bottom: 1px solid black;
+  }
+}
+
+app-circle {
+  margin-right: 4px;
+}
+
+input, .content {
+  border: 0px;
+  border-bottom: 1px solid black;
+  font-size: 24px;
+
+  &:disabled {
+    background-color: transparent;
+  }
+}

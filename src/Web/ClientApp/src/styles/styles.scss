@@ -25,7 +25,13 @@ code {
 }
 
 #content {
-    margin-top: 10px;
+  margin-top: 10px;
+}
+
+#mobile-content {
+  flex-direction: column;
+  flex: 1;
+  margin-top: $mobile-header-height;
 }
 
 @media (min-width: $mobile-size) {

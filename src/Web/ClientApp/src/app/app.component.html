@@ -1,7 +1,6 @@
 <body>
   <app-save-button></app-save-button>
   <app-navbar></app-navbar>
-  <app-mobile-header></app-mobile-header>
 
   <div id="content" class="pc">
     <app-pc-slider></app-pc-slider>
@@ -13,7 +12,11 @@
       </ng-container>
     </main>
   </div>
-  <main id="main-mobile" class="mobile">
-    <app-mobile-slider></app-mobile-slider>
-  </main>
+  <div id="mobile-content" class="mobile" style="display: flex;">
+    <app-mobile-header></app-mobile-header>
+    <main id="main-mobile" class="mobile">
+      <app-mobile-slider></app-mobile-slider>
+    </main>
+  </div>
+
 </body>

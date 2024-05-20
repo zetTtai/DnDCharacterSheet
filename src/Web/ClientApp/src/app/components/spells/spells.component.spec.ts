@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MobileSpellsComponent } from './mobile-spells.component';
+import { SpellsComponent } from './spells.component';
 
-describe('MobileSpellsComponent', () => {
-  let component: MobileSpellsComponent;
-  let fixture: ComponentFixture<MobileSpellsComponent>;
+describe('SpellsComponent', () => {
+  let component: SpellsComponent;
+  let fixture: ComponentFixture<SpellsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MobileSpellsComponent]
+      imports: [SpellsComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(MobileSpellsComponent);
+    fixture = TestBed.createComponent(SpellsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
