@@ -1,10 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-
-interface ModalData {
-  type: string;
-  label: string;
-  value: any;
-}
+import { ModalData } from '../../models/modal-data.model';
 
 @Component({
   selector: 'app-form-field',
@@ -21,15 +16,28 @@ export class FormFieldComponent {
 
   @Output() clickEvent = new EventEmitter<ModalData>();
 
-  edit() {
+  edit(event: Event) {
     if (this.disabled) return;
 
+    console.log(this.getTargetId(event));
+
     const data: ModalData = {
+      id: this.getTargetId(event),
       type: this.type,
       label: this.label,
       value: this.value
     };
 
     this.clickEvent.emit(data);
+  }
+
+  getTargetId(event: Event): string {
+    const target = event.target as HTMLElement;
+
+    if (!target.classList.contains('input-group')) {
+      return target.id;
+    }
+
+    return target.querySelector('input').name;
   }
 }

@@ -9,5 +9,6 @@ export class CircleComponent {
   @Input() diameter: number = 40;
   @Input() empty: boolean = true;
   @Input() disabled: boolean = false;
+  @Input() id: string;
 
 }

@@ -46,7 +46,9 @@
 
 .class-input {
   display: flex;
-
+  /*default width set on circleComponent + (margin-right * 2)*/
+  max-width: 88px; 
+  overflow-x: auto;
   & .input {
     border: 0px;
     border-bottom: 1px solid black;

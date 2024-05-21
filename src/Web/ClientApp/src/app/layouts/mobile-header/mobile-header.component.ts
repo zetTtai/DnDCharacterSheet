@@ -1,11 +1,5 @@
 import { Component } from '@angular/core';
-
-interface ModalData {
-  type: string;
-  label: string;
-  value: any;
-}
-
+import { ModalData } from '../../shared/models/modal-data.model';
 
 @Component({
   selector: 'app-mobile-header',
