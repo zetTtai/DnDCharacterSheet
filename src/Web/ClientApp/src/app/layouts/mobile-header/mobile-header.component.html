@@ -28,7 +28,7 @@
       </app-form-field>
 
       <app-form-field label="Class/Classes" name="classes" type="custom" (clickEvent)="openModal($event)">
-        <div class="class-input content">
+        <div class="class-input content" [style.max-width]="classInputMaxWidth">
           <app-circle id="first"></app-circle>
           <app-circle id="second"></app-circle>
           <app-circle id="add-class" [empty]=false>+</app-circle>
