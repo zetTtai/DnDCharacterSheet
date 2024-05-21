@@ -10,9 +10,6 @@ import { AuthorizeInterceptor } from 'src/api-authorization/authorize.intercepto
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import { SwipeGestureDirective } from './shared/directives/swipe-gesture/swipe-gesture.directive';
-
-
 import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { MobileHeaderComponent } from './layouts/mobile-header/mobile-header.component';
 import { SaveButtonComponent } from './components/save-button/save-button.component';
@@ -25,6 +22,7 @@ import { SpellsComponent } from './components/spells/spells.component';
 import { AccountComponent } from './components/account/account.component';
 import { CircleComponent } from './shared/components/circle/circle.component';
 import { FormFieldComponent } from './shared/components/form-field/form-field.component';
+import { ModalComponent } from './shared/components/modal/modal.component';
 
 
 
@@ -37,6 +35,7 @@ export function createTranslateLoader(http: HttpClient){
     AppComponent,
     CircleComponent,
     FormFieldComponent,
+    ModalComponent,
     NavbarComponent,
     SaveButtonComponent,
     MobileHeaderComponent,
@@ -66,7 +65,6 @@ export function createTranslateLoader(http: HttpClient){
       { path: 'spells', component: SpellsComponent },
       { path: 'account', component: AccountComponent }
     ]),
-    SwipeGestureDirective,
     HammerModule
   ],
   providers: [

@@ -10,6 +10,8 @@ import { HomeComponent } from './components/home/home.component';
 export class AppComponent {
   title = 'app';
 
+  isModalVisible: boolean = false;
+
   public mobileComponents: { class: Type<any>, key: string }[] = [];
   public pcComponents: { class: Type<any>, key: string }[] = [];
 
@@ -29,5 +31,13 @@ export class AppComponent {
 
   getCurrentViewPc(): number {
     return this.navService.currentViewPc;
+  }
+
+  openModal() {
+    this.isModalVisible = true;
+  }
+
+  closeModal() {
+    this.isModalVisible = false;
   }
 }

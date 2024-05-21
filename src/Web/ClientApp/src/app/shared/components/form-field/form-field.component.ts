@@ -1,4 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+interface ModalData {
+  type: string;
+  label: string;
+  value: any;
+}
 
 @Component({
   selector: 'app-form-field',
@@ -12,4 +18,18 @@ export class FormFieldComponent {
   @Input() value: any;
   @Input() disabled: boolean = false;
   @Input() class: string;
+
+  @Output() clickEvent = new EventEmitter<ModalData>();
+
+  edit() {
+    if (this.disabled) return;
+
+    const data: ModalData = {
+      type: this.type,
+      label: this.label,
+      value: this.value
+    };
+
+    this.clickEvent.emit(data);
+  }
 }

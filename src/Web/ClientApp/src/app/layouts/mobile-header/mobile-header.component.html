@@ -15,19 +15,19 @@
 
   <div class="second header-container">
     <div class="character-name-input">
-      <app-form-field label="Character Name" name="character_name" value="" [class]="'col-md-1 mt-16'"></app-form-field>
+      <app-form-field label="Character Name" name="character_name" value="" [class]="'col-md-1 mt-16'" (clickEvent)="openModal($event)"></app-form-field>
     </div>
 
-    <app-form-field label="Level" name="level" value="1" class="level-input" [class]="'mr-10 fs-24'" [disabled]="true"></app-form-field>
+    <app-form-field label="Level" name="level" value="1" class="level-input" [class]="'mr-10 fs-24'" [disabled]="true" (clickEvent)="openModal($event)"></app-form-field>
 
     <div>
-      <app-form-field label="Race" name="race" type="custom">
+      <app-form-field label="Race" name="race" type="custom" (clickEvent)="openModal($event)">
         <div class="content">
           <app-circle></app-circle>
         </div>
       </app-form-field>
 
-      <app-form-field label="Class/Classes" name="classes" type="custom">
+      <app-form-field label="Class/Classes" name="classes" type="custom" (clickEvent)="openModal($event)">
         <div class="content" style="max-width: 88px; overflow-x: auto; ">
           <app-circle></app-circle>
           <!--<app-circle></app-circle>-->
@@ -36,38 +36,10 @@
       </app-form-field>
     </div>
 
-
-    <!--<div class="character-name-input field">
-      <div class="character-name-input input-group">
-        <label for="character_name">Character Name</label>
-        <input type="text" name="character_name" value="" />
-      </div>
-    </div>
-
-
-    <div class="field">
-      <div class="level-input input-group">
-        <label for="level">Level</label>
-        <input type="number" name="level" value="1" disabled />
-      </div>
-    </div>-->
-
-    <!--<div>
-      <div class="race-input input-group field">
-        <label>Race</label>
-        <div class="content">
-          <app-circle></app-circle>
-        </div>
-      </div>
-      <div class="class-input input-group">
-        <label>Class/Classes</label>
-        <div class="content" style="max-width: 85px; overflow-x: auto; ">
-          <app-circle></app-circle>-->
-          <!--<app-circle></app-circle>-->
-          <!--<app-circle [empty]=false>+</app-circle>
-        </div>
-      </div>
-    </div>-->
-
   </div>
 </nav>
+
+<app-modal [isVisible]="isModalVisible" (closeModal)="closeModal()">
+  <p>{{ data?.label }}</p>
+  <!--<ng-container *ngComponentOutlet="data?.label"></ng-container>-->
+</app-modal>
