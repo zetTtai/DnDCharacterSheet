@@ -1,7 +1,7 @@
 @import 'variables';
 
 .fixed-toggle-buttons {
-  z-index: 1;
+  z-index: calc(#{$mobile-header-z-index} - 1);
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -9,7 +9,6 @@
 
   & div {
     position: absolute;
-    transition: top $toggle-button-transition ease, right $toggle-button-transition ease, left $toggle-button-transition ease, bottom $toggle-button-transition ease;
   }
 }
 

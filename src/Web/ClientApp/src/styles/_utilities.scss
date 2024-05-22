@@ -22,6 +22,10 @@
     background-color: $ui-background-color;
 }
 
+.toggle-button-transition {
+  transition: top $toggle-button-transition ease, right $toggle-button-transition ease, left $toggle-button-transition ease, bottom $toggle-button-transition ease;
+}
+
 @media (min-width: $mobile-size) {
   .pc {
     display: flex;

@@ -9,6 +9,7 @@ import { CIRCLE_CONFIG } from '../../shared/constants/app-constants';
 })
 export class MobileHeaderComponent {
   isModalVisible: boolean = false;
+  isHeaderOpen: boolean = false;
   data: ModalData;
   classInputMaxWidth: number = CIRCLE_CONFIG.DIAMETER + (CIRCLE_CONFIG.MARGIN_RIGHT * 2);
 
@@ -21,7 +22,22 @@ export class MobileHeaderComponent {
     this.isModalVisible = false;
   }
 
-  expandHeader() {
-    alert("EY");
+  toggleHeader() {
+    const header = document.getElementById('mobile-header');
+    const toggleButton = document.getElementById('expand-header');
+
+    if (!this.isHeaderOpen) {
+      header.style.height = `${parseInt(window.getComputedStyle(header).height) + 300}px`;
+      toggleButton.style.top = `${parseInt(window.getComputedStyle(toggleButton).top) + 300}px`;
+
+      this.isHeaderOpen = true;
+      return;
+    }
+
+    header.style.height = `${parseInt(window.getComputedStyle(header).height) - 300}px`;
+    toggleButton.style.top = `${parseInt(window.getComputedStyle(toggleButton).top) - 300}px`;
+
+    this.isHeaderOpen = false;
+
   }
 }

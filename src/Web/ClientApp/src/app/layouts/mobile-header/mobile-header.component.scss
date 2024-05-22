@@ -5,9 +5,10 @@
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 10;
+  z-index: $mobile-header-z-index;
   overflow-y: hidden;
   flex-direction: column;
+  justify-content: flex-start;
   padding: 0;
   border-bottom: 2px solid $border-color !important;
   transition: height $toggle-button-transition ease;
@@ -66,8 +67,11 @@ input, .content {
 }
 
 .toggle-button-container {
+  width: 100%;
+  display: flex;
   justify-content: center;
   position: absolute;
-  top: calc( #{$mobile-header-height} - 3px);
+  top: calc( #{$mobile-header-height} - 2px);
+  z-index: $mobile-header-z-index;
 }
 

@@ -37,11 +37,18 @@
     </div>
 
   </div>
-  <div class="toggle-button-container" (click)="expandHeader()">
-    <app-toggle-button [bottom]="true">+</app-toggle-button>
-  </div>
 
 </nav>
+<div id="expand-header" class="toggle-button-transition toggle-button-container" (click)="toggleHeader()">
+  <app-toggle-button [bottom]="true">
+    <ng-container *ngIf="!isHeaderOpen; else collapsedContent">
+      <div>+</div>
+    </ng-container>
+    <ng-template #collapsedContent>
+      <div>-</div>
+    </ng-template>
+  </app-toggle-button>
 
+</div>
 
 <app-modal [isVisible]="isModalVisible" (closeModal)="closeModal()" [data]="data"></app-modal>
