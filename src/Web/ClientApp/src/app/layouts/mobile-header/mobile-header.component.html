@@ -39,8 +39,8 @@
   </div>
 
 </nav>
-<div id="expand-header" class="toggle-button-transition toggle-button-container" (click)="toggleHeader()">
-  <app-toggle-button [bottom]="true">
+<div id="expand-header" class="toggle-button-transition toggle-button-container">
+  <app-toggle-button [bottom]="true" (click)="toggleHeader()">
     <ng-container *ngIf="!isHeaderOpen; else collapsedContent">
       <div>+</div>
     </ng-container>

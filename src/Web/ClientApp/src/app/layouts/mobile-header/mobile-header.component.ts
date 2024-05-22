@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ModalData } from '../../shared/models/modal-data.model';
 import { CIRCLE_CONFIG } from '../../shared/constants/app-constants';
+import { ToggleService } from '../../core/services/toggle/toggle.service';
 
 @Component({
   selector: 'app-mobile-header',
@@ -13,6 +14,8 @@ export class MobileHeaderComponent {
   data: ModalData;
   classInputMaxWidth: number = CIRCLE_CONFIG.DIAMETER + (CIRCLE_CONFIG.MARGIN_RIGHT * 2);
 
+  constructor(private toggleService: ToggleService) { }
+
   openModal(data: ModalData) {
     this.data = data;
     this.isModalVisible = true;
@@ -23,20 +26,14 @@ export class MobileHeaderComponent {
   }
 
   toggleHeader() {
-    const header = document.getElementById('mobile-header');
-    const toggleButton = document.getElementById('expand-header');
 
     if (!this.isHeaderOpen) {
-      header.style.height = `${parseInt(window.getComputedStyle(header).height) + 300}px`;
-      toggleButton.style.top = `${parseInt(window.getComputedStyle(toggleButton).top) + 300}px`;
-
+      this.toggleService.expand('mobile-header', 'expand-header', 300, 'bottom');
       this.isHeaderOpen = true;
       return;
     }
 
-    header.style.height = `${parseInt(window.getComputedStyle(header).height) - 300}px`;
-    toggleButton.style.top = `${parseInt(window.getComputedStyle(toggleButton).top) - 300}px`;
-
+    this.toggleService.collapse('mobile-header', 'expand-header', 300, 'bottom');
     this.isHeaderOpen = false;
 
   }
