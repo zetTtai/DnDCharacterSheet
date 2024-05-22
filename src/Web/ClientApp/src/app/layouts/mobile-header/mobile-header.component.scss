@@ -6,10 +6,11 @@
   top: 0;
   width: 100%;
   z-index: 10;
-  /*overflow-y: hidden;*/
+  overflow-y: hidden;
   flex-direction: column;
   padding: 0;
-  border-bottom: 2px solid black !important;
+  border-bottom: 2px solid $border-color !important;
+  transition: height $toggle-button-transition ease;
 
   & div {
     display: flex;
@@ -46,21 +47,27 @@
 
 .class-input {
   display: flex;
-  /*default width set on circleComponent + (margin-right * 2)*/
-  max-width: 88px; 
   overflow-x: auto;
+
   & .input {
     border: 0px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid $border-color;
   }
 }
 
 input, .content {
   border: 0px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid $border-color;
   font-size: 24px;
 
   &:disabled {
     background-color: transparent;
   }
 }
+
+.toggle-button-container {
+  justify-content: center;
+  position: absolute;
+  top: calc( #{$mobile-header-height} - 3px);
+}
+

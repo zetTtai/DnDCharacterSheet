@@ -18,6 +18,10 @@
   display: flex;
 }
 
+.ui {
+    background-color: $ui-background-color;
+}
+
 @media (min-width: $mobile-size) {
   .pc {
     display: flex;

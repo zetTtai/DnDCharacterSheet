@@ -1,0 +1,25 @@
+@import 'variables';
+
+.toggle-button {
+  display: inline-block;
+  position: relative;
+  width: $toggle-button-width;
+  height: $toggle-button-height;
+  background: $border-color;
+  box-sizing: border-box;
+  clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
+  -webkit-clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
+
+  & .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: calc(#{$toggle-button-border-size});
+    left: calc(#{$toggle-button-border-size});
+    width: calc(#{$toggle-button-width} - ( #{$toggle-button-border-size} * 2));
+    height: calc(#{$toggle-button-height} - ( #{$toggle-button-border-size} * 2));
+    clip-path: polygon(1% 0, 99% 0, 80% 100%, 20% 100%);
+    -webkit-clip-path: polygon(1% 0, 99% 0, 80% 100%, 20% 100%);
+  }
+}

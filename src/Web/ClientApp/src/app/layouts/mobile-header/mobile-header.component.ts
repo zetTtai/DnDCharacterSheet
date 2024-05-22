@@ -20,4 +20,8 @@ export class MobileHeaderComponent {
   closeModal() {
     this.isModalVisible = false;
   }
+
+  expandHeader() {
+    alert("EY");
+  }
 }

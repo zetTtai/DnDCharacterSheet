@@ -23,6 +23,8 @@ import { AccountComponent } from './components/account/account.component';
 import { CircleComponent } from './shared/components/circle/circle.component';
 import { FormFieldComponent } from './shared/components/form-field/form-field.component';
 import { ModalComponent } from './shared/components/modal/modal.component';
+import { ToggleButtonComponent } from './shared/components/toggle-button/toggle-button.component';
+import { FixedToggleButtonsComponent } from './layouts/fixed-toggle-buttons/fixed-toggle-buttons.component';
 
 
 
@@ -35,6 +37,8 @@ export function createTranslateLoader(http: HttpClient){
     AppComponent,
     CircleComponent,
     FormFieldComponent,
+    FixedToggleButtonsComponent,
+    ToggleButtonComponent,
     ModalComponent,
     NavbarComponent,
     SaveButtonComponent,

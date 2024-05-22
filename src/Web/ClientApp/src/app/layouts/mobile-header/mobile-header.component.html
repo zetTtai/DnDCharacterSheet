@@ -1,11 +1,11 @@
-<nav id="mobile-header" class="mobile navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border box-shadow">
+<nav id="mobile-header" class="ui mobile navbar navbar-expand-sm navbar-toggleable-sm navbar-light border box-shadow">
   <div class="first header-container">
     <div class="level-up-button">
       <button class="btn btn-primary"> Level Up </button>
     </div>
     <div class="character-img circle circle-l">
       <app-circle [empty]=false [diameter]="50">
-        <img src="#" />
+        <img src="assets/images/icon192x192.png" width="50" height="50" />
       </app-circle>
     </div>
     <div class="save-button">
@@ -37,6 +37,11 @@
     </div>
 
   </div>
+  <div class="toggle-button-container" (click)="expandHeader()">
+    <app-toggle-button [bottom]="true">+</app-toggle-button>
+  </div>
+
 </nav>
+
 
 <app-modal [isVisible]="isModalVisible" (closeModal)="closeModal()" [data]="data"></app-modal>

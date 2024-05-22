@@ -1,0 +1,52 @@
+@import 'variables';
+
+.fixed-toggle-buttons {
+  z-index: 1;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  & div {
+    position: absolute;
+    transition: top $toggle-button-transition ease, right $toggle-button-transition ease, left $toggle-button-transition ease, bottom $toggle-button-transition ease;
+  }
+}
+
+.right {
+  left: calc(-#{$toggle-button-height} - 2px);
+  transform: rotate(-90deg);
+
+  &-top {
+    top: calc(#{$toggle-button-width} / 3);
+  }
+
+  &-bottom {
+    top: calc(#{$toggle-button-width} * 2);
+  }
+
+  & .content {
+    transform: rotate(90deg);
+  }
+}
+
+.left {
+  right: calc(-#{$toggle-button-height} - 2px);
+  transform: rotate(90deg);
+
+  &-top {
+    top: calc(#{$toggle-button-width} / 3);
+  }
+
+  &-bottom {
+    top: calc(#{$toggle-button-width} * 2);
+  }
+
+  & .content {
+    transform: rotate(-90deg);
+  }
+}
+
+.top {
+  transform: rotate(180deg);
+}
