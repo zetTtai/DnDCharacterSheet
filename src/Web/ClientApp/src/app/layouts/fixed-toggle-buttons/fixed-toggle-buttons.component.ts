@@ -15,6 +15,25 @@ export class FixedToggleButtonsComponent {
     spellcasting: false
   };
 
+  sections = {
+    'abilities': {
+      'direction': 'right',
+      'distance': 100
+    },
+    'death-saves': {
+      'direction': 'right',
+      'distance': 300
+    },
+    'wallet': {
+      'direction': 'left',
+      'distance': 100
+    },
+    'spellcasting': {
+      'direction': 'left',
+      'distance': 300
+    },
+  };
+
   constructor(private toggleService: ToggleService) { }
 
   private getElementId(key: string): string {
@@ -22,20 +41,22 @@ export class FixedToggleButtonsComponent {
   }
 
   private getDelay(id: string): number {
-    const computedStyle = getComputedStyle(document.getElementById(id));
-    return parseFloat(computedStyle.transitionDuration) * 1000;
+    const element = document.getElementById(id);
+    if (!element) return 0;
+
+    return parseFloat(getComputedStyle(element).transitionDuration) * 1000;
   }
 
-  private toggleSection(key: string, direction: Directions): void {
+  private toggleSection(key: string): void {
     const elementId = this.getElementId(key);
     const toggleId = `toggle-${key}`;
     const isOpen = this.toggleStates[key];
     let delay = 0;
 
     if (!isOpen) {
-      this.toggleService.expand(elementId, toggleId, 100, direction);
+      this.toggleService.expand(elementId, toggleId, this.sections[key].distance, this.sections[key].direction);
     } else {
-      this.toggleService.collapse(elementId, toggleId, 100, direction);
+      this.toggleService.collapse(elementId, toggleId, this.sections[key].distance, this.sections[key].direction);
       delay = this.getDelay(elementId);
     }
 
@@ -45,20 +66,32 @@ export class FixedToggleButtonsComponent {
     }, delay);
   }
 
+  private closeSections(keys: string[]) {
+    keys.forEach(key => {
+      if (this.toggleStates[key]) {
+        this.toggleSection(key);
+      }
+    });
+  }
+
   toggleAbilities(): void {
-    this.toggleSection('abilities', 'right');
+    this.closeSections(['death-saves', 'spellcasting'])
+    this.toggleSection('abilities');
   }
 
   toggleDeathSaves(): void {
-    this.toggleSection('death-saves', 'right');
+    this.closeSections(['abilities', 'spellcasting', 'wallet'])
+    this.toggleSection('death-saves');
   }
 
   toggleWallet(): void {
-    this.toggleSection('wallet', 'left');
+    this.closeSections(['death-saves', 'spellcasting'])
+    this.toggleSection('wallet');
   }
 
   toggleSpellcasting(): void {
-    this.toggleSection('spellcasting', 'left');
+    this.closeSections(['death-saves', 'abilities'])
+    this.toggleSection('spellcasting');
   }
 
 }

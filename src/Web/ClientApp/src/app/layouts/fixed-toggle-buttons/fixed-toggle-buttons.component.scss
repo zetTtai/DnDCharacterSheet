@@ -68,11 +68,23 @@ $side-container-border-size: 2px;
     right: -$side-container-border-size;
   }
 
-  &.active {
-      z-index: 10;
-  }
+
 }
 
 #mobile-death-saves-content, #mobile-spellcasting-content {
   top: calc(#{$toggle-button-width} * 3 + 4px);
+  height: calc(#{$toggle-button-width} - 1px);
+
+  &.active {
+    z-index: calc(#{$mobile-header-z-index} - 2);
+  }
+}
+
+#mobile-abilities-content, #mobile-wallet-content {
+  margin-top: -1px;
+  padding-bottom: 500px;
+
+  &.active {
+    z-index: calc(#{$mobile-header-z-index} - 1);
+  }
 }
