@@ -25,6 +25,10 @@ import { FormFieldComponent } from './shared/components/form-field/form-field.co
 import { ModalComponent } from './shared/components/modal/modal.component';
 import { ToggleButtonComponent } from './shared/components/toggle-button/toggle-button.component';
 import { FixedToggleButtonsComponent } from './layouts/fixed-toggle-buttons/fixed-toggle-buttons.component';
+import { AbilitiesComponent } from './components/abilities/abilities.component';
+import { DeathSavesComponent } from './components/death-saves/death-saves.component';
+import { SpellcastingComponent } from './components/spellcasting/spellcasting.component';
+import { WalletComponent } from './components/wallet/wallet.component';
 
 
 
@@ -49,7 +53,11 @@ export function createTranslateLoader(http: HttpClient){
     SpellsComponent,
     AccountComponent,
     PcSliderComponent,
-    MobileSliderComponent
+    MobileSliderComponent,
+    AbilitiesComponent,
+    DeathSavesComponent,
+    SpellcastingComponent,
+    WalletComponent
   ],
   imports: [
     BrowserModule,

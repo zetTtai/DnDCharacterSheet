@@ -39,12 +39,12 @@
   </div>
 
 </nav>
-<div id="expand-header" class="toggle-button-transition toggle-button-container">
+<div id="toggle-header" class="mobile toggle-button-transition toggle-button-container">
   <app-toggle-button [bottom]="true" (click)="toggleHeader()">
-    <ng-container *ngIf="!isHeaderOpen; else collapsedContent">
+    <ng-container *ngIf="!isHeaderOpen; else collapseHeader">
       <div>+</div>
     </ng-container>
-    <ng-template #collapsedContent>
+    <ng-template #collapseHeader>
       <div>-</div>
     </ng-template>
   </app-toggle-button>

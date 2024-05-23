@@ -28,12 +28,12 @@ export class MobileHeaderComponent {
   toggleHeader() {
 
     if (!this.isHeaderOpen) {
-      this.toggleService.expand('mobile-header', 'expand-header', 300, 'bottom');
+      this.toggleService.expand('mobile-header', 'toggle-header', 300, 'bottom');
       this.isHeaderOpen = true;
       return;
     }
 
-    this.toggleService.collapse('mobile-header', 'expand-header', 300, 'bottom');
+    this.toggleService.collapse('mobile-header', 'toggle-header', 300, 'bottom');
     this.isHeaderOpen = false;
 
   }

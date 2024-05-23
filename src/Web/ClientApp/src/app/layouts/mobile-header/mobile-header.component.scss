@@ -68,7 +68,6 @@ input, .content {
 
 .toggle-button-container {
   width: 100%;
-  display: flex;
   justify-content: center;
   position: absolute;
   top: calc( #{$mobile-header-height} - 2px);

@@ -1,31 +1,54 @@
 <div class="mobile fixed-toggle-buttons">
-  <div class="toggle-button-transition left left-top">
+  <div id="toggle-abilities" class="toggle-button-transition left left-top" (click)="toggleAbilities()">
     <app-toggle-button>
       <div class="content">
         a
       </div>
     </app-toggle-button>
   </div>
-  <div class="toggle-button-transition left left-bottom">
+
+
+  <div id="toggle-death-saves" class="toggle-button-transition left left-bottom" (click)="toggleDeathSaves()">
     <app-toggle-button>
       <div class="content">
-        a
+        b
       </div>
     </app-toggle-button>
   </div>
-  <div class="toggle-button-transition right right-top">
+
+
+
+  <div id="toggle-wallet" class="toggle-button-transition right right-top" (click)="toggleWallet()">
     <app-toggle-button>
       <div class="content">
-        a
+        c
       </div>
     </app-toggle-button>
   </div>
-  <div class="toggle-button-transition right right-bottom">
-    <app-toggle-button>
+
+
+  <div id="toggle-spellcasting" class="toggle-button-transition right right-bottom" (click)="toggleSpellcasting()">
+    <app-toggle-button class="">
       <div class="content">
-        a
+        d
       </div>
     </app-toggle-button>
   </div>
+
 </div>
 
+<div id="mobile-abilities-content" class="mobile ui side-container side-container-left">
+  <app-abilities></app-abilities>
+</div>
+
+<div id="mobile-death-saves-content" class="mobile ui side-container  side-container-left">
+  <app-death-saves></app-death-saves>
+</div>
+
+<div id="mobile-wallet-content" class="mobile ui side-container side-container-right">
+  <app-wallet></app-wallet>
+</div>
+
+<div id="mobile-spellcasting-content" class="mobile ui side-container side-container-right">
+  <app-spellcasting></app-spellcasting>
+</div>

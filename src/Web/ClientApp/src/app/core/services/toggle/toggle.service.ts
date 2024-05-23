@@ -26,7 +26,7 @@ export class ToggleService {
       },
       left: () => {
         adjustStyle(content, 'width', offset);
-        adjustStyle(button, 'left', -offset);
+        adjustStyle(button, 'right', offset);
       },
       right: () => {
         adjustStyle(content, 'width', offset);
@@ -51,7 +51,7 @@ export class ToggleService {
     const button = document.getElementById(buttonId);
 
     if (!content || !button) {
-      console.error('Invalid contentId or buttonId');
+      console.error(`Invalid contentId(${contentId}) or buttonId(${buttonId})`);
       return;
     }
 
