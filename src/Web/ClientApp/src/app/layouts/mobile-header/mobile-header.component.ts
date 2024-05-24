@@ -12,9 +12,13 @@ export class MobileHeaderComponent {
   isModalVisible: boolean = false;
   isHeaderOpen: boolean = false;
   data: ModalData;
-  classInputMaxWidth: number = CIRCLE_CONFIG.DIAMETER + (CIRCLE_CONFIG.MARGIN_RIGHT * 2);
+  classInputMaxWidth: number = (CIRCLE_CONFIG.DIAMETER * 2) + (CIRCLE_CONFIG.MARGIN_RIGHT * 2);
 
   constructor(private toggleService: ToggleService) { }
+
+  get maxWidth(): string {
+    return `${this.classInputMaxWidth}px`;
+  }
 
   openModal(data: ModalData) {
     this.data = data;

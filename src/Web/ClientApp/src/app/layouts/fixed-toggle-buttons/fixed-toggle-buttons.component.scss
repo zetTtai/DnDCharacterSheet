@@ -55,7 +55,7 @@ $side-container-border-size: 2px;
 .side-container {
   position: absolute;
   border: $side-container-border-size solid $border-color;
-  z-index: -99;
+  z-index: $z-index-behind-all;
   width: 0;
   overflow: hidden;
   transition: width $toggle-button-transition ease;
@@ -67,8 +67,6 @@ $side-container-border-size: 2px;
   &-right {
     right: -$side-container-border-size;
   }
-
-
 }
 
 #mobile-death-saves-content, #mobile-spellcasting-content {

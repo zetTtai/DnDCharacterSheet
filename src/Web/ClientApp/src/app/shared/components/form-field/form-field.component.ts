@@ -13,6 +13,7 @@ export class FormFieldComponent {
   @Input() value: any;
   @Input() disabled: boolean = false;
   @Input() class: string;
+  @Input() last: boolean = false;
 
   @Output() clickEvent = new EventEmitter<ModalData>();
 

@@ -18,17 +18,17 @@
       <app-form-field label="Character Name" name="character-name" value="" [class]="'col-md-1 mt-16'" (clickEvent)="openModal($event)"></app-form-field>
     </div>
 
-    <app-form-field label="Level" name="level" value="1" class="level-input" [class]="'mr-10 fs-24'" [disabled]="true" (clickEvent)="openModal($event)"></app-form-field>
+    <app-form-field label="Level" name="level" value="1" class="level-input" [class]="'fs-24'" [disabled]="true" (clickEvent)="openModal($event)"></app-form-field>
 
-    <div>
+    <div class="mt-7">
       <app-form-field label="Race" name="race" type="custom" (clickEvent)="openModal($event)">
         <div class="content">
           <app-circle id="race"></app-circle>
         </div>
       </app-form-field>
 
-      <app-form-field label="Class/Classes" name="classes" type="custom" (clickEvent)="openModal($event)">
-        <div class="class-input content" [style.max-width]="classInputMaxWidth">
+      <app-form-field label="Class/es" name="classes" type="custom" [last]="true" (clickEvent)="openModal($event)">
+        <div class="class-input content" [style.max-width]="maxWidth">
           <app-circle id="first"></app-circle>
           <app-circle id="second"></app-circle>
           <app-circle id="add-class" [empty]=false>+</app-circle>
