@@ -8,15 +8,64 @@ html, body {
   background-color: $primary-color;
 }
 
+app-root {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
 html {
   font-size: 14px;
 }
 
 body {
   overflow: hidden;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+h1 {
+  font-size: 36px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+h4 {
+  font-size: 20px;
 }
 
 section {
   display: flex;
   flex-direction: column;
+}
+
+@media (max-width: $mobile-size) {
+  body {
+    font-size: 14px;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  h2 {
+    font-size: 28px;
+  }
+
+  h3 {
+    font-size: 22px;
+  }
+
+  h4 {
+    font-size: 18px;
+  }
 }

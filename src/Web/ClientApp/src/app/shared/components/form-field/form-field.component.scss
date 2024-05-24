@@ -1,0 +1,31 @@
+.input-group {
+  display: flex;
+  flex-direction: column-reverse;
+  width: auto;
+}
+
+input {
+  border: 0px;
+  border-bottom: 1px solid black;
+  pointer-events: none;
+
+  &:disabled {
+    background-color: transparent;
+  }
+}
+
+.fs-24 {
+    font-size: 24px;
+}
+
+label {
+  text-transform: uppercase;
+  display: flex;
+  font-size: 10px;
+  margin: 0px;
+}
+
+.level-input {
+  max-width: 40px !important;
+  text-align: center !important;
+}

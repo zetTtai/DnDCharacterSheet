@@ -18,14 +18,12 @@
   display: flex;
 }
 
-.out-of-view {
-  max-height: 0;
-  overflow-y: hidden;
-  transition: max-height 2s ease-in-out;
+.ui {
+    background-color: $ui-background-color;
 }
 
-.in-view {
-    max-height: 100%;
+.toggle-button-transition {
+  transition: top $toggle-button-transition ease, right $toggle-button-transition ease, left $toggle-button-transition ease, bottom $toggle-button-transition ease;
 }
 
 @media (min-width: $mobile-size) {

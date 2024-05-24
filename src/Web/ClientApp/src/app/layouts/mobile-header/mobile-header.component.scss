@@ -1,0 +1,76 @@
+@import 'variables';
+
+#mobile-header {
+  height: $mobile-header-height;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: $mobile-header-z-index;
+  overflow-y: hidden;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 0;
+  border-bottom: 2px solid $border-color !important;
+  transition: height $toggle-button-transition ease;
+
+  & div {
+    display: flex;
+  }
+
+  & .header-container {
+    width: 100%;
+    align-items: center;
+  }
+
+  & .first {
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 25px 5px 25px;
+  }
+
+  & .second {
+    padding: 0px 5px 5px 5px;
+    justify-content: space-between;
+    align-items: center;
+
+    & app-circle {
+      margin-bottom: 2px;
+    }
+  }
+}
+
+.character-name-input {
+  flex: 1;
+  & app-form-field {
+    flex: 1;
+  }
+}
+
+.class-input {
+  display: flex;
+  overflow-x: auto;
+
+  & .input {
+    border: 0px;
+    border-bottom: 1px solid $border-color;
+  }
+}
+
+input, .content {
+  border: 0px;
+  border-bottom: 1px solid $border-color;
+  font-size: 24px;
+
+  &:disabled {
+    background-color: transparent;
+  }
+}
+
+.toggle-button-container {
+  width: 100%;
+  justify-content: center;
+  position: absolute;
+  top: calc( #{$mobile-header-height} - 2px);
+  z-index: $mobile-header-z-index;
+}
+

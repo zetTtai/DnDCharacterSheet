@@ -1,0 +1,88 @@
+@import 'variables';
+
+.fixed-toggle-buttons {
+  z-index: calc(#{$mobile-header-z-index} - 1);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  & div {
+    position: absolute;
+  }
+}
+
+.left {
+  left: calc(-#{$toggle-button-height} - 2px);
+  transform: rotate(-90deg);
+
+  &-top {
+    top: calc(#{$toggle-button-width} / 3);
+  }
+
+  &-bottom {
+    top: calc(#{$toggle-button-width} * 2);
+  }
+
+  & .content {
+    transform: rotate(90deg);
+  }
+}
+
+.right {
+  right: calc(-#{$toggle-button-height} - 2px);
+  transform: rotate(90deg);
+
+  &-top {
+    top: calc(#{$toggle-button-width} / 3);
+  }
+
+  &-bottom {
+    top: calc(#{$toggle-button-width} * 2);
+  }
+
+  & .content {
+    transform: rotate(-90deg);
+  }
+}
+
+.top {
+  transform: rotate(180deg);
+}
+
+$side-container-border-size: 2px;
+
+.side-container {
+  position: absolute;
+  border: $side-container-border-size solid $border-color;
+  z-index: $z-index-behind-all;
+  width: 0;
+  overflow: hidden;
+  transition: width $toggle-button-transition ease;
+
+  &-left {
+    left: -$side-container-border-size;
+  }
+
+  &-right {
+    right: -$side-container-border-size;
+  }
+}
+
+#mobile-death-saves-content, #mobile-spellcasting-content {
+  top: calc(#{$toggle-button-width} * 3 + 4px);
+  height: calc(#{$toggle-button-width} - 1px);
+
+  &.active {
+    z-index: calc(#{$mobile-header-z-index} - 2);
+  }
+}
+
+#mobile-abilities-content, #mobile-wallet-content {
+  margin-top: -1px;
+  padding-bottom: 500px;
+
+  &.active {
+    z-index: calc(#{$mobile-header-z-index} - 1);
+  }
+}

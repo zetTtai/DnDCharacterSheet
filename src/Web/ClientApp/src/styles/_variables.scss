@@ -1,18 +1,22 @@
 $primary-color: whitesmoke;
 $red: #9e0b0f;
 $golden: #ffc528;
+$font-family: 'Open Sans', sans-serif;
+$ui-background-color: white;
+$border-color: black;
+$z-index-behind-all: -99;
 
 $mobile-size: 768px;
 $mobile-margin-sides: 20px;
+$mobile-header-height: 135px;
+$mobile-header-z-index: 5;
 
+
+$pc-navbar-logo: 4vh;
 $pc-margin-sides: 20px;
-$pc-navbar-height: 70px;
+$pc-navbar-height: calc(4vh + 30px);
 $pc-slider-height: 70px;
 
-/*$scrollbar-color: $golden;
-$scrollbar-background: $red;
-$scrollbar-width: 5px;
-*/
 
 $scrollbar-width: 10px;
 $scrollbar-color: $red;
@@ -21,4 +25,9 @@ $scrollbar-border-color: $golden;
 $scrollbar-track-color: transparent;
 $scrollbar-border-radius: 3px;
 
+
+$toggle-button-width: 100px;
+$toggle-button-height: 30px;
+$toggle-button-border-size: 2px;
+$toggle-button-transition: 0.5s;
 

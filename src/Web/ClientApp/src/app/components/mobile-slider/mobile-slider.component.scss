@@ -1,0 +1,22 @@
+.slider-container {
+  width: 100%;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+
+.slider-wrapper {
+  display: flex;
+}
+
+.slider-transition {
+  transition: transform 0.3s ease-in-out;
+}
+
+.slider-item {
+  min-width: 100%;
+  flex-shrink: 0;
+  text-align: center;
+  padding: 150px 0;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+}

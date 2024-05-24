@@ -5,6 +5,7 @@
 
 @import 'base';
 @import 'utilities';
+@import 'pixelperfect';
 
 a {
   color: #0366d6;
@@ -25,13 +26,18 @@ code {
 }
 
 #content {
-    margin-top: 10px;
+  margin-top: 10px;
+}
+
+#mobile-content {
+  flex-direction: column;
+  flex: 1;
+  margin-top: $mobile-header-height;
 }
 
 @media (min-width: $mobile-size) {
 
   #content {
-    margin-top: $pc-navbar-height;
     flex-direction: column;
   }
 }

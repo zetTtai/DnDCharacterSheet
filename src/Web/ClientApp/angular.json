@@ -10,13 +10,17 @@
           "strict": true
         },
         "@schematics/angular:service": {
-          "path": "src/services",
+          "path": "src/app/core/services",
           "flat": false
         },
         "@schematics/angular:directive": {
-          "path": "src/directives",
+          "path": "src/app/shared/directives",
           "flat": false
-        }
+        },
+        "@schematics/angular:component": {
+          "path": "src/app/components",
+          "flat": false
+        } 
       },
       "root": "",
       "sourceRoot": "src",

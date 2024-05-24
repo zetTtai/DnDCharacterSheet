@@ -1,0 +1,15 @@
+@import 'variables';
+
+#save-button {
+  position: absolute;
+  top: 0;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  z-index: 99;
+  height: $pc-navbar-height;
+
+  & a {
+    pointer-events: all;
+  }
+}
