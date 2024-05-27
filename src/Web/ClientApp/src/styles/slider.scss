@@ -15,7 +15,9 @@
   min-width: 100%;
 
   &-mobile {
-    margin: 10px $pc-margin-sides 0px $pc-margin-sides;
+    & main {
+      margin: 0 $pc-margin-sides 0 $pc-margin-sides;
+    }
   }
 
   &-pc {

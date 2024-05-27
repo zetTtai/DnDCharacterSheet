@@ -65,12 +65,12 @@ $side-container-border-size: 2px;
   }
 
   &-right {
-    right: -$side-container-border-size;
+    right: 0;
   }
 }
 
 #mobile-death-saves-content, #mobile-spellcasting-content {
-  top: calc(#{$toggle-button-width} * 3 + 4px);
+  top: calc(#{$toggle-button-width} * 3 - 11px);
   height: calc(#{$toggle-button-width} - 1px);
 
   &.active {

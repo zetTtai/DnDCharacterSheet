@@ -12,7 +12,7 @@ export class MobileHeaderComponent {
   isModalVisible: boolean = false;
   isHeaderOpen: boolean = false;
   data: ModalData;
-  classInputMaxWidth: number = (CIRCLE_CONFIG.DIAMETER * 2) + (CIRCLE_CONFIG.MARGIN_RIGHT * 2);
+  classInputMaxWidth: number = (CIRCLE_CONFIG.DIAMETER * 2) + (CIRCLE_CONFIG.MARGIN_RIGHT * 2) - 2;
 
   constructor(private toggleService: ToggleService) { }
 

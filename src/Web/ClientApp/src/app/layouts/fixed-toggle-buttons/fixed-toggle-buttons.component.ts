@@ -18,23 +18,38 @@ export class FixedToggleButtonsComponent {
   sections = {
     'abilities': {
       'direction': 'right',
-      'distance': 100
+      'distance': () => 100
     },
     'death-saves': {
       'direction': 'right',
-      'distance': 300
+      'distance': () => this.calculateDistanceForBottomFixedButtons()
     },
     'wallet': {
       'direction': 'left',
-      'distance': 100
+      'distance': () => 100
     },
     'spellcasting': {
       'direction': 'left',
-      'distance': 300
-    },
+      'distance': () => this.calculateDistanceForBottomFixedButtons()
+    }
   };
 
   constructor(private toggleService: ToggleService) { }
+
+  private calculateDistanceForBottomFixedButtons(): number {
+    const body = document.body;
+    const html = document.documentElement;
+
+    // Get the maximum of the document's width
+    const width = Math.max(
+      body.scrollWidth,
+      body.offsetWidth,
+      html.clientWidth,
+      html.scrollWidth,
+      html.offsetWidth
+    );
+    return width - 100;
+  }
 
   private getElementId(key: string): string {
     return `mobile-${key.toLowerCase()}-content`;
@@ -54,9 +69,9 @@ export class FixedToggleButtonsComponent {
     let delay = 0;
 
     if (!isOpen) {
-      this.toggleService.expand(elementId, toggleId, this.sections[key].distance, this.sections[key].direction);
+      this.toggleService.expand(elementId, toggleId, this.sections[key].distance(), this.sections[key].direction);
     } else {
-      this.toggleService.collapse(elementId, toggleId, this.sections[key].distance, this.sections[key].direction);
+      this.toggleService.collapse(elementId, toggleId, this.sections[key].distance(), this.sections[key].direction);
       delay = this.getDelay(elementId);
     }
 

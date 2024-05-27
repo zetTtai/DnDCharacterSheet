@@ -14,18 +14,18 @@ export class ToggleService {
     const factor = isExpand ? 1 : -1;
     const offset = distance * factor;
 
-    const adjustStyle = (element: HTMLElement, styleProp: string, value: number) => {
+    const adjustStyle = (element: HTMLElement, styleProp: string, offset: number) => {
       const computedStyle = window.getComputedStyle(element);
-      element.style[styleProp] = `${parseInt(computedStyle[styleProp]) + value}px`;
+      element.style[styleProp] = `${parseInt(computedStyle[styleProp]) + offset}px`;
     };
-
     const adjustments = {
       top: () => {
         adjustStyle(content, 'height', offset);
         adjustStyle(button, 'top', -offset);
       },
       left: () => {
-        adjustStyle(content, 'width', offset);
+        // Special case: To avoid overflow, the content expands/collapses 2 pixels less when expanding
+        adjustStyle(content, 'width', isExpand ? offset - 2 : offset);
         adjustStyle(button, 'right', offset);
       },
       right: () => {

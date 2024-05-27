@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { HammerModule } from '@angular/platform-browser';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 import { AppComponent } from './app.component';
@@ -77,7 +78,8 @@ export function createTranslateLoader(http: HttpClient){
       { path: 'spells', component: SpellsComponent },
       { path: 'account', component: AccountComponent }
     ]),
-    HammerModule
+    HammerModule,
+    FontAwesomeModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }
