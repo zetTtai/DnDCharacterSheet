@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { LanguageService, SupportedLanguages } from '../../core/services/language/language.service';
 import { SharedDataService } from '../../core/services/shared-data/shared-data.service';
-import { faKhanda } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-navbar',
@@ -9,7 +8,6 @@ import { faKhanda } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-  faKhanda = faKhanda;
   public components: { id: string, name: string }[] = [];
 
   constructor(
