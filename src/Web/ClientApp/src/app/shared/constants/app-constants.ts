@@ -5,4 +5,4 @@ export const CIRCLE_CONFIG = {
 
 export const ICONS = {
   PATH: "/assets/icons/"
-}
+};
