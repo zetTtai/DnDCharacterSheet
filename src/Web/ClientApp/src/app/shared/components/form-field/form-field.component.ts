@@ -20,10 +20,12 @@ export class FormFieldComponent {
   edit(event: Event) {
     if (this.disabled) return;
 
-    console.log(this.getTargetId(event));
+    const id = this.getTargetId(event);
+
+    if (!id) return;
 
     const data: ModalData = {
-      id: this.getTargetId(event),
+      id: id,
       type: this.type,
       label: this.label,
       value: this.value

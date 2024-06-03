@@ -1,7 +1,14 @@
-<div [class.mr-10]="!last" (click)="edit($event)">
+<div [class.mr-10]="!last"  (click)="edit($event)">
   <div class="input-group">
     <label [for]="name">{{ label }}</label>
-    <input *ngIf="type !== 'custom'" [type]="type" [name]="name" [value]="value" [disabled]="disabled" [class]="class" />
-    <ng-content *ngIf="type === 'custom'" [class]="class"></ng-content>
+      <input *ngIf="type !== 'custom'"
+             [class]="class"
+             [type]="type"
+             [name]="name"
+             [value]="value"
+             [disabled]="disabled" />
+    <ng-container *ngIf="type === 'custom'">
+      <ng-content (click)="edit($event)" [class]="class"></ng-content>
+    </ng-container>
   </div>
 </div>

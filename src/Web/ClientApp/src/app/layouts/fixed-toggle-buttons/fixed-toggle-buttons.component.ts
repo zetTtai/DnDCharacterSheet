@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Directions, ToggleService } from '../../core/services/toggle/toggle.service';
+import { DelayService } from '../../core/services/delay/delay.service';
 
 @Component({
   selector: 'app-fixed-toggle-buttons',
@@ -34,7 +35,7 @@ export class FixedToggleButtonsComponent {
     }
   };
 
-  constructor(private toggleService: ToggleService) { }
+  constructor(private toggleService: ToggleService, private delayService: DelayService) { }
 
   private calculateDistanceForBottomFixedButtons(): number {
     const body = document.body;
@@ -72,7 +73,7 @@ export class FixedToggleButtonsComponent {
       this.toggleService.expand(elementId, toggleId, this.sections[key].distance(), this.sections[key].direction);
     } else {
       this.toggleService.collapse(elementId, toggleId, this.sections[key].distance(), this.sections[key].direction);
-      delay = this.getDelay(elementId);
+      delay = this.delayService.getDelayInSeconds(elementId);
     }
 
     this.toggleStates[key] = !isOpen;

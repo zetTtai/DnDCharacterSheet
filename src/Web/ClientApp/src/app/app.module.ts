@@ -14,6 +14,7 @@ import { FormFieldComponent } from './shared/components/form-field/form-field.co
 import { ModalComponent } from './shared/components/modal/modal.component';
 import { ToggleButtonComponent } from './shared/components/toggle-button/toggle-button.component';
 import { AppIconComponent } from './shared/components/app-icon/app-icon.component';
+import { InputTextModalComponent } from './shared/components/modal/inputs/input-text-modal/input-text-modal.component';
 
 import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { MobileHeaderComponent } from './layouts/mobile-header/mobile-header.component';
@@ -60,6 +61,7 @@ export function createTranslateLoader(http: HttpClient){
     SpellcastingComponent,
     WalletComponent,
     AppIconComponent,
+    InputTextModalComponent
   ],
   imports: [
     BrowserModule,

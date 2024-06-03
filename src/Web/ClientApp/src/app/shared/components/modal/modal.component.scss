@@ -1,3 +1,5 @@
+@import 'variables';
+
 .modal {
   display: flex;
   justify-content: center;
@@ -8,15 +10,37 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
+  z-index: $z-index-above-all;
+  transition: opacity $modal-fading-duration ease-in-out, z-index $modal-fading-duration ease-in-out;
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@mixin scaleInAnimation($duration: .5s, $timingFunction: ease-out, $delay: 0s) {
+  animation: scaleIn $duration $timingFunction $delay;
 }
 
 .modal-content {
   padding: 20px;
   border-radius: 5px;
   max-width: 500px;
-  width: 100%;
+  width: 80%;
   text-align: center;
+  display: inline-block;
+  transform-origin: center;
+  @include scaleInAnimation;
 }
 
 .close {
@@ -25,4 +49,13 @@
   right: 20px;
   font-size: 1.5rem;
   cursor: pointer;
+}
+
+.hidden {
+  opacity: 0;
+  z-index: $z-index-behind-all;
+}
+
+.content-close {
+    display: none;
 }
