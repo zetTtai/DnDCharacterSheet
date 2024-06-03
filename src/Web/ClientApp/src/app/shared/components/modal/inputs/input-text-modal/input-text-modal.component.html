@@ -1,2 +1,8 @@
-<p>input-text-modal works!</p>
-{{ data?.id }}
+<form class="input-modal-content" (ngSubmit)="onSubmit($event)">
+  <h4>{{ 'form.modify' | translate }} {{ data?.label }}</h4>
+  <input type="{{ data?.type }}" name="{{ data?.id }}" value="{{data?.value}}" />
+  <div class="buttons">
+    <button class="btn btn-danger" (click)="onCancel($event)">{{ 'form.cancel' | translate }}</button>
+    <button class="btn btn-success" type="submit">{{ 'form.confirm' | translate }}</button>
+  </div>
+</form>

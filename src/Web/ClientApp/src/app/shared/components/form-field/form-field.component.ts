@@ -15,7 +15,7 @@ export class FormFieldComponent {
   @Input() class: string;
   @Input() last: boolean = false;
 
-  @Output() clickEvent = new EventEmitter<ModalData>();
+  @Output() editFormField = new EventEmitter<ModalData>();
 
   edit(event: Event) {
     if (this.disabled) return;
@@ -31,7 +31,7 @@ export class FormFieldComponent {
       value: this.value
     };
 
-    this.clickEvent.emit(data);
+    this.editFormField.emit(data);
   }
 
   getTargetId(event: Event): string {

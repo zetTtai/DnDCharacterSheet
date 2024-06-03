@@ -28,18 +28,21 @@
   }
 }
 
-@mixin scaleInAnimation($duration: .5s, $timingFunction: ease-out, $delay: 0s) {
+@mixin scaleInAnimation($duration: $modal-fading-duration, $timingFunction: ease-out, $delay: 0s) {
   animation: scaleIn $duration $timingFunction $delay;
 }
 
 .modal-content {
-  padding: 20px;
+  padding: 20px 10px;
   border-radius: 5px;
   max-width: 500px;
-  width: 80%;
+  width: 85%;
   text-align: center;
   display: inline-block;
   transform-origin: center;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+
   @include scaleInAnimation;
 }
 
@@ -56,6 +59,15 @@
   z-index: $z-index-behind-all;
 }
 
-.content-close {
+.content {
+  transition: opacity $modal-fading-duration ease-in-out;
+
+  &-close {
     display: none;
+  }
+
+  // Used to avoid blurry effect when scaling
+  &-hidden {
+    opacity: 0;
+  }
 }

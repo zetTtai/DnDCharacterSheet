@@ -1,7 +1,9 @@
-import { Component, Type } from '@angular/core';
+import { Component, HostListener, Type } from '@angular/core';
 import { NavigationService } from './core/services/navigation/navigation.service';
 import { SharedDataService } from './core/services/shared-data/shared-data.service';
 import { HomeComponent } from './components/home/home.component';
+import { WEB } from './shared/constants/app-constants';
+import { ModalData } from './shared/models/modal-data.model';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +13,8 @@ export class AppComponent {
   title = 'app';
 
   isModalVisible: boolean = false;
+  data: ModalData;
+  isDesktop: boolean = window.innerWidth > WEB.MOBILE_SIZE;
 
   public mobileComponents: { class: Type<any>, key: string }[] = [];
   public pcComponents: { class: Type<any>, key: string }[] = [];
@@ -33,11 +37,21 @@ export class AppComponent {
     return this.navService.currentViewPc;
   }
 
-  openModal() {
+  openModal(data: ModalData) {
     this.isModalVisible = true;
+    this.data = data;
   }
 
   closeModal() {
     this.isModalVisible = false;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.isDesktop = window.innerWidth > WEB.MOBILE_SIZE;
+  }
+
+  isDesktopView(): boolean {
+    return this.isDesktop;
   }
 }

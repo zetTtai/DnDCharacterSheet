@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ModalData } from '../../../../models/modal-data.model';
 import { InputModal } from '../../modal.component';
 
@@ -9,6 +9,17 @@ import { InputModal } from '../../modal.component';
 })
 export class InputTextModalComponent implements InputModal {
   @Input() data: ModalData;
+  @Output() cancel = new EventEmitter<void>();
 
   constructor() { }
+
+  onCancel(event: Event) {
+    event.preventDefault();
+    this.cancel.emit();
+  }
+
+  onSubmit(event: Event) {
+    event.preventDefault();
+    console.log("Eing");
+  }
 }

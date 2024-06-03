@@ -1,6 +1,7 @@
 <div id="mobile-modal" class="modal" [class.hidden]="!isVisible" (click)="onClose($event)">
   <div class="ui modal-content" [class.content-close]="!isVisible">
-    <span id="close" class="close" (click)="onClose($event)">&times;</span>
-    <ng-template #content></ng-template>
+    <div class="content" [class.content-hidden]="!isLoaded">
+      <ng-template (cancel)="onCancel()" #content></ng-template>
+    </div>
   </div>
 </div>

@@ -2,7 +2,7 @@
   <app-save-button></app-save-button>
   <app-navbar></app-navbar>
 
-  <div id="content" class="pc">
+  <div *ngIf="isDesktopView()" id="content" class="pc">
     <app-pc-slider></app-pc-slider>
     <main id="main-pc" class="pc slider">
       <ng-container *ngFor="let component of pcComponents; index as index;">
@@ -12,12 +12,14 @@
       </ng-container>
     </main>
   </div>
-  <div id="mobile-content" class="mobile" style="display: flex;">
-    <app-mobile-header></app-mobile-header>
+
+  <div *ngIf="!isDesktopView()" id="mobile-content" class="mobile">
+    <app-mobile-header (openModal)="openModal($event)"></app-mobile-header>
     <app-fixed-toggle-buttons></app-fixed-toggle-buttons>
     <main id="main-mobile" class="mobile">
       <app-mobile-slider></app-mobile-slider>
     </main>
+    <app-modal [isVisible]="isModalVisible" (closeModal)="closeModal()" [data]="data"></app-modal>
   </div>
 
 </body>

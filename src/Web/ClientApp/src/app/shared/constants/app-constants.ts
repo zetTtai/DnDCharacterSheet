@@ -6,3 +6,8 @@ export const CIRCLE_CONFIG = {
 export const ICONS = {
   PATH: "/assets/icons/"
 };
+
+export const WEB = {
+  // Must be equal to $mobile-size (_variables.scss)
+  MOBILE_SIZE: 768
+}

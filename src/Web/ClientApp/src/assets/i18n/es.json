@@ -1,5 +1,10 @@
 {
   "title": "DnD Hoja de personaje",
+  "form": {
+    "confirm": "Confirmar",
+    "modify": "Modificar",
+    "cancel": "Cancelar"
+  },
   "nav-menu": {
     "start_journey": "Comienza tu Aventura",
     "account": "Perfil",

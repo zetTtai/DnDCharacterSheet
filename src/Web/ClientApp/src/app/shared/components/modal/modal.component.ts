@@ -15,6 +15,7 @@ export interface InputModal {
 
 export class ModalComponent implements OnChanges {
   @Input() isVisible: boolean = false;
+  isLoaded: boolean = false;
   @Input() data: ModalData;
   @Output() closeModal = new EventEmitter<void>();
   @ViewChild('content', { read: ViewContainerRef }) content: ViewContainerRef;
@@ -34,6 +35,10 @@ export class ModalComponent implements OnChanges {
         return;
       }
       await this.loadComponent(this.modalTypes[key]);
+      const delay = this.delayService.getDelayInSeconds('mobile-modal');
+      setTimeout(() => {
+        this.isLoaded = true;
+      }, delay + 100);
     }
   }
 
@@ -42,16 +47,30 @@ export class ModalComponent implements OnChanges {
     const componentRef = this.content.createComponent(component);
     const instance = componentRef.instance as InputModal;
     instance.data = this.data;
+
+    if ('cancel' in instance) {
+      (componentRef.instance as any).cancel.subscribe(() => this.onCancel());
+    }
+
   }
 
-  onClose(event: Event) {
-    const target = event.target as HTMLElement;
-    if (target.id != "mobile-modal" && target.id != "close") return;
-
+  private closingModal() {
     this.closeModal.emit();
     const delay = this.delayService.getDelayInSeconds('mobile-modal');
     setTimeout(() => {
       this.content.clear();
+      this.isLoaded = false;
     }, delay);
+  }
+
+  onClose(event: Event) {
+    const target = event.target as HTMLElement;
+    if (target.id != "mobile-modal") return;
+
+    this.closingModal();
+  }
+
+  onCancel() {
+    this.closingModal();
   }
 }

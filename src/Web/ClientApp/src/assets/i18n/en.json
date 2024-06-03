@@ -1,5 +1,10 @@
 {
   "title": "DnD Character Sheet",
+  "form": {
+    "confirm": "Confirm",
+    "modify": "Modify",
+    "cancel": "Cancel"
+  },
   "nav-menu": {
     "start_journey": "Start Journey",
     "account": "Account",
