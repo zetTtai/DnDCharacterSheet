@@ -12,24 +12,25 @@ export class FormFieldComponent {
   @Input() type: string = 'text';
   @Input() name: string;
   @Input() value: any;
-  @Input() disabled: boolean = false;
+  @Input() readOnly: boolean = false;
   @Input() class: string;
   @Input() last: boolean = false;
 
   @Output() editFormField = new EventEmitter<ModalData>();
 
   edit(event: Event) {
-    if (this.disabled) return;
+    if (this.readOnly) return;
 
     const id = this.getTargetId(event);
-
     if (!id) return;
+
+    const value = this.getTargetValue(event);
 
     const data: ModalData = {
       id: id,
       type: this.type,
       label: this.label,
-      value: this.value,
+      value: value,
       validators: MOBILE_HEADER_FIELDS[id] || []
     };
 
@@ -38,11 +39,23 @@ export class FormFieldComponent {
 
   getTargetId(event: Event): string {
     const target = event.target as HTMLElement;
+    target.blur();
 
-    if (!target.classList.contains('input-group')) {
-      return target.id;
+    return target.id;
+  }
+
+  getTargetValue(event: Event): any {
+    const target = event.target as HTMLElement;
+
+    if (target instanceof HTMLInputElement) {
+      return target.value;
     }
 
-    return target.querySelector('input').name;
+    if (target.classList.contains('input-group')) {
+      const input = target.querySelector('input') as HTMLInputElement | null;
+      return input?.value;
+    }
+
+    return undefined;
   }
 }

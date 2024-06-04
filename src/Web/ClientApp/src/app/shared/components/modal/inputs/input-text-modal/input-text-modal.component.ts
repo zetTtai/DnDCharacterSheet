@@ -9,18 +9,20 @@ import { ValidationService } from '../../../../../core/services/validation/valid
   templateUrl: './input-text-modal.component.html',
   styleUrls: ['./input-text-modal.component.scss']
 })
-export class InputTextModalComponent implements InputModal, OnInit {
+export class InputTextModalComponent implements InputModal, OnInit{
   @Input() data: ModalData;
   @Output() cancel = new EventEmitter<void>();
   inputTextForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private validationService: ValidationService) { }
+  constructor(private formBuilder: FormBuilder, private validationService: ValidationService) { }
+
 
   ngOnInit() {
+    
     if (this.data) {
       const validators: ValidatorFn[] = this.validationService.getValidators(this.data.validators);
-      this.inputTextForm = this.fb.group({
-        [this.data.id]: ['', validators || []]
+      this.inputTextForm = this.formBuilder.group({
+        [this.data.id]: [this.data.value, validators || []]
       });
     }
   }
@@ -32,9 +34,11 @@ export class InputTextModalComponent implements InputModal, OnInit {
 
   onSubmit() {
     if (!this.inputTextForm.valid) {
-      console.log('Form not valid');
+      console.error('Form not valid');
       return;
     }
-    console.log('Form Submitted', this.inputTextForm.value);
+    const input = document.getElementById(this.data.id) as HTMLInputElement;
+    input.value = this.inputTextForm.value[this.data.id];
+    this.cancel.emit();
   }
 }
