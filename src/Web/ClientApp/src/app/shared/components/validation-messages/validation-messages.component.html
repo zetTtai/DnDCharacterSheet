@@ -1,0 +1,7 @@
+<div *ngIf="form.get(data?.id).invalid && (form.get(data?.id).dirty || form.get(data?.id).touched)">
+  <div *ngFor="let customValidator of data?.validators">
+    <div *ngIf="form.get(data?.id).hasError(getValidatorErrorName(customValidator.validator))">
+      {{ customValidator.messageId | translate }}
+    </div>
+  </div>
+</div>

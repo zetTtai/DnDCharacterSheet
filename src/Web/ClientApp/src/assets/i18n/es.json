@@ -5,6 +5,13 @@
     "modify": "Modificar",
     "cancel": "Cancelar"
   },
+  "validation": {
+    "required": "Este campo es obligatorio",
+    "minLength": {
+      "5": "La longitud mínima es de 5 caracteres"
+    },
+    "email": "Por favor, introduzca una dirección de correo electrónico válida"
+  },
   "nav-menu": {
     "start_journey": "Comienza tu Aventura",
     "account": "Perfil",

@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { HammerModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
@@ -15,6 +16,7 @@ import { ModalComponent } from './shared/components/modal/modal.component';
 import { ToggleButtonComponent } from './shared/components/toggle-button/toggle-button.component';
 import { AppIconComponent } from './shared/components/app-icon/app-icon.component';
 import { InputTextModalComponent } from './shared/components/modal/inputs/input-text-modal/input-text-modal.component';
+import { ValidationMessagesComponent } from './shared/components/validation-messages/validation-messages.component';
 
 import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { MobileHeaderComponent } from './layouts/mobile-header/mobile-header.component';
@@ -61,7 +63,8 @@ export function createTranslateLoader(http: HttpClient){
     SpellcastingComponent,
     WalletComponent,
     AppIconComponent,
-    InputTextModalComponent
+    InputTextModalComponent,
+    ValidationMessagesComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +84,8 @@ export function createTranslateLoader(http: HttpClient){
       { path: 'spells', component: SpellsComponent },
       { path: 'account', component: AccountComponent }
     ]),
-    HammerModule
+    HammerModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ModalData } from '../../models/modal-data.model';
+import { MOBILE_HEADER_FIELDS } from '../../constants/app-form-validators';
 
 @Component({
   selector: 'app-form-field',
@@ -28,7 +29,8 @@ export class FormFieldComponent {
       id: id,
       type: this.type,
       label: this.label,
-      value: this.value
+      value: this.value,
+      validators: MOBILE_HEADER_FIELDS[id] || []
     };
 
     this.editFormField.emit(data);

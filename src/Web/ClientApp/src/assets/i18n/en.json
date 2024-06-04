@@ -5,6 +5,13 @@
     "modify": "Modify",
     "cancel": "Cancel"
   },
+  "validation": {
+    "required": "This field is required",
+    "minLength": {
+      "5": "The minimum length is 5 characters"
+    },
+    "email": "Please enter a valid email address"
+  },
   "nav-menu": {
     "start_journey": "Start Journey",
     "account": "Account",
