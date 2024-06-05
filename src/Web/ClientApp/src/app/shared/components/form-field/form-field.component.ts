@@ -40,6 +40,10 @@ export class FormFieldComponent {
   getTargetId(event: Event): string {
     const target = event.target as HTMLElement;
     target.blur();
+    const input = target.querySelector('input');
+    if (input) {
+      return input.id;
+    }
 
     return target.id;
   }

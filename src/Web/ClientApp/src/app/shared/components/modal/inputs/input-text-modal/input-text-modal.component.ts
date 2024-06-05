@@ -25,11 +25,22 @@ export class InputTextModalComponent implements InputModal, OnInit{
         [this.data.id]: [this.data.value, validators || []]
       });
     }
+
+    const modal = document.getElementById("mobile-modal");
+    const input = modal.querySelector('input');
+    input.focus();
+    modal.classList.add("modal-top");
+  }
+
+  close() {
+    this.cancel.emit();
+    const modal = document.getElementById("mobile-modal");
+    modal.classList.remove("modal-top");
   }
 
   onCancel(event: Event) {
     event.preventDefault();
-    this.cancel.emit();
+    this.close();
   }
 
   onSubmit() {
@@ -39,6 +50,6 @@ export class InputTextModalComponent implements InputModal, OnInit{
     }
     const input = document.getElementById(this.data.id) as HTMLInputElement;
     input.value = this.inputTextForm.value[this.data.id];
-    this.cancel.emit();
+    this.close();
   }
 }
