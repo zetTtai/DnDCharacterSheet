@@ -1,6 +1,6 @@
 <form class="input-modal-content" [formGroup]="inputTextForm" (ngSubmit)="onSubmit()">
   <h4>{{ 'form.modify' | translate }} {{ data?.label }}</h4>
-  <input type="{{ data?.type }}" formControlName="{{ data?.id }}" value="{{ data?.value }}"/>
+  <input (keydown)="onKeydown($event)" type="{{ data?.type }}" formControlName="{{ data?.id }}" value="{{ data?.value }}"/>
   <app-validation-messages [form]="inputTextForm" [data]="data"></app-validation-messages>
 
   <div class="buttons">

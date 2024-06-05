@@ -52,4 +52,11 @@ export class InputTextModalComponent implements InputModal, OnInit{
     input.value = this.inputTextForm.value[this.data.id];
     this.close();
   }
+
+  onKeydown(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      this.onSubmit();
+    }
+  }
 }

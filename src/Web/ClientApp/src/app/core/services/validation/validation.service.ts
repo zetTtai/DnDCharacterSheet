@@ -16,6 +16,7 @@ export class ValidationService {
   getValidatorErrorName(validator: ValidatorFn): string {
     if (validator === Validators.required) return 'required';
     if (validator.toString().includes('minlength')) return 'minlength';
+    if (validator.toString().includes('maxlength')) return 'maxlength';
 
     console.error("Validator not registered");
     return 'unknown';

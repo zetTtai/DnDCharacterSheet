@@ -1,4 +1,4 @@
-const CACHE_NAME = "offline-v1"; // Update the cache name to include a version when deploy
+const CACHE_NAME = "offline-v1.0.1"; // Update the cache name to include a version when deploy
 const filesToCache = [
   '/',
   '/assets/offline.html'

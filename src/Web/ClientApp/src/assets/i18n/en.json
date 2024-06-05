@@ -7,8 +7,8 @@
   },
   "validation": {
     "required": "This field is required",
-    "minLength": {
-      "5": "The minimum length is 5 characters"
+    "maxLength": {
+      "100": "The maximum length is 100 characters"
     },
     "email": "Please enter a valid email address"
   },
