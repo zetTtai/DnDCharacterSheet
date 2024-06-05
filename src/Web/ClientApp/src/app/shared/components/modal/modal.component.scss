@@ -1,5 +1,8 @@
+@import 'variables';
+
 .modal {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   position: fixed;
@@ -8,15 +11,40 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
+  z-index: $z-index-above-all;
+  transition: opacity $modal-fading-duration ease-in-out, z-index $modal-fading-duration ease-in-out;
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@mixin scaleInAnimation($duration: $modal-fading-duration, $timingFunction: ease-out, $delay: 0s) {
+  animation: scaleIn $duration $timingFunction $delay;
 }
 
 .modal-content {
-  padding: 20px;
+  padding: 20px 10px;
   border-radius: 5px;
   max-width: 500px;
-  width: 100%;
+  width: 95%;
   text-align: center;
+  display: inline-block;
+  transform-origin: center;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+
+  @include scaleInAnimation;
 }
 
 .close {
@@ -25,4 +53,27 @@
   right: 20px;
   font-size: 1.5rem;
   cursor: pointer;
+}
+
+.hidden {
+  opacity: 0;
+  z-index: $z-index-behind-all;
+}
+
+.content {
+  transition: opacity $modal-fading-duration ease-in-out;
+
+  &-close {
+    display: none;
+  }
+
+  // Used to avoid blurry effect when scaling
+  &-hidden {
+    opacity: 0;
+  }
+}
+
+.modal-top {
+  justify-content: flex-start;
+  padding-top: 10%;
 }

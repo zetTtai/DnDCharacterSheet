@@ -5,10 +5,11 @@ $font-family: 'Open Sans', sans-serif;
 $ui-background-color: white;
 $border-color: black;
 $z-index-behind-all: -99;
+$z-index-above-all: 1000;
 
 $mobile-size: 768px;
 $mobile-margin-sides: 20px;
-$mobile-header-height: 135px;
+$mobile-header-height: 120px;
 $mobile-header-z-index: 5;
 
 
@@ -31,3 +32,4 @@ $toggle-button-height: 30px;
 $toggle-button-border-size: 2px;
 $toggle-button-transition: 0.5s;
 
+$modal-fading-duration: 0.2s;

@@ -74,3 +74,13 @@ input, .content {
   z-index: $mobile-header-z-index;
 }
 
+#mobile-header-img {
+  position: absolute;
+  justify-content: center;
+  width: 100%;
+  top: 4px;
+
+  & div {
+    pointer-events: all;
+  }
+}

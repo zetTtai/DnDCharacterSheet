@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ModalData } from '../../models/modal-data.model';
+import { MOBILE_HEADER_FIELDS } from '../../constants/app-form-validators';
 
 @Component({
   selector: 'app-form-field',
@@ -11,34 +12,54 @@ export class FormFieldComponent {
   @Input() type: string = 'text';
   @Input() name: string;
   @Input() value: any;
-  @Input() disabled: boolean = false;
+  @Input() readOnly: boolean = false;
   @Input() class: string;
   @Input() last: boolean = false;
 
-  @Output() clickEvent = new EventEmitter<ModalData>();
+  @Output() editFormField = new EventEmitter<ModalData>();
 
   edit(event: Event) {
-    if (this.disabled) return;
+    if (this.readOnly) return;
 
-    console.log(this.getTargetId(event));
+    const id = this.getTargetId(event);
+    if (!id) return;
+
+    const value = this.getTargetValue(event);
 
     const data: ModalData = {
-      id: this.getTargetId(event),
+      id: id,
       type: this.type,
       label: this.label,
-      value: this.value
+      value: value,
+      validators: MOBILE_HEADER_FIELDS[id] || []
     };
 
-    this.clickEvent.emit(data);
+    this.editFormField.emit(data);
   }
 
   getTargetId(event: Event): string {
     const target = event.target as HTMLElement;
-
-    if (!target.classList.contains('input-group')) {
-      return target.id;
+    target.blur();
+    const input = target.querySelector('input');
+    if (input) {
+      return input.id;
     }
 
-    return target.querySelector('input').name;
+    return target.id;
+  }
+
+  getTargetValue(event: Event): any {
+    const target = event.target as HTMLElement;
+
+    if (target instanceof HTMLInputElement) {
+      return target.value;
+    }
+
+    if (target.classList.contains('input-group')) {
+      const input = target.querySelector('input') as HTMLInputElement | null;
+      return input?.value;
+    }
+
+    return undefined;
   }
 }

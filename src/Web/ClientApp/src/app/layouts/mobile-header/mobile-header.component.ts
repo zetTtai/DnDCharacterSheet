@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ModalData } from '../../shared/models/modal-data.model';
 import { CIRCLE_CONFIG } from '../../shared/constants/app-constants';
 import { ToggleService } from '../../core/services/toggle/toggle.service';
@@ -11,8 +11,9 @@ import { ToggleService } from '../../core/services/toggle/toggle.service';
 export class MobileHeaderComponent {
   isModalVisible: boolean = false;
   isHeaderOpen: boolean = false;
-  data: ModalData;
-  classInputMaxWidth: number = (CIRCLE_CONFIG.DIAMETER * 2) + (CIRCLE_CONFIG.MARGIN_RIGHT * 2);
+  classInputMaxWidth: number = (CIRCLE_CONFIG.DIAMETER * 2) + (CIRCLE_CONFIG.MARGIN_RIGHT * 2) - 2;
+
+  @Output() openModal = new EventEmitter<ModalData>();
 
   constructor(private toggleService: ToggleService) { }
 
@@ -20,9 +21,8 @@ export class MobileHeaderComponent {
     return `${this.classInputMaxWidth}px`;
   }
 
-  openModal(data: ModalData) {
-    this.data = data;
-    this.isModalVisible = true;
+  open(data: ModalData) {
+    this.openModal.emit(data);
   }
 
   closeModal() {

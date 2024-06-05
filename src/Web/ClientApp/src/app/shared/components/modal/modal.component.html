@@ -1,7 +1,7 @@
-<div class="modal" *ngIf="isVisible">
-  <div class="ui modal-content">
-    <span class="close" (click)="onClose()">&times;</span>
-    <p>{{ data?.id }}</p>
-    <ng-container *ngComponentOutlet="component"></ng-container>
+<div id="mobile-modal" class="modal" [class.hidden]="!isVisible" (click)="onClose($event)">
+  <div class="ui modal-content" [class.content-close]="!isVisible">
+    <div class="content" [class.content-hidden]="!isLoaded">
+      <ng-template (cancel)="onCancel()" #content></ng-template>
+    </div>
   </div>
 </div>

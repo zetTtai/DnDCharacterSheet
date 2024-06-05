@@ -3,12 +3,20 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { HammerModule } from '@angular/platform-browser';
-
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+import { CircleComponent } from './shared/components/circle/circle.component';
+import { FormFieldComponent } from './shared/components/form-field/form-field.component';
+import { ModalComponent } from './shared/components/modal/modal.component';
+import { ToggleButtonComponent } from './shared/components/toggle-button/toggle-button.component';
+import { AppIconComponent } from './shared/components/app-icon/app-icon.component';
+import { InputTextModalComponent } from './shared/components/modal/inputs/input-text-modal/input-text-modal.component';
+import { ValidationMessagesComponent } from './shared/components/validation-messages/validation-messages.component';
 
 import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { MobileHeaderComponent } from './layouts/mobile-header/mobile-header.component';
@@ -20,10 +28,6 @@ import { LoreComponent } from './components/lore/lore.component';
 import { ItemsComponent } from './components/items/items.component';
 import { SpellsComponent } from './components/spells/spells.component';
 import { AccountComponent } from './components/account/account.component';
-import { CircleComponent } from './shared/components/circle/circle.component';
-import { FormFieldComponent } from './shared/components/form-field/form-field.component';
-import { ModalComponent } from './shared/components/modal/modal.component';
-import { ToggleButtonComponent } from './shared/components/toggle-button/toggle-button.component';
 import { FixedToggleButtonsComponent } from './layouts/fixed-toggle-buttons/fixed-toggle-buttons.component';
 import { AbilitiesComponent } from './components/abilities/abilities.component';
 import { DeathSavesComponent } from './components/death-saves/death-saves.component';
@@ -57,7 +61,10 @@ export function createTranslateLoader(http: HttpClient){
     AbilitiesComponent,
     DeathSavesComponent,
     SpellcastingComponent,
-    WalletComponent
+    WalletComponent,
+    AppIconComponent,
+    InputTextModalComponent,
+    ValidationMessagesComponent
   ],
   imports: [
     BrowserModule,
@@ -77,7 +84,8 @@ export function createTranslateLoader(http: HttpClient){
       { path: 'spells', component: SpellsComponent },
       { path: 'account', component: AccountComponent }
     ]),
-    HammerModule
+    HammerModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }

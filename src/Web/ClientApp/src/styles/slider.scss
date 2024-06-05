@@ -14,10 +14,6 @@
 .slide {
   min-width: 100%;
 
-  &-mobile {
-    margin: 10px $pc-margin-sides 0px $pc-margin-sides;
-  }
-
   &-pc {
     margin: 0 $mobile-margin-sides 0px $mobile-margin-sides;
     background-color: white;

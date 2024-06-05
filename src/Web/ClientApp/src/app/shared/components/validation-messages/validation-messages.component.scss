@@ -1,0 +1,24 @@
+.alert {
+  padding: 3px;
+  width: 100%;
+  margin: 5px 0 0 0;
+  justify-content: flex-start;
+  display: flex;
+  padding-left: 10px;
+  align-items: center;
+
+  app-icon {
+      display: flex;
+      margin-right: 5px;
+      align-items: center;
+      justify-content: center;
+  }
+  p {
+      margin: 0;
+  }
+}
+
+.msg {
+    display: flex;
+
+}

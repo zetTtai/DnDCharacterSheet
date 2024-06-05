@@ -3,31 +3,35 @@
     <div class="level-up-button">
       <button class="btn btn-primary"> Level Up </button>
     </div>
-    <div class="character-img circle circle-l">
-      <app-circle [empty]=false [diameter]="50">
-        <img src="assets/images/icon192x192.png" width="50" height="50" />
-      </app-circle>
-    </div>
+
     <div class="save-button">
       <button class="btn btn-success"> Save </button>
     </div>
   </div>
 
+  <div id="mobile-header-img" class="mobile not-clickable">
+    <div class="character-img circle circle-l">
+      <app-circle [empty]=false [diameter]="50">
+        <img src="assets/images/icon192x192.png" width="50" height="50" />
+      </app-circle>
+    </div>
+  </div>
+
   <div class="second header-container">
     <div class="character-name-input">
-      <app-form-field label="Character Name" name="character-name" value="" [class]="'col-md-1 mt-16'" (clickEvent)="openModal($event)"></app-form-field>
+      <app-form-field label="Character Name" name="character_name" value="" [class]="'col-md-1 mt-16'" (editFormField)="open($event)"></app-form-field>
     </div>
 
-    <app-form-field label="Level" name="level" value="1" class="level-input" [class]="'fs-24'" [disabled]="true" (clickEvent)="openModal($event)"></app-form-field>
+    <app-form-field label="Level" name="level" value="1" class="level-input" [class]="'fs-24'" [readOnly]="true" (editFormField)="open($event)"></app-form-field>
 
     <div class="mt-7">
-      <app-form-field label="Race" name="race" type="custom" (clickEvent)="openModal($event)">
+      <app-form-field label="Race" name="race" type="custom" (editFormField)="open($event)">
         <div class="content">
           <app-circle id="race"></app-circle>
         </div>
       </app-form-field>
 
-      <app-form-field label="Class/es" name="classes" type="custom" [last]="true" (clickEvent)="openModal($event)">
+      <app-form-field label="Class/es" name="classes" type="custom" [last]="true" (editFormField)="open($event)">
         <div class="class-input content" [style.max-width]="maxWidth">
           <app-circle id="first"></app-circle>
           <app-circle id="second"></app-circle>
@@ -50,5 +54,3 @@
   </app-toggle-button>
 
 </div>
-
-<app-modal [isVisible]="isModalVisible" (closeModal)="closeModal()" [data]="data"></app-modal>

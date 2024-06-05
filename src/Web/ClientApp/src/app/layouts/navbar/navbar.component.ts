@@ -8,7 +8,6 @@ import { SharedDataService } from '../../core/services/shared-data/shared-data.s
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-
   public components: { id: string, name: string }[] = [];
 
   constructor(

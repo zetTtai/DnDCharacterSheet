@@ -1,5 +1,17 @@
 {
   "title": "DnD Character Sheet",
+  "form": {
+    "confirm": "Confirm",
+    "modify": "Modify",
+    "cancel": "Cancel"
+  },
+  "validation": {
+    "required": "This field is required",
+    "maxLength": {
+      "100": "The maximum length is 100 characters"
+    },
+    "email": "Please enter a valid email address"
+  },
   "nav-menu": {
     "start_journey": "Start Journey",
     "account": "Account",

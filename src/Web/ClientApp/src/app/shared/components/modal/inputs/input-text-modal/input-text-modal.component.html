@@ -1,0 +1,10 @@
+<form class="input-modal-content" [formGroup]="inputTextForm" (ngSubmit)="onSubmit()">
+  <h4>{{ 'form.modify' | translate }} {{ data?.label }}</h4>
+  <input (keydown)="onKeydown($event)" type="{{ data?.type }}" formControlName="{{ data?.id }}" value="{{ data?.value }}"/>
+  <app-validation-messages [form]="inputTextForm" [data]="data"></app-validation-messages>
+
+  <div class="buttons">
+    <button class="btn btn-danger" (click)="onCancel($event)">{{ 'form.cancel' | translate }}</button>
+    <button class="btn btn-success" type="submit" [disabled]="!inputTextForm.valid">{{ 'form.confirm' | translate }}</button>
+  </div>
+</form>

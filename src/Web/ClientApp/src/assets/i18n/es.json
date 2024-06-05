@@ -1,5 +1,17 @@
 {
   "title": "DnD Hoja de personaje",
+  "form": {
+    "confirm": "Confirmar",
+    "modify": "Modificar",
+    "cancel": "Cancelar"
+  },
+  "validation": {
+    "required": "Este campo es obligatorio",
+    "maxLength": {
+      "100": "La longitud máxima es de 100 caracteres"
+    },
+    "email": "Por favor, introduzca una dirección de correo electrónico válida"
+  },
   "nav-menu": {
     "start_journey": "Comienza tu Aventura",
     "account": "Perfil",
