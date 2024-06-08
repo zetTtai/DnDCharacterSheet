@@ -7,7 +7,8 @@ In this folder is where we are going to declare all the interfaces that are used
 - `modal-data`: Data structure send to modal from a form-field in order to create the input inside of modal with all the necessary data.
 
 ### Related with
-- [modal.component.ts]()
-- [form-field.ts]()
-- [shared/constants/README.md](../constants/README.md)
+- [shared/components/modal.component](../components/modal/README.md)
+- [shared/components/form-field](../components/form-field/README.md)
+- [shared/components/validation-messages]((../components/validation-messages/README.md))
+- [shared/constants/app-form-validators](../constants/README.md)
 - All modal inputs (Inside of shared/components/modal/inputs)

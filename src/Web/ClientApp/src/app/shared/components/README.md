@@ -1,19 +1,12 @@
 ## Purpose
-Provide a brief overview of the project's purpose. If more detail is necessary, expand with a medium-length text.
-
-### Functions
-List key functions with their purposes. Only include those that require further explanation.
-
-- `functionName1`: Brief description of its purpose.
-- `functionName2`: Brief description of its purpose.
-- (Include detailed explanations for complex functions if needed.)
+All components found in this folder are intended to be used in one or more components in order to avoid duplication of code and to make the other components more manageable.
 
 ### Children
-List the subdirectories (children) within the project. Include a link to each child README and a one-line summary of its purpose.
 
-- [Child 1](link-to-child1-readme): One-line purpose summary.
-- [Child 2](link-to-child2-readme): One-line purpose summary.
-- (Repeat as necessary for additional children.)
+- [app-icon](app-icon/README.md): HTML structure to centralize how icons are retrieved.
+- [circle](circle/README.md): HTML structure used for example to show content in a circle and that can be personalized.
+- [form-field](form-field/README.md): Field structure to keep them with the same design that is reused among all the app.
+- [modal](modal/README.md): Basic structure to create a modal pop-up when user interacts with certain elements.
+- [toggle-button](toggle-button/README.md): Desgn of buttons that are used in fixed-toggle-buttons that expand/collapse divs.
+- [validation-messages](validation-messages/README.md): Structure that process a given modalData and FormGroup to show validation messages.
 
-### Related with
-List the subdirectories (similar to Children section) that are related to this  folder, for example, form-field is related with modal.
