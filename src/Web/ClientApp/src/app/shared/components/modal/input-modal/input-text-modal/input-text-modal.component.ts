@@ -10,9 +10,7 @@ import { InputModalComponent } from '../input-modal.component';
 })
 export class InputTextModalComponent extends InputModalComponent{
 
-  inputForm: FormGroup;
   constructor(formBuilder: FormBuilder, validationService: ValidationService) {
     super(formBuilder, validationService);
-    this.inputForm = super.inputForm;
   }
 }
