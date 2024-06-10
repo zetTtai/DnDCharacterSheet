@@ -56,13 +56,6 @@ export class FixedToggleButtonsComponent {
     return `mobile-${key.toLowerCase()}-content`;
   }
 
-  private getDelay(id: string): number {
-    const element = document.getElementById(id);
-    if (!element) return 0;
-
-    return parseFloat(getComputedStyle(element).transitionDuration) * 1000;
-  }
-
   private toggleSection(key: string): void {
     const elementId = this.getElementId(key);
     const toggleId = `toggle-${key}`;

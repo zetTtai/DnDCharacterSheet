@@ -1,5 +1,5 @@
 import { Validators } from "@angular/forms";
-import { CustomValidatorFn } from "../models/custom-validator";
+import { CustomValidatorFn } from "../models/custom-validator.model";
 
 export const MOBILE_HEADER_FIELDS: { [fieldId: string]: CustomValidatorFn[] } = {
   character_name: [

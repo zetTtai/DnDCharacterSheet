@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CustomValidatorFn } from '../../../shared/models/custom-validator';
+import { CustomValidatorFn } from '../../../shared/models/custom-validator.model';
 import { ValidatorFn, Validators } from '@angular/forms';
 
 @Injectable({

@@ -1,6 +1,6 @@
 # DnDCharacterSheet.Web
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.8.
+This project uses [Angular CLI](https://github.com/angular/angular-cli) version 17.3.8, Node 20.13.1 and npm 10.5.2
 
 ## Development server
 
@@ -9,6 +9,12 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+
+Components by default appear in src/app/components folder with scss
+
+Services by default appear in src/app/core/services folder
+
+Directives by default appear in src/app/ folder
 
 ## Build
 

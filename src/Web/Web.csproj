@@ -75,7 +75,6 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\app\shared\directives\" />
-    <Folder Include="ClientApp\src\app\shared\constants\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
