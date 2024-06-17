@@ -31,20 +31,16 @@ nav {
   }
 
   &-mobile {
-    display: flex;
-    min-width: 100%;
-
     & ul {
-      display: flex;
-      min-width: 100%;
-      justify-content: space-around;
+      display: grid;
       margin-bottom: 0;
       padding: 0;
+      grid-template-columns: repeat(5, 1fr);
+      min-width: 100%;
     }
 
     & li {
       display: flex;
-      flex: 1;
       justify-content: center;
       padding: 10px 5px;
       border-top: 0px !important;

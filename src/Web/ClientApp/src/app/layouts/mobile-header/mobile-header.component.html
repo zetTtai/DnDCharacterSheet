@@ -18,13 +18,13 @@
   </div>
 
   <div class="second header-container">
-    <div class="character-name-input">
+    <div class="character-name-input ml-10">
       <app-form-field label="Character Name" name="character_name" value="" [class]="'col-md-1 mt-16'" (editFormField)="open($event)"></app-form-field>
     </div>
 
     <app-form-field label="Level" name="level" value="1" class="level-input" [class]="'fs-24'" [readOnly]="true" (editFormField)="open($event)"></app-form-field>
 
-    <div class="mt-7">
+    <div class="mt-8 race-class-container">
       <app-form-field label="Race" name="race" type="custom" (editFormField)="open($event)">
         <div class="content">
           <app-circle id="race"></app-circle>

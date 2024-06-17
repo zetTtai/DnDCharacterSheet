@@ -29,9 +29,8 @@
   }
 
   & .second {
-    padding: 0px 5px 5px 5px;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 62% 10% 26%;
 
     & app-circle {
       margin-bottom: 2px;
@@ -83,4 +82,8 @@ input, .content {
   & div {
     pointer-events: all;
   }
+}
+
+.race-class-container {
+    justify-content: space-between;
 }
