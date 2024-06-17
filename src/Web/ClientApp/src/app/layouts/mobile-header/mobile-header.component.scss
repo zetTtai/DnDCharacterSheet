@@ -69,7 +69,7 @@ input, .content {
   width: 100%;
   justify-content: center;
   position: absolute;
-  top: calc( #{$mobile-header-height} - 2px);
+  top: calc(#{$mobile-header-height} - 2px);
   z-index: $mobile-header-z-index;
 }
 

@@ -1,3 +1,5 @@
+@import 'variables';
+
 .slider-container {
   width: 100%;
   overflow: hidden;
@@ -5,7 +7,8 @@
 }
 
 .slider-wrapper {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat($mobile-slider-items, 100%);
 }
 
 .slider-transition {
@@ -14,9 +17,8 @@
 
 .slider-item {
   min-width: 100%;
-  flex-shrink: 0;
   text-align: center;
-  padding: 150px 0;
   background-color: #f0f0f0;
   border: 1px solid #ccc;
+  padding: $toggle-button-height $toggle-button-height 0 $toggle-button-height;
 }

@@ -35,7 +35,7 @@ nav {
       display: grid;
       margin-bottom: 0;
       padding: 0;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat($mobile-slider-items, 1fr);
       min-width: 100%;
     }
 
