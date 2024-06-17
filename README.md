@@ -2,6 +2,10 @@
 
 This project leverages a Clean Architecture template by Jason Taylor, implemented using a C# Web API backend and an Angular frontend. The primary goal is to create a robust and user-friendly website where Dungeons and Dragons (DnD) players can effortlessly create and modify their character sheets.
 
+## Check out the project hosted in Azure!
+- Staging Environment: [Staging](https://as-dndcharactersheet-djhqmu2eezdyg-f1.azurewebsites.net/)
+- Production Environment: [Production](https://as-dndcharactersheet-akrcmpsbcq7ay-f1.azurewebsites.net/ ) (No releases yet, please check the staging environment first)
+
 ## Features
 - **Web API (C#):** The backend is structured using a Clean Architecture approach to ensure scalability, maintainability, and decoupling. The API handles all data processing and business logic.
 - **Frontend (Angular):** The frontend is built with Angular, providing a responsive and interactive user interface. It allows users to create, view, edit, and manage their DnD character sheets through a modern web browser.
