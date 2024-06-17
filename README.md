@@ -1,47 +1,79 @@
-# Clean Architecture Solution Template
+# DnD Character Sheet
 
+This project leverages a Clean Architecture template by Jason Taylor, implemented using a C# Web API backend and an Angular frontend. The primary goal is to create a robust and user-friendly website where Dungeons and Dragons (DnD) players can effortlessly create and modify their character sheets.
 
-[![Build](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/build.yml/badge.svg)](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/build.yml)
-[![CodeQL](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/codeql.yml/badge.svg)](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/codeql.yml)
-[![Nuget](https://img.shields.io/nuget/v/Clean.Architecture.Solution.Template?label=NuGet)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template)
-[![Nuget](https://img.shields.io/nuget/dt/Clean.Architecture.Solution.Template?label=Downloads)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template)
-![Twitter Follow](https://img.shields.io/twitter/follow/jasontaylordev?label=Follow&style=social)
+## Features
+- **Web API (C#):** The backend is structured using a Clean Architecture approach to ensure scalability, maintainability, and decoupling. The API handles all data processing and business logic.
+- **Frontend (Angular):** The frontend is built with Angular, providing a responsive and interactive user interface. It allows users to create, view, edit, and manage their DnD character sheets through a modern web browser.
+- **PWA Compatibility:** The application is designed as a Progressive Web App, making it installable on any device, functioning offline, and loading instantly, regardless of the network state.
+- **Dynamic Character Creation:** Users can create characters by selecting races, classes, and attributes with ease. The system provides dynamic adjustments of character capabilities based on selected traits.
+- **Mobile Responsive:** Designed to be fully responsive, the website offers a seamless experience on both desktop and mobile devices.
+
+## Technical Specifications
+- **Clean Architecture:** By adhering to Clean Architecture principles, the project ensures that the application's domain logic and application logic are independent of the UI and the database. This makes the system easier to maintain and evolve over time.
+- **Secure Authentication:** Incorporates secure authentication mechanisms to protect user data and prevent unauthorized access.
+- **API Documentation:** Utilizes Swagger for API documentation, making it easier for new developers to understand and use the API effectively.
+- **PWA Features:** Implementation of service workers for offline capability, manifest files for device installation, and responsive design for varied screen sizes.
+
+# Gitflow
+
+This section provides an overview of the Gitflow branching model and workflow of this repository.
+
+## Branch Types and Naming Conventions
+
+### 1. Master/Main
+- **Purpose**: Main branch where the code is always production-ready.
+- **Branch Name**: `main`
+
+### 2. Stage/Development
+- **Purpose**: Integration branch for development. Contains the latest delivered development changes.
+- **Branch Name**: `stage`
+
+### 3. Feature
+- **Purpose**: Develop new features for upcoming releases. Merges back to `stage`.
+- **Branch Name**: `feature/<feature-name>`
+- **Example**: `feature/user-authentication`
+
+### 4. Release
+- **Purpose**: Support preparation of a new production release. Allows for minor bug fixes and preparing meta-data for a release.
+- **Branch Name**: `release/<version>`
+- **Example**: `release/1.0.0`
+
+### 5. Hotfix
+- **Purpose**: Act swiftly upon an undesired state of a live production version.
+- **Branch Name**: `hotfix/<hotfix-name>`
+- **Example**: `hotfix/urgent-fix-login`
+
+### 6. Bugfix
+- **Purpose**: Similar to hotfix but on a non-emergency basis from the `stage` branch.
+- **Branch Name**: `bugfix/<bugfix-name>`
+- **Example**: `bugfix/resolve-memory-leak`
+
+### 7. Documentation
+- **Purpose**: Manage and update documentation. Merges back to `stage`.
+- **Branch Name**: `doc/<documentation-name>`
+- **Example**: `doc/document-frontend`
+
+## Workflow Overview
+- **Feature branches** are created from `stage` and merged back when they are complete.
+- **Release branches** are created from `stage` for preparing a release and merged into `main` and back into `stage` once the release is complete.
+- **Hotfix branches** are created from `main` and are merged into both `main` and `stage`.
+- **Bugfix branches** are created from `stage` and merged back when they are complete.
+- **Documentation branches** are created from `stage` and merged back when they are complete.
+
+This workflow ensures a structured approach to development, facilitating continuous integration and delivery while maintaining the stability and integrity of the production environment.
+
+# Clean Architecture Solution Brief Explanation
 
 The goal of this template is to provide a straightforward and efficient approach to enterprise application development, leveraging the power of Clean Architecture and ASP.NET Core. Using this template, you can effortlessly create a Single Page App (SPA) with ASP.NET Core and Angular or React, while adhering to the principles of Clean Architecture. Getting started is easy - simply install the **.NET template** (see below for full details).
-
-If you find this project useful, please give it a star. Thanks! ⭐
 
 
 ## Getting Started
 
-
-
 The following prerequisites are required to build and run the solution:
 
 - [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) (latest version)
-- [Node.js](https://nodejs.org/) (latest LTS, only required if you are using Angular or React)
-
-The easiest way to get started is to install the [.NET template](https://www.nuget.org/packages/Clean.Architecture.Solution.Template):
-```
-dotnet new install Clean.Architecture.Solution.Template::8.0.5
-```
-
-Once installed, create a new solution using the template. You can choose to use Angular, React, or create a Web API-only solution. Specify the client framework using the `-cf` or `--client-framework` option, and provide the output directory where your project will be created. Here are some examples:
-
-To create a Single-Page Application (SPA) with Angular and ASP.NET Core:
-```bash
-dotnet new ca-sln --client-framework Angular --output YourProjectName
-```
-
-To create a SPA with React and ASP.NET Core:
-```bash
-dotnet new ca-sln -cf React -o YourProjectName
-```
-
-To create a ASP.NET Core Web API-only solution:
-```bash
-dotnet new ca-sln -cf None -o YourProjectName
-```
+- [Node.js](https://nodejs.org/) (latest LTS)
 
 Launch the app:
 ```bash
@@ -51,33 +83,10 @@ dotnet run
 
 To learn more, run the following command:
 ```bash
-dotnet new ca-sln --help
-```
-
-You can create use cases (commands or queries) by navigating to `./src/Application` and running `dotnet new ca-usecase`. Here are some examples:
-
-To create a new command:
-```bash
-dotnet new ca-usecase --name CreateTodoList --feature-name TodoLists --usecase-type command --return-type int
-```
-
-To create a query:
-```bash
-dotnet new ca-usecase -n GetTodos -fn TodoLists -ut query -rt TodosVm
-```
-
-To learn more, run the following command:
-```bash
 dotnet new ca-usecase --help
 ```
 
 ## Database
-
-The template is configured to use SQL Server by default. If you would prefer to use SQLite, create your solution using the following command:
-
-```bash
-dotnet new ca-sln --use-sqlite
-```
 
 When you run the application the database will be automatically created (if necessary) and the latest migrations will be applied.
 
@@ -111,7 +120,7 @@ The template includes a full CI/CD pipeline. The pipeline is responsible for bui
 
 * [ASP.NET Core 8](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core)
 * [Entity Framework Core 8](https://docs.microsoft.com/en-us/ef/core/)
-* [Angular 15](https://angular.io/) or [React 18](https://react.dev/)
+* [Angular 17](https://angular.io/)
 * [MediatR](https://github.com/jbogard/MediatR)
 * [AutoMapper](https://automapper.org/)
 * [FluentValidation](https://fluentvalidation.net/)
