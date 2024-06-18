@@ -42,3 +42,44 @@ code {
     flex-direction: column;
   }
 }
+
+.mobile-grid-layout {
+    display: grid;
+    grid-template-rows: $mobile-header-height auto 5%;
+    height: 100%;
+}
+
+
+app-modal {
+  position: absolute;
+}
+
+app-fixed-toggle-buttons {
+  position: fixed;
+  top: $mobile-header-height;
+  width: 100%;
+}
+
+app-mobile-slider {
+  height: 100%;
+  min-height: 100%;
+}
+
+app-mobile-header {
+  grid-row: 1;
+}
+
+#main-mobile {
+    grid-row: 2;
+}
+
+app-navbar {
+  grid-row: 3;
+}
+
+
+app-icon {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}

@@ -21,7 +21,7 @@
   }
 
   &-bottom {
-    top: calc(#{$toggle-button-width} * 2);
+    top: calc(#{$toggle-button-width} * 2 + #{$toggle-button-width} / 3 - 2px);
   }
 
   & .content {
@@ -38,7 +38,7 @@
   }
 
   &-bottom {
-    top: calc(#{$toggle-button-width} * 2);
+    top: calc(#{$toggle-button-width} * 2 + #{$toggle-button-width} / 3 - 2px);
   }
 
   & .content {
@@ -55,22 +55,13 @@ $side-container-border-size: 2px;
 .side-container {
   position: absolute;
   border: $side-container-border-size solid $border-color;
-  z-index: $z-index-behind-all;
-  width: 0;
   overflow: hidden;
   transition: width $toggle-button-transition ease;
-
-  &-left {
-    left: -$side-container-border-size;
-  }
-
-  &-right {
-    right: 0;
-  }
+  transition: all $toggle-button-transition ease;
 }
 
 #mobile-death-saves-content, #mobile-spellcasting-content {
-  top: calc(#{$toggle-button-width} * 3 - 11px);
+  top: calc(#{$toggle-button-width} * 2);
   height: calc(#{$toggle-button-width} - 1px);
 
   &.active {

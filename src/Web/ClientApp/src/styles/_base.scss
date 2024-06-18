@@ -50,6 +50,7 @@ h4 {
 section {
   display: flex;
   flex-direction: column;
+  border: 1px solid black; // TODO: Remove when finish mobile layout
 }
 
 @media (max-width: $mobile-size) {

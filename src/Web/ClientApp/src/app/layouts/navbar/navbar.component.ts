@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { LanguageService, SupportedLanguages } from '../../core/services/language/language.service';
 import { SharedDataService } from '../../core/services/shared-data/shared-data.service';
+import { ICONS } from '../../shared/constants/app-constants';
 
 @Component({
   selector: 'app-navbar',
@@ -8,6 +9,7 @@ import { SharedDataService } from '../../core/services/shared-data/shared-data.s
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
+  public defaultIconSize: string = ICONS.MOBILE_NAVBAR_DEFAULT_SIZE;
   public components: { id: string, name: string }[] = [];
 
   constructor(

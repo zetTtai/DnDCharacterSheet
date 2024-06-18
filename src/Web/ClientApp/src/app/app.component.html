@@ -1,25 +1,35 @@
 <body>
-  <app-save-button></app-save-button>
-  <app-navbar></app-navbar>
 
-  <div *ngIf="isDesktopView()" id="content" class="pc">
-    <app-pc-slider></app-pc-slider>
-    <main id="main-pc" class="pc slider">
-      <ng-container *ngFor="let component of pcComponents; index as index;">
-        <div class="slide" *ngIf="index === getCurrentViewPc()">
-          <ng-container *ngComponentOutlet="component.class"></ng-container>
-        </div>
-      </ng-container>
-    </main>
-  </div>
+  <ng-container *ngIf="isDesktopView(); else mobileView">
+    <div class="pc-grid-layout">
+      <app-save-button></app-save-button>
+      <app-navbar></app-navbar>
 
-  <div *ngIf="!isDesktopView()" id="mobile-content" class="mobile">
-    <app-mobile-header (openModal)="openModal($event)"></app-mobile-header>
+      <div id="content" class="pc">
+        <app-pc-slider></app-pc-slider>
+        <main id="main-pc" class="pc slider">
+          <ng-container *ngFor="let component of pcComponents; index as index;">
+            <div class="slide" *ngIf="index === getCurrentViewPc()">
+              <ng-container *ngComponentOutlet="component.class"></ng-container>
+            </div>
+          </ng-container>
+        </main>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #mobileView>
+    <div class="mobile-grid-layout">
+      <app-navbar></app-navbar>
+      <app-mobile-header (openModal)="openModal($event)"></app-mobile-header>
+      <main id="main-mobile" class="mobile">
+        <app-mobile-slider></app-mobile-slider>
+      </main>
+    </div>
     <app-fixed-toggle-buttons></app-fixed-toggle-buttons>
-    <main id="main-mobile" class="mobile">
-      <app-mobile-slider></app-mobile-slider>
-    </main>
-    <app-modal [isVisible]="isModalVisible" (closeModal)="closeModal()" [data]="data"></app-modal>
-  </div>
+  </ng-template>
 
-</body>
+
+  <app-modal [isVisible]="isModalVisible" (closeModal)="closeModal()" [data]="data"></app-modal>
+
+</body> 

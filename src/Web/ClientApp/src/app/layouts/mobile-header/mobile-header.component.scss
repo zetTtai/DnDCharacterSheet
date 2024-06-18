@@ -2,8 +2,6 @@
 
 #mobile-header {
   height: $mobile-header-height;
-  position: fixed;
-  top: 0;
   width: 100%;
   z-index: $mobile-header-z-index;
   overflow-y: hidden;
@@ -29,9 +27,6 @@
   }
 
   & .second {
-    padding: 0px 5px 5px 5px;
-    justify-content: space-between;
-    align-items: center;
 
     & app-circle {
       margin-bottom: 2px;
@@ -70,7 +65,7 @@ input, .content {
   width: 100%;
   justify-content: center;
   position: absolute;
-  top: calc( #{$mobile-header-height} - 2px);
+  top: calc(#{$mobile-header-height} - 2px);
   z-index: $mobile-header-z-index;
 }
 
@@ -83,4 +78,8 @@ input, .content {
   & div {
     pointer-events: all;
   }
+}
+
+.race-class-container {
+    justify-content: space-between;
 }

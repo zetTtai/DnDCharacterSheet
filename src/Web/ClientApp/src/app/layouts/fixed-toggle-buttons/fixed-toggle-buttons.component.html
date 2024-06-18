@@ -2,7 +2,7 @@
   <div id="toggle-abilities" class="toggle-button-transition left left-top" (click)="toggleAbilities()">
     <app-toggle-button>
       <div class="content">
-        a
+        <app-icon [name]="'abilities'" [width]="defaultIconSize" [height]="defaultIconSize"></app-icon>
       </div>
     </app-toggle-button>
   </div>
@@ -11,7 +11,7 @@
   <div id="toggle-death-saves" class="toggle-button-transition left left-bottom" (click)="toggleDeathSaves()">
     <app-toggle-button>
       <div class="content">
-        b
+        <app-icon [name]="'death-saves'" [width]="defaultIconSize" [height]="defaultIconSize"></app-icon>
       </div>
     </app-toggle-button>
   </div>
@@ -21,7 +21,7 @@
   <div id="toggle-wallet" class="toggle-button-transition right right-top" (click)="toggleWallet()">
     <app-toggle-button>
       <div class="content">
-        c
+        <app-icon [name]="'wallet'" [width]="defaultIconSize" [height]="defaultIconSize"></app-icon>
       </div>
     </app-toggle-button>
   </div>
@@ -30,7 +30,7 @@
   <div id="toggle-spellcasting" class="toggle-button-transition right right-bottom" (click)="toggleSpellcasting()">
     <app-toggle-button class="">
       <div class="content">
-        d
+        <app-icon [name]="'spellcasting'" [width]="defaultIconSize" [height]="defaultIconSize"></app-icon>
       </div>
     </app-toggle-button>
   </div>

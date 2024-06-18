@@ -22,7 +22,7 @@
     <ul>
       <ng-container *ngFor="let component of components; index as index;">
         <li [id]="component.id" class="prevent-select" [class.selected]="index == getCurrentView()" (click)="mobileSlide(index)">
-          <app-icon [name]="'default-icon'" [height]="'20px'" [width]="'20px'"></app-icon>
+          <app-icon [name]="component.id" [height]="defaultIconSize" [width]="defaultIconSize"></app-icon>
         </li>
       </ng-container>
     </ul>
