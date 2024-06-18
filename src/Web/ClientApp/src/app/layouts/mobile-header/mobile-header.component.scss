@@ -2,8 +2,6 @@
 
 #mobile-header {
   height: $mobile-header-height;
-  position: fixed;
-  top: 0;
   width: 100%;
   z-index: $mobile-header-z-index;
   overflow-y: hidden;
@@ -29,8 +27,6 @@
   }
 
   & .second {
-    display: grid;
-    grid-template-columns: 62% 10% 26%;
 
     & app-circle {
       margin-bottom: 2px;

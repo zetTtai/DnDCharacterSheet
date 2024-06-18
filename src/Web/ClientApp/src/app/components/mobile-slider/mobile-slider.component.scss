@@ -2,6 +2,7 @@
 
 .slider-container {
   width: 100%;
+  height: 100%;
   overflow: hidden;
   touch-action: pan-y;
 }
@@ -9,6 +10,7 @@
 .slider-wrapper {
   display: grid;
   grid-template-columns: repeat($mobile-slider-items, 100%);
+  height: 100%;
 }
 
 .slider-transition {
@@ -17,6 +19,7 @@
 
 .slider-item {
   min-width: 100%;
+  min-height: 100%;
   text-align: center;
   background-color: #f0f0f0;
   border: 1px solid #ccc;

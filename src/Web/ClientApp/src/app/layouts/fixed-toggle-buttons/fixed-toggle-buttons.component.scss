@@ -21,7 +21,7 @@
   }
 
   &-bottom {
-    top: calc(#{$toggle-button-width} * 2);
+    top: calc(#{$toggle-button-width} * 2 + #{$toggle-button-width} / 3 - 2px);
   }
 
   & .content {
@@ -38,7 +38,7 @@
   }
 
   &-bottom {
-    top: calc(#{$toggle-button-width} * 2);
+    top: calc(#{$toggle-button-width} * 2 + #{$toggle-button-width} / 3 - 2px);
   }
 
   & .content {
@@ -70,7 +70,7 @@ $side-container-border-size: 2px;
 }
 
 #mobile-death-saves-content, #mobile-spellcasting-content {
-  top: calc(#{$toggle-button-width} * 3 - 11px);
+  top: calc(#{$toggle-button-width} * 2);
   height: calc(#{$toggle-button-width} - 1px);
 
   &.active {
