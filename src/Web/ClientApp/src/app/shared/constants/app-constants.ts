@@ -4,7 +4,10 @@ export const CIRCLE_CONFIG = {
 };
 
 export const ICONS = {
-  PATH: "/assets/icons/"
+  PATH: "/assets/icons/",
+  MOBILE_NAVBAR_DEFAULT_SIZE: "30px",
+  MOBILE_HEADER_DEFAULT_SIZE: "25px",
+  FIXED_TOGGLE_BUTTONS_DEFAULT_SIZE: "23px"
 };
 
 export const WEB = {

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { ModalData } from '../../shared/models/modal-data.model';
-import { CIRCLE_CONFIG } from '../../shared/constants/app-constants';
+import { CIRCLE_CONFIG, ICONS } from '../../shared/constants/app-constants';
 import { ToggleService } from '../../core/services/toggle/toggle.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { ToggleService } from '../../core/services/toggle/toggle.service';
   styleUrls: ['./mobile-header.component.scss']
 })
 export class MobileHeaderComponent {
+  public defaultIconSize: string = ICONS.MOBILE_HEADER_DEFAULT_SIZE;
   isModalVisible: boolean = false;
   isHeaderOpen: boolean = false;
   classInputMaxWidth: number = (CIRCLE_CONFIG.DIAMETER * 2) + (CIRCLE_CONFIG.MARGIN_RIGHT * 2) - 2;
@@ -32,12 +33,12 @@ export class MobileHeaderComponent {
   toggleHeader() {
 
     if (!this.isHeaderOpen) {
-      this.toggleService.expand('mobile-header', 'toggle-header', 300, 'bottom');
+      this.toggleService.expand('mobile-header', 'toggle-header', 300, 'bottom', true);
       this.isHeaderOpen = true;
       return;
     }
 
-    this.toggleService.collapse('mobile-header', 'toggle-header', 300, 'bottom');
+    this.toggleService.collapse('mobile-header', 'toggle-header', 300, 'bottom', true);
     this.isHeaderOpen = false;
 
   }

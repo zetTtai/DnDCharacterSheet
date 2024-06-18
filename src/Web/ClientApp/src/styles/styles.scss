@@ -50,11 +50,12 @@ code {
 }
 
 
-app-fixed-toggle-buttons, app-modal {
+app-modal {
   position: absolute;
 }
 
 app-fixed-toggle-buttons {
+  position: fixed;
   top: $mobile-header-height;
   width: 100%;
 }
@@ -74,4 +75,11 @@ app-mobile-header {
 
 app-navbar {
   grid-row: 3;
+}
+
+
+app-icon {
+  align-items: center;
+  justify-content: center;
+  display: flex;
 }

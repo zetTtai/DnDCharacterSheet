@@ -1,13 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Directions, ToggleService } from '../../core/services/toggle/toggle.service';
 import { DelayService } from '../../core/services/delay/delay.service';
+import { ICONS } from '../../shared/constants/app-constants';
 
 @Component({
   selector: 'app-fixed-toggle-buttons',
   templateUrl: './fixed-toggle-buttons.component.html',
   styleUrls: ['./fixed-toggle-buttons.component.scss']
 })
-export class FixedToggleButtonsComponent {
+export class FixedToggleButtonsComponent implements OnInit{
+
+  defaultIconSize: string = ICONS.FIXED_TOGGLE_BUTTONS_DEFAULT_SIZE;
 
   toggleStates = {
     abilities: false,
@@ -19,23 +22,68 @@ export class FixedToggleButtonsComponent {
   sections = {
     'abilities': {
       'direction': 'right',
-      'distance': () => 100
+      'onLeft': true,
+      'distance': () => this.getElementWidth('abilities')
     },
     'death-saves': {
       'direction': 'right',
-      'distance': () => this.calculateDistanceForBottomFixedButtons()
+      'onLeft': true,
+      'distance': () => this.getElementWidth('death-saves')
     },
     'wallet': {
       'direction': 'left',
-      'distance': () => 100
+      'onLeft': false,
+      'distance': () => this.getElementWidth('wallet')
     },
     'spellcasting': {
       'direction': 'left',
-      'distance': () => this.calculateDistanceForBottomFixedButtons()
+      'onLeft': false,
+      'distance': () => this.getElementWidth('spellcasting')
     }
   };
 
   constructor(private toggleService: ToggleService, private delayService: DelayService) { }
+
+  ngOnInit() {
+    const width = this.calculateDistanceForBottomFixedButtons();
+    document.getElementById(this.getElementId('spellcasting')).style.maxWidth = `${width}px`;
+    document.getElementById(this.getElementId('death-saves')).style.maxWidth = `${width}px`;
+
+    this.setInitialPositions();
+    //setElementStyles('spellcasting', {
+    //  right: `-${this.getElementWidth('abilities')}px`,
+    //});
+
+    //setElementStyles('death-saves', {
+    //  left: `-${this.getElementWidth('death-saves')}px`,
+    //});
+
+    //setElementStyles('abilities', {
+    //  left: `-${this.getElementWidth('abilities')}px`,
+    //});
+
+    //setElementStyles('wallet', {
+    //  right: `-${this.getElementWidth('spellcasting')}px`,
+    //});
+  }
+
+  private setInitialPositions() {
+    Object.keys(this.sections).forEach(section => {
+      const elementId = this.getElementId(section);
+      const element = document.getElementById(elementId) as HTMLElement;
+      if (element) {
+        const onLeftSide = this.sections[section].onLeft;
+        const offset = this.sections[section].distance();
+        const positionStyle = onLeftSide ? 'left' : 'right';
+        element.style[positionStyle] = `-${offset}px`;
+      }
+    });
+  }
+
+  private getElementWidth(id: string) {
+    const element = document.getElementById(this.getElementId(id));
+    return element ? element.offsetWidth : 0;
+  }
 
   private calculateDistanceForBottomFixedButtons(): number {
     const body = document.body;
