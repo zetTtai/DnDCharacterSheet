@@ -19,5 +19,8 @@
     "lore": "Lore",
     "items": "Objetos",
     "spells": "Hechizos"
+  },
+  "pc-slider": {
+    "info": "¡Puedes usar la rueda del ratón para cambiar la vista fácilmente!"
   }
 }

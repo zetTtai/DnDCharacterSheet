@@ -1,0 +1,24 @@
+<div id="fixed-layout">
+
+  <div style="display: flex; justify-content: flex-end; align-items: center;">
+    <ng-container *ngIf="isOpen; else openLayout">
+      <app-icon (click)="toggleFixedLayout()" name="collapse" title="Collapse right side layout"></app-icon>
+    </ng-container>
+    <ng-template #openLayout>
+      <app-icon (click)="toggleFixedLayout()" name="expand" title="Expand  right side layout"></app-icon>
+    </ng-template>
+  </div>
+
+  <section id="features-feats" [class.hidden]="!isOpen">
+    <app-features-feats></app-features-feats>
+  </section>
+
+  <section id="equipment" [class.hidden]="!isOpen">
+    <app-items></app-items>
+  </section>
+  
+  <section id="notes" [class.hidden]="!isOpen">
+    <app-notes></app-notes>
+  </section>
+  
+</div>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavigationService } from '../../core/services/navigation/navigation.service';
 
 @Component({
   selector: 'app-lore',
@@ -7,4 +8,12 @@ import { Component } from '@angular/core';
 })
 export class LoreComponent {
   static key = 'lore';
+
+  constructor(private navService: NavigationService) { }
+
+  onMouseWheel(direction: string) {
+    if (direction === 'up') {
+      this.navService.pcSlide(this.navService.currentViewPc - 1);
+    }
+  }
 }

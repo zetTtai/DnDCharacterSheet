@@ -19,5 +19,8 @@
     "lore": "Lore",
     "items": "Items",
     "spells": "Spells"
+  },
+  "pc-slider": {
+    "info": "You can use the mouse wheel to easily change the view!"
   }
 }

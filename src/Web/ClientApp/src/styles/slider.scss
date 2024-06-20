@@ -1,8 +1,7 @@
 @import 'variables';
 
 .slider {
-  margin: 0 !important;
-  display: flex;
+  margin-right: 10px;
   transition: opacity 0.3s;
   overflow-x: hidden;
 
@@ -15,16 +14,8 @@
   min-width: 100%;
 
   &-pc {
-    margin: 0 $mobile-margin-sides 0px $mobile-margin-sides;
     background-color: white;
     overflow-y: auto;
     height: 100%;
-  }
-}
-
-@media (min-width: $mobile-size) {
-  .slider {
-    overflow-y: auto;
-    max-height: 40%;
   }
 }

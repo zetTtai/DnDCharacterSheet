@@ -6,6 +6,7 @@
 @import 'base';
 @import 'utilities';
 @import 'pixelperfect';
+@import 'components';
 
 a {
   color: #0366d6;
@@ -26,7 +27,10 @@ code {
 }
 
 #content {
-  margin-top: 10px;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: max-content max-content auto 20%;
+  width: 100%;
 }
 
 #mobile-content {
@@ -36,50 +40,18 @@ code {
   margin-top: $mobile-header-height;
 }
 
-@media (min-width: $mobile-size) {
-
-  #content {
-    flex-direction: column;
-  }
-}
-
 .mobile-grid-layout {
     display: grid;
     grid-template-rows: $mobile-header-height auto 5%;
     height: 100%;
 }
 
-
-app-modal {
-  position: absolute;
-}
-
-app-fixed-toggle-buttons {
-  position: fixed;
-  top: $mobile-header-height;
-  width: 100%;
-}
-
-app-mobile-slider {
+.pc-grid-layout {
+  display: grid;
+  grid-template-rows: $pc-navbar-height auto;
   height: 100%;
-  min-height: 100%;
-}
-
-app-mobile-header {
-  grid-row: 1;
 }
 
 #main-mobile {
-    grid-row: 2;
-}
-
-app-navbar {
-  grid-row: 3;
-}
-
-
-app-icon {
-  align-items: center;
-  justify-content: center;
-  display: flex;
+  grid-row: 2;
 }

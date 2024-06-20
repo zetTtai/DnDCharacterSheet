@@ -1,0 +1,10 @@
+.hidden {
+    display: none;
+}
+
+#fixed-layout {
+  display: grid;
+  grid-template-rows: max-content repeat(3, 1fr);
+  grid-gap: 1rem;
+  height: 100%;
+}

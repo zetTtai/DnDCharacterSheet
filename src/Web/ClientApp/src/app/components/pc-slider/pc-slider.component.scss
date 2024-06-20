@@ -6,27 +6,29 @@ section {
 
 #pc-slider {
   margin: 10px 0;
+  position: relative;
 
   & ul {
     display: flex;
     justify-content: center;
-    flex-direction: row;
+    flex-direction: column;
 
     & li {
       padding: 3px 10px;
       background-color: white;
       cursor: pointer;
       align-content: center;
+      text-align: center;
     }
   }
 
   & .first-item {
     border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
   }
 
   & .last-item {
-    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
   }
 
@@ -36,4 +38,12 @@ section {
   }
 }
 
+.info {
+  position: absolute;
+  background-color: white;
+  top: -5px;
+  left: -5px;
+  border-radius: 20px;
+  padding: 1px;
+}
 

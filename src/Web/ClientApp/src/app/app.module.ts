@@ -10,6 +10,8 @@ import { AuthorizeInterceptor } from 'src/api-authorization/authorize.intercepto
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+import { MouseWheelDirective } from './shared/directives/mouse-wheel/mouse-wheel.directive';
+
 import { CircleComponent } from './shared/components/circle/circle.component';
 import { FormFieldComponent } from './shared/components/form-field/form-field.component';
 import { ModalComponent } from './shared/components/modal/modal.component';
@@ -33,6 +35,9 @@ import { AbilitiesComponent } from './components/abilities/abilities.component';
 import { DeathSavesComponent } from './components/death-saves/death-saves.component';
 import { SpellcastingComponent } from './components/spellcasting/spellcasting.component';
 import { WalletComponent } from './components/wallet/wallet.component';
+import { PcFixedLayoutComponent } from './layouts/pc-fixed-layout/pc-fixed-layout.component';
+import { FeaturesFeatsComponent } from './components/features-feats/features-feats.component';
+import { NotesComponent } from './components/notes/notes.component';
 
 
 
@@ -64,7 +69,12 @@ export function createTranslateLoader(http: HttpClient){
     WalletComponent,
     AppIconComponent,
     InputTextModalComponent,
-    ValidationMessagesComponent
+    ValidationMessagesComponent,
+    MouseWheelDirective,
+    PcFixedLayoutComponent,
+    FeaturesFeatsComponent,
+    NotesComponent
+
   ],
   imports: [
     BrowserModule,

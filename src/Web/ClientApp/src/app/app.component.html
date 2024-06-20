@@ -1,12 +1,11 @@
 <body>
-
   <ng-container *ngIf="isDesktopView(); else mobileView">
     <div class="pc-grid-layout">
-      <app-save-button></app-save-button>
       <app-navbar></app-navbar>
 
-      <div id="content" class="pc">
+      <div  id="content" class="pc">
         <app-pc-slider></app-pc-slider>
+        <app-abilities></app-abilities>
         <main id="main-pc" class="pc slider">
           <ng-container *ngFor="let component of pcComponents; index as index;">
             <div class="slide" *ngIf="index === getCurrentViewPc()">
@@ -14,6 +13,7 @@
             </div>
           </ng-container>
         </main>
+        <app-pc-fixed-layout></app-pc-fixed-layout>
       </div>
     </div>
   </ng-container>
