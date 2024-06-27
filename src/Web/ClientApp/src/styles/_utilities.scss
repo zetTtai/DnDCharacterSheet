@@ -10,6 +10,10 @@
     pointer-events: none;
 }
 
+.clickable {
+  cursor: pointer !important;
+}
+
 .pc {
   display: none;
 }
@@ -20,6 +24,11 @@
 
 .ui {
     background-color: $ui-background-color;
+}
+
+.hide {
+  opacity: 0;
+  z-index: $z-index-behind-all;
 }
 
 .toggle-button-transition {

@@ -37,6 +37,9 @@ app-pc-slider {
   margin-right: 10px;
 }
 
+app-features-feats, app-items, app-notes {
+    height: 100%;
+}
 
 @media (min-width: $mobile-size) {
 

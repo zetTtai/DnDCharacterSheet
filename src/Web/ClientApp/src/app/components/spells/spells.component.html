@@ -1,4 +1,4 @@
-<section  appMouseWheel (mouseWheelEvent)="onMouseWheel($event)" class="pc slide-pc">
+<section appSlideControl (keydownEvent)="handleSlide($event)" (mouseWheelEvent)="handleSlide($event)" class="pc slide-pc">
   <p>pc spells works!</p>
 </section>
 

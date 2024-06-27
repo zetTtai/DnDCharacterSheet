@@ -21,6 +21,10 @@
     "spells": "Hechizos"
   },
   "pc-slider": {
-    "info": "¡Puedes usar la rueda del ratón para cambiar la vista fácilmente!"
+    "info": "¡Usa la rueda del ratón y las teclas de flechas para cambiar la vista de manera sencilla!"
+  },
+  "pc-fixed-layout": {
+    "collapse": "Collapse right side layout",
+    "expand": "Expand  right side layout"
   }
 }

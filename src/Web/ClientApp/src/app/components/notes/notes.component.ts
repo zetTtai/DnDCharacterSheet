@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-notes',
@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrl: './notes.component.scss'
 })
 export class NotesComponent {
+  @Input() isOpen: boolean;
 
+  @Output() toggle = new EventEmitter<void>();
+  onToggle() {
+    this.toggle.emit();
+  }
 }

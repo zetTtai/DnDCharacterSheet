@@ -1,24 +1,28 @@
 <div id="fixed-layout">
 
-  <div style="display: flex; justify-content: flex-end; align-items: center;">
-    <ng-container *ngIf="isOpen; else openLayout">
-      <app-icon (click)="toggleFixedLayout()" name="collapse" title="Collapse right side layout"></app-icon>
-    </ng-container>
-    <ng-template #openLayout>
-      <app-icon (click)="toggleFixedLayout()" name="expand" title="Expand  right side layout"></app-icon>
-    </ng-template>
+  <div class="toggle-button-container">
+    <app-icon class="toggle-button prevent-select clickable" (click)="toggleFixedLayout()" name="collapse" [title]="toggleInfo" [class.rotated]="!isOpen"></app-icon>
   </div>
 
-  <section id="features-feats" [class.hidden]="!isOpen">
-    <app-features-feats></app-features-feats>
-  </section>
+  <!-- Used to make the grid adapt to simulate height of the .toggle-button-container -->
+  <div class="hide">
+    <app-icon name="collapse" [title]="toggleInfo"></app-icon>
+  </div>
 
-  <section id="equipment" [class.hidden]="!isOpen">
-    <app-items></app-items>
-  </section>
-  
-  <section id="notes" [class.hidden]="!isOpen">
-    <app-notes></app-notes>
-  </section>
-  
+  <ng-container *ngFor="let layout of fixedLayouts">
+    <div class="fixed-layout-content" [id]="layout.id">
+      <app-sidebar-with-icon (toggle)="toggleFixedLayout()"
+                             [iconName]="layout.iconName"
+                             [title]="layout.title"
+                             [showWallet]="layout.showWallet">
+      </app-sidebar-with-icon>
+
+      <ng-container [ngSwitch]="layout.id">
+        <app-features-feats *ngSwitchCase="'features-feats'" [class.collapse]="!isOpen"></app-features-feats>
+        <app-items *ngSwitchCase="'items'" [class.collapse]="!isOpen"></app-items>
+        <app-notes *ngSwitchCase="'notes'" [class.collapse]="!isOpen"></app-notes>
+      </ng-container>
+    </div>
+  </ng-container>
+
 </div>

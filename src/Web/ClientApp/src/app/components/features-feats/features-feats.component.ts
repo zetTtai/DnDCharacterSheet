@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-features-feats',
@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrl: './features-feats.component.scss'
 })
 export class FeaturesFeatsComponent {
+  @Input() isOpen: boolean;
 
+  @Output() toggle = new EventEmitter<void>();
+  onToggle() {
+    this.toggle.emit();
+  }
 }

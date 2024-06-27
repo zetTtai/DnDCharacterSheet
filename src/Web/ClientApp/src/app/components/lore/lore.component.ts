@@ -11,7 +11,7 @@ export class LoreComponent {
 
   constructor(private navService: NavigationService) { }
 
-  onMouseWheel(direction: string) {
+  handleSlide(direction: string) {
     if (direction === 'up') {
       this.navService.pcSlide(this.navService.currentViewPc - 1);
     }

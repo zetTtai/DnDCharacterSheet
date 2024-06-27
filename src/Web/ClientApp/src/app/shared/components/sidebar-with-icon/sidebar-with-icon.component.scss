@@ -1,0 +1,10 @@
+@import 'variables';
+
+.sidebar {
+    border: 1px solid black;
+    background-color: lightgray;
+    height: 100%;
+    padding: 5px;
+    width: $sidebar-max-width;
+    max-width: $sidebar-max-width;
+}

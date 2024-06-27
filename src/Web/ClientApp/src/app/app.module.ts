@@ -10,7 +10,7 @@ import { AuthorizeInterceptor } from 'src/api-authorization/authorize.intercepto
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import { MouseWheelDirective } from './shared/directives/mouse-wheel/mouse-wheel.directive';
+import { SlideControlDirective } from './shared/directives/slide-control/slide-control.directive';
 
 import { CircleComponent } from './shared/components/circle/circle.component';
 import { FormFieldComponent } from './shared/components/form-field/form-field.component';
@@ -19,6 +19,7 @@ import { ToggleButtonComponent } from './shared/components/toggle-button/toggle-
 import { AppIconComponent } from './shared/components/app-icon/app-icon.component';
 import { InputTextModalComponent } from './shared/components/modal/input-modal/input-text-modal/input-text-modal.component';
 import { ValidationMessagesComponent } from './shared/components/validation-messages/validation-messages.component';
+import { SidebarWithIconComponent } from './shared/components/sidebar-with-icon/sidebar-with-icon.component';
 
 import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { MobileHeaderComponent } from './layouts/mobile-header/mobile-header.component';
@@ -70,11 +71,11 @@ export function createTranslateLoader(http: HttpClient){
     AppIconComponent,
     InputTextModalComponent,
     ValidationMessagesComponent,
-    MouseWheelDirective,
+    SlideControlDirective,
     PcFixedLayoutComponent,
     FeaturesFeatsComponent,
-    NotesComponent
-
+    NotesComponent,
+    SidebarWithIconComponent
   ],
   imports: [
     BrowserModule,

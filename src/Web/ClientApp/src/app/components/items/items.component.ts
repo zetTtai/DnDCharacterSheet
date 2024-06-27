@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-items',
@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class ItemsComponent {
   static key = 'items';
+  @Input() isOpen: boolean;
+
+  @Output() toggle = new EventEmitter<void>();
+  onToggle() {
+    this.toggle.emit();
+  }
 }

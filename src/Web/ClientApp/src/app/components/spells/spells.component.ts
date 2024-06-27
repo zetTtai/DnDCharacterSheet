@@ -11,7 +11,7 @@ export class SpellsComponent {
 
   constructor(private navService: NavigationService) { }
 
-  onMouseWheel(direction: string) {
+  handleSlide(direction: string) {
     if (direction === 'down') {
       this.navService.pcSlide(this.navService.currentViewPc + 1);
       return;

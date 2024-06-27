@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Directions, ToggleService } from '../../core/services/toggle/toggle.service';
+import { ToggleService } from '../../core/services/toggle/toggle.service';
 import { DelayService } from '../../core/services/delay/delay.service';
 import { ICONS } from '../../shared/constants/app-constants';
 
@@ -50,21 +50,6 @@ export class FixedToggleButtonsComponent implements OnInit{
     document.getElementById(this.getElementId('death-saves')).style.maxWidth = `${width}px`;
 
     this.setInitialPositions();
-    //setElementStyles('spellcasting', {
-    //  right: `-${this.getElementWidth('abilities')}px`,
-    //});
-
-    //setElementStyles('death-saves', {
-    //  left: `-${this.getElementWidth('death-saves')}px`,
-    //});
-
-    //setElementStyles('abilities', {
-    //  left: `-${this.getElementWidth('abilities')}px`,
-    //});
-
-    //setElementStyles('wallet', {
-    //  right: `-${this.getElementWidth('spellcasting')}px`,
-    //});
   }
 
   private setInitialPositions() {

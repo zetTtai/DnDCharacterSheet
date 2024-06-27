@@ -28,10 +28,34 @@ code {
 
 #content {
   padding: 10px;
+  transition: 600ms;
   display: grid;
-  grid-template-columns: max-content max-content auto 20%;
+  grid-template-columns: $pc-fixed-layout-grid;
   width: 100%;
 }
+
+.hideable-content {
+  transition: opacity 300ms ease;
+}
+
+.fixed-layout {
+  &-text {
+    writing-mode: vertical-rl;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  &-section {
+      height: 100%;
+  }
+  &-content {
+    display: grid;
+    grid-template-columns: max-content auto;
+    height: 100%;
+  }
+}
+
 
 #mobile-content {
   display: flex;

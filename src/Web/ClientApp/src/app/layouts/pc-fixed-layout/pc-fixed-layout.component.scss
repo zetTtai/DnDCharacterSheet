@@ -1,10 +1,31 @@
-.hidden {
-    display: none;
-}
-
 #fixed-layout {
   display: grid;
   grid-template-rows: max-content repeat(3, 1fr);
   grid-gap: 1rem;
   height: 100%;
+}
+
+.toggle-button-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  margin-right: 10px;
+}
+
+.toggle-button {
+  transition: transform 0.3s ease;
+}
+
+.rotated {
+  transform: rotate(-180deg);
+}
+
+.fixed-layout-section {
+  transition: opacity 0.3s ease, z-index 1s ease;
+}
+
+.collapse {
+    display: none;
 }

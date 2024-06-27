@@ -1,0 +1,7 @@
+<div class="sidebar" title="title">
+  <app-icon (click)="toggleSection()" class="clickable" [name]="iconName" [width]="'40px'" [height]="'40px'"></app-icon>
+  
+  <ng-container *ngIf="showWallet">
+    <span class="fixed-layout-text">wallet here</span>
+  </ng-container>
+</div>

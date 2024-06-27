@@ -21,6 +21,10 @@
     "spells": "Spells"
   },
   "pc-slider": {
-    "info": "You can use the mouse wheel to easily change the view!"
+    "info": "You can use the mouse wheel and arrow keys to easily change the view!"
+  },
+  "pc-fixed-layout": {
+    "collapse": "Collapse right side layout",
+    "expand": "Expand  right side layout"
   }
 }
