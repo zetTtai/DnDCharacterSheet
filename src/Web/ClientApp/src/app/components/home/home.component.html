@@ -1,11 +1,54 @@
-<section appSlideControl (keydownEvent)="handleSlide($event)" (mouseWheelEvent)="handleSlide($event)" class="pc slide-pc">
-  <main>
-    <p>desktop-HOME works!</p>
-  </main>
+<section appSlideControl (keydownEvent)="handleSlide($event)" (mouseWheelEvent)="handleSlide($event)" class="pc-grid slide-pc ui">
+  <div class="slide-pc-layout">
+    <header>
+      <div class="left-side ui">
+        <div>
+          <input type="text" name="name" value="" />
+          <label>Character Name</label>
+        </div>
+      </div>
+      <section class="right-side ui">
+
+        <div class="section-class">
+          <div style="display: flex; flex-direction: column; justify-content: space-between;">
+            <input type="text" name="name" value="" placeholder="Select Class" />
+            <button class="btn btn-secondary">Add multiclass +</button>
+          </div>
+          <label>Class/Classes</label>
+        </div>
+
+        <div class="section-race">
+          <div style="display: flex; flex-direction: column; justify-content: space-between; ">
+            <p>Image or icon related to the selected race</p>
+            <button class="btn btn-secondary">Select Race</button>
+          </div>
+          <label>Race</label>
+        </div>
+
+        <div class="section">
+          <app-form-field label="Background" name="background" value="" [desktop]="true"></app-form-field>
+
+          <app-form-field label="Alignment" name="alignment" value="" [desktop]="true"></app-form-field>
+        </div>
+
+        <div class="section">
+          <app-form-field label="Character Name" name="player_name" value="" [desktop]="true"></app-form-field>
+
+          <app-form-field label="Experience points" name="player_name" value="" [desktop]="true"></app-form-field>
+        </div>
+
+      </section>
+    </header>
+    <main>
+      <p>pc-HOME works! (Content)</p>
+    </main>
+  </div>
 </section>
 <section class="mobile slide-mobile">
   <main>
     <p>mobile-HOME works!</p>
   </main>
 </section>
+
+
 

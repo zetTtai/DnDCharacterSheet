@@ -19,19 +19,16 @@ export class PcFixedLayoutComponent {
     {
       id: 'features-feats',
       iconName: 'features-feats',
-      title: 'equipment',
       showWallet: false,
     },
     {
       id: 'items',
       iconName: 'mobile-items',
-      title: 'equipment',
       showWallet: true,
     },
     {
       id: 'notes',
       iconName: 'notes',
-      title: 'equipment',
       showWallet: false,
     }
   ];

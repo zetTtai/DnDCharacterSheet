@@ -4,16 +4,16 @@
     <app-icon class="toggle-button prevent-select clickable" (click)="toggleFixedLayout()" name="collapse" [title]="toggleInfo" [class.rotated]="!isOpen"></app-icon>
   </div>
 
-  <!-- Used to make the grid adapt to simulate height of the .toggle-button-container -->
+  <!-- This is use to make the grid adapt to actual .toggle-button-container height -->
   <div class="hide">
     <app-icon name="collapse" [title]="toggleInfo"></app-icon>
   </div>
 
   <ng-container *ngFor="let layout of fixedLayouts">
-    <div class="fixed-layout-content" [id]="layout.id">
+    <div class="fixed-layout-content ui" [id]="layout.id">
       <app-sidebar-with-icon (toggle)="toggleFixedLayout()"
                              [iconName]="layout.iconName"
-                             [title]="layout.title"
+                             [title]="toggleInfo"
                              [showWallet]="layout.showWallet">
       </app-sidebar-with-icon>
 

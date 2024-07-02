@@ -7,6 +7,7 @@
 @import 'utilities';
 @import 'pixelperfect';
 @import 'components';
+@import 'slide-layout';
 
 a {
   color: #0366d6;
@@ -78,4 +79,18 @@ code {
 
 #main-mobile {
   grid-row: 2;
+}
+
+.pc-character-image {
+  border: 2px solid black;
+  right: $pc-character-image-center;
+  position: absolute;
+  border-radius: 100px;
+  width: $pc-character-image-diameter;
+  height: $pc-character-image-diameter;
+  z-index: $z-index-above-all;
+}
+
+.pc-abilities {
+  padding-top: $pc-character-image-diameter;
 }

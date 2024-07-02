@@ -18,6 +18,10 @@
   display: none;
 }
 
+.pc-grid {
+  display: none;
+}
+
 .mobile {
   display: flex;
 }
@@ -38,6 +42,10 @@
 @media (min-width: $mobile-size) {
   .pc {
     display: flex;
+  }
+
+  .pc-grid {
+    display: grid;
   }
 
   .mobile {

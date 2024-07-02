@@ -20,6 +20,7 @@ import { AppIconComponent } from './shared/components/app-icon/app-icon.componen
 import { InputTextModalComponent } from './shared/components/modal/input-modal/input-text-modal/input-text-modal.component';
 import { ValidationMessagesComponent } from './shared/components/validation-messages/validation-messages.component';
 import { SidebarWithIconComponent } from './shared/components/sidebar-with-icon/sidebar-with-icon.component';
+import { PcSlideLayoutComponent } from './layouts/pc-slide-layout/pc-slide-layout.component';
 
 import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { MobileHeaderComponent } from './layouts/mobile-header/mobile-header.component';
@@ -75,7 +76,8 @@ export function createTranslateLoader(http: HttpClient){
     PcFixedLayoutComponent,
     FeaturesFeatsComponent,
     NotesComponent,
-    SidebarWithIconComponent
+    SidebarWithIconComponent,
+    PcSlideLayoutComponent
   ],
   imports: [
     BrowserModule,

@@ -46,4 +46,9 @@ app-features-feats, app-items, app-notes {
   app-navbar {
     grid-row: 1;
   }
+
+  app-abilities {
+      display: flex;
+      height: 100%;
+  }
 }

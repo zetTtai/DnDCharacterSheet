@@ -3,9 +3,12 @@
     <div class="pc-grid-layout">
       <app-navbar></app-navbar>
 
-      <div  id="content" class="pc">
+      <div id="content" class="pc">
         <app-pc-slider></app-pc-slider>
-        <app-abilities></app-abilities>
+        <div style="position: relative;">
+          <img class="pc-character-image" src="assets/images/icon192x192.png" />
+          <app-abilities></app-abilities>
+        </div>
         <main id="main-pc" class="pc slider">
           <ng-container *ngFor="let component of pcComponents; index as index;">
             <div class="slide" *ngIf="index === getCurrentViewPc()">
