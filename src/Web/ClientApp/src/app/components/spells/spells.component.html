@@ -1,9 +1,46 @@
-<section appSlideControl (keydownEvent)="handleSlide($event)" (mouseWheelEvent)="handleSlide($event)" class="pc slide-pc">
-  <p>pc spells works!</p>
-</section>
+<ng-container *ngIf="isDesktop(); else mobileView">
+  <app-pc-slide-layout [leftInputDisabled]="true"
+                       leftInputLabel="Spellcasting Class"
+                       gridTemplateColumns="repeat(3, 1fr)">
 
-<section class="mobile slide-mobile">
-  <main>
-    <p>mobile spells works!</p>
-  </main>
-</section>
+    <div right-side-content class="section-center-content">
+      <app-form-field label="spellcasting ability"
+                      name="player_name"
+                      value=""
+                      [desktop]="true"
+                      [readOnly]="true">
+      </app-form-field>
+    </div>
+
+    <div right-side-content class="section-center-content">
+      <app-form-field label="spell save dc"
+                      name="player_name"
+                      value=""
+                      [desktop]="true"
+                      [readOnly]="true">
+      </app-form-field>
+    </div>
+
+    <div right-side-content class="section-center-content">
+      <app-form-field label="spell attack bonus"
+                      name="player_name"
+                      value=""
+                      [desktop]="true"
+                      [readOnly]="true">
+      </app-form-field>
+    </div>
+
+    <div main-content>
+      <p>pc spells works! (Content)</p>
+    </div>
+  </app-pc-slide-layout>
+</ng-container>
+
+<ng-template #mobileView>
+  <section class="mobile slide-mobile">
+    <main>
+      <p>mobile spells works!</p>
+    </main>
+  </section>
+</ng-template>
+

@@ -4,6 +4,7 @@ import { SpellsComponent } from '../../../components/spells/spells.component';
 import { LoreComponent } from '../../../components/lore/lore.component';
 import { ItemsComponent } from '../../../components/items/items.component';
 import { AccountComponent } from '../../../components/account/account.component';
+import { WEB } from '../../../shared/constants/app-constants';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,8 @@ export class SharedDataService {
     { class: SpellsComponent, key: SpellsComponent.key },
     { class: AccountComponent, key: AccountComponent.key }
   ];
+
+  isDesktop: boolean = window.innerWidth > WEB.MOBILE_SIZE;
 
   public currentIndex: number = 0;
 

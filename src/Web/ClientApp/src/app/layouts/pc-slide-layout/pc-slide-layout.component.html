@@ -1,13 +1,18 @@
-<div class="slide-pc-layout">
-  <header>
-    <div class="left-side ui">
-      <ng-content select="[left-side]"></ng-content>
-    </div>
-    <section class="right-side ui">
-      <ng-content select="[right-side]"></ng-content>
-    </section>
-  </header>
-  <main>
-    <ng-content select="[content]"></ng-content>
-  </main>
-</div>
+<section appSlideControl (keydownEvent)="handleSlide($event)" (mouseWheelEvent)="handleSlide($event)" class="pc-grid slide-pc ui">
+  <div class="slide-pc-layout">
+    <header>
+      <div class="left-side ui">
+        <div>
+          <input type="text" name="name" [disabled]="leftInputDisabled" />
+          <label>{{ leftInputLabel }}</label>
+        </div>
+      </div>
+      <section class="right-side ui" [style.grid-template-columns]="gridTemplateColumns">
+        <ng-content select="[right-side-content]"></ng-content>
+      </section>
+    </header>
+    <main>
+      <ng-content select="[main-content]"></ng-content>
+    </main>
+  </div>
+</section>

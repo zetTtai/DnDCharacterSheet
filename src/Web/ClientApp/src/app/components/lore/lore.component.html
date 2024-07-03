@@ -1,9 +1,37 @@
-<section appSlideControl (keydownEvent)="handleSlide($event)" (mouseWheelEvent)="handleSlide($event)" class="pc slide-pc">
-  <p>pc lore works!</p>
-</section>
+<ng-container *ngIf="isDesktop(); else mobileView">
+  <app-pc-slide-layout [leftInputDisabled]="false"
+                       leftInputLabel="Character Name"
+                       gridTemplateColumns="repeat(3, 1fr)">
+    <div right-side-content class="section">
+      <app-form-field label="Age" name="age" value="" [desktop]="true"></app-form-field>
 
-<section class="mobile slide-mobile">
-  <main>
-    <p>mobile lore works!</p>
-  </main>
-</section>
+      <app-form-field label="Eyes" name="eyes" value="" [desktop]="true"></app-form-field>
+    </div>
+
+    <div right-side-content class="section">
+      <app-form-field label="height" name="height" value="" [desktop]="true"></app-form-field>
+
+      <app-form-field label="skin" name="skin" value="" [desktop]="true"></app-form-field>
+    </div>
+
+    <div right-side-content class="section">
+      <app-form-field label="weight" name="weight" value="" [desktop]="true"></app-form-field>
+
+      <app-form-field label="Alignment" name="alignment" value="" [desktop]="true"></app-form-field>
+    </div>
+
+    <div main-content>
+      <p>pc lore works! (Content)</p>
+    </div>
+  </app-pc-slide-layout>
+
+</ng-container>
+
+<ng-template #mobileView>
+  <section class="mobile slide-mobile">
+    <main>
+      <p>mobile lore works!</p>
+    </main>
+  </section>
+</ng-template>
+

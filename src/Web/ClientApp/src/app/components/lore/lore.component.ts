@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavigationService } from '../../core/services/navigation/navigation.service';
+import { SharedDataService } from '../../core/services/shared-data/shared-data.service';
 
 @Component({
   selector: 'app-lore',
@@ -9,11 +9,9 @@ import { NavigationService } from '../../core/services/navigation/navigation.ser
 export class LoreComponent {
   static key = 'lore';
 
-  constructor(private navService: NavigationService) { }
+  constructor(private sharedDataService: SharedDataService) { }
 
-  handleSlide(direction: string) {
-    if (direction === 'up') {
-      this.navService.pcSlide(this.navService.currentViewPc - 1);
-    }
+  isDesktop(): boolean {
+    return this.sharedDataService.isDesktop;
   }
 }
