@@ -117,6 +117,7 @@ export class FixedToggleButtonsComponent implements OnInit{
   }
 
   toggleAbilities(): void {
+    console.log(this.sections['abilities'].distance());
     this.closeSections(['death-saves', 'spellcasting'])
     this.toggleSection('abilities');
   }
