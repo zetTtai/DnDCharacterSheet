@@ -7,6 +7,9 @@ $border-color: black;
 $z-index-behind-all: -99;
 $z-index-above-all: 1000;
 
+$pc-fixed-layout-grid: max-content max-content auto 20%;
+$sidebar-max-width: 55px;
+
 $mobile-size: 768px;
 $mobile-margin-sides: 20px;
 $mobile-header-height: 120px;
@@ -34,3 +37,8 @@ $toggle-button-border-size: 2px;
 $toggle-button-transition: 0.5s;
 
 $modal-fading-duration: 0.2s;
+
+$pc-character-image-diameter: 150px;
+$pc-character-image-center: -25px;
+
+$pc-slider-layout-header-height: 150px;

@@ -21,7 +21,7 @@ export class AppComponent {
 
   constructor(
     private navService: NavigationService,
-    sharedDataService: SharedDataService
+    private sharedDataService: SharedDataService
   ) {
     this.mobileComponents = sharedDataService.mobileComponents;
     this.pcComponents = sharedDataService.pcComponents;
@@ -49,9 +49,6 @@ export class AppComponent {
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
     this.isDesktop = window.innerWidth > WEB.MOBILE_SIZE;
-  }
-
-  isDesktopView(): boolean {
-    return this.isDesktop;
+    this.sharedDataService.isDesktop = this.isDesktop;
   }
 }

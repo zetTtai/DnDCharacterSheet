@@ -7,7 +7,6 @@
 input {
   border: 0px;
   border-bottom: 1px solid black;
-  pointer-events: none;
 
   &:disabled {
     background-color: transparent;
@@ -15,13 +14,16 @@ input {
 }
 
 .fs-24 {
-    font-size: 24px;
+  font-size: 24px;
+}
+
+.fs-10 {
+  font-size: 10px;
 }
 
 label {
   text-transform: uppercase;
   display: flex;
-  font-size: 10px;
   margin: 0px;
 }
 

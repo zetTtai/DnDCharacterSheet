@@ -1,22 +1,67 @@
-<section class="pc slide-pc">
-  <h1>Hello, world!</h1>
-  <p>Welcome to your new single-page application, built with:</p>
-  <ul>
-    <li><a href='https://get.asp.net/'>ASP.NET Core</a> and <a href='https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx'>C#</a> for cross-platform server-side code</li>
-    <li><a href='https://angular.io/'>Angular</a> and <a href='http://www.typescriptlang.org/'>TypeScript</a> for client-side code</li>
-    <li><a href='http://getbootstrap.com/'>Bootstrap</a> for layout and styling</li>
-  </ul>
-  <p>To help you get started, we've also set up:</p>
-  <ul>
-    <li><strong>Client-side navigation</strong>. For example, click <em>Counter</em> then <em>Back</em> to return here.</li>
-    <li><strong>Angular CLI integration</strong>. In development mode, there's no need to run <code>ng serve</code>. It runs in the background automatically, so your client-side resources are dynamically built on demand and the page refreshes when you modify any file.</li>
-    <li><strong>Efficient production builds</strong>. In production mode, development-time features are disabled, and your <code>dotnet publish</code> configuration automatically invokes <code>ng build</code> to produce minified, ahead-of-time compiled JavaScript files.</li>
-  </ul>
-  <p style="margin-top: 1000px;">The <code>ClientApp</code> subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any <code>ng</code> command (e.g., <code>ng test</code>), or use <code>npm</code> to install extra packages into it.</p>
-</section>
-<section class="mobile slide-mobile">
-  <main>
-    <p>mobile-HOME works!</p>
-  </main>
-</section>
+<ng-container *ngIf="isDesktop(); else mobileView">
+
+  <app-pc-slide-layout [leftInputDisabled]="false"
+                       [leftInputLabel]="'character.name' | translate"
+                       gridTemplateColumns="repeat(4, 1fr)">
+
+    <div right-side-content class="section-class">
+      <div style="display: flex; flex-direction: column; justify-content: space-between;">
+        <input type="text" name="name" value="" placeholder="Select Class" />
+        <button class="btn btn-secondary">Add multiclass +</button>
+      </div>
+      <label>{{ 'character.classes' | translate }}</label>
+    </div>
+
+    <div right-side-content class="section-race">
+      <div style="display: flex; flex-direction: column; justify-content: space-between; ">
+        <img src="#" alt="" title="some icon or image related to the selected race" />
+        <button class="btn btn-secondary">Select Race</button>
+      </div>
+      <label>{{ 'character.race' | translate }}</label>
+    </div>
+
+    <div right-side-content class="section">
+      <app-form-field [label]="'character.background' | translate"
+                      name="background"
+                      value=""
+                      [desktop]="true"></app-form-field>
+
+      <app-form-field [label]="'character.alignment' | translate"
+                      name="alignment"
+                      value=""
+                      [desktop]="true">
+      </app-form-field>
+    </div>
+
+    <div right-side-content class="section">
+      <app-form-field [label]="'character.player_name' | translate"
+                      name="player_name"
+                      value=""
+                      [desktop]="true">
+        </app-form-field>
+
+      <app-form-field [label]="'character.exp' | translate"
+                      name="exp"
+                      value=""
+                      [desktop]="true">
+        </app-form-field>
+    </div>
+
+    <div main-content>
+      <p>home spells works! (Content)</p>
+    </div>
+
+  </app-pc-slide-layout>
+</ng-container>
+
+<ng-template #mobileView>
+  <section class="mobile slide-mobile">
+    <main>
+      <p>mobile-HOME works!</p>
+    </main>
+  </section>
+</ng-template>
+
+
+
 

@@ -19,5 +19,33 @@
     "lore": "Lore",
     "items": "Objetos",
     "spells": "Hechizos"
+  },
+  "pc-slider": {
+    "info": "¡Usa la rueda del ratón y las teclas de flechas para cambiar la vista de manera sencilla!"
+  },
+  "pc-fixed-layout": {
+    "collapse": "Collapse right side layout",
+    "expand": "Expand  right side layout"
+  },
+  "spellcasting": {
+    "class": "clase lanzadora de conjuros",
+    "ability": "aptitud mágica",
+    "save_dc": "tirada de salvación de conjuros",
+    "attack_bonus": "bonificador de ataques de conjuros"
+  },
+  "character": {
+    "name": "nombre del personaje",
+    "age": "edad",
+    "eyes": "ojos",
+    "height": "altura",
+    "skin": "piel",
+    "weight": "peso",
+    "hair": "pelo",
+    "classes": "clase/s",
+    "race": "raza",
+    "background": "transfondo",
+    "alignment": "alineamiento",
+    "player_name": "nombre del jugador",
+    "exp": "puntos de experiencia"
   }
 }

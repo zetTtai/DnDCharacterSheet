@@ -10,7 +10,15 @@
     pointer-events: none;
 }
 
+.clickable {
+  cursor: pointer !important;
+}
+
 .pc {
+  display: none;
+}
+
+.pc-grid {
   display: none;
 }
 
@@ -22,6 +30,11 @@
     background-color: $ui-background-color;
 }
 
+.hide {
+  opacity: 0;
+  z-index: $z-index-behind-all;
+}
+
 .toggle-button-transition {
   transition: top $toggle-button-transition ease, right $toggle-button-transition ease, left $toggle-button-transition ease, bottom $toggle-button-transition ease;
 }
@@ -29,6 +42,10 @@
 @media (min-width: $mobile-size) {
   .pc {
     display: flex;
+  }
+
+  .pc-grid {
+    display: grid;
   }
 
   .mobile {

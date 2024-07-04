@@ -15,6 +15,7 @@ export class FormFieldComponent {
   @Input() readOnly: boolean = false;
   @Input() class: string;
   @Input() last: boolean = false;
+  @Input() desktop: boolean = false;
 
   @Output() editFormField = new EventEmitter<ModalData>();
 

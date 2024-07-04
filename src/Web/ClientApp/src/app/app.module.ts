@@ -10,6 +10,8 @@ import { AuthorizeInterceptor } from 'src/api-authorization/authorize.intercepto
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+import { SlideControlDirective } from './shared/directives/slide-control/slide-control.directive';
+
 import { CircleComponent } from './shared/components/circle/circle.component';
 import { FormFieldComponent } from './shared/components/form-field/form-field.component';
 import { ModalComponent } from './shared/components/modal/modal.component';
@@ -17,6 +19,8 @@ import { ToggleButtonComponent } from './shared/components/toggle-button/toggle-
 import { AppIconComponent } from './shared/components/app-icon/app-icon.component';
 import { InputTextModalComponent } from './shared/components/modal/input-modal/input-text-modal/input-text-modal.component';
 import { ValidationMessagesComponent } from './shared/components/validation-messages/validation-messages.component';
+import { SidebarWithIconComponent } from './shared/components/sidebar-with-icon/sidebar-with-icon.component';
+import { PcSlideLayoutComponent } from './layouts/pc-slide-layout/pc-slide-layout.component';
 
 import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { MobileHeaderComponent } from './layouts/mobile-header/mobile-header.component';
@@ -33,6 +37,9 @@ import { AbilitiesComponent } from './components/abilities/abilities.component';
 import { DeathSavesComponent } from './components/death-saves/death-saves.component';
 import { SpellcastingComponent } from './components/spellcasting/spellcasting.component';
 import { WalletComponent } from './components/wallet/wallet.component';
+import { PcFixedLayoutComponent } from './layouts/pc-fixed-layout/pc-fixed-layout.component';
+import { FeaturesFeatsComponent } from './components/features-feats/features-feats.component';
+import { NotesComponent } from './components/notes/notes.component';
 
 
 
@@ -64,7 +71,13 @@ export function createTranslateLoader(http: HttpClient){
     WalletComponent,
     AppIconComponent,
     InputTextModalComponent,
-    ValidationMessagesComponent
+    ValidationMessagesComponent,
+    SlideControlDirective,
+    PcFixedLayoutComponent,
+    FeaturesFeatsComponent,
+    NotesComponent,
+    SidebarWithIconComponent,
+    PcSlideLayoutComponent
   ],
   imports: [
     BrowserModule,

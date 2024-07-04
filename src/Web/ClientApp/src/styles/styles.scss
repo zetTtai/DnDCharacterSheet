@@ -6,6 +6,8 @@
 @import 'base';
 @import 'utilities';
 @import 'pixelperfect';
+@import 'components';
+@import 'slide-layout';
 
 a {
   color: #0366d6;
@@ -26,8 +28,35 @@ code {
 }
 
 #content {
-  margin-top: 10px;
+  padding: 10px;
+  transition: 600ms;
+  display: grid;
+  grid-template-columns: $pc-fixed-layout-grid;
+  width: 100%;
 }
+
+.hideable-content {
+  transition: opacity 300ms ease;
+}
+
+.fixed-layout {
+  &-text {
+    writing-mode: vertical-rl;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  &-section {
+      height: 100%;
+  }
+  &-content {
+    display: grid;
+    grid-template-columns: max-content auto;
+    height: 100%;
+  }
+}
+
 
 #mobile-content {
   display: flex;
@@ -36,50 +65,32 @@ code {
   margin-top: $mobile-header-height;
 }
 
-@media (min-width: $mobile-size) {
-
-  #content {
-    flex-direction: column;
-  }
-}
-
 .mobile-grid-layout {
     display: grid;
     grid-template-rows: $mobile-header-height auto 5%;
     height: 100%;
 }
 
-
-app-modal {
-  position: absolute;
-}
-
-app-fixed-toggle-buttons {
-  position: fixed;
-  top: $mobile-header-height;
-  width: 100%;
-}
-
-app-mobile-slider {
+.pc-grid-layout {
+  display: grid;
+  grid-template-rows: $pc-navbar-height auto;
   height: 100%;
-  min-height: 100%;
-}
-
-app-mobile-header {
-  grid-row: 1;
 }
 
 #main-mobile {
-    grid-row: 2;
+  grid-row: 2;
 }
 
-app-navbar {
-  grid-row: 3;
+.pc-character-image {
+  border: 2px solid black;
+  right: $pc-character-image-center;
+  position: absolute;
+  border-radius: 100px;
+  width: $pc-character-image-diameter;
+  height: $pc-character-image-diameter;
+  z-index: $z-index-above-all;
 }
 
-
-app-icon {
-  align-items: center;
-  justify-content: center;
-  display: flex;
+.pc-abilities {
+  padding-top: $pc-character-image-diameter;
 }
