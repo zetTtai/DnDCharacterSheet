@@ -1,11 +1,11 @@
 <ng-container *ngIf="isDesktop(); else mobileView">
   <app-pc-slide-layout [leftInputDisabled]="true"
-                       leftInputLabel="Spellcasting Class"
+                       [leftInputLabel]="'spellcasting.class' | translate"
                        gridTemplateColumns="repeat(3, 1fr)">
 
     <div right-side-content class="section-center-content">
-      <app-form-field label="spellcasting ability"
-                      name="player_name"
+      <app-form-field [label]="'spellcasting.ability' | translate"
+                      name="spellcasting_ability"
                       value=""
                       [desktop]="true"
                       [readOnly]="true">
@@ -13,8 +13,8 @@
     </div>
 
     <div right-side-content class="section-center-content">
-      <app-form-field label="spell save dc"
-                      name="player_name"
+      <app-form-field [label]="'spellcasting.save_dc' | translate"
+                      name="spellcasting_save_dc"
                       value=""
                       [desktop]="true"
                       [readOnly]="true">
@@ -22,8 +22,8 @@
     </div>
 
     <div right-side-content class="section-center-content">
-      <app-form-field label="spell attack bonus"
-                      name="player_name"
+      <app-form-field [label]="'spellcasting.attack_bonus' | translate"
+                      name="attack_bonus"
                       value=""
                       [desktop]="true"
                       [readOnly]="true">

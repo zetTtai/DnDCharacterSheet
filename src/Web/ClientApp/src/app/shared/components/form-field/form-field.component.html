@@ -1,3 +1,4 @@
+
 <ng-container *ngIf="!desktop; else desktopVersion">
   <div [class.mr-10]="!last" (click)="edit($event)">
     <div class="input-group">
@@ -11,7 +12,7 @@
              [value]="value"
              [disabled]="readOnly" />
       <ng-container *ngIf="type === 'custom'">
-        <ng-content (click)="edit($event)" [class]="class"></ng-content>
+        <ng-content (click)="edit($event)" [class]="class" select="[content]"></ng-content>
       </ng-container>
     </div>
   </div>
@@ -30,7 +31,7 @@
              [value]="value"
              [disabled]="readOnly" />
       <ng-container *ngIf="type === 'custom'">
-        <ng-content (click)="edit($event)" [class]="class"></ng-content>
+        <ng-content (click)="edit($event)" [class]="class"  select="[content]"></ng-content>
       </ng-container>
     </div>
   </div>

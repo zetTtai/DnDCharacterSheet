@@ -1,7 +1,7 @@
 <ng-container *ngIf="isDesktop(); else mobileView">
 
   <app-pc-slide-layout [leftInputDisabled]="false"
-                       leftInputLabel="character name"
+                       [leftInputLabel]="'character.name' | translate"
                        gridTemplateColumns="repeat(4, 1fr)">
 
     <div right-side-content class="section-class">
@@ -9,27 +9,41 @@
         <input type="text" name="name" value="" placeholder="Select Class" />
         <button class="btn btn-secondary">Add multiclass +</button>
       </div>
-      <label>Class/Classes</label>
+      <label>{{ 'character.classes' | translate }}</label>
     </div>
 
     <div right-side-content class="section-race">
       <div style="display: flex; flex-direction: column; justify-content: space-between; ">
-        <p>Image or icon related to the selected race</p>
         <button class="btn btn-secondary">Select Race</button>
       </div>
-      <label>Race</label>
+      <label>{{ 'character.race' | translate }}</label>
     </div>
 
     <div right-side-content class="section">
-      <app-form-field label="Background" name="background" value="" [desktop]="true"></app-form-field>
+      <app-form-field [label]="'character.background' | translate"
+                      name="background"
+                      value=""
+                      [desktop]="true"></app-form-field>
 
-      <app-form-field label="Alignment" name="alignment" value="" [desktop]="true"></app-form-field>
+      <app-form-field [label]="'character.alignment' | translate"
+                      name="alignment"
+                      value=""
+                      [desktop]="true">
+      </app-form-field>
     </div>
 
     <div right-side-content class="section">
-      <app-form-field label="player name" name="player_name" value="" [desktop]="true"></app-form-field>
+      <app-form-field [label]="'character.player_name' | translate"
+                      name="player_name"
+                      value=""
+                      [desktop]="true">
+        </app-form-field>
 
-      <app-form-field label="Experience points" name="exp" value="" [desktop]="true"></app-form-field>
+      <app-form-field [label]="'character.exp' | translate"
+                      name="exp"
+                      value=""
+                      [desktop]="true">
+        </app-form-field>
     </div>
 
     <div main-content>

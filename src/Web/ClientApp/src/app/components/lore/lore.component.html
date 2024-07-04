@@ -1,23 +1,48 @@
 <ng-container *ngIf="isDesktop(); else mobileView">
   <app-pc-slide-layout [leftInputDisabled]="false"
-                       leftInputLabel="Character Name"
+                       [leftInputLabel]="'character.name' | translate"
                        gridTemplateColumns="repeat(3, 1fr)">
     <div right-side-content class="section">
-      <app-form-field label="Age" name="age" value="" [desktop]="true"></app-form-field>
+      <app-form-field [label]="'character.age' | translate"
+                      name="age"
+                      value=""
+                      [desktop]="true">
 
-      <app-form-field label="Eyes" name="eyes" value="" [desktop]="true"></app-form-field>
+      </app-form-field>
+
+      <app-form-field [label]="'character.eyes' | translate"
+                      name="eyes"
+                      value=""
+                      [desktop]="true">
+      </app-form-field>
     </div>
 
     <div right-side-content class="section">
-      <app-form-field label="height" name="height" value="" [desktop]="true"></app-form-field>
+      <app-form-field [label]="'character.height' | translate"
+                      name="height"
+                      value=""
+                      [desktop]="true">
+      </app-form-field>
 
-      <app-form-field label="skin" name="skin" value="" [desktop]="true"></app-form-field>
+      <app-form-field [label]="'character.skin' | translate"
+                      name="skin"
+                      value=""
+                      [desktop]="true">
+      </app-form-field>
     </div>
 
     <div right-side-content class="section">
-      <app-form-field label="weight" name="weight" value="" [desktop]="true"></app-form-field>
+      <app-form-field [label]="'character.weight' | translate"
+                      name="weight"
+                      value=""
+                      [desktop]="true">
+      </app-form-field>
 
-      <app-form-field label="Alignment" name="alignment" value="" [desktop]="true"></app-form-field>
+      <app-form-field [label]="'character.hair' | translate"
+                      name="hair"
+                      value=""
+                      [desktop]="true">
+      </app-form-field>
     </div>
 
     <div main-content>

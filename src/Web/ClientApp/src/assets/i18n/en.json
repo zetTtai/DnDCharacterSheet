@@ -26,5 +26,26 @@
   "pc-fixed-layout": {
     "collapse": "Collapse right side layout",
     "expand": "Expand  right side layout"
+  },
+  "spellcasting": {
+    "class": "spellcasting class",
+    "ability": "spellcasting ability",
+    "save_dc": "spell save dc",
+    "attack_bonus": "spell attack bonus"
+  },
+  "character": {
+    "name": "character name",
+    "age": "age",
+    "eyes": "eyes",
+    "height": "height",
+    "skin": "skin",
+    "weight": "weight",
+    "hair": "hair",
+    "classes": "class/es",
+    "race": "race",
+    "background": "background",
+    "alignment": "alignment",
+    "player_name": "player name",
+    "exp": "experience points"
   }
 }

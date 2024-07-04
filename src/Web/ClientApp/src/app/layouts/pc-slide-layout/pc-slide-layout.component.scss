@@ -18,6 +18,8 @@ input:disabled {
   }
 
   header {
+    max-height: calc(#{$pc-slider-layout-header-height} + 10px);
+    overflow: hidden;
     display: grid;
     grid-template-columns: 33% auto;
 
