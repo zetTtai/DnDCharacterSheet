@@ -7,7 +7,6 @@
   left: 0;
   right: 0;
   bottom: 0;
-  font-size: 2em;
   text-align: center;
   z-index: calc(#{$z-index-above-all} + 10);
   flex-direction: column;
@@ -15,8 +14,8 @@
   align-items: center;
 
   img {
-      width: 200px;
-      height: 200px;
+      width: 150px;
+      height: 150px;
       border-radius: 100px;
       border: 2px solid gray;
   }
