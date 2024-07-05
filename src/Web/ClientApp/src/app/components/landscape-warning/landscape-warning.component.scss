@@ -1,0 +1,23 @@
+@import 'variables';
+
+#landscape-warning {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-size: 2em;
+  text-align: center;
+  z-index: calc(#{$z-index-above-all} + 10);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  img {
+      width: 200px;
+      height: 200px;
+      border-radius: 100px;
+      border: 2px solid gray;
+  }
+}

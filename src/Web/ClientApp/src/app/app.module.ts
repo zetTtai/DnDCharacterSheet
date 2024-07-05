@@ -40,6 +40,7 @@ import { WalletComponent } from './components/wallet/wallet.component';
 import { PcFixedLayoutComponent } from './layouts/pc-fixed-layout/pc-fixed-layout.component';
 import { FeaturesFeatsComponent } from './components/features-feats/features-feats.component';
 import { NotesComponent } from './components/notes/notes.component';
+import { LandscapeWarningComponent } from './components/landscape-warning/landscape-warning.component';
 
 
 
@@ -77,7 +78,8 @@ export function createTranslateLoader(http: HttpClient){
     FeaturesFeatsComponent,
     NotesComponent,
     SidebarWithIconComponent,
-    PcSlideLayoutComponent
+    PcSlideLayoutComponent,
+    LandscapeWarningComponent
   ],
   imports: [
     BrowserModule,

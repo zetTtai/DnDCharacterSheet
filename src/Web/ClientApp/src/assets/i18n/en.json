@@ -1,5 +1,6 @@
 {
   "title": "DnD Character Sheet",
+  "landscape_warning": "Please rotate your device to portrait mode to visualize the page",
   "form": {
     "confirm": "Confirm",
     "modify": "Modify",
