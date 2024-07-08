@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { NavigationService } from '../../core/services/navigation/navigation.service';
-import { SharedDataService } from '../../core/services/shared-data/shared-data.service';
+import { NavigationService } from 'src/app/core/services/navigation/navigation.service';
+import { SharedDataService } from 'src/app/core/services/shared-data/shared-data.service';
 
 @Component({
   selector: 'app-pc-slider',

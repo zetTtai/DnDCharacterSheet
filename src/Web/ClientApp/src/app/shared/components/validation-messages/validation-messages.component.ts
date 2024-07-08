@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { ModalData } from '../../models/modal-data.model';
+import { ModalData } from 'src/app/shared/models/modal-data.model';
 import { FormGroup, ValidatorFn } from '@angular/forms';
-import { ValidationService } from '../../../core/services/validation/validation.service';
+import { ValidationService } from 'src/app/core/services/validation/validation.service';
 
 @Component({
   selector: 'app-validation-messages',

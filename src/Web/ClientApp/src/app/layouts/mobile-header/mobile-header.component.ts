@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { ModalData } from '../../shared/models/modal-data.model';
-import { CIRCLE_CONFIG, ICONS } from '../../shared/constants/app-constants';
-import { ToggleService } from '../../core/services/toggle/toggle.service';
+import { ModalData } from 'src/app/shared/models/modal-data.model';
+import { CIRCLE_CONFIG, ICONS } from 'src/app/shared/constants/app-constants';
+import { ToggleService } from 'src/app/core/services/toggle/toggle.service';
 
 @Component({
   selector: 'app-mobile-header',

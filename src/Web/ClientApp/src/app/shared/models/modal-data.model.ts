@@ -1,4 +1,4 @@
-import { CustomValidatorFn } from "./custom-validator.model";
+import { CustomValidatorFn } from "src/app/shared/models/custom-validator.model";
 
 export interface ModalData {
   id: string;

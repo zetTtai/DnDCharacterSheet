@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { LanguageService, SupportedLanguages } from '../../core/services/language/language.service';
-import { SharedDataService } from '../../core/services/shared-data/shared-data.service';
-import { ICONS } from '../../shared/constants/app-constants';
+import { LanguageService, SupportedLanguages } from 'src/app/core/services/language/language.service';
+import { SharedDataService } from 'src/app/core/services/shared-data/shared-data.service';
+import { ICONS } from 'src/app/shared/constants/app-constants';
 
 @Component({
   selector: 'app-navbar',
