@@ -1,106 +1,33 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { HammerModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TranslationModule } from 'src/app/modules/translation.module';
+import { AppRoutingModule } from 'src/app/modules/app-routing.module';
+import { SharedModule } from 'src/app/modules/shared.module';
+import { LayoutsModule } from 'src/app/modules/layouts.module';
+import { ComponentsModule } from 'src/app/modules/components.module';
 
-import { AppComponent } from './app.component';
+import { AppComponent } from 'src/app/app.component';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
-import { SlideControlDirective } from './shared/directives/slide-control/slide-control.directive';
-
-import { CircleComponent } from './shared/components/circle/circle.component';
-import { FormFieldComponent } from './shared/components/form-field/form-field.component';
-import { ModalComponent } from './shared/components/modal/modal.component';
-import { ToggleButtonComponent } from './shared/components/toggle-button/toggle-button.component';
-import { AppIconComponent } from './shared/components/app-icon/app-icon.component';
-import { InputTextModalComponent } from './shared/components/modal/input-modal/input-text-modal/input-text-modal.component';
-import { ValidationMessagesComponent } from './shared/components/validation-messages/validation-messages.component';
-import { SidebarWithIconComponent } from './shared/components/sidebar-with-icon/sidebar-with-icon.component';
-import { PcSlideLayoutComponent } from './layouts/pc-slide-layout/pc-slide-layout.component';
-
-import { NavbarComponent } from './layouts/navbar/navbar.component';
-import { MobileHeaderComponent } from './layouts/mobile-header/mobile-header.component';
-import { SaveButtonComponent } from './components/save-button/save-button.component';
-import { HomeComponent } from './components/home/home.component';
-import { PcSliderComponent } from './components/pc-slider/pc-slider.component';
-import { MobileSliderComponent } from './components/mobile-slider/mobile-slider.component';
-import { LoreComponent } from './components/lore/lore.component';
-import { ItemsComponent } from './components/items/items.component';
-import { SpellsComponent } from './components/spells/spells.component';
-import { AccountComponent } from './components/account/account.component';
-import { FixedToggleButtonsComponent } from './layouts/fixed-toggle-buttons/fixed-toggle-buttons.component';
-import { AbilitiesComponent } from './components/abilities/abilities.component';
-import { DeathSavesComponent } from './components/death-saves/death-saves.component';
-import { SpellcastingComponent } from './components/spellcasting/spellcasting.component';
-import { WalletComponent } from './components/wallet/wallet.component';
-import { PcFixedLayoutComponent } from './layouts/pc-fixed-layout/pc-fixed-layout.component';
-import { FeaturesFeatsComponent } from './components/features-feats/features-feats.component';
-import { NotesComponent } from './components/notes/notes.component';
-import { LandscapeWarningComponent } from './components/landscape-warning/landscape-warning.component';
-
-
-
-export function createTranslateLoader(http: HttpClient){
-  return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
-}
+import { LayoutComponentsModule } from './modules/layout-components.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    CircleComponent,
-    FormFieldComponent,
-    FixedToggleButtonsComponent,
-    ToggleButtonComponent,
-    ModalComponent,
-    NavbarComponent,
-    SaveButtonComponent,
-    MobileHeaderComponent,
-    HomeComponent,
-    LoreComponent,
-    ItemsComponent,
-    SpellsComponent,
-    AccountComponent,
-    PcSliderComponent,
-    MobileSliderComponent,
-    AbilitiesComponent,
-    DeathSavesComponent,
-    SpellcastingComponent,
-    WalletComponent,
-    AppIconComponent,
-    InputTextModalComponent,
-    ValidationMessagesComponent,
-    SlideControlDirective,
-    PcFixedLayoutComponent,
-    FeaturesFeatsComponent,
-    NotesComponent,
-    SidebarWithIconComponent,
-    PcSlideLayoutComponent,
-    LandscapeWarningComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    TranslateModule.forRoot({
-      defaultLanguage: 'en',
-      useDefaultLang: true,
-      loader: {
-        provide: TranslateLoader,
-        useFactory: createTranslateLoader,
-        deps: [HttpClient]
-      }
-    }),
-    RouterModule.forRoot([
-      { path: 'items', component: ItemsComponent },
-      { path: 'lore', component: LoreComponent },
-      { path: 'spells', component: SpellsComponent },
-      { path: 'account', component: AccountComponent }
-    ]),
     HammerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslationModule,
+    AppRoutingModule,
+    LayoutsModule,
+    SharedModule,
+    ComponentsModule,
+    LayoutComponentsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }

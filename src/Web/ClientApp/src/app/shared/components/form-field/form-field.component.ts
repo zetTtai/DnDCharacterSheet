@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ModalData } from '../../models/modal-data.model';
-import { MOBILE_HEADER_FIELDS } from '../../constants/app-form-validators';
+import { ModalData } from 'src/app/shared/models/modal-data.model';
+import { MOBILE_HEADER_FIELDS } from 'src/app/shared/constants/app-form-validators';
 
 @Component({
   selector: 'app-form-field',

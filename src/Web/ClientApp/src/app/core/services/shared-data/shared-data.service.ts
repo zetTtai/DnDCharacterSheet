@@ -1,10 +1,10 @@
 import { Injectable, Type } from '@angular/core';
-import { HomeComponent } from '../../../components/home/home.component';
-import { SpellsComponent } from '../../../components/spells/spells.component';
-import { LoreComponent } from '../../../components/lore/lore.component';
-import { ItemsComponent } from '../../../components/items/items.component';
-import { AccountComponent } from '../../../components/account/account.component';
-import { WEB } from '../../../shared/constants/app-constants';
+import { HomeComponent } from 'src/app/components/home/home.component';
+import { SpellsComponent } from 'src/app/components/spells/spells.component';
+import { LoreComponent } from 'src/app/components/lore/lore.component';
+import { ItemsComponent } from 'src/app/components/items/items.component';
+import { AccountComponent } from 'src/app/components/account/account.component';
+import { WEB } from 'src/app/shared/constants/app-constants';
 
 @Injectable({
   providedIn: 'root'

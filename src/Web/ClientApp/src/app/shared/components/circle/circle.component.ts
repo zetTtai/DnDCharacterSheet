@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { CIRCLE_CONFIG } from '../../constants/app-constants';
+import { CIRCLE_CONFIG } from 'src/app/shared/constants/app-constants';
 
 @Component({
   selector: 'app-circle',

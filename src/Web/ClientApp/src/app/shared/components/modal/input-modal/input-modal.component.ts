@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ModalData } from '../../../models/modal-data.model';
+import { ModalData } from 'src/app/shared/models/modal-data.model';
 import { FormBuilder, FormGroup, ValidatorFn } from '@angular/forms';
-import { ValidationService } from '../../../../core/services/validation/validation.service';
+import { ValidationService } from 'src/app/core/services/validation/validation.service';
 
 @Component({
   template: ''

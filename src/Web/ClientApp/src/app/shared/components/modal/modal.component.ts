@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
-import { ModalData } from '../../models/modal-data.model';
+import { ModalData } from 'src/app/shared/models/modal-data.model';
 import { InputTextModalComponent } from './input-modal/input-text-modal/input-text-modal.component';
-import { DelayService } from '../../../core/services/delay/delay.service';
+import { DelayService } from 'src/app/core/services/delay/delay.service';
 
 export interface InputModal {
   data: ModalData;

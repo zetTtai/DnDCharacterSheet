@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ToggleService } from '../../core/services/toggle/toggle.service';
-import { DelayService } from '../../core/services/delay/delay.service';
-import { ICONS } from '../../shared/constants/app-constants';
+import { ToggleService } from 'src/app/core/services/toggle/toggle.service';
+import { DelayService } from 'src/app/core/services/delay/delay.service';
+import { ICONS } from 'src/app/shared/constants/app-constants';
 
 @Component({
   selector: 'app-fixed-toggle-buttons',

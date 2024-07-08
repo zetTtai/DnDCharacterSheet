@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Type, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { SharedDataService } from '../../core/services/shared-data/shared-data.service';
+import { SharedDataService } from 'src/app/core/services/shared-data/shared-data.service';
 
 @Component({
   selector: 'app-mobile-slider',

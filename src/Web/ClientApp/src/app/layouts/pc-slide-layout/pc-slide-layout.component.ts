@@ -1,5 +1,6 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
-import { NavigationService } from '../../core/services/navigation/navigation.service';
+import { NavigationService } from 'src/app/core/services/navigation/navigation.service';
+import { WEB } from 'src/app/shared/constants/app-constants';
 
 @Component({
   selector: 'app-pc-slide-layout',
@@ -16,7 +17,7 @@ export class PcSlideLayoutComponent {
 
   handleSlide(direction: string) {
     if (direction === 'down') {
-      if (this.navService.currentViewPc == 2) return;
+      if (this.navService.currentViewPc == WEB.PC_SLIDES - 1) return;
       this.navService.pcSlide(this.navService.currentViewPc + 1);
       return;
     }

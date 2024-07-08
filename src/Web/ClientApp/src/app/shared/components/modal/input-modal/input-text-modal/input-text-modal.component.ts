@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { ValidationService } from '../../../../../core/services/validation/validation.service';
+import { FormBuilder } from '@angular/forms';
+import { ValidationService } from 'src/app/core/services/validation/validation.service';
 import { InputModalComponent } from '../input-modal.component';
 
 @Component({

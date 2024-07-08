@@ -1,7 +1,7 @@
 import { Component, ViewChild, ViewContainerRef } from '@angular/core';
-import { WEB } from '../../shared/constants/app-constants';
-import { LanguageService } from '../../core/services/language/language.service';
-import { DelayService } from '../../core/services/delay/delay.service';
+import { WEB } from 'src/app/shared/constants/app-constants';
+import { LanguageService } from 'src/app/core/services/language/language.service';
+import { DelayService } from 'src/app/core/services/delay/delay.service';
 
 
 @Component({

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ICONS } from '../../constants/app-constants';
+import { ICONS } from 'src/app/shared/constants/app-constants';
 
 @Component({
   selector: 'app-icon',
