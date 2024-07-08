@@ -54,10 +54,7 @@ export class PcFixedLayoutComponent {
   }
 
   toggleFixedLayout() {
-
     this.isOpen = !this.isOpen;
-
-    console.log(this.isOpen);
 
     const content = document.getElementById('content');
 

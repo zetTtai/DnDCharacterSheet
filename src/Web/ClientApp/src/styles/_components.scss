@@ -41,6 +41,11 @@ app-features-feats, app-items, app-notes {
     height: 100%;
 }
 
+router-outlet {
+  position:absolute;
+  z-index: $z-index-behind-all;
+}
+
 @media (min-width: $mobile-size) {
 
   app-navbar {
