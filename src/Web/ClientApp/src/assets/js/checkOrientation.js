@@ -3,9 +3,8 @@ function isMobileDevice() {
 }
 
 function checkOrientation() {
-  if (!isMobileDevice()) return;
 
-  if (window.innerHeight < window.innerWidth) {
+  if (isMobileDevice() && window.innerHeight < window.innerWidth) {
     document.getElementById('landscape-warning').style.display = 'flex';
     return;
   }
@@ -16,4 +15,7 @@ function checkOrientation() {
 window.addEventListener('resize', checkOrientation);
 window.addEventListener('orientationchange', checkOrientation);
 
-checkOrientation();
+
+document.addEventListener("DOMContentLoaded", function () {
+  checkOrientation();
+});

@@ -1,22 +1,67 @@
 <ng-container *ngIf="isDesktop(); else mobileView">
-  <div id="content" class="pc">
-    <app-pc-slider></app-pc-slider>
-    <div style="position: relative;">
-      <img class="pc-character-image" src="assets/images/icon192x192.png" />
-      <app-abilities></app-abilities>
+
+  <app-pc-slide-layout [leftInputDisabled]="false"
+                       [leftInputLabel]="'character.name' | translate"
+                       gridTemplateColumns="repeat(4, 1fr)">
+
+    <div right-side-content class="section-class">
+      <div style="display: flex; flex-direction: column; justify-content: space-between;">
+        <input type="text" name="name" value="" placeholder="Select Class" />
+        <button class="btn btn-secondary">Add multiclass +</button>
+      </div>
+      <label>{{ 'character.classes' | translate }}</label>
     </div>
-    <main id="main-pc" class="pc slider">
-      <ng-container *ngFor="let component of pcComponents; index as index;">
-        <div class="slide" *ngIf="index === getCurrentViewPc()">
-          <ng-container *ngComponentOutlet="component.class"></ng-container>
-        </div>
-      </ng-container>
-    </main>
-    <app-pc-fixed-layout></app-pc-fixed-layout>
-  </div>
+
+    <div right-side-content class="section-race">
+      <div style="display: flex; flex-direction: column; justify-content: space-between; ">
+        <img src="#" alt="" title="some icon or image related to the selected race" />
+        <button class="btn btn-secondary">Select Race</button>
+      </div>
+      <label>{{ 'character.race' | translate }}</label>
+    </div>
+
+    <div right-side-content class="section">
+      <app-form-field [label]="'character.background' | translate"
+                      name="background"
+                      value=""
+                      [desktop]="true"></app-form-field>
+
+      <app-form-field [label]="'character.alignment' | translate"
+                      name="alignment"
+                      value=""
+                      [desktop]="true">
+      </app-form-field>
+    </div>
+
+    <div right-side-content class="section">
+      <app-form-field [label]="'character.player_name' | translate"
+                      name="player_name"
+                      value=""
+                      [desktop]="true">
+      </app-form-field>
+
+      <app-form-field [label]="'character.exp' | translate"
+                      name="exp"
+                      value=""
+                      [desktop]="true">
+      </app-form-field>
+    </div>
+
+    <div main-content>
+      <p>home spells works! (Content)</p>
+    </div>
+
+  </app-pc-slide-layout>
 </ng-container>
 
 <ng-template #mobileView>
-  <app-mobile-slider></app-mobile-slider>
+  <section class="mobile slide-mobile">
+    <main>
+      <p>mobile-HOME works!</p>
+    </main>
+  </section>
 </ng-template>
+
+
+
 
