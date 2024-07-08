@@ -1,0 +1,39 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { TranslationModule } from './translation.module';
+
+import { AbilitiesComponent } from 'src/app/components/abilities/abilities.component';
+import { DeathSavesComponent } from 'src/app/components/death-saves/death-saves.component';
+import { SpellcastingComponent } from 'src/app/components/spellcasting/spellcasting.component';
+import { WalletComponent } from 'src/app/components/wallet/wallet.component';
+import { FeaturesFeatsComponent } from 'src/app/components/features-feats/features-feats.component';
+import { ItemsComponent } from 'src/app/components/items/items.component';
+import { NotesComponent } from 'src/app/components/notes/notes.component';
+
+@NgModule({
+  declarations: [
+    AbilitiesComponent,
+    DeathSavesComponent,
+    SpellcastingComponent,
+    WalletComponent,
+    FeaturesFeatsComponent,
+    ItemsComponent,
+    NotesComponent
+  ],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    TranslationModule
+  ],
+  exports: [
+    AbilitiesComponent,
+    DeathSavesComponent,
+    SpellcastingComponent,
+    WalletComponent,
+    FeaturesFeatsComponent,
+    ItemsComponent,
+    NotesComponent
+  ]
+})
+export class LayoutComponentsModule { }

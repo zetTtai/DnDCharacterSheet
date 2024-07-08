@@ -16,5 +16,6 @@ export const WEB = {
   // Must be equal to $pc-fixed-layout-grid (_variables.scss)
   PC_FIXED_LAYOUT: "max-content max-content auto 20%",
   PC_FIXED_LAYOUT_EXPAND: "pc-fixed-layout.expand",
-  PC_FIXED_LAYOUT_COLLAPSE: "pc-fixed-layout.collapse"
+  PC_FIXED_LAYOUT_COLLAPSE: "pc-fixed-layout.collapse",
+  PC_SLIDES: 3
 }

@@ -11,6 +11,7 @@ import { ComponentsModule } from 'src/app/modules/components.module';
 
 import { AppComponent } from 'src/app/app.component';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
+import { LayoutComponentsModule } from './modules/layout-components.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { AuthorizeInterceptor } from 'src/api-authorization/authorize.intercepto
     AppRoutingModule,
     LayoutsModule,
     SharedModule,
-    ComponentsModule
+    ComponentsModule,
+    LayoutComponentsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }

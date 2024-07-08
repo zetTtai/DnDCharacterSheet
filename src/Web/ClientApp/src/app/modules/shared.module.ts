@@ -14,14 +14,6 @@ import { InputTextModalComponent } from 'src/app/shared/components/modal/input-m
 import { ValidationMessagesComponent } from 'src/app/shared/components/validation-messages/validation-messages.component';
 import { SidebarWithIconComponent } from 'src/app/shared/components/sidebar-with-icon/sidebar-with-icon.component';
 
-import { AbilitiesComponent } from 'src/app/components/abilities/abilities.component';
-import { DeathSavesComponent } from 'src/app/components/death-saves/death-saves.component';
-import { SpellcastingComponent } from 'src/app/components/spellcasting/spellcasting.component';
-import { WalletComponent } from 'src/app/components/wallet/wallet.component';
-import { FeaturesFeatsComponent } from '../components/features-feats/features-feats.component';
-import { ItemsComponent } from '../components/items/items.component';
-import { NotesComponent } from '../components/notes/notes.component';
-
 @NgModule({
   declarations: [
     SlideControlDirective,
@@ -32,14 +24,7 @@ import { NotesComponent } from '../components/notes/notes.component';
     AppIconComponent,
     InputTextModalComponent,
     ValidationMessagesComponent,
-    SidebarWithIconComponent,
-    AbilitiesComponent,
-    DeathSavesComponent,
-    SpellcastingComponent,
-    WalletComponent,
-    FeaturesFeatsComponent,
-    ItemsComponent,
-    NotesComponent
+    SidebarWithIconComponent
   ],
   imports: [
     CommonModule,
@@ -55,14 +40,7 @@ import { NotesComponent } from '../components/notes/notes.component';
     AppIconComponent,
     InputTextModalComponent,
     ValidationMessagesComponent,
-    SidebarWithIconComponent,
-    AbilitiesComponent,
-    DeathSavesComponent,
-    SpellcastingComponent,
-    WalletComponent,
-    FeaturesFeatsComponent,
-    ItemsComponent,
-    NotesComponent
+    SidebarWithIconComponent
   ]
 })
 export class SharedModule { }

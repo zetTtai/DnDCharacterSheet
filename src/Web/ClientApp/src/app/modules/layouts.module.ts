@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TranslationModule } from 'src/app/modules/translation.module';
 import { SharedModule } from 'src/app/modules/shared.module';
 import { AppRoutingModule } from './app-routing.module';
+import { LayoutComponentsModule } from './layout-components.module';
 
 import { PcSlideLayoutComponent } from 'src/app/layouts/pc-slide-layout/pc-slide-layout.component';
 import { NavbarComponent } from 'src/app/layouts/navbar/navbar.component';
@@ -22,6 +23,7 @@ import { FixedToggleButtonsComponent } from 'src/app/layouts/fixed-toggle-button
     CommonModule,
     TranslationModule,
     SharedModule,
+    LayoutComponentsModule,
     AppRoutingModule
   ],
   exports: [
