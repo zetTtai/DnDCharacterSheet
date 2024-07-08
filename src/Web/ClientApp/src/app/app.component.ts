@@ -1,9 +1,9 @@
 import { Component, HostListener, Type } from '@angular/core';
-import { NavigationService } from './core/services/navigation/navigation.service';
-import { SharedDataService } from './core/services/shared-data/shared-data.service';
-import { HomeComponent } from './components/home/home.component';
-import { WEB } from './shared/constants/app-constants';
-import { ModalData } from './shared/models/modal-data.model';
+import { NavigationService } from 'src/app/core/services/navigation/navigation.service';
+import { SharedDataService } from 'src/app/core/services/shared-data/shared-data.service';
+import { HomeComponent } from 'src/app/components/home/home.component';
+import { WEB } from 'src/app/shared/constants/app-constants';
+import { ModalData } from 'src/app/shared/models/modal-data.model';
 
 @Component({
   selector: 'app-root',
