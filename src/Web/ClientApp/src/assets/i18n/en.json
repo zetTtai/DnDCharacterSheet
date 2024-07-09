@@ -1,7 +1,20 @@
 {
   "title": "DnD Character Sheet",
   "landscape_warning": "Please rotate your device to portrait mode to visualize the page",
-  "about-us": "About Us (Me)",
+  "about-us": {
+    "title": "About Us (me)",
+    "icons": {
+      "title": "Icons used in the application",
+      "by": "By ",
+      "license_text": "under license "
+    },
+    "project": {
+      "title": "About the project"
+    },
+    "members": {
+      "title": "About our members"
+    }
+  },
   "form": {
     "confirm": "Confirm",
     "modify": "Modify",

@@ -1,1 +1,54 @@
-<p>about-us works!</p>
+<div class="section ui icons-credit">
+  <h3>{{ 'about-us.project.title' | translate }}</h3>
+
+</div>
+
+<div class="section ui members">
+  <h3>{{ 'about-us.members.title' | translate }}</h3>
+  <div class="members-list">
+    <div class="row">
+      <ng-container *ngFor="let member of members">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+          <div class="our-team ui">
+            <div class="picture">
+              <img *ngIf="member.image; else noImage" class="img-fluid" src="{{ member.image }}">
+              <ng-template #noImage>
+                <img class="card-img-top" src="assets/images/members/default.png">
+              </ng-template>
+            </div>
+            <div class="team-content">
+              <h3 class="name">{{ member.name }}</h3>
+              <h4 class="title">{{ member.position }}</h4>
+            </div>
+            <ul class="social">
+              <ng-container *ngFor="let network of member.networks">
+                <li>
+                  <a href="{{ network.url }}" target="_blank" aria-hidden="true">
+                    <app-icon [name]="'social/' + network.name" [width]="'25px'" [height]="'25px'"></app-icon>
+                  </a>
+                </li>
+              </ng-container>
+            </ul>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+
+<div class="section ui icons-credit">
+  <h3>{{ 'about-us.icons.title' | translate }}</h3>
+  <ul class="icons-list">
+    <ng-container *ngFor="let icon of icons">
+      <li class="icon-item">
+        <app-icon [name]="icon.name" [width]="'40px'" [height]="'40px'"></app-icon>
+        <p>
+          {{ 'about-us.icons.by' | translate }} <a [href]="icon.url">{{ icon.author }}</a>,
+          {{ 'about-us.icons.license_text' | translate }} <a [href]="icon.license_url">{{ icon.license_name }}</a>.
+        </p>
+      </li>
+    </ng-container>
+  </ul>
+</div>
+

@@ -1,0 +1,168 @@
+@import 'variables';
+
+$card-height: 330px;
+$card-gap: 1rem;
+
+
+.section {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  margin: 10px 20px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+  h3 {
+    border-bottom: 2px solid lightgray;
+  }
+}
+
+.icons-list {
+  display:grid;
+  grid-template-columns: auto auto;
+  grid-gap: 1rem;
+  max-height: 500px;
+  overflow-y: auto;
+
+}
+
+.icon-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+}
+
+p {
+  margin-bottom: 0;
+}
+
+.card-body {
+  h5 {
+    border-bottom: 1px solid lightgray;
+  }
+}
+
+.networks {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.members-list {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  grid-gap: $card-gap;
+  overflow-y: auto;
+  max-height: calc((#{$card-height} + #{$card-gap}) * 2);
+}
+
+.member-card {
+  width: auto;
+  height: $card-height;
+  max-height: $card-height;
+}
+
+
+.our-team {
+  padding: 30px 0 40px;
+  margin-bottom: 30px;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+}
+
+.our-team .picture {
+  display: inline-block;
+  height: 130px;
+  width: 130px;
+  margin-bottom: 50px;
+  z-index: 1;
+  position: relative;
+}
+
+.our-team .picture::before {
+  content: "";
+  width: 100%;
+  height: 0;
+  background-color: $red;
+  position: absolute;
+  bottom: 135%;
+  right: 0;
+  left: 0;
+  opacity: 0.9;
+  transform: scale(3);
+  transition: all 0.3s linear 0s;
+  clip-path: polygon(100% 80%, 50% 100%, 0 80%, 0 20%, 50% 50%, 100% 20%);
+}
+
+.our-team:hover .picture::before {
+  height: 100%;
+}
+
+.our-team .picture::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: $red;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  clip-path: polygon(50% 0%, 90% 20%, 100% 60%, 75% 100%, 25% 100%, 0% 60%, 10% 20%);
+}
+
+.our-team .picture img {
+  width: 100%;
+  height: auto;
+  transform: scale(1.1);
+  transition: all 0.9s ease 0s;
+  clip-path: polygon(50% 0%, 90% 20%, 100% 60%, 75% 100%, 25% 100%, 0% 60%, 10% 20%);
+}
+
+.our-team:hover .picture img {
+  box-shadow: 0 0 0 14px #f7f5ec;
+  transform: scale(0.9);
+}
+
+.our-team .title {
+  display: block;
+  font-size: 15px;
+  color: #4e5052;
+  text-transform: capitalize;
+}
+
+.our-team .social {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background-color: $red;
+  position: absolute;
+  bottom: -100px;
+  left: 0;
+  transition: all 0.5s ease 0s;
+}
+
+.our-team:hover .social {
+  bottom: 0;
+}
+
+.our-team .social li {
+  display: inline-block;
+}
+
+.our-team .social li a {
+  display: block;
+  padding: 10px;
+  font-size: 17px;
+  color: white;
+  transition: all 0.3s ease 0s;
+  text-decoration: none;
+}
+
+.our-team .social li a:hover {
+  color: $red;
+  background-color: darken($red, 5%);
+}

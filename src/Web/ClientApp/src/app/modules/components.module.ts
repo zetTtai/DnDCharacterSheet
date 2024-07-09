@@ -14,8 +14,10 @@ import { LoreComponent } from 'src/app/components/lore/lore.component';
 import { SpellsComponent } from 'src/app/components/spells/spells.component';
 import { AccountComponent } from 'src/app/components/account/account.component';
 import { LandscapeWarningComponent } from 'src/app/components/landscape-warning/landscape-warning.component';
-import { MainViewComponent } from '../components/main-view/main-view.component';
 import { LayoutComponentsModule } from './layout-components.module';
+import { MainViewComponent } from '../components/main-view/main-view.component';
+import { AboutUsComponent } from '../components/about-us/about-us.component';
+
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { LayoutComponentsModule } from './layout-components.module';
     PcSliderComponent,
     MobileSliderComponent,
     LandscapeWarningComponent,
-    MainViewComponent
+    MainViewComponent,
+    AboutUsComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +49,8 @@ import { LayoutComponentsModule } from './layout-components.module';
     PcSliderComponent,
     MobileSliderComponent,
     LandscapeWarningComponent,
-    MainViewComponent
+    MainViewComponent,
+    AboutUsComponent
   ]
 })
 export class ComponentsModule { }

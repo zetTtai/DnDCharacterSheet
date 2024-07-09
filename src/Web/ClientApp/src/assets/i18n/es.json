@@ -1,7 +1,20 @@
 {
   "title": "DnD Hoja de personaje",
-  "about-us": "Sobre nosotros (mí)",
   "landscape_warning": "Por favor, gira tu dispositivo a modo vertical para poder visualizar la página",
+  "about-us": {
+    "title": "Sobre nosotros (mí)",
+    "icons": {
+      "title": "Iconos utilizados en la aplicación",
+      "by": "De ",
+      "license_text": "bajo licencia "
+    },
+    "project": {
+      "title": "Sobre el proyecto"
+    },
+    "members": {
+      "title": "Sobre los integrantes"
+    }
+  },
   "form": {
     "confirm": "Confirmar",
     "modify": "Modificar",

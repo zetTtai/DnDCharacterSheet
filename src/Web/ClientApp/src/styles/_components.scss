@@ -46,6 +46,10 @@ router-outlet {
   z-index: $z-index-behind-all;
 }
 
+app-about-us {
+  overflow-y: auto;
+}
+
 @media (min-width: $mobile-size) {
 
   app-navbar {
