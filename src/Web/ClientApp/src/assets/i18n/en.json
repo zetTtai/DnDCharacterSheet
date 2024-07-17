@@ -2,14 +2,21 @@
   "title": "DnD Character Sheet",
   "landscape_warning": "Please rotate your device to portrait mode to visualize the page",
   "about-us": {
-    "title": "About Us (me)",
+    "title": "About Us",
     "icons": {
       "title": "Icons used in the application",
       "by": "By ",
       "license_text": "under license "
     },
     "project": {
-      "title": "About the project"
+      "title": "About the project",
+      "status": "Current Status:",
+      "desc": "This application allows you to create and modify your Dungeons and Dragons Character Sheets effortlessly.<br/ >Although the project is still in progress, you'll find character creation easier than ever!",
+      "respository_text": "We are open source! Check out our",
+      "repository": "Github Repository",
+      "sponsor_text": "If you'd like to support us, you can",
+      "sponsor": "buy me a coffee",
+      "contact_us": "Contact Us!"
     },
     "members": {
       "title": "About our members"

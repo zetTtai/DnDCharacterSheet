@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IconInfo } from 'src/app/shared/models/icon-info.model';
 import { MemberInfo } from 'src/app/shared/models/member-info.model';
+import { ABOUT_US } from 'src/app/shared/constants/app-constants';
 
 @Component({
   selector: 'app-about-us',
@@ -8,6 +9,10 @@ import { MemberInfo } from 'src/app/shared/models/member-info.model';
   styleUrl: './about-us.component.scss'
 })
 export class AboutUsComponent {
+  public sponsor_url = ABOUT_US.SPONSOR;
+  public repository_url = ABOUT_US.REPOSITORY;
+  public contact = ABOUT_US.CONTACT;
+
   public icons: IconInfo[]= [
     {
       "name": "minus-outline",
@@ -121,7 +126,7 @@ export class AboutUsComponent {
     },
     {
       name: "Gabriel de Lamo Dutra",
-      position: "Software analist",
+      position: "Cucurella promedio",
       image: "",
       networks: [
         {
@@ -166,7 +171,7 @@ export class AboutUsComponent {
     },
     {
       name: "Raúl Beltrán Marco",
-      position: "QA Engineer",
+      position: "QA Tester/Tester",
       image: "assets/images/members/raul.JPG",
       networks: [
         {

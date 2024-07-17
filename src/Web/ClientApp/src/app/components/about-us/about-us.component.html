@@ -1,7 +1,21 @@
-<div class="section ui icons-credit">
+<div class="section ui info">
   <h3>{{ 'about-us.project.title' | translate }}</h3>
-
+  <p><strong>{{ 'about-us.project.status' | translate }}</strong> Beta (Work In Progress)</p>
+  <p [innerHtml]="'about-us.project.desc' | translate"></p>
+  <br />
+  <p>
+    {{ 'about-us.project.respository_text' | translate }}
+    <a href="{{ repository_url }}" target="_blank">{{ 'about-us.project.repository' | translate }}</a>.
+  </p>
+  <p>
+    {{ 'about-us.project.sponsor_text' | translate }}
+    <a href="{{ sponsor_url }}" target="_blank">{{ 'about-us.project.sponsor' | translate }}</a>!
+  </p>
+  <p>
+    <a href="mailto:{{ contact }}">{{ 'about-us.project.contact_us' | translate }}</a>
+  </p>
 </div>
+
 
 <div class="section ui members">
   <h3>{{ 'about-us.members.title' | translate }}</h3>
