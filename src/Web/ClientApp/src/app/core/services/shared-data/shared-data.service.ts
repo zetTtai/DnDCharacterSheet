@@ -1,5 +1,5 @@
 import { Injectable, Type } from '@angular/core';
-import { HomeComponent } from 'src/app/components/home/home.component';
+import { MainViewComponent } from 'src/app/components/main-view/main-view.component';
 import { SpellsComponent } from 'src/app/components/spells/spells.component';
 import { LoreComponent } from 'src/app/components/lore/lore.component';
 import { ItemsComponent } from 'src/app/components/items/items.component';
@@ -14,7 +14,7 @@ export class SharedDataService {
   private sliderWrapper: HTMLElement;
 
   public pcComponents: { class: Type<any>, key: string }[] = [
-    { class: HomeComponent, key: HomeComponent.key },
+    { class: MainViewComponent, key: MainViewComponent.key },
     { class: SpellsComponent, key: SpellsComponent.key },
     { class: LoreComponent, key: LoreComponent.key },
   ];
@@ -22,7 +22,7 @@ export class SharedDataService {
   public mobileComponents: { class: Type<any>, key: string }[] = [
     { class: LoreComponent, key: LoreComponent.key },
     { class: ItemsComponent, key: ItemsComponent.key },
-    { class: HomeComponent, key: HomeComponent.key },
+    { class: MainViewComponent, key: MainViewComponent.key },
     { class: SpellsComponent, key: SpellsComponent.key },
     { class: AccountComponent, key: AccountComponent.key }
   ];

@@ -19,3 +19,9 @@ export const WEB = {
   PC_FIXED_LAYOUT_COLLAPSE: "pc-fixed-layout.collapse",
   PC_SLIDES: 3
 }
+
+export const ABOUT_US = {
+  SPONSOR: "https://github.com/sponsors/zetTtai",
+  REPOSITORY: "https://github.com/zetTtai/DnDCharacterSheet",
+  CONTACT: "raulbeltmarc@gmail.com"
+}

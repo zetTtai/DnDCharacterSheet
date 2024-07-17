@@ -1,6 +1,27 @@
 {
   "title": "DnD Hoja de personaje",
   "landscape_warning": "Por favor, gira tu dispositivo a modo vertical para poder visualizar la página",
+  "about-us": {
+    "title": "Sobre nosotros",
+    "icons": {
+      "title": "Iconos utilizados en la aplicación",
+      "by": "De ",
+      "license_text": "bajo licencia "
+    },
+    "project": {
+      "title": "Sobre el proyecto",
+      "status": "Estado actual:",
+      "desc": "Esta aplicación te permite crear y modificar tus hojas de personaje de Dragones y Mazmorras  prácticamente sin esfuerzo.<br/>Aunque el proyecto aún está en progreso, ¡descubrirás que crear personajes nunca ha sido tan fácil!",
+      "respository_text": "¡Somos un proyecto open-source! Échale un vistazo a nuestro ",
+      "repository": "Repositorio de Github",
+      "sponsor_text": "¡Apoya este proyecto ",
+      "sponsor": "invitándome a un café",
+      "contact_us": "¡Contáctanos!"
+    },
+    "members": {
+      "title": "Sobre los integrantes"
+    }
+  },
   "form": {
     "confirm": "Confirmar",
     "modify": "Modificar",
