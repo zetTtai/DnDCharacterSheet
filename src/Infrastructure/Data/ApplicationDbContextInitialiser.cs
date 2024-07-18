@@ -5,8 +5,10 @@ using DnDCharacterSheet.Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Npgsql;
 
 namespace DnDCharacterSheet.Infrastructure.Data;
 
@@ -22,32 +24,97 @@ public static class InitialiserExtensions
 
         await initialiser.SeedAsync();
     }
+
+    public static void EnableRLSToAllPublicTables(this WebApplication app, IConfiguration configuration)
+    {
+        using var scope = app.Services.CreateScope();
+
+        var connectionString = Environment.GetEnvironmentVariable("APPSETTING_CONNECTION_STRING")
+            ?? configuration.GetConnectionString("DefaultConnection");
+
+        if (string.IsNullOrEmpty(connectionString))
+        {
+            Console.WriteLine("Connection string not found.");
+            return;
+        }
+
+        try
+        {
+            EnableRLSOnTables(connectionString, GetAllPublicTableNames(connectionString));
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error enabling RLS: {ex.Message}");
+        }
+    }
+
+    private static void EnableRLSOnTables(string connectionString, List<string> tableNames)
+    {
+        if (tableNames.Count == 0) return;
+
+        using var connection = new NpgsqlConnection(connectionString);
+
+        connection.Open();
+        try
+        {
+            foreach (var name in tableNames)
+            {
+                using var command = new NpgsqlCommand($"ALTER TABLE \"{name}\" ENABLE ROW LEVEL SECURITY;", connection);
+                command.ExecuteNonQuery();
+            }
+        }
+        finally
+        {
+            connection.Close();
+        }
+    }
+
+    private static List<string> GetAllPublicTableNames(string connectionString)
+    {
+        var tableNames = new List<string>();
+        // Only retrieve those who RLS is not enable
+        var query = @"
+            SELECT t.table_name
+            FROM information_schema.tables t
+            JOIN pg_catalog.pg_class c ON t.table_name = c.relname
+            JOIN pg_catalog.pg_namespace n ON c.relnamespace = n.oid
+            WHERE t.table_schema = 'public'
+                AND t.table_type = 'BASE TABLE'
+                AND n.nspname = 'public'
+                AND c.relrowsecurity = FALSE;";
+
+        using (var connection = new NpgsqlConnection(connectionString))
+        {
+            connection.Open();
+            using var command = new NpgsqlCommand(query, connection);
+            using var reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                string tableName = reader.GetString(0);
+                tableNames.Add(tableName);
+            }
+        }
+
+        return tableNames;
+    }
 }
 
-public class ApplicationDbContextInitialiser
+public class ApplicationDbContextInitialiser(
+    ILogger<ApplicationDbContextInitialiser> logger,
+    ApplicationDbContext context,
+    UserManager<ApplicationUser> userManager,
+    RoleManager<IdentityRole> roleManager)
 {
-    private readonly ILogger<ApplicationDbContextInitialiser> _logger;
-    private readonly ApplicationDbContext _context;
-    private readonly UserManager<ApplicationUser> _userManager;
-    private readonly RoleManager<IdentityRole> _roleManager;
-
-    public ApplicationDbContextInitialiser(ILogger<ApplicationDbContextInitialiser> logger, ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
-    {
-        _logger = logger;
-        _context = context;
-        _userManager = userManager;
-        _roleManager = roleManager;
-    }
 
     public async Task InitialiseAsync()
     {
         try
         {
-            await _context.Database.MigrateAsync();
+            await context.Database.MigrateAsync();
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An error occurred while initialising the database.");
+            logger.LogError(ex, "An error occurred while initialising the database.");
             throw;
         }
     }
@@ -60,7 +127,7 @@ public class ApplicationDbContextInitialiser
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An error occurred while seeding the database.");
+            logger.LogError(ex, "An error occurred while seeding the database.");
             throw;
         }
     }
@@ -70,28 +137,28 @@ public class ApplicationDbContextInitialiser
         // Default roles
         var administratorRole = new IdentityRole(Roles.Administrator);
 
-        if (_roleManager.Roles.All(r => r.Name != administratorRole.Name))
+        if (roleManager.Roles.All(r => r.Name != administratorRole.Name))
         {
-            await _roleManager.CreateAsync(administratorRole);
+            await roleManager.CreateAsync(administratorRole);
         }
 
         // Default users
         var administrator = new ApplicationUser { UserName = "administrator@localhost", Email = "administrator@localhost" };
 
-        if (_userManager.Users.All(u => u.UserName != administrator.UserName))
+        if (userManager.Users.All(u => u.UserName != administrator.UserName))
         {
-            await _userManager.CreateAsync(administrator, "Administrator1!");
+            await userManager.CreateAsync(administrator, "Administrator1!");
             if (!string.IsNullOrWhiteSpace(administratorRole.Name))
             {
-                await _userManager.AddToRolesAsync(administrator, new [] { administratorRole.Name });
+                await userManager.AddToRolesAsync(administrator, new [] { administratorRole.Name });
             }
         }
 
         // Default data
         // Seed, if necessary
-        if (!_context.Abilities.Any() && !_context.Capabilities.Any())
+        if (!context.Abilities.Any() && !context.Capabilities.Any())
         {
-            _context.Abilities.AddRange(
+            context.Abilities.AddRange(
                 (from CharacterAbilities ability in Enum.GetValues(typeof(CharacterAbilities))
                  select new Ability
                  {
@@ -107,7 +174,7 @@ public class ApplicationDbContextInitialiser
                  }
                 ).ToList());
 
-            await _context.SaveChangesAsync();
+            await context.SaveChangesAsync();
         }
     }
 }

@@ -17,6 +17,7 @@ if (app.Environment.IsDevelopment())
 {
     // Dont forget to add SSL Mode=Require;Trust Server Certificate=true; to connect to supabase
     await app.InitialiseDatabaseAsync();
+    app.EnableRLSToAllPublicTables(builder.Configuration);
 }
 else
 {

@@ -6,6 +6,8 @@ using DnDCharacterSheet.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -37,42 +39,39 @@ public static class DependencyInjection
             .AddDefaultIdentity<ApplicationUser>()
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
-        services.ConfigureApplicationCookie(options =>
+        services.ConfigureApplicationCookie(options => options.Events = new AspNetCore.Authentication.Cookies.CookieAuthenticationEvents
         {
-            options.Events = new Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents
+            OnRedirectToLogin = ctx =>
             {
-                OnRedirectToLogin = ctx =>
+                if (ctx.Request.Path.StartsWithSegments("/api"))
                 {
-                    if (ctx.Request.Path.StartsWithSegments("/api"))
-                    {
-                        ctx.Response.StatusCode = 401;
-                        ctx.Response.Headers["Location"] = "";
-                        ctx.Response.ContentType = "application/json";
-                        return Task.CompletedTask; // Prevent the default redirect behavior
-                    }
-                    ctx.Response.Redirect(ctx.RedirectUri);
-                    return Task.CompletedTask;
-                },
-                OnRedirectToAccessDenied = ctx =>
-                {
-                    if (ctx.Request.Path.StartsWithSegments("/api"))
-                    {
-                        ctx.Response.StatusCode = 403;
-                        ctx.Response.Headers["Location"] = "";
-                        ctx.Response.ContentType = "application/json";
-                        return Task.CompletedTask; // Prevent the default redirect behavior
-                    }
-                    ctx.Response.Redirect(ctx.RedirectUri);
-                    return Task.CompletedTask;
+                    ctx.Response.StatusCode = 401;
+                    ctx.Response.Headers.Location = "";
+                    ctx.Response.ContentType = "application/json";
+                    return Task.CompletedTask; // Prevent the default redirect behavior
                 }
-            };
+                ctx.Response.Redirect(ctx.RedirectUri);
+                return Task.CompletedTask;
+            },
+            OnRedirectToAccessDenied = ctx =>
+            {
+                if (ctx.Request.Path.StartsWithSegments("/api"))
+                {
+                    ctx.Response.StatusCode = 403;
+                    ctx.Response.Headers.Location = "";
+                    ctx.Response.ContentType = "application/json";
+                    return Task.CompletedTask; // Prevent the default redirect behavior
+                }
+                ctx.Response.Redirect(ctx.RedirectUri);
+                return Task.CompletedTask;
+            }
         });
 
         services.AddSingleton(TimeProvider.System);
         services.AddTransient<IIdentityService, IdentityService>();
 
-        services.AddAuthorization(options =>
-            options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
+        services.AddAuthorizationBuilder()
+            .AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator));
 
         return services;
     }
