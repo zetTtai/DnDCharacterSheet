@@ -13,6 +13,8 @@ export class NavbarComponent {
   public components: { id: string, name: string }[] = [];
   public isAccountSectionOpenned: boolean = false;
   public currentLangSize: string = WEB.PC_CURRENT_LANG_SIZE;
+  public langSize: string = WEB.PC_LANG_SIZE;
+
 
   constructor(
     private langService: LanguageService,
@@ -49,5 +51,9 @@ export class NavbarComponent {
 
   getCurrentLanguage() {
     return this.langService.getCurrentLang();
+  }
+
+  getSupportedLanguages() {
+    return this.langService.supportedLanguages;
   }
 }

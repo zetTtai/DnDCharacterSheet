@@ -19,6 +19,7 @@ export const WEB = {
   PC_FIXED_LAYOUT_COLLAPSE: "pc-fixed-layout.collapse",
   PC_SLIDES: 3,
   PC_CURRENT_LANG_SIZE: "18px",
+  PC_LANG_SIZE: "20px",
   DEFAULT_LANG: "en",
   SUPPORTED_LANGUAGES: ['en', 'es'] as const
 }

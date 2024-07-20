@@ -5,6 +5,13 @@ a.navbar-brand {
   text-align: center;
   word-break: break-all;
   position: relative;
+  padding: 0;
+}
+
+a.navbar-brand:hover .langs {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY($pc-padding-top-bottom);
 }
 
 .current-lang {
@@ -33,7 +40,7 @@ nav {
     min-width: 100%;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 30px;
+    padding: $pc-padding-top-bottom 30px;
     height: 100%;
   }
 
@@ -71,6 +78,32 @@ nav {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
+.langs {
+  visibility: hidden;
+  position: absolute;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: calc(#{$z-index-above-all} + 1);
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+
+.lang {
+  padding: 20px;
+}
+
+.lang:hover {
+  background-color: #f1f1f1;
+}
+
+.lang-gap {
+  position: absolute;
+  height: $pc-padding-top-bottom;
+  width: 100%;
+  transform: translateY(0);
+  z-index: calc(#{$z-index-above-all} + 1);
+  background-color: transparent;
+}
 
 @media (min-width: $mobile-size) {
   html {

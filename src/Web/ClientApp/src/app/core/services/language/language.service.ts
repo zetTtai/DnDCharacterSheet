@@ -10,6 +10,11 @@ export type SupportedLanguages = typeof WEB.SUPPORTED_LANGUAGES[number];
   providedIn: 'root'
 })
 export class LanguageService {
+
+  //public readonly supportedLanguages: readonly string[] = WEB.SUPPORTED_LANGUAGES;
+  public readonly supportedLanguages: readonly SupportedLanguages[] = WEB.SUPPORTED_LANGUAGES;
+
+
   constructor(@Inject(DOCUMENT) private document: Document, private translate: TranslateService) {
     let defaultLang: SupportedLanguages = WEB.DEFAULT_LANG.toLowerCase() as SupportedLanguages;
 

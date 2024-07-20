@@ -6,9 +6,17 @@
         <div class="current-lang">
           <app-icon [name]="'lang/' + getCurrentLanguage()" [width]="currentLangSize" [height]="currentLangSize"></app-icon>
         </div>
+        <!-- Div to fill the gap between image and langs due to navbar padding -->
+        <div class="lang-gap"></div>
+
+        <div class="ui langs">
+          <ng-container *ngFor="let iso of getSupportedLanguages()">
+            <div class="lang" title="{{ 'lang.' + iso  | translate }}" (click)="switchLanguage(iso)">
+              <app-icon [name]="'lang/' + iso" [width]="langSize" [height]="langSize"></app-icon>
+            </div>
+          </ng-container>
+        </div>
       </a>
-      <button (click)="switchLanguage('es')">Switch to Spanish</button>
-      <button (click)="switchLanguage('en')">Switch to English</button>
     </div>
     <div class="nav-end">
       <ul class="navbar-nav flex-grow">

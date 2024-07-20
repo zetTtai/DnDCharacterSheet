@@ -1,6 +1,10 @@
 {
   "title": "DnD Hoja de personaje",
   "landscape_warning": "Por favor, gira tu dispositivo a modo vertical para poder visualizar la página",
+  "lang": {
+    "en": "Cambiar idioma a inglés",
+    "es": "Cambiar idioma a español"
+  },
   "about-us": {
     "title": "Sobre nosotros",
     "icons": {
