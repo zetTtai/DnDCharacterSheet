@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { LanguageService, SupportedLanguages } from 'src/app/core/services/language/language.service';
 import { SharedDataService } from 'src/app/core/services/shared-data/shared-data.service';
-import { ICONS } from 'src/app/shared/constants/app-constants';
+import { ICONS, WEB } from 'src/app/shared/constants/app-constants';
 
 @Component({
   selector: 'app-navbar',
@@ -11,6 +11,8 @@ import { ICONS } from 'src/app/shared/constants/app-constants';
 export class NavbarComponent {
   public defaultIconSize: string = ICONS.MOBILE_NAVBAR_DEFAULT_SIZE;
   public components: { id: string, name: string }[] = [];
+  public isAccountSectionOpenned: boolean = false;
+  public currentLangSize: string = WEB.PC_CURRENT_LANG_SIZE;
 
   constructor(
     private langService: LanguageService,
@@ -28,7 +30,7 @@ export class NavbarComponent {
   }
 
   switchLanguage(lang: SupportedLanguages) {
-    this.langService.switchLocale(lang);
+    this.langService.switchLang(lang);
   }
 
   mobileSlide(view: number) {
@@ -38,5 +40,14 @@ export class NavbarComponent {
 
   getCurrentView(): number {
     return this.sharedDataService.currentIndex;
+  }
+
+  toggleAccount() {
+    this.isAccountSectionOpenned = !this.isAccountSectionOpenned;
+    console.log(this.isAccountSectionOpenned ? "Open" :"Cloze")
+  }
+
+  getCurrentLanguage() {
+    return this.langService.getCurrentLang();
   }
 }

@@ -17,7 +17,10 @@ export const WEB = {
   PC_FIXED_LAYOUT: "max-content max-content auto 20%",
   PC_FIXED_LAYOUT_EXPAND: "pc-fixed-layout.expand",
   PC_FIXED_LAYOUT_COLLAPSE: "pc-fixed-layout.collapse",
-  PC_SLIDES: 3
+  PC_SLIDES: 3,
+  PC_CURRENT_LANG_SIZE: "18px",
+  DEFAULT_LANG: "en",
+  SUPPORTED_LANGUAGES: ['en', 'es'] as const
 }
 
 export const ABOUT_US = {

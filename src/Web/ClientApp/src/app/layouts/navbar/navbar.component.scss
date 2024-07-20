@@ -4,6 +4,13 @@ a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
+  position: relative;
+}
+
+.current-lang {
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 html {

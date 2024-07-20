@@ -3,6 +3,9 @@
     <div id="nav-start">
       <a class="navbar-brand" [routerLink]="['/']">
         <img id="logo" src="assets/images/icon192x192.png" alt="{{ 'title' | translate }}" title="{{ 'title' | translate }}" />
+        <div class="current-lang">
+          <app-icon [name]="'lang/' + getCurrentLanguage()" [width]="currentLangSize" [height]="currentLangSize"></app-icon>
+        </div>
       </a>
       <button (click)="switchLanguage('es')">Switch to Spanish</button>
       <button (click)="switchLanguage('en')">Switch to English</button>
@@ -16,7 +19,7 @@
           <a class="nav-link text-dark prevent-select" href="/api" target="_blank">API</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-dark prevent-select" href="/Identity/Account/Manage">{{ 'nav-menu.account' | translate }}</a>
+          <a class="nav-link text-dark prevent-select" href="javascript:void(0)" (click)="toggleAccount()">{{ 'nav-menu.account' | translate }}</a>
         </li>
       </ul>
     </div>
