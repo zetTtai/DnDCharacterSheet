@@ -13,6 +13,7 @@ import { AppIconComponent } from 'src/app/shared/components/app-icon/app-icon.co
 import { InputTextModalComponent } from 'src/app/shared/components/modal/input-modal/input-text-modal/input-text-modal.component';
 import { ValidationMessagesComponent } from 'src/app/shared/components/validation-messages/validation-messages.component';
 import { SidebarWithIconComponent } from 'src/app/shared/components/sidebar-with-icon/sidebar-with-icon.component';
+import { LanguagesModalComponent } from 'src/app/shared/components/modal/languages-modal/languages-modal.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { SidebarWithIconComponent } from 'src/app/shared/components/sidebar-with
     AppIconComponent,
     InputTextModalComponent,
     ValidationMessagesComponent,
-    SidebarWithIconComponent
+    SidebarWithIconComponent,
+    LanguagesModalComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +42,8 @@ import { SidebarWithIconComponent } from 'src/app/shared/components/sidebar-with
     AppIconComponent,
     InputTextModalComponent,
     ValidationMessagesComponent,
-    SidebarWithIconComponent
+    SidebarWithIconComponent,
+    LanguagesModalComponent
   ]
 })
 export class SharedModule { }

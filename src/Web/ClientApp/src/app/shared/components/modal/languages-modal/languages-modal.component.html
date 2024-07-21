@@ -1,0 +1,7 @@
+<ng-container *ngFor="let iso of supportedLanguages">
+  <div
+       (click) = "switchLanguage(iso)"
+       [class.selected]="iso === getCurrentLang()">
+    {{ iso }}
+  </div>
+</ng-container>

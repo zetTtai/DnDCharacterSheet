@@ -61,6 +61,7 @@
   },
   "character": {
     "name": "character name",
+    "level": "level",
     "age": "age",
     "eyes": "eyes",
     "height": "height",

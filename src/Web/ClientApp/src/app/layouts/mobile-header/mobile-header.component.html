@@ -19,19 +19,19 @@
 
   <div class="second header-container">
     <div class="character-name-input ml-10">
-      <app-form-field label="Character Name" name="character_name" value="" [class]="'col-md-1 mt-16'"></app-form-field>
+      <app-form-field [label]="'character.name' | translate" name="character_name" value="" [class]="'col-md-1 mt-16'"></app-form-field>
     </div>
 
-    <app-form-field label="Level" name="level" value="1" class="level-input" [class]="'fs-24'" [readOnly]="true"></app-form-field>
+    <app-form-field [label]="'character.level' | translate" name="level" value="1" class="level-input" [class]="'fs-24'" [readOnly]="true"></app-form-field>
 
     <div class="mt-8 mr-10 race-class-container">
-      <app-form-field label="Race" name="race" type="custom">
+      <app-form-field [label]="'character.race' | translate" name="race" type="custom">
         <div content class="content">
           <app-circle id="race"></app-circle>
         </div>
       </app-form-field>
 
-      <app-form-field label="Class/es" name="classes" type="custom" [last]="true">
+      <app-form-field [label]="'character.classes' | translate" name="classes" type="custom" [last]="true">
         <div content class="class-input content" [style.max-width]="maxWidth">
           <app-circle id="first"></app-circle>
           <app-circle id="second"></app-circle>
@@ -45,6 +45,7 @@
   </div>
 
 </nav>
+
 <div id="toggle-header" class="mobile toggle-button-transition toggle-button-container">
   <app-toggle-button [bottom]="true" (click)="toggleHeader()">
     <ng-container *ngIf="!isHeaderOpen; else collapseHeader">
