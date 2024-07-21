@@ -1,9 +1,12 @@
-<section class="pc">
-  <p>pc account works!</p>
-</section>
-
-<section class="mobile slide-mobile">
-  <main>
-    <p>mobile account works!</p>
-  </main>
-</section>
+<ng-container *ngIf="isDesktop(); else mobileView">
+  <section class="pc">
+    <p>pc account works!</p>
+  </section>
+</ng-container>
+<ng-template #mobileView>
+  <section class="mobile slide-mobile">
+    <main>
+      <button class="btn btn-secondary" (click)="switchLanguages()">Switch languague</button>
+    </main>
+  </section>
+</ng-template>

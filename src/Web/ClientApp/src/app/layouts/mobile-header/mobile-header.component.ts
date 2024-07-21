@@ -14,16 +14,10 @@ export class MobileHeaderComponent {
   isHeaderOpen: boolean = false;
   classInputMaxWidth: number = (CIRCLE_CONFIG.DIAMETER * 2) + (CIRCLE_CONFIG.MARGIN_RIGHT * 2) - 2;
 
-  @Output() openModal = new EventEmitter<ModalData>();
-
   constructor(private toggleService: ToggleService) { }
 
   get maxWidth(): string {
     return `${this.classInputMaxWidth}px`;
-  }
-
-  open(data: ModalData) {
-    this.openModal.emit(data);
   }
 
   closeModal() {

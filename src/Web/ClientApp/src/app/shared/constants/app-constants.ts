@@ -29,3 +29,7 @@ export const ABOUT_US = {
   REPOSITORY: "https://github.com/zetTtai/DnDCharacterSheet",
   CONTACT: "raulbeltmarc@gmail.com"
 }
+
+export const EVENTS = {
+  OPEN_MODAL: "openModal"
+}

@@ -1,8 +1,11 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { WEB } from 'src/app/shared/constants/app-constants';
+import { EVENTS, WEB } from 'src/app/shared/constants/app-constants';
 import { ModalData } from 'src/app/shared/models/modal-data.model';
 import { SharedDataService } from 'src/app/core/services/shared-data/shared-data.service';
-import { LanguageService } from './core/services/language/language.service';
+import { LanguageService } from 'src/app/core/services/language/language.service';
+import { EventService } from 'src/app/core/services/event/event.service';
+import { CommandRegistry } from 'src/app/core/services/command/command-registry.service';
+import { OpenModalCommand } from 'src/app/core/services/command/commands/open-modal.command';
 
 @Component({
   selector: 'app-root',
@@ -15,9 +18,24 @@ export class AppComponent implements OnInit {
   data: ModalData;
   isDesktop: boolean = window.innerWidth > WEB.MOBILE_SIZE;
 
-  constructor(private sharedDataService: SharedDataService, private languageService: LanguageService) { }
+  constructor(
+    private eventService: EventService,
+    private sharedDataService: SharedDataService,
+    private languageService: LanguageService,
+    private commandRegistry: CommandRegistry) {
+
+    this.registerCommands();
+  }
+
+  private registerCommands() {
+    this.commandRegistry.registerCommand(EVENTS.OPEN_MODAL, new OpenModalCommand(this));
+  }
+
   ngOnInit(): void {
     this.languageService.setLanguage();
+    this.eventService.event$.subscribe((event) => {
+      this.commandRegistry.executeCommand(event.name, event.data);
+    })
   }
 
   openModal(data: ModalData) {
