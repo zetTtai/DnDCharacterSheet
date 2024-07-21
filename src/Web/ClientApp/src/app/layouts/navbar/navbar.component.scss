@@ -18,6 +18,10 @@ a.navbar-brand:hover .langs {
   position: absolute;
   right: 0;
   top: 0;
+  &-mobile {
+      right: 13px;
+      top: 3px;
+  }
 }
 
 html {
@@ -61,6 +65,7 @@ nav {
       border-bottom: 0px !important;
       cursor: pointer;
       text-align: center;
+      position: relative;
     }
 
     & .selected {
