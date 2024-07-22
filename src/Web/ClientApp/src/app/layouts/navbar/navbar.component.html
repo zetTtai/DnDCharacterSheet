@@ -13,7 +13,7 @@
 
         <div class="ui langs">
           <ng-container *ngFor="let iso of getSupportedLanguages()">
-            <div class="lang" title="{{ 'lang.' + iso  | translate }}" (click)="switchLanguage(iso)">
+            <div class="lang" title="{{ 'lang.switch' | translate }} {{ 'lang.' + iso  | translate | capitalize }}" (click)="switchLanguage(iso)">
               <app-icon [name]="'lang/' + iso" [width]="langSize" [height]="langSize"></app-icon>
             </div>
           </ng-container>

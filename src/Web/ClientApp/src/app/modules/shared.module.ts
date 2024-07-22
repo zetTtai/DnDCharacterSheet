@@ -5,6 +5,8 @@ import { TranslationModule } from './translation.module';
 
 import { SlideControlDirective } from 'src/app/shared/directives/slide-control/slide-control.directive';
 
+import { CapitalizePipe } from 'src/app/shared/pipes/capitalize/capitalize.pipe';
+
 import { CircleComponent } from 'src/app/shared/components/circle/circle.component';
 import { FormFieldComponent } from 'src/app/shared/components/form-field/form-field.component';
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
@@ -26,7 +28,8 @@ import { LanguagesModalComponent } from 'src/app/shared/components/modal/languag
     InputTextModalComponent,
     ValidationMessagesComponent,
     SidebarWithIconComponent,
-    LanguagesModalComponent
+    LanguagesModalComponent,
+    CapitalizePipe
   ],
   imports: [
     CommonModule,
@@ -43,7 +46,8 @@ import { LanguagesModalComponent } from 'src/app/shared/components/modal/languag
     InputTextModalComponent,
     ValidationMessagesComponent,
     SidebarWithIconComponent,
-    LanguagesModalComponent
+    LanguagesModalComponent,
+    CapitalizePipe
   ]
 })
 export class SharedModule { }

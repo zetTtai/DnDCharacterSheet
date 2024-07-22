@@ -2,8 +2,11 @@
   "title": "DnD Hoja de personaje",
   "landscape_warning": "Por favor, gira tu dispositivo a modo vertical para poder visualizar la página",
   "lang": {
-    "en": "Cambiar idioma a inglés",
-    "es": "Cambiar idioma a español"
+    "mobile-button-text": "Cambiar de idioma",
+    "header": "Selecciona un idioma",
+    "switch": "Cambiar idioma a",
+    "en": "inglés (UK)",
+    "es": "español"
   },
   "about-us": {
     "title": "Sobre nosotros",

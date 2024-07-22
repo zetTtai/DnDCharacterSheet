@@ -2,8 +2,11 @@
   "title": "DnD Character Sheet",
   "landscape_warning": "Please rotate your device to portrait mode to visualize the page",
   "lang": {
-    "en": "Switch language to English",
-    "es": "Switch language to Spanish"
+    "mobile-button-text": "Change language",
+    "header": "Select a language",
+    "switch": "Switch language to",
+    "en": "english (UK)",
+    "es": "spanish"
   },
   "about-us": {
     "title": "About Us",
