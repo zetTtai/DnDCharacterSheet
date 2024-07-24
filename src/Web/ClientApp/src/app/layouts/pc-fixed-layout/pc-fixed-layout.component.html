@@ -13,8 +13,10 @@
     <div class="fixed-layout-content ui" [id]="layout.id">
       <app-sidebar-with-icon (toggle)="toggleFixedLayout()"
                              [iconName]="layout.iconName"
-                             [title]="toggleInfo"
-                             [showWallet]="layout.showWallet">
+                             [title]="toggleInfo">
+        <ng-container *ngIf="layout.showWallet">
+          <app-wallet></app-wallet>
+        </ng-container>
       </app-sidebar-with-icon>
 
       <ng-container [ngSwitch]="layout.id">

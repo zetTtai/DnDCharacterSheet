@@ -71,9 +71,12 @@ $side-container-border-size: 2px;
 
 #mobile-abilities-content, #mobile-wallet-content {
   margin-top: -1px;
-  padding-bottom: 500px;
 
   &.active {
     z-index: calc(#{$mobile-header-z-index} - 1);
   }
+}
+
+#mobile-abilities-content {
+  padding-bottom: 500px;
 }

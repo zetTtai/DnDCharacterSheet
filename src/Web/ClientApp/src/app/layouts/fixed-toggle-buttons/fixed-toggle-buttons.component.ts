@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ToggleService } from 'src/app/core/services/toggle/toggle.service';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Directions, ToggleService } from 'src/app/core/services/toggle/toggle.service';
 import { DelayService } from 'src/app/core/services/delay/delay.service';
 import { ICONS } from 'src/app/shared/constants/app-constants';
 
@@ -8,7 +8,7 @@ import { ICONS } from 'src/app/shared/constants/app-constants';
   templateUrl: './fixed-toggle-buttons.component.html',
   styleUrls: ['./fixed-toggle-buttons.component.scss']
 })
-export class FixedToggleButtonsComponent implements OnInit{
+export class FixedToggleButtonsComponent implements OnInit, AfterViewInit{
 
   defaultIconSize: string = ICONS.FIXED_TOGGLE_BUTTONS_DEFAULT_SIZE;
 
@@ -19,49 +19,67 @@ export class FixedToggleButtonsComponent implements OnInit{
     spellcasting: false
   };
 
-  sections = {
-    'abilities': {
+  sections = [
+    {
+      'id': 'abilities',
       'direction': 'right',
       'onLeft': true,
-      'distance': () => this.getElementWidth('abilities')
+      'distance': 0
     },
-    'death-saves': {
+    {
+      'id': 'death-saves',
       'direction': 'right',
       'onLeft': true,
-      'distance': () => this.getElementWidth('death-saves')
+      'distance': 0
     },
-    'wallet': {
+    {
+      'id': 'wallet',
       'direction': 'left',
       'onLeft': false,
-      'distance': () => this.getElementWidth('wallet')
+      'distance': 0
     },
-    'spellcasting': {
+    {
+      'id': 'spellcasting',
       'direction': 'left',
       'onLeft': false,
-      'distance': () => this.getElementWidth('spellcasting')
+      'distance': 0
     }
-  };
+  ];
 
   constructor(private toggleService: ToggleService, private delayService: DelayService) { }
+
+  ngAfterViewInit(): void {
+    this.setDistances();
+    this.setInitialPositions();
+  }
 
   ngOnInit() {
     const width = this.calculateDistanceForBottomFixedButtons();
     document.getElementById(this.getElementId('spellcasting')).style.maxWidth = `${width}px`;
     document.getElementById(this.getElementId('death-saves')).style.maxWidth = `${width}px`;
+  }
 
-    this.setInitialPositions();
+  private setDistances() {
+    this.sections.forEach(section => {
+      section.distance = this.getElementWidth(section.id)
+    });
   }
 
   private setInitialPositions() {
-    Object.keys(this.sections).forEach(section => {
-      const elementId = this.getElementId(section);
-      const element = document.getElementById(elementId) as HTMLElement;
-      if (element) {
-        const onLeftSide = this.sections[section].onLeft;
-        const offset = this.sections[section].distance();
-        const positionStyle = onLeftSide ? 'left' : 'right';
-        element.style[positionStyle] = `-${offset}px`;
+    this.sections.forEach(section => {
+      const id = this.getElementId(section.id);
+      const element = document.getElementById(id) as HTMLElement;
+      console.log(element);
+      if (!element) {
+        console.error(`Element with id ${id} not found`);
+        return;
       }
+
+      console.log("EY");
+      const onLeftSide = section.onLeft;
+      const offset = section.distance;
+      const positionStyle = onLeftSide ? 'left' : 'right';
+      element.style[positionStyle] = `-${offset}px`;
     });
   }
 
@@ -90,15 +108,22 @@ export class FixedToggleButtonsComponent implements OnInit{
   }
 
   private toggleSection(key: string): void {
+
+    const section = this.sections.find(section => section.id === key);
+    if (!section) {
+      console.error(`Section with key ${key} not found`);
+      return;
+    }
+
     const elementId = this.getElementId(key);
     const toggleId = `toggle-${key}`;
     const isOpen = this.toggleStates[key];
     let delay = 0;
 
     if (!isOpen) {
-      this.toggleService.expand(elementId, toggleId, this.sections[key].distance(), this.sections[key].direction);
+      this.toggleService.expand(elementId, toggleId, section.distance, section.direction as Directions);
     } else {
-      this.toggleService.collapse(elementId, toggleId, this.sections[key].distance(), this.sections[key].direction);
+      this.toggleService.collapse(elementId, toggleId, section.distance, section.direction as Directions);
       delay = this.delayService.getDelayInSeconds(elementId);
     }
 

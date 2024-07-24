@@ -77,5 +77,12 @@
     "alignment": "alignment",
     "player_name": "player name",
     "exp": "experience points"
+  },
+  "currencies": {
+    "electrum": "EP",
+    "gold": "GP",
+    "platinum": "PP",
+    "silver": "SP",
+    "copper": "CP"
   }
 }

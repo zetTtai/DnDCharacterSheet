@@ -33,3 +33,8 @@ export const ABOUT_US = {
 export const EVENTS = {
   OPEN_MODAL: "openModal"
 }
+
+export const CURRENCY = {
+  MIN: 0,
+  MAX: 999
+}

@@ -32,6 +32,7 @@ nav {
   display: flex;
   width: 100%;
   padding: 0;
+  z-index: 1;
 }
 
 #logo {
@@ -106,7 +107,6 @@ nav {
   height: $pc-padding-top-bottom;
   width: 100%;
   transform: translateY(0);
-  z-index: calc(#{$z-index-above-all} + 1);
   background-color: transparent;
 }
 
@@ -117,6 +117,7 @@ nav {
 
   nav {
     bottom: auto !important;
+    z-index: calc(#{$z-index-above-all} + 1);
   }
 
   .nav-container {

@@ -8,7 +8,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class SidebarWithIconComponent {
   @Input() iconName: string;
   @Input() title: string;
-  @Input() showWallet: boolean = false;
 
   @Output() toggle = new EventEmitter<void>();
 
