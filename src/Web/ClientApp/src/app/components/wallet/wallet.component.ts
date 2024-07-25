@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { CURRENCY } from 'src/app/shared/constants/app-constants';
+import { CURRENCY, EVENTS } from 'src/app/shared/constants/app-constants';
 import { BaseComponent } from 'src/app/core/components/base.component';
-import { SharedDataService } from '../../core/services/shared-data/shared-data.service';
+import { SharedDataService } from 'src/app/core/services/shared-data/shared-data.service';
+import { EventService } from 'src/app/core/services/event/event.service';
+import { ModalData } from 'src/app/shared/models/modal-data.model';
 
 @Component({
   selector: 'app-wallet',
@@ -38,7 +40,7 @@ export class WalletComponent extends BaseComponent {
     },
   ];
 
-  constructor(sharedDataService: SharedDataService) {
+  constructor(sharedDataService: SharedDataService, private eventService: EventService) {
     super(sharedDataService);
   }
 
@@ -62,14 +64,31 @@ export class WalletComponent extends BaseComponent {
       return;
     }
 
-    let currenyTarget = this.currencies[isUpgrading ? --index : ++index];
+    let currencyTarget = this.currencies[isUpgrading ? index - 1 : index + 1];
 
-    if (isUpgrading) {
-      console.log(`upgrading ${currencyName} to ${currenyTarget.id}`)
+    if (!this.isDesktop()) {
+      const data: ModalData = {
+        id: currencyName,
+        type: 'currency',
+        value: {
+          isUpgrading,
+          currentCurrency: this.currencies[index],
+          currencyTarget
+        }
+      };
+      this.eventService.emit({
+        name: EVENTS.OPEN_MODAL,
+        data: data
+      });
       return;
     }
 
-    console.log(`downgrading ${currencyName} to ${currenyTarget.id}`)
+    if (isUpgrading) {
+      console.log(`upgrading ${currencyName} to ${currencyTarget.id}`)
+      return;
+    }
+
+    console.log(`downgrading ${currencyName} to ${currencyTarget.id}`)
 
   }
 }

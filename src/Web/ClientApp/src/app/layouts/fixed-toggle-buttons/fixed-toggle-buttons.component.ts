@@ -21,28 +21,28 @@ export class FixedToggleButtonsComponent implements OnInit, AfterViewInit{
 
   sections = [
     {
-      'id': 'abilities',
-      'direction': 'right',
-      'onLeft': true,
-      'distance': 0
+      id: 'abilities',
+      direction: 'right',
+      onLeft: true,
+      distance: 0
     },
     {
-      'id': 'death-saves',
-      'direction': 'right',
-      'onLeft': true,
-      'distance': 0
+      id: 'death-saves',
+      direction: 'right',
+      onLeft: true,
+      distance: 0
     },
     {
-      'id': 'wallet',
-      'direction': 'left',
-      'onLeft': false,
-      'distance': 0
+      id: 'wallet',
+      direction: 'left',
+      onLeft: false,
+      distance: 0
     },
     {
-      'id': 'spellcasting',
-      'direction': 'left',
-      'onLeft': false,
-      'distance': 0
+      id: 'spellcasting',
+      direction: 'left',
+      onLeft: false,
+      distance: 0
     }
   ];
 
@@ -69,13 +69,12 @@ export class FixedToggleButtonsComponent implements OnInit, AfterViewInit{
     this.sections.forEach(section => {
       const id = this.getElementId(section.id);
       const element = document.getElementById(id) as HTMLElement;
-      console.log(element);
+
       if (!element) {
         console.error(`Element with id ${id} not found`);
         return;
       }
 
-      console.log("EY");
       const onLeftSide = section.onLeft;
       const offset = section.distance;
       const positionStyle = onLeftSide ? 'left' : 'right';

@@ -1,15 +1,5 @@
 @import 'variables';
 
-$pc-wallet-input-size: 50px;
-$mobile-wallet-input-size: 60px;
-$pc-wallet-gap: calc((#{$pc-wallet-input-size} / 4) + 10px);
-$mobile-wallet-gap: calc((#{$mobile-wallet-input-size} / 4));
-
-$pc-currency-name-padding: 3px;
-
-$pc-convert-buttons-size: 20px;
-$mobile-convert-buttons-size: 25px;
-
 .wallet {
   display: flex;
   flex-direction: column;
