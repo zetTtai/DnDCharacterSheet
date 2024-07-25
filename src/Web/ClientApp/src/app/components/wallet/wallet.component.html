@@ -1,1 +1,33 @@
-<p>wallet works!</p>
+<div class="wallet">
+  <ng-container *ngFor="let currency of currencies; let isFirst = first; let isLast = last">
+    <div class="currency">
+      <input class="wallet-input"
+             type="number"
+             min="0"
+             max="1000"
+             [id]="'currency-' + currency.id"
+             [name]="'currency-' + currency.id"
+             (input)="checkRange($event, minCurrency, maxCurrency)"
+             value="currency.value" />
+
+      <span class="currency-name ui prevent-select">
+        {{ 'currencies.' + currency.id | translate }}
+      </span>
+
+    </div>
+
+  </ng-container>
+</div>
+
+<div class="convert" *ngIf="!isDesktop()">
+  <ng-container *ngIf="!showConvertOptions; else cancelConvert">
+    <button (click)="toggleConvertOptions()" class="btn btn-info">
+      Convert
+    </button>
+  </ng-container>
+  <ng-template #cancelConvert>
+    <button  (click)="toggleConvertOptions()" class="btn btn-danger">
+      Cancel
+    </button>
+  </ng-template>
+</div>

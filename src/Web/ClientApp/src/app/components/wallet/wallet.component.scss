@@ -1,0 +1,87 @@
+@import 'variables';
+
+$pc-wallet-input-size: 40px;
+$mobile-wallet-input-size: 60px;
+$pc-wallet-gap: calc((#{$pc-wallet-input-size} / 4));
+$mobile-wallet-gap: calc((#{$mobile-wallet-input-size} / 4));
+
+$pc-currency-name-padding: 5px;
+
+$pc-convert-buttons-size: 20px;
+
+.wallet {
+  display: flex;
+  flex-direction: column;
+  gap: $mobile-wallet-gap;
+  padding: 20px;
+  padding-top: 10px;
+  padding-left: calc(#{$mobile-wallet-input-size} / 2 + $pc-currency-name-padding + 10px);
+}
+
+.wallet-input {
+  border-radius: 100px;
+  text-align: center;
+  z-index: 1;
+  position: relative;
+  border: 2px solid black;
+  width: $mobile-wallet-input-size;
+  max-height: $mobile-wallet-input-size;
+  min-height: $mobile-wallet-input-size;
+}
+
+.currency {
+  position: relative;
+}
+
+.currency-name {
+  position: absolute;
+  border: 1px solid black;
+  font-size: 12px;
+  right: calc(#{$mobile-wallet-input-size} / 2);
+  top: calc(#{$mobile-wallet-input-size} / 4);
+  width: $mobile-wallet-input-size;
+  padding: $pc-currency-name-padding;
+}
+
+.convert {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    padding-top: 0;
+    button {
+        width: 100%;
+    }
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* For Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+@media (min-width: $mobile-size) {
+  .wallet-input {
+    width: $pc-wallet-input-size;
+    max-height: $pc-wallet-input-size;
+    min-height: $pc-wallet-input-size;
+  }
+
+  .currency-name {
+    right: calc(#{$pc-wallet-input-size} / 2 + $pc-currency-name-padding);
+    top: calc(#{$pc-wallet-input-size} / 4 - $pc-currency-name-padding);
+    width: $pc-wallet-input-size;
+    padding: $pc-currency-name-padding;
+  }
+
+  .wallet {
+    gap: $pc-wallet-gap;
+    padding: 0;
+  }
+}

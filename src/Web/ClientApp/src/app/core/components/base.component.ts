@@ -6,4 +6,14 @@ export class BaseComponent {
   isDesktop(): boolean {
     return this.sharedDataService.isDesktop;
   }
+
+  public checkRange(event: Event, min: number, max: number) {
+    const input = event.target as HTMLInputElement;
+    let value = parseInt(input.value, 10);
+
+    if (value < min) value = min;
+    if (value > max) value = max;
+
+    input.value = value.toString();
+  }
 }
