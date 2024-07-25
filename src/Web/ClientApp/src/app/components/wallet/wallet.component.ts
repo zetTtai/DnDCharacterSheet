@@ -14,8 +14,16 @@ export class WalletComponent extends BaseComponent {
   public maxCurrency: number = CURRENCY.MAX;
 
   // TODO: Get by Database
-  // This array must be ordered by its quality (like order)
+  // This array must be ordered by its quality (order in Enum?)
   public currencies: { id: string, value: string }[] = [
+    {
+      id: "copper",
+      value: "",
+    },
+    {
+      id: "silver",
+      value: "",
+    },
     {
       id: "electrum",
       value: "",
@@ -28,14 +36,6 @@ export class WalletComponent extends BaseComponent {
       id: "platinum",
       value: "",
     },
-    {
-      id: "silver",
-      value: "",
-    },
-    {
-      id: "copper",
-      value: "",
-    },
   ];
 
   constructor(sharedDataService: SharedDataService) {
@@ -44,6 +44,11 @@ export class WalletComponent extends BaseComponent {
 
   public toggleConvertOptions() {
     this.showConvertOptions = !this.showConvertOptions;
+  }
+
+  public getCurrentValueById(id: string): number {
+    let content = document.getElementById(id) as HTMLInputElement;
+    return Number(content.value);
   }
 
   public convert(currencyName: string, isAllowed: boolean, isUpgrading: boolean = false) {

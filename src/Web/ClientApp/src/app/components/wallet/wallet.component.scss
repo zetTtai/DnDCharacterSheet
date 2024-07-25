@@ -119,12 +119,14 @@ input[type=number] {
     height: $pc-convert-buttons-size;
     text-align: center;
     z-index: 10;
+    border: 2px solid;
   }
 
   .wallet-input {
     width: $pc-wallet-input-size;
     max-height: $pc-wallet-input-size;
     min-height: $pc-wallet-input-size;
+    border: 1px solid;
   }
 
   .currency-name {
@@ -146,16 +148,16 @@ input[type=number] {
     height: calc(#{$pc-convert-buttons-size} + 2px);
     border: 2px solid;
     justify-content: flex-end;
-    display: none;
     position: absolute;
-    z-index: 20;
+    right: -10px;
+    transition: opacity 0.3s ease;
 
-    &-left {
-      left: -6px;
+    &-upgrading {
+      top: calc(-2 * (#{$pc-convert-buttons-size}));
     }
 
-    &-right {
-      right: -6px;
+    &-downgrading {
+      top: calc(-#{$pc-convert-buttons-size});
     }
   }
 
@@ -183,7 +185,14 @@ input[type=number] {
     margin-top: calc(#{$pc-wallet-input-size} + 10px);
   }
 
-  .convert-options:hover .convert-option {
-    display: flex;
+  .convert-options:hover .convert-option,
+  .convert-options:focus-within .convert-option {
+    display: flex !important;
+    opacity: 1;
+    z-index: 20;
+  }
+
+  .option-hide {
+      opacity: 0 !important;
   }
 }
