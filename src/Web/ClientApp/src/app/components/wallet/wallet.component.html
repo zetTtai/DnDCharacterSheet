@@ -13,7 +13,25 @@
       <span class="currency-name ui prevent-select">
         {{ 'currencies.' + currency.id | translate }}
       </span>
+      <div *ngIf="isDesktop() || showConvertOptions" class="convert-options">
+        <div [class.option-hide]="isFirst"
+             [class.clickable]="!isFirst"
+             class="ui clickable convert-option"
+             (click)="convert(currency.id, !isFirst, true)">
+          <app-icon [name]="'convert-arrow'" class="convert-upgrade"></app-icon>
+        </div>
 
+        <div *ngIf="isDesktop()" class="ui" style="height: 2px;"></div>
+        <div *ngIf="!isDesktop()" class="ui" style="height: 10px;"></div>
+
+
+        <div [class.option-hide]="isLast"
+             [class.clickable]="!isLast"
+             class="ui clickable convert-option"
+             (click)="convert(currency.id, !isLast)">
+          <app-icon [name]="'convert-arrow'" class="convert-downgrade"></app-icon>
+        </div>
+      </div>
     </div>
 
   </ng-container>

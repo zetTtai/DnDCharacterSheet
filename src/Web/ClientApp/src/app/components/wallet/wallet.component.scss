@@ -1,6 +1,6 @@
 @import 'variables';
 
-$pc-wallet-input-size: 40px;
+$pc-wallet-input-size: 50px;
 $mobile-wallet-input-size: 60px;
 $pc-wallet-gap: calc((#{$pc-wallet-input-size} / 4));
 $mobile-wallet-gap: calc((#{$mobile-wallet-input-size} / 4));
@@ -8,6 +8,7 @@ $mobile-wallet-gap: calc((#{$mobile-wallet-input-size} / 4));
 $pc-currency-name-padding: 5px;
 
 $pc-convert-buttons-size: 20px;
+$mobile-convert-buttons-size: 25px;
 
 .wallet {
   display: flex;
@@ -35,7 +36,7 @@ $pc-convert-buttons-size: 20px;
 
 .currency-name {
   position: absolute;
-  border: 1px solid black;
+  border: 2px solid black;
   font-size: 12px;
   right: calc(#{$mobile-wallet-input-size} / 2);
   top: calc(#{$mobile-wallet-input-size} / 4);
@@ -54,6 +55,47 @@ $pc-convert-buttons-size: 20px;
         width: 100%;
     }
 }
+
+.convert-options {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .option-hide {
+    background-color: transparent !important;
+    border: 0 !important;
+    opacity: 0;
+  }
+}
+
+.convert-option {
+  width: calc(#{$pc-wallet-input-size} / 2 + 10px);
+  height: $pc-convert-buttons-size;
+  border: 2px solid;
+  justify-content: flex-end;
+  display: flex;
+}
+
+.convert-options {
+  top: 0;
+  left: 32px;
+}
+
+.convert-downgrade {
+  transform: rotate(-90deg) scaleY(-1);
+}
+
+.convert-upgrade {  
+  transform: rotate(90deg);
+}
+
+.convert-option {
+  width: calc(#{$pc-wallet-input-size} / 2 + 20px);
+  height: $mobile-convert-buttons-size;
+  border: 2px solid;
+}
+
 
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
@@ -74,8 +116,8 @@ input[type=number] {
   }
 
   .currency-name {
-    right: calc(#{$pc-wallet-input-size} / 2 + $pc-currency-name-padding);
-    top: calc(#{$pc-wallet-input-size} / 4 - $pc-currency-name-padding);
+    right: calc(#{$pc-wallet-input-size} / 3 + $pc-currency-name-padding);
+    top: calc(#{$pc-wallet-input-size} / 3 - $pc-currency-name-padding);
     width: $pc-wallet-input-size;
     padding: $pc-currency-name-padding;
   }
@@ -83,5 +125,18 @@ input[type=number] {
   .wallet {
     gap: $pc-wallet-gap;
     padding: 0;
+  }
+
+  .convert-option {
+    width: calc(#{$pc-wallet-input-size} / 2 + 10px);
+    height: $pc-convert-buttons-size;
+    border: 2px solid;
+    justify-content: flex-end;
+    display: flex;
+  }
+
+  .convert-options {
+    top: 4px;
+    left: 30px;
   }
 }
