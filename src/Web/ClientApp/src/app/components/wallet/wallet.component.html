@@ -10,26 +10,66 @@
              (input)="checkRange($event, minCurrency, maxCurrency)"
              value="currency.value" />
 
-      <span class="currency-name ui prevent-select">
-        {{ 'currencies.' + currency.id | translate }}
-      </span>
-      <div *ngIf="isDesktop() || showConvertOptions" class="convert-options">
-        <div [class.option-hide]="isFirst"
-             [class.clickable]="!isFirst"
-             class="ui clickable convert-option"
-             (click)="convert(currency.id, !isFirst, true)">
-          <app-icon [name]="'convert-arrow'" class="convert-upgrade"></app-icon>
-        </div>
 
-        <div *ngIf="isDesktop()" class="ui" style="height: 2px;"></div>
-        <div *ngIf="!isDesktop()" class="ui" style="height: 10px;"></div>
+      <div [class.pc-currency-options]="isDesktop()">
 
 
-        <div [class.option-hide]="isLast"
-             [class.clickable]="!isLast"
-             class="ui clickable convert-option"
-             (click)="convert(currency.id, !isLast)">
-          <app-icon [name]="'convert-arrow'" class="convert-downgrade"></app-icon>
+        <span class="currency-name ui prevent-select">
+          {{ 'currencies.' + currency.id | translate }}
+        </span>
+
+
+        <!--<div *ngIf="isDesktop()" style="position: absolute; z-index: 10;">
+    <span class="ui prevent-select " style="width: 100%; display: flex; border: 2px solid; justify-content: center; font-size: 13px; ">
+      {{ 'currencies.' + currency.id | translate }}
+    </span>
+    <div style="display: flex;">
+      <div [class.option-hide]="isFirst"
+           [class.clickable]="!isFirst"
+           class="ui clickable convert-option"
+           (click)="convert(currency.id, !isFirst, true)">
+        <app-icon [name]="'convert-arrow'" class="convert-upgrade"></app-icon>
+      </div>
+
+      <input type="number" name="name" value="" style="width: 100%;" />
+
+      <div [class.option-hide]="isLast"
+           [class.clickable]="!isLast"
+           class="ui clickable convert-option"
+           (click)="convert(currency.id, !isLast)">
+        <app-icon [name]="'convert-arrow'" class="convert-downgrade"></app-icon>
+      </div>
+    </div>
+
+  </div>-->
+
+        <div class="convert-options" >
+          <div
+               [class.option-hide]="isFirst"
+               [class.option-close]="!isDesktop() && !showConvertOptions"
+               [class.clickable]="!isFirst"
+               class="ui clickable convert-option convert-option-left"
+               (click)="convert(currency.id, !isFirst, true)">
+            <app-icon [name]="'convert-arrow'" class="convert-upgrade"></app-icon>
+          </div>
+
+          <div *ngIf="!isDesktop()" class="ui" style="height: 8px;"></div>
+
+          <input *ngIf="isDesktop()"
+                 class="convert-input"
+                 type="number"
+                 name="name"
+                 value="" />
+
+          <div
+               [class.option-hide]="isLast"
+               [class.option-close]="!isDesktop() && !showConvertOptions"
+               [class.clickable]="!isLast"
+               class="ui clickable convert-option convert-option-right"
+               (click)="convert(currency.id, !isLast)">
+            <app-icon [name]="'convert-arrow'" class="convert-downgrade"></app-icon>
+          </div>
+
         </div>
       </div>
     </div>

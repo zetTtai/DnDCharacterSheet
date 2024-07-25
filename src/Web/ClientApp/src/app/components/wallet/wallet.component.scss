@@ -2,10 +2,10 @@
 
 $pc-wallet-input-size: 50px;
 $mobile-wallet-input-size: 60px;
-$pc-wallet-gap: calc((#{$pc-wallet-input-size} / 4));
+$pc-wallet-gap: calc((#{$pc-wallet-input-size} / 4) + 10px);
 $mobile-wallet-gap: calc((#{$mobile-wallet-input-size} / 4));
 
-$pc-currency-name-padding: 5px;
+$pc-currency-name-padding: 3px;
 
 $pc-convert-buttons-size: 20px;
 $mobile-convert-buttons-size: 25px;
@@ -67,6 +67,10 @@ $mobile-convert-buttons-size: 25px;
     border: 0 !important;
     opacity: 0;
   }
+
+  .option-close {
+      width: 0;
+  }
 }
 
 .convert-option {
@@ -75,10 +79,11 @@ $mobile-convert-buttons-size: 25px;
   border: 2px solid;
   justify-content: flex-end;
   display: flex;
+  transition: width 0.3s ease-in-out;
 }
 
 .convert-options {
-  top: 0;
+  top: 1px;
   left: 32px;
 }
 
@@ -109,6 +114,13 @@ input[type=number] {
 }
 
 @media (min-width: $mobile-size) {
+  .convert-input {
+    width: 100%;
+    height: $pc-convert-buttons-size;
+    text-align: center;
+    z-index: 10;
+  }
+
   .wallet-input {
     width: $pc-wallet-input-size;
     max-height: $pc-wallet-input-size;
@@ -116,27 +128,62 @@ input[type=number] {
   }
 
   .currency-name {
-    right: calc(#{$pc-wallet-input-size} / 3 + $pc-currency-name-padding);
-    top: calc(#{$pc-wallet-input-size} / 3 - $pc-currency-name-padding);
-    width: $pc-wallet-input-size;
+    font-size: 12px;
     padding: $pc-currency-name-padding;
+    display: flex;
+    top: -28px;
+    left: -28px;
   }
 
   .wallet {
     gap: $pc-wallet-gap;
     padding: 0;
+    padding-bottom: calc(#{$pc-wallet-gap} / 2);
   }
 
   .convert-option {
-    width: calc(#{$pc-wallet-input-size} / 2 + 10px);
-    height: $pc-convert-buttons-size;
+    width: auto;
+    height: calc(#{$pc-convert-buttons-size} + 2px);
     border: 2px solid;
     justify-content: flex-end;
-    display: flex;
+    display: none;
+    position: absolute;
+    z-index: 20;
+
+    &-left {
+      left: -6px;
+    }
+
+    &-right {
+      right: -6px;
+    }
   }
 
   .convert-options {
-    top: 4px;
-    left: 30px;
+    position: static;
+  }
+
+  .convert-options {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+    background-color: white;
+    border: 1px solid;
+  }
+
+  .pc-currency-options {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    top: -20px;
+    height: 0;
+    margin-top: calc(#{$pc-wallet-input-size} + 10px);
+  }
+
+  .convert-options:hover .convert-option {
+    display: flex;
   }
 }
