@@ -1,0 +1,98 @@
+@import 'variables';
+
+$pc-abilities-header-font-size: 9px;
+$pc-abilities-header-padding: 5px;
+$pc-abilities-gap: 1.75rem;
+
+$pc-modifier-vertical-padding: 10px;
+$pc-modifier-font-size: 20px;
+
+$mobile-modifier-font-size: 20px;
+$mobile-abilities-gap: 2.5rem;
+
+.abilities {
+  max-width: 70px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 20px;
+  min-width: 90px;
+  gap: $mobile-abilities-gap;
+}
+
+.ability {
+  border: 1px solid;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 5px 0 10px 0;
+  align-items: center;
+  position: relative;
+
+  .mobile-header {
+    position: absolute;
+    z-index: 10000;
+    display: flex;
+    justify-content: space-between;
+    width: 130%;
+    top: -10px;
+  }
+
+  .modifier {
+    display: flex;
+    font-size: $mobile-modifier-font-size;
+    min-height: calc($mobile-modifier-font-size + 12px);
+    font-weight: bold;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .score {
+    display: flex;
+    position: relative;
+    justify-content: center;
+
+    input {
+      position: absolute;
+      text-align: center;
+      width: 40px;
+      border: 1px solid black;
+      border-radius: 100%;
+    }
+  }
+}
+
+@media (min-width: $mobile-size) {
+  .abilities {
+    max-width: calc(($pc-abilities-header-padding *2) + #{$pc-character-image-diameter} - (#{$pc-character-image-diameter} / 3));
+    gap: $pc-abilities-gap;
+    margin: 10px;
+    min-width: auto;
+    padding-top: $pc-character-image-diameter;
+    margin-bottom: 0;
+  }
+
+  .ability {
+    margin-top: 5px;
+    padding-top: 0;
+
+    .header {
+      display: flex;
+      justify-content: center;
+      padding: 0 $pc-abilities-header-padding;
+
+      span {
+        text-transform: uppercase;
+        font-size: $pc-abilities-header-font-size;
+      }
+    }
+
+    .modifier {
+      padding: $pc-modifier-vertical-padding 5px;
+      font-size: $pc-modifier-font-size;
+      min-height: calc($pc-modifier-font-size + 12px + ($pc-modifier-vertical-padding * 2));
+    }
+  }
+}

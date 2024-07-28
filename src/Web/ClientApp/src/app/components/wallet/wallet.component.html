@@ -1,14 +1,12 @@
 <div class="wallet">
   <ng-container *ngFor="let currency of currencies; let isFirst = first; let isLast = last">
     <div class="currency">
-      <input class="wallet-input"
+      <input class="wallet-input no-spin"
              type="number"
-             min="0"
-             max="1000"
              [id]="'currency-' + currency.id"
              [name]="'currency-' + currency.id"
              (input)="checkRange($event, minCurrency, maxCurrency)"
-             value="currency.value" />
+             [value]="currency.value" />
 
 
       <div [class.pc-currency-options]="isDesktop()">
@@ -31,7 +29,7 @@
           <div *ngIf="!isDesktop()" class="ui" style="height: 8px;"></div>
 
           <input *ngIf="isDesktop()"
-                 class="convert-input"
+                 class="convert-input no-spin"
                  type="number"
                  name="name"
                  (input)="checkRange($event, 0, getCurrentValueById('currency-' + currency.id))"

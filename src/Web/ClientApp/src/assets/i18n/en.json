@@ -84,5 +84,13 @@
     "platinum": "PP",
     "silver": "SP",
     "copper": "CP"
+  },
+  "abilities": {
+    "str": "strength",
+    "dex": "dexterity",
+    "con": "constitution",
+    "int": "intelligence",
+    "wis": "wisdom",
+    "cha": "charisma"
   }
 }

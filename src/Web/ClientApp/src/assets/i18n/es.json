@@ -79,10 +79,18 @@
     "exp": "puntos de experiencia"
   },
   "currencies": {
-    "electrum": "PE",
-    "gold": "PO",
-    "platinum": "PPT",
-    "silver": "PP",
-    "copper": "PC"
+    "electrum": "pe",
+    "gold": "po",
+    "platinum": "ppt",
+    "silver": "pp",
+    "copper": "pc"
+  },
+  "abilities": {
+    "str": "fuerza",
+    "dex": "destreza",
+    "con": "constitución",
+    "int": "inteligencia",
+    "wis": "sabiduría",
+    "cha": "carisma"
   }
 }

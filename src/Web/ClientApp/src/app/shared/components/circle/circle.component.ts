@@ -13,5 +13,5 @@ export class CircleComponent {
   @Input() id: string;
   @Input() customClass: string;
 
-  defaultMarginRight: string = CIRCLE_CONFIG.MARGIN_RIGHT + 'px';
+  //defaultMarginRight: string = CIRCLE_CONFIG.MARGIN_RIGHT + 'px';
 }

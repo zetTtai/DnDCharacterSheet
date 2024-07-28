@@ -43,7 +43,7 @@ export class AboutUsComponent {
       "license_name": "Apache 2.0"
     },
     {
-      "name": "info",
+      "name": "info/info-circle",
       "url": "https://icon-sets.iconify.design/simple-line-icons/info/",
       "author": "Sabbir Ahmed",
       "license_url": "https://github.com/thesabbir/simple-line-icons/blob/master/LICENSE.md",

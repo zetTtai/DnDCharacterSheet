@@ -54,9 +54,9 @@ export class FixedToggleButtonsComponent implements OnInit, AfterViewInit{
   }
 
   ngOnInit() {
-    const width = this.calculateDistanceForBottomFixedButtons();
-    document.getElementById(this.getElementId('spellcasting')).style.maxWidth = `${width}px`;
-    document.getElementById(this.getElementId('death-saves')).style.maxWidth = `${width}px`;
+    const maxWidth = this.calculateMaxDistanceForBottomFixedButtons();
+    document.getElementById(this.getElementId('spellcasting')).style.maxWidth = `${maxWidth}px`;
+    document.getElementById(this.getElementId('death-saves')).style.maxWidth = `${maxWidth}px`;
   }
 
   private setDistances() {
@@ -87,7 +87,7 @@ export class FixedToggleButtonsComponent implements OnInit, AfterViewInit{
     return element ? element.offsetWidth : 0;
   }
 
-  private calculateDistanceForBottomFixedButtons(): number {
+  private calculateMaxDistanceForBottomFixedButtons(): number {
     const body = document.body;
     const html = document.documentElement;
 

@@ -1,3 +1,42 @@
-<div [class.pc-abilities]="isDesktop()">
-  <p>abilities works!</p>
+<div class="abilities ui">
+  <ng-container *ngFor="let ability of abilities">
+    <div class="ability">
+      <div class="header" *ngIf="isDesktop(); else mobileHeader">
+        <span>{{ 'abilities.' + ability.id | translate }}</span>
+      </div>
+
+      <ng-template #mobileHeader>
+        <div class="mobile-header" style="">
+          <app-circle [empty]="false"
+                      [diameter]="20"
+                      [customClass]="'ui'"
+                      >
+            <app-icon [name]="'info/info'" [width]="'12px'" [height]="'12px'"></app-icon>
+          </app-circle>
+          <app-circle [empty]="false"
+                      [diameter]="30"
+                      [customClass]="'ui'"
+                      >
+            <app-icon [name]="'abilities/_' + ability.id" [width]="'20px'" [height]="'20px'"></app-icon>
+          </app-circle>
+        </div>
+      </ng-template>
+
+      <div class="modifier">
+        <span *ngIf="ability.score == -1">
+          {{ getModifier(ability.score) }}
+        </span>
+      </div>
+
+      <div class="score">
+        <input class="ability-input no-spin"
+               type="number"
+               [id]="'ability-' + ability.id"
+               [name]="'ability-' + ability.id"
+               (input)="checkRange($event, -10, 20)"
+               [value]="ability.score !== -1 ? '' : ability.score" />
+      </div>
+
+    </div>
+  </ng-container>
 </div>

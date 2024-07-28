@@ -12,7 +12,7 @@ export class MobileHeaderComponent {
   public defaultIconSize: string = ICONS.MOBILE_HEADER_DEFAULT_SIZE;
   isModalVisible: boolean = false;
   isHeaderOpen: boolean = false;
-  classInputMaxWidth: number = (CIRCLE_CONFIG.DIAMETER * 2) + (CIRCLE_CONFIG.MARGIN_RIGHT * 2) - 2;
+  classInputMaxWidth: number = (CIRCLE_CONFIG.DIAMETER * 2) + (CIRCLE_CONFIG.HEADER.MARGIN_RIGHT * 2) - 2;
 
   constructor(private toggleService: ToggleService) { }
 

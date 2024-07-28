@@ -33,8 +33,8 @@
 
       <app-form-field [label]="'character.classes' | translate" name="classes" type="custom" [last]="true">
         <div content class="class-input content" [style.max-width]="maxWidth">
-          <app-circle id="first"></app-circle>
-          <app-circle id="second"></app-circle>
+          <app-circle id="first" [customClass]="'mobile-classes-margin'"></app-circle>
+          <app-circle id="second" [customClass]="'mobile-classes-margin'"></app-circle>
           <app-circle id="add-class" [empty]=false>
             <app-icon [name]="'plus-outline'"></app-icon>
           </app-circle>
@@ -46,7 +46,7 @@
 
 </nav>
 
-<div id="toggle-header" class="mobile toggle-button-transition toggle-button-container">
+<div id="toggle-header" class="mobile toggle-button-transition toggle-button-container not-clickable">
   <app-toggle-button [bottom]="true" (click)="toggleHeader()">
     <ng-container *ngIf="!isHeaderOpen; else collapseHeader">
       <app-icon [name]="'plus-outline'" [width]="defaultIconSize" [height]="defaultIconSize"></app-icon>

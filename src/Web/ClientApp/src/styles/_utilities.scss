@@ -39,6 +39,18 @@
   transition: top $toggle-button-transition ease, right $toggle-button-transition ease, left $toggle-button-transition ease, bottom $toggle-button-transition ease;
 }
 
+
+input.no-spin[type=number]::-webkit-inner-spin-button,
+input.no-spin[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* For Firefox */
+input.no-spin[type=number] {
+  -moz-appearance: textfield;
+}
+
+
 @media (min-width: $mobile-size) {
   .pc {
     display: flex;
