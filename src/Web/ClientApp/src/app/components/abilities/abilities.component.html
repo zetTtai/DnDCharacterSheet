@@ -9,21 +9,21 @@
         <div class="mobile-header" style="">
           <app-circle (click)="showAbilityInfo(ability.id)"
                       [empty]="false"
-                      [diameter]="20"
+                      [diameter]="mobileInfoCircleSize"
                       [customClass]="'ui'">
-            <app-icon [name]="'info/info'" [width]="'12px'" [height]="'12px'"></app-icon>
+            <app-icon [name]="'info/info'" [width]="mobileInfoIconSize" [height]="mobileInfoIconSize"></app-icon>
           </app-circle>
           <app-circle [empty]="false"
-                      [diameter]="30"
+                      [diameter]="mobileAbilityCircleSize"
                       [customClass]="'ui'">
-            <app-icon [name]="'abilities/_' + ability.id" [width]="'20px'" [height]="'20px'"></app-icon>
+            <app-icon [name]="'abilities/_' + ability.id" [width]="mobileAbilityIconSize" [height]="mobileAbilityIconSize"></app-icon>
           </app-circle>
         </div>
       </ng-template>
 
       <div class="modifier">
         <span [id]="modifierPrefix + '-' + ability.id">
-          <ng-container *ngIf="ability.score !== -1">
+          <ng-container *ngIf="ability.score !== defaultValue">
             {{ getModifier(ability.score) }}
           </ng-container>
         </span>
@@ -35,7 +35,7 @@
                [id]="'score-' + ability.id"
                [name]="'score-' + ability.id"
                (input)="onScoreChange(ability, $event)"
-               [value]="ability.score == -1 ? '' : ability.score" />
+               [value]="ability.score == defaultValue ? '' : ability.score" />
       </div>
 
     </div>

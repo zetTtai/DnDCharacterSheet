@@ -42,10 +42,19 @@ export const CURRENCY = {
 }
 
 export const ABILITIES = {
+  DEFAULT_VALUE: -1,
   VALUES: ['str', 'dex', 'con', 'int', 'wis', 'cha'],
   SCORE: {
     MIN: 3,
     MAX: 18,
   },
-  MODIFIER_PREFIX: 'modifier'
+  MODIFIER_PREFIX: 'modifier',
+  INFO: {
+    CIRCLE: 20,
+    ICON: '12px'
+  },
+  ABILITY: {
+    CIRCLE: 30,
+    ICON: '20px'
+  }
 }

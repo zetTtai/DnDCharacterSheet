@@ -1,4 +1,5 @@
 import { SharedDataService } from 'src/app/core/services/shared-data/shared-data.service';
+import { ABILITIES } from 'src/app/shared/constants/app-constants';
 
 export class BaseComponent {
   constructor(protected sharedDataService: SharedDataService) { }
@@ -15,11 +16,9 @@ export class BaseComponent {
       if (value < min) value = min;
       if (value > max) value = max;
     } else {
-      value = -1;
+      value = ABILITIES.DEFAULT_VALUE;
     }
-
  
-
     input.value = value.toString();
 
     return value;

@@ -13,12 +13,18 @@ import { ModalData } from 'src/app/shared/models/modal-data.model';
 })
 export class AbilitiesComponent extends BaseComponent {
 
+  public defaultValue: number = ABILITIES.DEFAULT_VALUE;
   public minScore: number = ABILITIES.SCORE.MIN;
   public maxScore: number = ABILITIES.SCORE.MAX;
-  public modifierPrefix: string = ABILITIES.MODIFIER_PREFIX;
 
-  // TODO: Get by Database
+  public mobileInfoCircleSize: number = ABILITIES.INFO.CIRCLE;
+  public mobileInfoIconSize: string = ABILITIES.INFO.ICON;
+  public mobileAbilityCircleSize: number = ABILITIES.ABILITY.CIRCLE;
+  public mobileAbilityIconSize: string = ABILITIES.ABILITY.ICON;
+
+
   public abilities: Ability[] = [];
+  public modifierPrefix: string = ABILITIES.MODIFIER_PREFIX;
 
   constructor(sharedDataService: SharedDataService, private eventService: EventService) {
     super(sharedDataService);
@@ -38,7 +44,7 @@ export class AbilitiesComponent extends BaseComponent {
 
     let modifier = document.getElementById(`${this.modifierPrefix}-${ability.id}`) as HTMLElement;
 
-    modifier.innerHTML = ability.score !== -1
+    modifier.innerHTML = ability.score !== ABILITIES.DEFAULT_VALUE
       ? this.getModifier(ability.score)
       : '';
   }
