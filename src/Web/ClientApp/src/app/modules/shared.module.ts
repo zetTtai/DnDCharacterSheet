@@ -16,6 +16,7 @@ import { InputTextModalComponent } from 'src/app/shared/components/modal/input-m
 import { ValidationMessagesComponent } from 'src/app/shared/components/validation-messages/validation-messages.component';
 import { SidebarWithIconComponent } from 'src/app/shared/components/sidebar-with-icon/sidebar-with-icon.component';
 import { LanguagesModalComponent } from 'src/app/shared/components/modal/languages-modal/languages-modal.component';
+import { AbilityInfoModalComponent } from '../shared/components/modal/ability-info-modal/ability-info-modal.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { LanguagesModalComponent } from 'src/app/shared/components/modal/languag
     ValidationMessagesComponent,
     SidebarWithIconComponent,
     LanguagesModalComponent,
+    AbilityInfoModalComponent,
     CapitalizePipe
   ],
   imports: [
@@ -47,6 +49,7 @@ import { LanguagesModalComponent } from 'src/app/shared/components/modal/languag
     ValidationMessagesComponent,
     SidebarWithIconComponent,
     LanguagesModalComponent,
+    AbilityInfoModalComponent,
     CapitalizePipe
   ]
 })

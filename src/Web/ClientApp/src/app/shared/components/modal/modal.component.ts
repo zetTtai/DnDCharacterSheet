@@ -3,6 +3,7 @@ import { ModalData } from 'src/app/shared/models/modal-data.model';
 import { InputTextModalComponent } from './input-modal/input-text-modal/input-text-modal.component';
 import { DelayService } from 'src/app/core/services/delay/delay.service';
 import { LanguagesModalComponent } from './languages-modal/languages-modal.component';
+import { AbilityInfoModalComponent } from './ability-info-modal/ability-info-modal.component';
 
 export interface InputModal {
   data: ModalData;
@@ -22,7 +23,8 @@ export class ModalComponent implements OnChanges {
   @ViewChild('content', { read: ViewContainerRef }) content: ViewContainerRef;
   private modalTypes = {
     'text': InputTextModalComponent,
-    'languages': LanguagesModalComponent
+    'languages': LanguagesModalComponent,
+    'ability-info': AbilityInfoModalComponent
   };
 
   constructor(private delayService: DelayService) { }
