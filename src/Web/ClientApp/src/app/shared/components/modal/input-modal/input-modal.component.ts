@@ -25,13 +25,13 @@ export class InputModalComponent implements OnInit {
     const modal = document.getElementById("mobile-modal");
     const input = modal.querySelector('input');
     input.focus();
-    modal.classList.add("modal-top");
+    //modal.classList.add("modal-top");
   }
 
   close() {
     this.cancel.emit();
-    const modal = document.getElementById("mobile-modal");
-    modal.classList.remove("modal-top");
+    //const modal = document.getElementById("mobile-modal");
+    //modal.classList.remove("modal-top");
   }
 
   onCancel(event: Event) {

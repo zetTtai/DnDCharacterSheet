@@ -17,10 +17,14 @@ export interface InputModal {
 
 export class ModalComponent implements OnChanges {
   @Input() isVisible: boolean = false;
-  isLoaded: boolean = false;
   @Input() data: ModalData;
   @Output() closeModal = new EventEmitter<void>();
+
+  public isLoaded: boolean = false;
+  public top: boolean = true;
+
   @ViewChild('content', { read: ViewContainerRef }) content: ViewContainerRef;
+
   private modalTypes = {
     'text': InputTextModalComponent,
     'languages': LanguagesModalComponent,
