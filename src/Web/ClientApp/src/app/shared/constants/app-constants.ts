@@ -40,3 +40,12 @@ export const CURRENCY = {
   MIN: 0,
   MAX: 999
 }
+
+export const ABILITIES = {
+  VALUES: ['str', 'dex', 'con', 'int', 'wis', 'cha'],
+  SCORE: {
+    MIN: 3,
+    MAX: 18,
+  },
+  MODIFIER_PREFIX: 'modifier'
+}

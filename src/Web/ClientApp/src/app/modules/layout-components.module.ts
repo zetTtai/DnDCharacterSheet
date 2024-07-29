@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslationModule } from './translation.module';
 import { SharedModule } from './shared.module';
 
@@ -27,7 +27,8 @@ import { NotesComponent } from 'src/app/components/notes/notes.component';
     CommonModule,
     ReactiveFormsModule,
     TranslationModule,
-    SharedModule
+    SharedModule,
+    FormsModule
   ],
   exports: [
     AbilitiesComponent,
