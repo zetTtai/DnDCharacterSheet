@@ -60,7 +60,6 @@ export class NavbarComponent {
   }
 
   login() {
-    this.auth.loginWithRedirect();
-    //this.auth.loginWithPopup();
+    this.auth.loginWithPopup();
   }
 }
