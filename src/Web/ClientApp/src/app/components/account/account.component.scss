@@ -1,7 +1,27 @@
+@import 'variables';
+
+$pc-account-width: 400px;
+$pc-account-padding: 20px;
+
 .language-section {
   position: absolute;
   width: 100%;
   height: 100%;
   transition: opacity 0.3s ease-in-out;
   background-color: black;
+}
+
+.pc-account {
+  position: absolute;
+  width: $pc-account-width;
+  top: calc($pc-navbar-height - 2px);
+  right: calc((#{$pc-account-width} + #{$pc-account-padding}) * -1);
+  transition: right 0.4s ease;
+  padding: $pc-account-padding;
+  border-left: 1px solid;
+  border-bottom: 1px solid;
+}
+
+.open {
+  right: 0;
 }

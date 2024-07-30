@@ -118,6 +118,7 @@ nav {
   nav {
     bottom: auto !important;
     z-index: calc(#{$z-index-above-all} + 1);
+    height: 100%;
   }
 
   .nav-container {

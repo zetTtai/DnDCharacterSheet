@@ -1,6 +1,15 @@
 <ng-container *ngIf="isDesktop(); else mobileView">
-  <section class="pc">
+  <section class="pc-account pc ui" [class.open]="isOpen">
     <p>pc account works!</p>
+    <div>
+      <ng-container *ngIf="!isAuthenticated(); else isLogged">
+        <button class="btn btn-primary" (click)="login()">Login</button>
+      </ng-container>
+      <ng-template #isLogged>
+        {{ user().email }}
+        <button class="btn btn-primary" (click)="logout()">Logout</button>
+      </ng-template>
+    </div>
   </section>
 </ng-container>
 <ng-template #mobileView>
@@ -10,3 +19,5 @@
     </main>
   </section>
 </ng-template>
+
+

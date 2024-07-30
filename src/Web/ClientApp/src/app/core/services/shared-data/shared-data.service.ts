@@ -5,6 +5,7 @@ import { LoreComponent } from 'src/app/components/lore/lore.component';
 import { ItemsComponent } from 'src/app/components/items/items.component';
 import { AccountComponent } from 'src/app/components/account/account.component';
 import { WEB } from 'src/app/shared/constants/app-constants';
+import { AuthService, User } from '@auth0/auth0-angular';
 
 @Injectable({
   providedIn: 'root'
@@ -26,12 +27,11 @@ export class SharedDataService {
     { class: SpellsComponent, key: SpellsComponent.key },
     { class: AccountComponent, key: AccountComponent.key }
   ];
-
-  isDesktop: boolean = window.innerWidth > WEB.MOBILE_SIZE;
-
   public currentIndex: number = 0;
+  public isDesktop: boolean = window.innerWidth > WEB.MOBILE_SIZE;
+  public user: User = null;
 
-  constructor() {
+  constructor(public auth: AuthService) {
     this.sliderWrapper = document.getElementById("sliderWrapper");
   }
 

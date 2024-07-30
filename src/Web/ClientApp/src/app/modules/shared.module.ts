@@ -16,7 +16,9 @@ import { InputTextModalComponent } from 'src/app/shared/components/modal/input-m
 import { ValidationMessagesComponent } from 'src/app/shared/components/validation-messages/validation-messages.component';
 import { SidebarWithIconComponent } from 'src/app/shared/components/sidebar-with-icon/sidebar-with-icon.component';
 import { LanguagesModalComponent } from 'src/app/shared/components/modal/languages-modal/languages-modal.component';
-import { AbilityInfoModalComponent } from '../shared/components/modal/ability-info-modal/ability-info-modal.component';
+import { AbilityInfoModalComponent } from 'src/app/shared/components/modal/ability-info-modal/ability-info-modal.component';
+import { LandscapeWarningComponent } from 'src/app/shared/components/landscape-warning/landscape-warning.component';
+import { LoadingScreenComponent } from 'src/app/shared/components/loading-screen/loading-screen.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { AbilityInfoModalComponent } from '../shared/components/modal/ability-in
     SidebarWithIconComponent,
     LanguagesModalComponent,
     AbilityInfoModalComponent,
-    CapitalizePipe
+    CapitalizePipe,
+    LandscapeWarningComponent,
+    LoadingScreenComponent
   ],
   imports: [
     CommonModule,
@@ -50,7 +54,9 @@ import { AbilityInfoModalComponent } from '../shared/components/modal/ability-in
     SidebarWithIconComponent,
     LanguagesModalComponent,
     AbilityInfoModalComponent,
-    CapitalizePipe
+    CapitalizePipe,
+    LandscapeWarningComponent,
+    LoadingScreenComponent
   ]
 })
 export class SharedModule { }

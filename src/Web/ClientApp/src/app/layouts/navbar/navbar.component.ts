@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { AuthService } from '@auth0/auth0-angular';
 import { LanguageService, SupportedLanguages } from 'src/app/core/services/language/language.service';
 import { SharedDataService } from 'src/app/core/services/shared-data/shared-data.service';
 import { ICONS, WEB } from 'src/app/shared/constants/app-constants';
+import { BaseComponent } from 'src/app/core/components/base.component';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent {
+export class NavbarComponent extends BaseComponent{
   public defaultIconSize: string = ICONS.MOBILE_NAVBAR_DEFAULT_SIZE;
   public components: { id: string, name: string }[] = [];
   public isAccountSectionOpenned: boolean = false;
@@ -19,9 +19,10 @@ export class NavbarComponent {
 
   constructor(
     private langService: LanguageService,
-    private sharedDataService: SharedDataService,
-    public auth: AuthService
-  ) { }
+    public sharedDataService: SharedDataService
+  ) {
+    super(sharedDataService);
+  }
 
   ngOnInit() {
 
@@ -57,9 +58,5 @@ export class NavbarComponent {
 
   getSupportedLanguages() {
     return this.langService.supportedLanguages;
-  }
-
-  login() {
-    this.auth.loginWithPopup();
   }
 }

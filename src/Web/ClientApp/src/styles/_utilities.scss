@@ -7,7 +7,7 @@
 }
 
 .not-clickable {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 .clickable {
@@ -31,8 +31,8 @@
 }
 
 .hide {
-  opacity: 0;
-  z-index: $z-index-behind-all;
+  opacity: 0 !important;
+  z-index: $z-index-behind-all !important;
 }
 
 .toggle-button-transition {

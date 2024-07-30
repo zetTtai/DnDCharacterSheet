@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { TranslationModule } from './translation.module';
 import { SharedModule } from './shared.module';
 
@@ -12,6 +12,7 @@ import { WalletComponent } from 'src/app/components/wallet/wallet.component';
 import { FeaturesFeatsComponent } from 'src/app/components/features-feats/features-feats.component';
 import { ItemsComponent } from 'src/app/components/items/items.component';
 import { NotesComponent } from 'src/app/components/notes/notes.component';
+import { AccountComponent } from 'src/app/components/account/account.component';
 
 @NgModule({
   declarations: [
@@ -21,14 +22,14 @@ import { NotesComponent } from 'src/app/components/notes/notes.component';
     WalletComponent,
     FeaturesFeatsComponent,
     ItemsComponent,
-    NotesComponent
+    NotesComponent,
+    AccountComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     TranslationModule,
-    SharedModule,
-    FormsModule
+    SharedModule
   ],
   exports: [
     AbilitiesComponent,
@@ -37,7 +38,8 @@ import { NotesComponent } from 'src/app/components/notes/notes.component';
     WalletComponent,
     FeaturesFeatsComponent,
     ItemsComponent,
-    NotesComponent
+    NotesComponent,
+    AccountComponent
   ]
 })
 export class LayoutComponentsModule { }

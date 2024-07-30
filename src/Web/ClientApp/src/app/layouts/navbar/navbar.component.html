@@ -1,4 +1,6 @@
-<nav id="navbar" class="ui navbar navbar-expand-sm navbar-toggleable-sm navbar-light border box-shadow">
+<nav id="navbar"
+     class="ui navbar navbar-expand-sm navbar-toggleable-sm navbar-light border box-shadow"
+     *ngIf="isDesktop()">
   <div class="nav-container-pc">
     <div id="nav-start">
       <a class="navbar-brand" [routerLink]="['/']">
@@ -31,29 +33,25 @@
         <li class="nav-item">
           <a class="nav-link text-dark prevent-select" href="javascript:void(0)" (click)="toggleAccount()">{{ 'nav-menu.account' | translate }}</a>
         </li>
-        <li class="nav-item">
-          <a  class="nav-link text-dark prevent-select" (click)="login()" href="javascript:void(0)">Login</a>
-        </li>
       </ul>
     </div>
   </div>
-  <nav class="nav-container-mobile">
-    <ul>
-      <li class="nav-item">
-        <a (click)="login()" href="javascript:void(0)">Login</a>
-      </li>
-      <ng-container *ngFor="let component of components; index as index;">
-        <li [id]="component.id"
-            class="prevent-select"
-            [class.selected]="index == getCurrentView()"
-            (click)="mobileSlide(index)">
-          <app-icon [name]="component.id" [height]="defaultIconSize" [width]="defaultIconSize"></app-icon>
-          <div *ngIf="component.id == 'mobile-account'" class="current-lang current-lang-mobile">
-            <app-icon [name]="'lang/' + getCurrentLanguage()" [width]="currentLangSize" [height]="currentLangSize"></app-icon>
-          </div>
-        </li>
-      </ng-container>
+  <app-account [isOpen]="isAccountSectionOpenned"></app-account>
+</nav>
 
-    </ul>
-  </nav>
+<nav class="nav-container-mobile" #mobileView>
+  <ul>
+    <ng-container *ngFor="let component of components; index as index;">
+      <li [id]="component.id"
+          class="prevent-select"
+          [class.selected]="index == getCurrentView()"
+          (click)="mobileSlide(index)">
+        <app-icon [name]="component.id" [height]="defaultIconSize" [width]="defaultIconSize"></app-icon>
+        <div *ngIf="component.id == 'mobile-account'" class="current-lang current-lang-mobile">
+          <app-icon [name]="'lang/' + getCurrentLanguage()" [width]="currentLangSize" [height]="currentLangSize"></app-icon>
+        </div>
+      </li>
+    </ng-container>
+
+  </ul>
 </nav>
