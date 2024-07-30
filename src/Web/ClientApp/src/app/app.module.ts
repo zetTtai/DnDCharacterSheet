@@ -12,6 +12,7 @@ import { ComponentsModule } from 'src/app/modules/components.module';
 import { AppComponent } from 'src/app/app.component';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { LayoutComponentsModule } from './modules/layout-components.module';
+import { AuthModule } from '@auth0/auth0-angular';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,14 @@ import { LayoutComponentsModule } from './modules/layout-components.module';
     LayoutsModule,
     SharedModule,
     ComponentsModule,
-    LayoutComponentsModule
+    LayoutComponentsModule,
+    AuthModule.forRoot({
+      domain: 'dev-eyqtl22nkjyid0lf.us.auth0.com',
+      clientId: 'T6XA6ouhjxcByDfqyszfAmstnOxjfYtt',
+      authorizationParams: {
+        redirect_uri: window.location.origin
+      }
+    })
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '@auth0/auth0-angular';
 import { LanguageService, SupportedLanguages } from 'src/app/core/services/language/language.service';
 import { SharedDataService } from 'src/app/core/services/shared-data/shared-data.service';
 import { ICONS, WEB } from 'src/app/shared/constants/app-constants';
@@ -18,7 +19,8 @@ export class NavbarComponent {
 
   constructor(
     private langService: LanguageService,
-    private sharedDataService: SharedDataService
+    private sharedDataService: SharedDataService,
+    public auth: AuthService
   ) { }
 
   ngOnInit() {
@@ -55,5 +57,9 @@ export class NavbarComponent {
 
   getSupportedLanguages() {
     return this.langService.supportedLanguages;
+  }
+
+  login() {
+    this.auth.loginWithPopup();
   }
 }

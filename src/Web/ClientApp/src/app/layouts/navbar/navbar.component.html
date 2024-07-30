@@ -31,11 +31,17 @@
         <li class="nav-item">
           <a class="nav-link text-dark prevent-select" href="javascript:void(0)" (click)="toggleAccount()">{{ 'nav-menu.account' | translate }}</a>
         </li>
+        <li class="nav-item">
+          <a  class="nav-link text-dark prevent-select" (click)="login()" href="javascript:void(0)">Login</a>
+        </li>
       </ul>
     </div>
   </div>
   <nav class="nav-container-mobile">
     <ul>
+      <li class="nav-item">
+        <a (click)="login()" href="javascript:void(0)">Login</a>
+      </li>
       <ng-container *ngFor="let component of components; index as index;">
         <li [id]="component.id"
             class="prevent-select"
@@ -47,6 +53,7 @@
           </div>
         </li>
       </ng-container>
+
     </ul>
   </nav>
 </nav>
