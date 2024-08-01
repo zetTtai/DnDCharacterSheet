@@ -13,6 +13,7 @@ import { AppComponent } from 'src/app/app.component';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { LayoutComponentsModule } from './modules/layout-components.module';
 import { AuthModule } from '@auth0/auth0-angular';
+import { AUTH0 } from 'src/app/shared/constants/auth0-constants';
 
 @NgModule({
   declarations: [
@@ -29,13 +30,7 @@ import { AuthModule } from '@auth0/auth0-angular';
     SharedModule,
     ComponentsModule,
     LayoutComponentsModule,
-    AuthModule.forRoot({
-      domain: 'dev-eyqtl22nkjyid0lf.us.auth0.com',
-      clientId: 'T6XA6ouhjxcByDfqyszfAmstnOxjfYtt',
-      authorizationParams: {
-        redirect_uri: window.location.origin
-      }
-    })
+    AuthModule.forRoot(AUTH0.DEV)
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }

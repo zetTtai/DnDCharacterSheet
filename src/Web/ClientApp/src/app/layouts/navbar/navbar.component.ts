@@ -49,7 +49,6 @@ export class NavbarComponent extends BaseComponent{
 
   toggleAccount() {
     this.isAccountSectionOpenned = !this.isAccountSectionOpenned;
-    console.log(this.isAccountSectionOpenned ? "Open" :"Cloze")
   }
 
   getCurrentLanguage() {

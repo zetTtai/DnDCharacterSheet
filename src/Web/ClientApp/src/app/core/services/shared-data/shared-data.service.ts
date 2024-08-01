@@ -29,7 +29,7 @@ export class SharedDataService {
   ];
   public currentIndex: number = 0;
   public isDesktop: boolean = window.innerWidth > WEB.MOBILE_SIZE;
-  public user: User = null;
+  public userId: string = null;
 
   constructor(public auth: AuthService) {
     this.sliderWrapper = document.getElementById("sliderWrapper");

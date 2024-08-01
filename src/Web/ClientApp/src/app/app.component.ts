@@ -37,22 +37,23 @@ export class AppComponent implements OnInit, OnDestroy {
     this.commandRegistry.registerCommand(EVENTS.OPEN_MODAL, new OpenModalCommand(this));
   }
 
-  ngOnInit(): void {
-    this.languageService.setLanguage();
+  async ngOnInit(): Promise<void> {
     this.eventService.event$.subscribe((event) => {
       this.commandRegistry.executeCommand(event.name, event.data);
     });
-    this.auth.user$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (user) => {
-          this.sharedDataService.user = user;
-          this.isLoading = false;
-        },
-        error: () => {
-          this.isLoading = false;
-        }
-      });
+
+    this.languageService.setLanguage();
+
+    const isLogged = await this.checkIfUserIsLogged();
+    if (!isLogged) {
+      this.isLoading = false;
+      return;
+    }
+
+    console.log(`User id: ${this.sharedDataService.userId}`);
+    console.log("Start getting user metadata by id (TODO)");
+    console.log("Finish");
+    this.isLoading = false;
   }
 
   ngOnDestroy(): void {
@@ -73,5 +74,25 @@ export class AppComponent implements OnInit, OnDestroy {
   onResize(event: Event) {
     this.isDesktop = window.innerWidth > WEB.MOBILE_SIZE;
     this.sharedDataService.isDesktop = this.isDesktop;
+  }
+
+  checkIfUserIsLogged(): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      this.auth.user$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: (user) => {
+            if (user == null) {
+              resolve(false);
+            } else {
+              this.sharedDataService.userId = user.sub;
+              resolve(true);
+            }
+          },
+          error: () => {
+            reject(false);
+          }
+        });
+    });
   }
 }

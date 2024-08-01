@@ -9,7 +9,7 @@ export class BaseComponent {
   }
 
   isAuthenticated(): boolean {
-    return this.sharedDataService.user != null;
+    return this.sharedDataService.userId != null;
   }
 
   public checkRange(event: Event, min: number, max: number): number {
