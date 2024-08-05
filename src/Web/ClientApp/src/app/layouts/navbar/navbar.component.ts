@@ -3,6 +3,7 @@ import { LanguageService, SupportedLanguages } from 'src/app/core/services/langu
 import { SharedDataService } from 'src/app/core/services/shared-data/shared-data.service';
 import { ICONS, WEB } from 'src/app/shared/constants/app-constants';
 import { BaseComponent } from 'src/app/core/components/base.component';
+import { Auth0Service } from 'src/app/core/services/auth0/auth0.service';
 
 @Component({
   selector: 'app-navbar',
@@ -16,10 +17,10 @@ export class NavbarComponent extends BaseComponent{
   public currentLangSize: string = WEB.PC_CURRENT_LANG_SIZE;
   public langSize: string = WEB.PC_LANG_SIZE;
 
-
   constructor(
     private langService: LanguageService,
-    public sharedDataService: SharedDataService
+    public sharedDataService: SharedDataService,
+    private auth0Service: Auth0Service
   ) {
     super(sharedDataService);
   }
@@ -57,5 +58,9 @@ export class NavbarComponent extends BaseComponent{
 
   getSupportedLanguages() {
     return this.langService.supportedLanguages;
+  }
+
+  login() {
+    this.auth0Service.login();
   }
 }

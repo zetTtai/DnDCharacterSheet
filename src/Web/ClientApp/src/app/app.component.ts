@@ -1,4 +1,4 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { EVENTS, WEB } from 'src/app/shared/constants/app-constants';
 import { ModalData } from 'src/app/shared/models/modal-data.model';
 import { SharedDataService } from 'src/app/core/services/shared-data/shared-data.service';
@@ -6,16 +6,14 @@ import { LanguageService } from 'src/app/core/services/language/language.service
 import { EventService } from 'src/app/core/services/event/event.service';
 import { CommandRegistry } from 'src/app/core/services/command/command-registry.service';
 import { OpenModalCommand } from 'src/app/core/services/command/commands/open-modal.command';
-import { AuthService } from '@auth0/auth0-angular';
-import { Subject, takeUntil } from 'rxjs';
+import { Auth0Service } from 'src/app/core/services/auth0/auth0.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html'
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
   title = 'app';
-  private readonly destroy$ = new Subject<void>();
 
   isModalVisible: boolean = false;
   data: ModalData;
@@ -27,7 +25,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private sharedDataService: SharedDataService,
     private languageService: LanguageService,
     private commandRegistry: CommandRegistry,
-    public auth: AuthService
+    private auth0Service: Auth0Service
   ) {
 
     this.registerCommands();
@@ -44,7 +42,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.languageService.setLanguage();
 
-    const isLogged = await this.checkIfUserIsLogged();
+    const isLogged = await this.auth0Service.isLogged();
     if (!isLogged) {
       this.isLoading = false;
       return;
@@ -54,11 +52,6 @@ export class AppComponent implements OnInit, OnDestroy {
     console.log("Start getting user metadata by id (TODO)");
     console.log("Finish");
     this.isLoading = false;
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 
   openModal(data: ModalData) {
@@ -74,25 +67,5 @@ export class AppComponent implements OnInit, OnDestroy {
   onResize(event: Event) {
     this.isDesktop = window.innerWidth > WEB.MOBILE_SIZE;
     this.sharedDataService.isDesktop = this.isDesktop;
-  }
-
-  checkIfUserIsLogged(): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      this.auth.user$
-        .pipe(takeUntil(this.destroy$))
-        .subscribe({
-          next: (user) => {
-            if (user == null) {
-              resolve(false);
-            } else {
-              this.sharedDataService.userId = user.sub;
-              resolve(true);
-            }
-          },
-          error: () => {
-            reject(false);
-          }
-        });
-    });
   }
 }

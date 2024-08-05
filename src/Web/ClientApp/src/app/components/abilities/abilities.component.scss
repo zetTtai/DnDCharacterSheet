@@ -20,6 +20,7 @@
   padding: 5px 0 10px 0;
   align-items: center;
   position: relative;
+  margin-bottom: 18px;
 
   .mobile-header {
     position: absolute;
@@ -67,6 +68,7 @@
   .ability {
     margin-top: 5px;
     padding-top: 0;
+    margin-bottom: 0;
 
     .header {
       display: flex;

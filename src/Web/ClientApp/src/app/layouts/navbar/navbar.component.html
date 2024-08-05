@@ -30,8 +30,13 @@
         <li class="nav-item">
           <a class="nav-link text-dark prevent-select" href="/api" target="_blank">API</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-dark prevent-select" href="javascript:void(0)" (click)="toggleAccount()">{{ 'nav-menu.account' | translate }}</a>
+        <li class="nav-item login-button">
+          <ng-container>
+            <button (click)="login()" class="btn btn-primary">Log In</button>
+          </ng-container>
+          <ng-template #isLogged>
+            <a class="nav-link text-dark prevent-select" href="javascript:void(0)" (click)="toggleAccount()">{{ 'nav-menu.account' | translate }}</a>
+          </ng-template>
         </li>
       </ul>
     </div>

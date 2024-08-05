@@ -4,9 +4,7 @@ import { SharedDataService } from 'src/app/core/services/shared-data/shared-data
 import { EventService } from 'src/app/core/services/event/event.service';
 import { EVENTS } from 'src/app/shared/constants/app-constants';
 import { ModalData } from 'src/app/shared/models/modal-data.model';
-import { AuthService } from '@auth0/auth0-angular';
-import { AUTH0 } from 'src/app/shared/constants/auth0-constants';
-
+import { Auth0Service } from 'src/app/core/services/auth0/auth0.service';
 
 @Component({
   selector: 'app-account',
@@ -23,7 +21,7 @@ export class AccountComponent extends BaseComponent {
   constructor(
     private eventService: EventService,
     sharedDataService: SharedDataService,
-    public auth: AuthService
+    public auth0Service: Auth0Service
   ) {
     super(sharedDataService);
   }
@@ -42,12 +40,10 @@ export class AccountComponent extends BaseComponent {
   }
 
   login() {
-    this.auth.loginWithPopup({
-      authorizationParams: AUTH0.DEV.authorizationParams
-    });
+    this.auth0Service.login();
   }
 
   logout() {
-    this.auth.logout();
+    this.auth0Service.logout();
   }
 }

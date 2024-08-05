@@ -110,6 +110,12 @@ nav {
   background-color: transparent;
 }
 
+.login-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media (min-width: $mobile-size) {
   html {
     font-size: 16px;
