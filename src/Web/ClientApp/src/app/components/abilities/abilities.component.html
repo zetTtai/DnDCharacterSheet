@@ -1,7 +1,7 @@
 <div class="abilities ui">
   <ng-container *ngFor="let ability of abilities">
     <div class="ability">
-      <div class="header" *ngIf="isDesktop(); else mobileHeader">
+      <div class="header ui" *ngIf="isDesktop(); else mobileHeader">
         <span>{{ 'abilities.' + ability.id | translate }}</span>
       </div>
 

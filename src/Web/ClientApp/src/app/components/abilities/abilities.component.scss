@@ -5,8 +5,8 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 0;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
   padding-top: 20px;
   min-width: $mobile-abilities-min-width;
   gap: $mobile-abilities-gap;
@@ -58,22 +58,30 @@
 @media (min-width: $mobile-size) {
   .abilities {
     max-width: calc($pc-abilities-header-font-size + ($pc-abilities-header-padding *2) + #{$pc-character-image-diameter} - (#{$pc-character-image-diameter} / 3));
-    gap: $pc-abilities-gap;
     margin: 10px;
-    min-width: auto;
-    padding-top: $pc-character-image-diameter;
+    padding-top: calc($pc-character-image-diameter);
     margin-bottom: 0;
+    justify-content: space-around;
+    position: relative;
+    padding-left: 25px;
+    padding-right: 25px;
   }
 
   .ability {
-    margin-top: 5px;
     padding-top: 0;
-    margin-bottom: 0;
+    margin: 10px 0;
+    min-width: 68px;
+    min-height: 80px;
 
     .header {
+      position: absolute;
+      border: 1px solid;
+      border-radius: 3px;
+      padding: 3px;
+      min-width: 110px;
       display: flex;
       justify-content: center;
-      padding: 0 $pc-abilities-header-padding;
+      top: -$pc-abilities-header-font-size;
 
       span {
         text-transform: uppercase;
@@ -83,8 +91,22 @@
 
     .modifier {
       padding: $pc-modifier-vertical-padding 5px;
+      padding-bottom: 0px;
       font-size: $pc-modifier-font-size;
-      min-height: calc($pc-modifier-font-size + 12px + ($pc-modifier-vertical-padding * 2));
+      min-height: calc($pc-modifier-font-size + 12px + ($pc-modifier-vertical-padding));
+      /*min-height: $pc-modifier-font-size;*/
+      display: flex;
+
+      span {
+        height: min-content;
+      }
+    }
+
+    .score {
+
+      input {
+        bottom: -40px;
+      }
     }
   }
 }
