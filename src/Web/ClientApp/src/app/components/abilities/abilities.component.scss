@@ -57,14 +57,15 @@
 
 @media (min-width: $mobile-size) {
   .abilities {
-    max-width: calc($pc-abilities-header-font-size + ($pc-abilities-header-padding *2) + #{$pc-character-image-diameter} - (#{$pc-character-image-diameter} / 3));
-    margin: 10px;
+    /*max-width: calc($pc-abilities-header-font-size + ($pc-abilities-header-padding *2) + #{$pc-character-image-diameter} - (#{$pc-character-image-diameter} / 3));*/
+    max-width: fit-content;
     padding-top: calc($pc-character-image-diameter);
-    margin-bottom: 0;
-    justify-content: space-around;
+    margin: 5px 0 0 10px;
+    justify-content: space-evenly;
     position: relative;
     padding-left: 25px;
     padding-right: 25px;
+    border: 2px solid;
   }
 
   .ability {
