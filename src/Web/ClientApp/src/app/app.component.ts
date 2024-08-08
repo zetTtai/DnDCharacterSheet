@@ -18,7 +18,8 @@ export class AppComponent extends BaseComponent implements OnInit {
 
   isModalVisible: boolean = false;
   data: ModalData;
-  isLoading: boolean = false;
+  isLoading: boolean = true;
+  isDesktopAppComponent: boolean = window.innerWidth > WEB.MOBILE_SIZE;
 
   constructor(
     private eventService: EventService,
@@ -65,6 +66,7 @@ export class AppComponent extends BaseComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
-    this.sharedDataService.isDesktop = this.isDesktop();
+    this.isDesktopAppComponent = window.innerWidth > WEB.MOBILE_SIZE;
+    this.sharedDataService.isDesktop = this.isDesktopAppComponent;
   }
 }
