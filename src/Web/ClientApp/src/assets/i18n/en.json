@@ -1,6 +1,13 @@
 {
   "title": "DnD Character Sheet",
   "landscape_warning": "Please rotate your device to portrait mode to visualize the page",
+  "lang": {
+    "mobile-button-text": "Change language",
+    "header": "Select a language",
+    "switch": "Switch language to",
+    "en": "english (UK)",
+    "es": "spanish"
+  },
   "about-us": {
     "title": "About Us",
     "icons": {
@@ -57,6 +64,7 @@
   },
   "character": {
     "name": "character name",
+    "level": "level",
     "age": "age",
     "eyes": "eyes",
     "height": "height",
@@ -69,5 +77,20 @@
     "alignment": "alignment",
     "player_name": "player name",
     "exp": "experience points"
+  },
+  "currencies": {
+    "electrum": "EP",
+    "gold": "GP",
+    "platinum": "PP",
+    "silver": "SP",
+    "copper": "CP"
+  },
+  "abilities": {
+    "str": "strength",
+    "dex": "dexterity",
+    "con": "constitution",
+    "int": "intelligence",
+    "wis": "wisdom",
+    "cha": "charisma"
   }
 }

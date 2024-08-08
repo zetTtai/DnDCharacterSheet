@@ -1,0 +1,22 @@
+<div class="language-modal">
+  <h3>{{ 'lang.header' | translate }}</h3>
+  <div class="langs">
+    <ng-container *ngFor="let iso of supportedLanguages;">
+      <div class="lang-container"
+            (click)="switchLanguage(iso)"
+            [class.selected]="iso === getCurrentLang()">
+        <div class="info">
+          <app-icon [name]="'lang/' + iso" [width]="'30px'" [height]="'30px'"></app-icon>
+          <span>{{ 'lang.' + iso | translate | capitalize }}</span>
+        </div>
+
+        <app-circle [id]="'lang-' + iso"
+                    [customClass]="'lang-circle ' + (iso !== getCurrentLang() ? '' : 'selected-lang')"
+                    [empty]="false">
+          <app-icon *ngIf="iso === getCurrentLang()" [name]="'check'"></app-icon>
+        </app-circle>
+      </div>
+
+    </ng-container>
+  </div>
+</div>

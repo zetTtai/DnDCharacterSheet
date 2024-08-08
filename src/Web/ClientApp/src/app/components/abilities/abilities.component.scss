@@ -1,0 +1,113 @@
+@import 'variables';
+
+.abilities {
+  max-width: 70px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 20px;
+  min-width: $mobile-abilities-min-width;
+  gap: $mobile-abilities-gap;
+}
+
+.ability {
+  border: 1px solid;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 5px 0 10px 0;
+  align-items: center;
+  position: relative;
+  margin-bottom: 18px;
+
+  .mobile-header {
+    position: absolute;
+    z-index: 10000;
+    display: flex;
+    justify-content: space-between;
+    width: 130%;
+    top: -10px;
+  }
+
+  .modifier {
+    display: flex;
+    font-size: $mobile-modifier-font-size;
+    min-height: calc($mobile-modifier-font-size + 12px);
+    font-weight: bold;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .score {
+    display: flex;
+    position: relative;
+    justify-content: center;
+
+    input {
+      position: absolute;
+      text-align: center;
+      width: 40px;
+      border: 1px solid black;
+      border-radius: 100%;
+    }
+  }
+}
+
+@media (min-width: $mobile-size) {
+  .abilities {
+    /*max-width: calc($pc-abilities-header-font-size + ($pc-abilities-header-padding *2) + #{$pc-character-image-diameter} - (#{$pc-character-image-diameter} / 3));*/
+    max-width: fit-content;
+    padding-top: calc($pc-character-image-diameter);
+    margin: 5px 0 0 10px;
+    justify-content: space-evenly;
+    position: relative;
+    padding-left: 25px;
+    padding-right: 25px;
+    border: 2px solid;
+  }
+
+  .ability {
+    padding-top: 0;
+    margin: 10px 0;
+    min-width: 68px;
+    min-height: 80px;
+
+    .header {
+      position: absolute;
+      border: 1px solid;
+      border-radius: 3px;
+      padding: 3px;
+      min-width: 110px;
+      display: flex;
+      justify-content: center;
+      top: -$pc-abilities-header-font-size;
+
+      span {
+        text-transform: uppercase;
+        font-size: $pc-abilities-header-font-size;
+      }
+    }
+
+    .modifier {
+      padding: $pc-modifier-vertical-padding 5px;
+      padding-bottom: 0px;
+      font-size: $pc-modifier-font-size;
+      min-height: calc($pc-modifier-font-size + 12px + ($pc-modifier-vertical-padding));
+      /*min-height: $pc-modifier-font-size;*/
+      display: flex;
+
+      span {
+        height: min-content;
+      }
+    }
+
+    .score {
+
+      input {
+        bottom: -40px;
+      }
+    }
+  }
+}

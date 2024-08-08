@@ -1,6 +1,13 @@
 {
   "title": "DnD Hoja de personaje",
   "landscape_warning": "Por favor, gira tu dispositivo a modo vertical para poder visualizar la página",
+  "lang": {
+    "mobile-button-text": "Cambiar de idioma",
+    "header": "Selecciona un idioma",
+    "switch": "Cambiar idioma a",
+    "en": "inglés (UK)",
+    "es": "español"
+  },
   "about-us": {
     "title": "Sobre nosotros",
     "icons": {
@@ -57,6 +64,7 @@
   },
   "character": {
     "name": "nombre del personaje",
+    "level": "nivel",
     "age": "edad",
     "eyes": "ojos",
     "height": "altura",
@@ -69,5 +77,20 @@
     "alignment": "alineamiento",
     "player_name": "nombre del jugador",
     "exp": "puntos de experiencia"
+  },
+  "currencies": {
+    "electrum": "pe",
+    "gold": "po",
+    "platinum": "ppt",
+    "silver": "pp",
+    "copper": "pc"
+  },
+  "abilities": {
+    "str": "fuerza",
+    "dex": "destreza",
+    "con": "constitución",
+    "int": "inteligencia",
+    "wis": "sabiduría",
+    "cha": "carisma"
   }
 }

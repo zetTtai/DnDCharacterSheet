@@ -12,11 +12,9 @@ import { PcSliderComponent } from 'src/app/components/pc-slider/pc-slider.compon
 import { MobileSliderComponent } from 'src/app/components/mobile-slider/mobile-slider.component';
 import { LoreComponent } from 'src/app/components/lore/lore.component';
 import { SpellsComponent } from 'src/app/components/spells/spells.component';
-import { AccountComponent } from 'src/app/components/account/account.component';
-import { LandscapeWarningComponent } from 'src/app/components/landscape-warning/landscape-warning.component';
-import { LayoutComponentsModule } from './layout-components.module';
-import { MainViewComponent } from '../components/main-view/main-view.component';
-import { AboutUsComponent } from '../components/about-us/about-us.component';
+import { LayoutComponentsModule } from 'src/app/modules/layout-components.module';
+import { MainViewComponent } from 'src/app/components/main-view/main-view.component';
+import { AboutUsComponent } from 'src/app/components/about-us/about-us.component';
 
 
 @NgModule({
@@ -25,10 +23,8 @@ import { AboutUsComponent } from '../components/about-us/about-us.component';
     HomeComponent,
     LoreComponent,
     SpellsComponent,
-    AccountComponent,
     PcSliderComponent,
     MobileSliderComponent,
-    LandscapeWarningComponent,
     MainViewComponent,
     AboutUsComponent
   ],
@@ -45,10 +41,8 @@ import { AboutUsComponent } from '../components/about-us/about-us.component';
     HomeComponent,
     LoreComponent,
     SpellsComponent,
-    AccountComponent,
     PcSliderComponent,
     MobileSliderComponent,
-    LandscapeWarningComponent,
     MainViewComponent,
     AboutUsComponent
   ]

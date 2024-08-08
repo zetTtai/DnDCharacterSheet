@@ -7,7 +7,7 @@
 }
 
 .not-clickable {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 .clickable {
@@ -31,13 +31,25 @@
 }
 
 .hide {
-  opacity: 0;
-  z-index: $z-index-behind-all;
+  opacity: 0 !important;
+  z-index: $z-index-behind-all !important;
 }
 
 .toggle-button-transition {
   transition: top $toggle-button-transition ease, right $toggle-button-transition ease, left $toggle-button-transition ease, bottom $toggle-button-transition ease;
 }
+
+
+input.no-spin[type=number]::-webkit-inner-spin-button,
+input.no-spin[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* For Firefox */
+input.no-spin[type=number] {
+  -moz-appearance: textfield;
+}
+
 
 @media (min-width: $mobile-size) {
   .pc {

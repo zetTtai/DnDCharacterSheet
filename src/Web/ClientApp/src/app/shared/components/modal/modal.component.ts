@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewC
 import { ModalData } from 'src/app/shared/models/modal-data.model';
 import { InputTextModalComponent } from './input-modal/input-text-modal/input-text-modal.component';
 import { DelayService } from 'src/app/core/services/delay/delay.service';
+import { LanguagesModalComponent } from './languages-modal/languages-modal.component';
+import { AbilityInfoModalComponent } from './ability-info-modal/ability-info-modal.component';
 
 export interface InputModal {
   data: ModalData;
@@ -15,12 +17,18 @@ export interface InputModal {
 
 export class ModalComponent implements OnChanges {
   @Input() isVisible: boolean = false;
-  isLoaded: boolean = false;
   @Input() data: ModalData;
   @Output() closeModal = new EventEmitter<void>();
+
+  public isLoaded: boolean = false;
+  public top: boolean = true;
+
   @ViewChild('content', { read: ViewContainerRef }) content: ViewContainerRef;
+
   private modalTypes = {
     'text': InputTextModalComponent,
+    'languages': LanguagesModalComponent,
+    'ability-info': AbilityInfoModalComponent
   };
 
   constructor(private delayService: DelayService) { }

@@ -1,7 +1,7 @@
 <div class="alert alert-danger" *ngIf="form.get(data?.id).invalid && (form.get(data?.id).dirty || form.get(data?.id).touched)">
   <div *ngFor="let customValidator of data?.validators">
     <div class="msg" *ngIf="form.get(data?.id).hasError(getValidatorErrorName(customValidator.validator))">
-      <app-icon [name]="'info-danger'" [width]="'18px'" [height]="'18px'"></app-icon>
+      <app-icon [name]="'info/info-circle-danger'" [width]="'18px'" [height]="'18px'"></app-icon>
       <p>{{ customValidator.messageId | translate }}</p>
     </div>
   </div>

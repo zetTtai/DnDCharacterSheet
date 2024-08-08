@@ -1,0 +1,176 @@
+@import 'variables';
+
+.wallet {
+  display: flex;
+  flex-direction: column;
+  gap: $mobile-wallet-gap;
+  padding: 20px;
+  padding-top: 10px;
+  padding-left: calc(#{$mobile-wallet-input-size} / 2 + $pc-currency-name-padding + 10px);
+}
+
+.wallet-input {
+  border-radius: 100px;
+  text-align: center;
+  z-index: 1;
+  position: relative;
+  border: 2px solid black;
+  width: $mobile-wallet-input-size;
+  max-height: $mobile-wallet-input-size;
+  min-height: $mobile-wallet-input-size;
+}
+
+.currency {
+  position: relative;
+}
+
+.currency-name {
+  position: absolute;
+  border: 2px solid black;
+  font-size: 12px;
+  right: calc(#{$mobile-wallet-input-size} / 2);
+  top: calc(#{$mobile-wallet-input-size} / 4);
+  width: $mobile-wallet-input-size;
+  padding: $pc-currency-name-padding;
+}
+
+.convert {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    padding-top: 0;
+    button {
+        width: 100%;
+    }
+}
+
+.convert-options {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .option-hide {
+    background-color: transparent !important;
+    border: 0 !important;
+    opacity: 0;
+  }
+
+  .option-close {
+      width: 0;
+  }
+}
+
+.convert-option {
+  width: calc(#{$pc-wallet-input-size} / 2 + 10px);
+  height: $pc-convert-buttons-size;
+  border: 2px solid;
+  justify-content: flex-end;
+  display: flex;
+  transition: width 0.3s ease-in-out;
+}
+
+.convert-options {
+  top: 1px;
+  left: 32px;
+}
+
+.convert-downgrade {
+  transform: rotate(-90deg) scaleY(-1);
+}
+
+.convert-upgrade {  
+  transform: rotate(90deg);
+}
+
+.convert-option {
+  width: calc(#{$pc-wallet-input-size} / 2 + 20px);
+  height: $mobile-convert-buttons-size;
+  border: 2px solid;
+}
+
+@media (min-width: $mobile-size) {
+  .convert-input {
+    width: 100%;
+    height: $pc-convert-buttons-size;
+    text-align: center;
+    z-index: 10;
+    border: 2px solid;
+  }
+
+  .wallet-input {
+    width: $pc-wallet-input-size;
+    max-height: $pc-wallet-input-size;
+    min-height: $pc-wallet-input-size;
+    border: 1px solid;
+  }
+
+  .currency-name {
+    font-size: 12px;
+    padding: $pc-currency-name-padding;
+    display: flex;
+    top: -28px;
+    left: -28px;
+  }
+
+  .wallet {
+    gap: $pc-wallet-gap;
+    padding: 0;
+    padding-bottom: calc(#{$pc-wallet-gap} / 2);
+  }
+
+  .convert-option {
+    width: auto;
+    height: calc(#{$pc-convert-buttons-size} + 2px);
+    border: 2px solid;
+    justify-content: flex-end;
+    position: absolute;
+    right: -10px;
+    transition: opacity 0.3s ease;
+
+    &-upgrading {
+      top: calc(-2 * (#{$pc-convert-buttons-size}));
+    }
+
+    &-downgrading {
+      top: calc(-#{$pc-convert-buttons-size});
+    }
+  }
+
+  .convert-options {
+    position: static;
+  }
+
+  .convert-options {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+    background-color: white;
+    border: 1px solid;
+  }
+
+  .pc-currency-options {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    top: -20px;
+    height: 0;
+    margin-top: calc(#{$pc-wallet-input-size} + 10px);
+  }
+
+  .convert-options:hover .convert-option,
+  .convert-options:focus-within .convert-option {
+    display: flex !important;
+    opacity: 1;
+    z-index: 20;
+  }
+
+  .option-hide {
+      opacity: 0 !important;
+  }
+}

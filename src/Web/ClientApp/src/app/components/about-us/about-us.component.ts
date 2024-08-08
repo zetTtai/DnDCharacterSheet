@@ -43,7 +43,7 @@ export class AboutUsComponent {
       "license_name": "Apache 2.0"
     },
     {
-      "name": "info",
+      "name": "info/info-circle",
       "url": "https://icon-sets.iconify.design/simple-line-icons/info/",
       "author": "Sabbir Ahmed",
       "license_url": "https://github.com/thesabbir/simple-line-icons/blob/master/LICENSE.md",
@@ -104,6 +104,62 @@ export class AboutUsComponent {
       "author": "GameIcons",
       "license_url": "https://github.com/game-icons/icons/blob/master/license.txt",
       "license_name": "CC BY 3.0"
+    },
+    {
+      "name": "lang/es",
+      "url": "https://icon-sets.iconify.design/game-icons/two-coins/",
+      "author": "GameIcons",
+      "license_url": "https://github.com/game-icons/icons/blob/master/license.txt",
+      "license_name": "CC BY 3.0"
+    },
+    {
+      "name": "lang/en",
+      "url": "https://icon-sets.iconify.design/game-icons/two-coins/",
+      "author": "GameIcons",
+      "license_url": "https://github.com/game-icons/icons/blob/master/license.txt",
+      "license_name": "CC BY 3.0"
+    },
+    {
+      "name": "abilities/_str",
+      "url": "https://icon-sets.iconify.design/lucide/biceps-flexed/",
+      "author": "Lucide Contributors",
+      "license_url": "https://github.com/lucide-icons/lucide/blob/main/LICENSE",
+      "license_name": "ISC"
+    },
+    {
+      "name": "abilities/_dex",
+      "url": "https://icon-sets.iconify.design/mdi/sword-fight/",
+      "author": "Pictogrammers",
+      "license_url": "https://github.com/Templarian/MaterialDesign/blob/master/LICENSE",
+      "license_name": "Apache 2.0"
+    },
+    {
+      "name": "abilities/_con",
+      "url": "https://icon-sets.iconify.design/material-symbols-light/ecg-heart-sharp/",
+      "author": "Google",
+      "license_url": "https://github.com/google/material-design-icons/blob/master/LICENSE",
+      "license_name": "Apache 2.0"
+    },
+    {
+      "name": "abilities/_int",
+      "url": "https://icon-sets.iconify.design/hugeicons/brain/",
+      "author": "Hugeicons",
+      "license_url": "",
+      "license_name": "MIT"
+    },
+    {
+      "name": "abilities/_wis",
+      "url": "https://icon-sets.iconify.design/game-icons/owl/",
+      "author": "GameIcons",
+      "license_url": "https://github.com/game-icons/icons/blob/master/license.txt",
+      "license_name": "CC BY 3.0"
+    },
+    {
+      "name": "abilities/_cha",
+      "url": "https://icon-sets.iconify.design/fa-solid/theater-masks/",
+      "author": "Dave Gandy",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "license_name": "CC BY 4.0"
     },
   ];
 

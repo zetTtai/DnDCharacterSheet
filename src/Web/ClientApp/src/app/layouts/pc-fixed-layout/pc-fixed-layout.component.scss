@@ -1,6 +1,6 @@
 #fixed-layout {
   display: grid;
-  grid-template-rows: max-content repeat(3, 1fr);
+  grid-template-rows: max-content 1fr auto 1fr;
   grid-gap: 1rem;
   height: 100%;
 }

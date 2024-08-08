@@ -1,6 +1,7 @@
 <body>
+  <app-loading-screen [isLoading]="isLoading"></app-loading-screen>
   <app-landscape-warning></app-landscape-warning>
-  <ng-container *ngIf="isDesktop; else mobileView">
+  <ng-container *ngIf="isDesktop(); else mobileView">
     <div class="pc-grid-layout">
       <app-navbar></app-navbar>
       <router-outlet></router-outlet>
@@ -10,7 +11,7 @@
   <ng-template #mobileView>
     <div class="mobile-grid-layout">
       <app-navbar></app-navbar>
-      <app-mobile-header (openModal)="openModal($event)"></app-mobile-header>
+      <app-mobile-header></app-mobile-header>
       <main id="main-mobile" class="mobile">
         <router-outlet></router-outlet>
       </main>
@@ -18,7 +19,5 @@
     <app-fixed-toggle-buttons></app-fixed-toggle-buttons>
   </ng-template>
 
-
   <app-modal [isVisible]="isModalVisible" (closeModal)="closeModal()" [data]="data"></app-modal>
-
 </body> 

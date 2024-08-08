@@ -1,44 +1,15 @@
-$primary-color: whitesmoke;
-$red: #9e0b0f;
-$golden: #ffc528;
+@import 'variables/colors';
+@import 'variables/mobile';
+@import 'variables/pc';
+@import 'variables/components/abilities';
+@import 'variables/components/lang';
+@import 'variables/components/scrollbar';
+@import 'variables/components/toggle-button';
+@import 'variables/components/wallet';
+
 $font-family: 'Open Sans', sans-serif;
-$ui-background-color: white;
-$border-color: black;
 $z-index-behind-all: -99;
 $z-index-above-all: 1000;
 
-$pc-fixed-layout-grid: max-content max-content auto 20%;
-$sidebar-max-width: 55px;
-
-$mobile-size: 768px;
-$mobile-margin-sides: 20px;
-$mobile-header-height: 120px;
-$mobile-header-z-index: 5;
-
-$mobile-slider-items: 5;
-
-$pc-navbar-logo: 4vh;
-$pc-margin-sides: 20px;
-$pc-navbar-height: calc(4vh + 30px);
-$pc-slider-height: 70px;
-
-
-$scrollbar-width: 10px;
-$scrollbar-color: $red;
-$scrollbar-border-size: 10px;
-$scrollbar-border-color: $golden;
-$scrollbar-track-color: transparent;
-$scrollbar-border-radius: 3px;
-
-
-$toggle-button-width: 100px;
-$toggle-button-height: 30px;
-$toggle-button-border-size: 2px;
-$toggle-button-transition: 0.5s;
-
+$sidebar-max-width: 62px;
 $modal-fading-duration: 0.2s;
-
-$pc-character-image-diameter: 150px;
-$pc-character-image-center: -25px;
-
-$pc-slider-layout-header-height: 150px;

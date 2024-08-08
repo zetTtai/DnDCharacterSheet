@@ -1,1 +1,66 @@
-<p>wallet works!</p>
+<div class="wallet">
+  <ng-container *ngFor="let currency of currencies; let isFirst = first; let isLast = last">
+    <div class="currency">
+      <input class="wallet-input no-spin"
+             type="number"
+             [id]="'currency-' + currency.id"
+             [name]="'currency-' + currency.id"
+             (input)="checkRange($event, minCurrency, maxCurrency)"
+             [value]="currency.value" />
+
+
+      <div [class.pc-currency-options]="isDesktop()">
+
+        <span class="currency-name ui prevent-select">
+          {{ 'currencies.' + currency.id | translate }}
+        </span>
+
+        <div class="convert-options" >
+          <div
+               [class.option-hide]="isFirst"
+               [class.option-close]="!isDesktop() && !showConvertOptions"
+               [class.clickable]="!isFirst"
+               [class.hide]="isDesktop()"
+               class="ui clickable convert-option convert-option-upgrading"
+               (click)="convert(currency.id, !isFirst, true)">
+            <app-icon [name]="'convert-arrow'" class="convert-upgrade"></app-icon>
+          </div>
+
+          <div *ngIf="!isDesktop()" class="ui" style="height: 8px;"></div>
+
+          <input *ngIf="isDesktop()"
+                 class="convert-input no-spin"
+                 type="number"
+                 name="name"
+                 (input)="checkRange($event, 0, getCurrentValueById('currency-' + currency.id))"
+                 value="" />
+
+          <div
+               [class.option-hide]="isLast"
+               [class.option-close]="!isDesktop() && !showConvertOptions"
+               [class.clickable]="!isLast"
+               [class.hide]="isDesktop()"
+               class="ui clickable convert-option convert-option-downgrading"
+               (click)="convert(currency.id, !isLast)">
+            <app-icon [name]="'convert-arrow'" class="convert-downgrade"></app-icon>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </ng-container>
+</div>
+
+<div class="convert" *ngIf="!isDesktop()">
+  <ng-container *ngIf="!showConvertOptions; else cancelConvert">
+    <button (click)="toggleConvertOptions()" class="btn btn-info">
+      Convert
+    </button>
+  </ng-container>
+  <ng-template #cancelConvert>
+    <button  (click)="toggleConvertOptions()" class="btn btn-danger">
+      Cancel
+    </button>
+  </ng-template>
+</div>

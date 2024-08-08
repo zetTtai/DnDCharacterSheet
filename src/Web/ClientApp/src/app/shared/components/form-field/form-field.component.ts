@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ModalData } from 'src/app/shared/models/modal-data.model';
 import { MOBILE_HEADER_FIELDS } from 'src/app/shared/constants/app-form-validators';
+import { EventService } from 'src/app/core/services/event/event.service';
+import { EVENTS } from 'src/app/shared/constants/app-constants';
 
 @Component({
   selector: 'app-form-field',
@@ -17,7 +19,7 @@ export class FormFieldComponent {
   @Input() last: boolean = false;
   @Input() desktop: boolean = false;
 
-  @Output() editFormField = new EventEmitter<ModalData>();
+  constructor(private eventService: EventService) { }
 
   edit(event: Event) {
     if (this.readOnly) return;
@@ -35,7 +37,10 @@ export class FormFieldComponent {
       validators: MOBILE_HEADER_FIELDS[id] || []
     };
 
-    this.editFormField.emit(data);
+    this.eventService.emit({
+      name: EVENTS.OPEN_MODAL,
+      data: data
+    });
   }
 
   getTargetId(event: Event): string {

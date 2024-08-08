@@ -18,3 +18,19 @@
     pointer-events: none;
   }
 }
+
+.lang-circle {
+  border: 1px solid black;
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+}
+
+.selected-lang {
+  border: 1px solid $red;
+  background-color: $red;
+  color: white;
+}
+
+.mobile-classes-margin {
+  margin-right: 4px;
+}
