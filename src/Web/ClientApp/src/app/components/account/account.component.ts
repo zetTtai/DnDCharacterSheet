@@ -5,6 +5,7 @@ import { EventService } from 'src/app/core/services/event/event.service';
 import { EVENTS } from 'src/app/shared/constants/app-constants';
 import { ModalData } from 'src/app/shared/models/modal-data.model';
 import { Auth0Service } from 'src/app/core/services/auth0/auth0.service';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-account',
@@ -21,7 +22,8 @@ export class AccountComponent extends BaseComponent {
   constructor(
     private eventService: EventService,
     sharedDataService: SharedDataService,
-    public auth0Service: Auth0Service
+    public auth0Service: Auth0Service,
+    public auth: AuthService
   ) {
     super(sharedDataService);
   }

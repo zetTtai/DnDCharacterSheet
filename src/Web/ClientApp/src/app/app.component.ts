@@ -7,27 +7,27 @@ import { EventService } from 'src/app/core/services/event/event.service';
 import { CommandRegistry } from 'src/app/core/services/command/command-registry.service';
 import { OpenModalCommand } from 'src/app/core/services/command/commands/open-modal.command';
 import { Auth0Service } from 'src/app/core/services/auth0/auth0.service';
+import { BaseComponent } from 'src/app/core/components/base.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html'
 })
-export class AppComponent implements OnInit {
+export class AppComponent extends BaseComponent implements OnInit {
   title = 'app';
 
   isModalVisible: boolean = false;
   data: ModalData;
-  isDesktop: boolean = window.innerWidth > WEB.MOBILE_SIZE;
-  isLoading: boolean = true;
+  isLoading: boolean = false;
 
   constructor(
     private eventService: EventService,
-    private sharedDataService: SharedDataService,
+    public sharedDataService: SharedDataService,
     private languageService: LanguageService,
     private commandRegistry: CommandRegistry,
     private auth0Service: Auth0Service
   ) {
-
+    super(sharedDataService);
     this.registerCommands();
   }
 
@@ -65,7 +65,6 @@ export class AppComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
-    this.isDesktop = window.innerWidth > WEB.MOBILE_SIZE;
-    this.sharedDataService.isDesktop = this.isDesktop;
+    this.sharedDataService.isDesktop = this.isDesktop();
   }
 }

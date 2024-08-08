@@ -5,7 +5,7 @@ import { LoreComponent } from 'src/app/components/lore/lore.component';
 import { ItemsComponent } from 'src/app/components/items/items.component';
 import { AccountComponent } from 'src/app/components/account/account.component';
 import { WEB } from 'src/app/shared/constants/app-constants';
-import { AuthService, User } from '@auth0/auth0-angular';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Injectable({
   providedIn: 'root'

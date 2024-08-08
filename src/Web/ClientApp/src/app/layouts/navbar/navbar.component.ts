@@ -4,6 +4,7 @@ import { SharedDataService } from 'src/app/core/services/shared-data/shared-data
 import { ICONS, WEB } from 'src/app/shared/constants/app-constants';
 import { BaseComponent } from 'src/app/core/components/base.component';
 import { Auth0Service } from 'src/app/core/services/auth0/auth0.service';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-navbar',
@@ -20,7 +21,8 @@ export class NavbarComponent extends BaseComponent{
   constructor(
     private langService: LanguageService,
     public sharedDataService: SharedDataService,
-    private auth0Service: Auth0Service
+    private auth0Service: Auth0Service,
+    public auth: AuthService
   ) {
     super(sharedDataService);
   }

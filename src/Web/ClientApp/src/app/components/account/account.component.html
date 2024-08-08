@@ -2,19 +2,21 @@
   <section class="pc-account pc ui" [class.open]="isOpen">
     <p>pc account works!</p>
     <div>
-      <ng-container *ngIf="!isAuthenticated(); else isLogged">
-        <button class="btn btn-primary" (click)="login()">Login</button>
-      </ng-container>
-      <ng-template #isLogged>
         <button class="btn btn-primary" (click)="logout()">Logout</button>
-      </ng-template>
     </div>
   </section>
 </ng-container>
 <ng-template #mobileView>
   <section class="mobile slide-mobile">
     <main>
-      <button class="btn btn-secondary" (click)="switchLanguages()">{{ 'lang.mobile-button-text' |translate }}</button>
+      <ng-container *ngIf="!(auth.isAuthenticated$ | async); else isLogged;">
+        <button (click)="login()" class="btn btn-primary">Log In</button>
+        <button class="btn btn-secondary" (click)="switchLanguages()">{{ 'lang.mobile-button-text' |translate }}</button>
+      </ng-container>
+      <ng-template #isLogged>
+        <button class="btn btn-secondary" (click)="switchLanguages()">{{ 'lang.mobile-button-text' |translate }}</button>
+        <button class="btn btn-primary" (click)="logout()">Logout</button>
+      </ng-template>
     </main>
   </section>
 </ng-template>

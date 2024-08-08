@@ -8,10 +8,6 @@ export class BaseComponent {
     return this.sharedDataService.isDesktop;
   }
 
-  isAuthenticated(): boolean {
-    return this.sharedDataService.userId != null;
-  }
-
   public checkRange(event: Event, min: number, max: number): number {
     const input = event.target as HTMLInputElement;
     let value = parseInt(input.value, 10);
