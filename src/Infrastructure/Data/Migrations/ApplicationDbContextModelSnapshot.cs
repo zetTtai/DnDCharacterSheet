@@ -50,6 +50,10 @@ namespace DnDCharacterSheet.Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Abilities");
+
+                    b
+                        .HasAnnotation("EnableRLS", true)
+                        .HasAnnotation("Policy", "CREATE POLICY \"Allow full access\" ON Abilities FOR ALL USING (true);");
                 });
 
             modelBuilder.Entity("DnDCharacterSheet.Domain.Entities.Capability", b =>
@@ -85,6 +89,10 @@ namespace DnDCharacterSheet.Infrastructure.Data.Migrations
                     b.HasIndex("AbilityId");
 
                     b.ToTable("Capabilities");
+
+                    b
+                        .HasAnnotation("EnableRLS", true)
+                        .HasAnnotation("Policy", "CREATE POLICY \"Allow full access\" ON Capabilities FOR ALL USING (true);");
                 });
 
             modelBuilder.Entity("DnDCharacterSheet.Domain.Entities.Sheet", b =>
@@ -115,6 +123,10 @@ namespace DnDCharacterSheet.Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Sheets");
+
+                    b
+                        .HasAnnotation("EnableRLS", true)
+                        .HasAnnotation("Policy", "CREATE POLICY \"Allow full access\" ON Sheets FOR ALL USING (true);");
                 });
 
             modelBuilder.Entity("DnDCharacterSheet.Domain.Entities.SheetAbility", b =>
@@ -133,6 +145,10 @@ namespace DnDCharacterSheet.Infrastructure.Data.Migrations
                     b.HasIndex("AbilityId");
 
                     b.ToTable("SheetAbility");
+
+                    b
+                        .HasAnnotation("EnableRLS", true)
+                        .HasAnnotation("Policy", "CREATE POLICY \"Allow full access\" ON SheetAbility FOR ALL USING (true);");
                 });
 
             modelBuilder.Entity("DnDCharacterSheet.Domain.Entities.SheetSavingThrow", b =>
@@ -151,6 +167,10 @@ namespace DnDCharacterSheet.Infrastructure.Data.Migrations
                     b.HasIndex("CapabilityId");
 
                     b.ToTable("SheetSavingThrow");
+
+                    b
+                        .HasAnnotation("EnableRLS", true)
+                        .HasAnnotation("Policy", "CREATE POLICY \"Allow full access\" ON SheetSavingThrow FOR ALL USING (true);");
                 });
 
             modelBuilder.Entity("DnDCharacterSheet.Domain.Entities.SheetSkill", b =>
@@ -169,6 +189,10 @@ namespace DnDCharacterSheet.Infrastructure.Data.Migrations
                     b.HasIndex("CapabilityId");
 
                     b.ToTable("SheetSkill");
+
+                    b
+                        .HasAnnotation("EnableRLS", true)
+                        .HasAnnotation("Policy", "CREATE POLICY \"Allow full access\" ON SheetSkill FOR ALL USING (true);");
                 });
 
             modelBuilder.Entity("DnDCharacterSheet.Infrastructure.Identity.ApplicationUser", b =>
@@ -233,6 +257,10 @@ namespace DnDCharacterSheet.Infrastructure.Data.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b
+                        .HasAnnotation("EnableRLS", true)
+                        .HasAnnotation("Policy", "CREATE POLICY \"Allow full access\" ON AspNetUsers FOR ALL USING (true);");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -259,6 +287,10 @@ namespace DnDCharacterSheet.Infrastructure.Data.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b
+                        .HasAnnotation("EnableRLS", true)
+                        .HasAnnotation("Policy", "CREATE POLICY \"Allow full access\" ON AspNetRoles FOR ALL USING (true);");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -284,6 +316,10 @@ namespace DnDCharacterSheet.Infrastructure.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
+
+                    b
+                        .HasAnnotation("EnableRLS", true)
+                        .HasAnnotation("Policy", "CREATE POLICY \"Allow full access\" ON AspNetRoleClaims FOR ALL USING (true);");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -309,6 +345,10 @@ namespace DnDCharacterSheet.Infrastructure.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("AspNetUserClaims", (string)null);
+
+                    b
+                        .HasAnnotation("EnableRLS", true)
+                        .HasAnnotation("Policy", "CREATE POLICY \"Allow full access\" ON AspNetUserClaims FOR ALL USING (true);");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -333,6 +373,10 @@ namespace DnDCharacterSheet.Infrastructure.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("AspNetUserLogins", (string)null);
+
+                    b
+                        .HasAnnotation("EnableRLS", true)
+                        .HasAnnotation("Policy", "CREATE POLICY \"Allow full access\" ON AspNetUserLogins FOR ALL USING (true);");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -348,6 +392,10 @@ namespace DnDCharacterSheet.Infrastructure.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b
+                        .HasAnnotation("EnableRLS", true)
+                        .HasAnnotation("Policy", "CREATE POLICY \"Allow full access\" ON AspNetUserRoles FOR ALL USING (true);");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -369,6 +417,10 @@ namespace DnDCharacterSheet.Infrastructure.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+
+                    b
+                        .HasAnnotation("EnableRLS", true)
+                        .HasAnnotation("Policy", "CREATE POLICY \"Allow full access\" ON AspNetUserTokens FOR ALL USING (true);");
                 });
 
             modelBuilder.Entity("DnDCharacterSheet.Domain.Entities.Capability", b =>
